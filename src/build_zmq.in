@@ -1,11 +1,17 @@
+#!/bin/sh
+
+removeFlags(){
+  sed -e "s/-g//g " -e "s/-f[Pp][Ii][Cc] //g" -e "s/-w //g" -e "s/-O\?[0-9] //" $1
+}
+
 ### Change make and flags.
 MY_MAKE=`echo '@MAKE@'`
 MY_CC=`echo '@CC@' | sed -e "s/ -std=gnu99//"`
-MY_CFLAGS=`echo '@CFLAGS@' | sed -e "s/-g //" | sed -e "s/-fpic //" | sed -e "s/-w //" | sed -e "s/-O\?[0-9] //"`
-MY_LDFLAGS=`echo '@LDFLAGS@' | sed -e "s/-g //" | sed -e "s/-fpic //" | sed -e "s/-w //" | sed -e "s/-O\?[0-9] //"`
-MY_CPPFLAGS=`echo '@CPPFLAGS@' | sed -e "s/-g //" | sed -e "s/-fpic //" | sed -e "s/-w //" | sed -e "s/-O\?[0-9] //"`
+MY_CFLAGS=`echo '@CFLAGS@' | removeFlags`
+MY_LDFLAGS=`echo '@LDFLAGS@' | removeFlags`
+MY_CPPFLAGS=`echo '@CPPFLAGS@' | removeFlags`
 MY_CXX=`echo '@CXX@'`
-MY_CXXFLAGS=`echo '@CXXFLAGS@' | sed -e "s/-g //" | sed -e "s/-fpic //" | sed -e "s/-w //" | sed -e "s/-O\?[0-9] //"`
+MY_CXXFLAGS=`echo '@CXXFLAGS@' | removeFlags`
 MY_POLLER=`echo '@ZMQ_POLLER@'`
 echo "MY_MAKE = '${MY_MAKE}'" > ../Makeconf
 echo "MY_CC = '${MY_CC}'" >> ../Makeconf
@@ -19,14 +25,14 @@ echo "MY_POLLER = '${MY_POLLER}'" >> ../Makeconf
 ### Configure zmq.
 MY_PREFIX_DIR=`pwd | sed -e "s/zmqsrc$/zmq/"`
 ./configure \
-  CC=${MY_CC} \
-  CFLAGS=${MY_CFLAGS} \
-  LDFLAGS=${MY_LDFLAGS} \
-  CPPFLAGS=${MY_CPPFLAGS} \
-  CXX=${MY_CXX} \
-  CXXFLAGS=${MY_CXXFLAGS} \
-  --prefix=${MY_PREFIX_DIR} \
-  --with-poller=${MY_POLLER} \
+  CC="${MY_CC}" \
+  CFLAGS="${MY_CFLAGS}" \
+  LDFLAGS=$"{MY_LDFLAGS}" \
+  CPPFLAGS=$"{MY_CPPFLAGS}" \
+  CXX=$"{MY_CXX}" \
+  CXXFLAGS=$"{MY_CXXFLAGS}" \
+  --prefix=$"{MY_PREFIX_DIR}" \
+  --with-poller=$"{MY_POLLER}" \
   --enable-static=no \
   --enable-shared=yes \
   --without-documentation # \
