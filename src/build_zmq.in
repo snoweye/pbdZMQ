@@ -24,15 +24,16 @@ echo "MY_POLLER = '${MY_POLLER}'" >> ../Makeconf
 
 ### Configure zmq.
 MY_PREFIX_DIR=`pwd | sed -e "s/zmqsrc$/zmq/"`
-./configure \
-  CC="${MY_CC}" \
+
+CC="${MY_CC}" \
   CFLAGS="${MY_CFLAGS}" \
-  LDFLAGS=$"{MY_LDFLAGS}" \
-  CPPFLAGS=$"{MY_CPPFLAGS}" \
-  CXX=$"{MY_CXX}" \
-  CXXFLAGS=$"{MY_CXXFLAGS}" \
-  --prefix=$"{MY_PREFIX_DIR}" \
-  --with-poller=$"{MY_POLLER}" \
+  LDFLAGS="${MY_LDFLAGS}" \
+  CPPFLAGS="${MY_CPPFLAGS}" \
+  CXX="${MY_CXX}" \
+  CXXFLAGS="${MY_CXXFLAGS}" \
+  ./configure \
+  --prefix="${MY_PREFIX_DIR}" \
+  --with-poller="${MY_POLLER}" \
   --enable-static=no \
   --enable-shared=yes \
   --without-documentation # \
