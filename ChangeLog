@@ -1,0 +1,58 @@
+
+======================= Log Before Release =====================================
+2015-08-15:
+  * Add author.
+  * Add local to dyn.load in zzz.r.
+  * Try to migrate to ZeroMQ 4.1.2, but fail.
+  * Add external linked library to ZeroMQ 4.1.2.
+  * Add vignettes.
+
+2015-05-30:
+  * Clean up, check with new R-devel, and add vignettes.
+
+2015-04-25:
+  * Add shellexec.wcc() to active and minimize the new cmd window running
+    mpiexec via batch files. No blocking the current windows nor rui.
+
+2015-03-15:
+  * Add more zmq_msg_* wrappers and test with pbdCS in win32 and win64.
+  * Add vignettes.
+
+2015-03-10:
+  * Add some rzmq wrapper functions for pbdCS.
+  * Adjust more rzmq wrapper functions.
+
+2015-02-27:
+  * Change zmq.recv() to return a list with two elements, buf and len.
+  * Add msreader to demo.
+
+2015-02-26:
+  * taskvent, taskwork, and tasksink in demo are tested.
+
+2015-02-22:
+  * Add more ZMQ functions.
+  * wuserver and wuclient are tested.
+
+2015-02-21:
+  * Add linking to external library options.
+  * Add man and vignettes.
+
+2015-02-20:
+  * Mac OSX 10.7 works with shared library.
+
+2015-02-18:
+  * No success for Solaris. ZeroMQ can not be built standard alone.
+
+2015-02-17:
+  * Both Linux and Windows work with shared library.
+  * hwserver and hwclient are tested successfully.
+
+2015-02-16:
+  * Change from static library to shared library.
+
+2015-02-xx:
+  * Build static library, but check with warnings such as printf, putc, abort.
+
+2015-01-29:
+  * First build for pbdZMQ.
+  * First try for binaries build of Windows.

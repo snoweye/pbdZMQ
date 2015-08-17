@@ -1,0 +1,8 @@
+hwserver	pbdZMQ	Hello World server.
+hwclient	pbdZMQ	Hello World client.
+wuserver	pbdZMQ	Weather update server.
+wuclient	pbdZMQ	Weather update client.
+taskvent	pbdZMQ	Parallel task ventilator.
+taskwork	pbdZMQ	Parallel task worker.
+tasksink	pbdZMQ	Parallel task sink.
+msreader	pbdZMQ	Multiple socket reader.

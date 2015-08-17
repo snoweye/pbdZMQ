@@ -1,0 +1,54 @@
+
+{\color{red} \bf Warning:}
+The findings and conclusions in this article have not been
+formally disseminated by the U.S. Department of Health \& Human Services,
+U.S. Food and Drug Administration, nor Oak Ridge Institute for Science and
+Education. They should not be construed to represent any determination or
+policy of University, Agency, Administration and National Laboratory.
+
+This document is written to explain the main
+functions of \pkg{pbdZMQ}~\citep{Chen2015}, version 0.1-0.
+Every effort will be made to ensure future versions are consistent with
+these instructions, but features in later versions may not be explained
+in this document.
+
+Information about the functionality of this package,
+and any changes in future versions can be found on website:
+``Programming with Big Data in R'' at
+\url{http://r-pbd.org/}~\citep{pbdR2012}.
+
+
+
+
+\section[Introduction]{Introduction}
+\label{sec:introduction}
+\addcontentsline{toc}{section}{\thesection. Introduction}
+
+
+ZeroMQ (ØMQ) at \url{http://www.zeromq.org/} is a library for high-performance
+asynchronous messaging in scalable distributed applications. It provides
+APIs in several messaging patterns that essentially the basic way to
+form connections between devices including computers, mobile devices, and
+of course supercomputers. The APIs also simplify the complex calls to sockets
+and reduce the burden of knowing network communications.
+Several popular programming languages have also provided biding to utilize
+and take advantage from those APIs.
+
+In \pkg{pbdZMQ}, those ZeroMQ APIs are in detail manners wrapped in \proglang{R}
+via lower level \proglang{C} language. \pkg{pbdZMQ} mainly implements
+on a few ZeroMQ patterns including
+\begin{itemize}
+\item
+request-reply, in particular, one client and a server, and
+\item
+push-pull, in particular, one client and a set of servers.
+\end{itemize}
+These patterns are useful communication frameworks designed in
+\pkg{pbdCS}~\citep{Schmidt2015} that combines two different messaging libraries
+ZeroMQ and MPI and utilizes their advantages in
+\begin{itemize}
+\item
+interaction of user interface by ZeroMQ or \pkg{pbdZMQ}, and
+\item
+computation of statistical programming by MPI or \pkg{pbdMPI}~\citep{Chen2012}.
+\end{itemize}

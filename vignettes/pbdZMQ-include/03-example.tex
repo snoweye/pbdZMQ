@@ -1,0 +1,44 @@
+\section[Examples]{Examples}
+\label{sec:examples}
+\addcontentsline{toc}{section}{\thesection. Examples}
+
+The package provides simplest examples based on the ZeroMQ guide for C
+developers by Pieter Hintjens~\citep{Hintjens}. The source codes next are all
+in the \code{pbdZMQ/demo/} directory, such as \\
+\begin{center}
+\vspace{0.2cm}
+\begin{tabular}{ll} \hline\hline
+Examples & Descriptions \\ \hline
+\code{hwclient.r} & hello world client \\
+\code{hwserver.r} & hello world server \\ \hline
+
+\code{tasksink.r} & task sink from two workers \\
+\code{taskvent.r} & task ventilator send jobs to two workers \\
+\code{taskwork.r} & task workers \\ \hline
+
+\code{wuclient.r} & weather updating client \\
+\code{wuserver.r} & weather updating server \\ \hline\hline
+\end{tabular}
+\end{center}
+
+For example, the task examples can be run by
+\begin{Command}
+Rscript taskwork.r &
+Rscript taskvent.r
+Rscript tasksink.r
+
+### Remember to kill two worker processors at the end, such as
+ps -x|grep "file=task.*\.r"|sed "s/\(.*\) pts.*/\1/"|xargs kill -9
+\end{Command}
+Or, via \code{demo()} function as the hello world example in
+Section~\ref{sec:installation}.
+
+The weather updating examples can be run by
+\begin{Command}
+Rscript wuserver.r &
+Rscript wuclient.r
+rm weather.ipc
+\end{Command}
+Or, via \code{demo()} function as the hello world example in
+Section~\ref{sec:installation}.
+

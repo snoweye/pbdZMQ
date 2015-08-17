@@ -1,0 +1,54 @@
+### Read pbdZMQ vignettes first at
+### http://cran.r-project.org/web/packages/pbdZMQ/vignettes/pbdZMQ-guide.pdf
+###
+### pbdZMQ can be installed with/without external ZeroMQ 4.1.0 rc 1 library
+### since pbdZMQ includes a minimum requirement of ZeroMQ 4.1.0 rc 1 library.
+###
+### pbdZMQ is also tested mainly on Linux (XUbuntu-14.04.1), Windows 7, and
+### Mac OSX 10.7 systems. Solaris has no success yet.
+
+--- 'pbdZMQ' Installation:
+0. Download and extract 'pbdZMQ'
+
+1. Default Installation without external ZeroMQ:
+   This should work with most platforms.
+
+     > R CMD INSTALL pbdZMQ_0.1-0.tar.gz
+
+2. Installation with external ZeroMQ library such as version 4.1.2:
+
+   - Minimum steps for installing ZeroMQ 4.1.2 library
+     > ./configure \
+          --prefix=/usr/local/zmq \
+          --enable-shared=yes \
+          --with-poller=select \
+          --without-documentation \
+          --without-libsodium
+     > make -j 4; make install
+
+   - Steps for pbdZMQ with the external ZeroMQ static library.
+
+     > R CMD INSTALL pbdZMQ_0.1-0.tar.gz \
+       --configure-vars="ZMQ_INCLUDE='-I/usr/local/zmq/include' \
+                         ZMQ_LDFLAGS='-L/usr/local/zmq/lib -lzmq'"
+
+   provided the external library is installed at "/usr/local/zmq" where
+   "include/" subdirectory contains "zmq.h" and "lib/" subdirectory contains
+   the shared library such as "libzmq.so".
+
+--- Testing:
+   Suppose 'pbdZMQ' is installed correctly. I can run the next from one
+   terminal.
+
+     > Rscript -e "demo(hwserver,'pbdZMQ',ask=F,echo=F)" &
+     > Rscript -e "demo(hwclient,'pbdZMQ',ask=F,echo=F)"
+
+--- Installation with different polling system:
+    By default 'select' method is used in 'pbdZMQ' for Linux, Windows, and
+    Mac OSX. However, users may want to use 'autodetect' or try others for
+    better polling. Currently, the options as given by ZeroMQ may be 'kqueue',
+    'epoll', 'devpoll', 'poll', or 'select' depending on libraries and system.
+
+     > R CMD INSTALL pbdZMQ_0.1-0.tar.gz \
+       --configure-vars="ZMQ_POLLER='autodetect'"
+

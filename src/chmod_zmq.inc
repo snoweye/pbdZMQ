@@ -1,0 +1,9 @@
+chmod +x ./zmqsrc/autogen.sh
+chmod +x ./zmqsrc/configure
+chmod +x ./zmqsrc/version.sh
+chmod +x ./zmqsrc/config/compile
+chmod +x ./zmqsrc/config/config.guess
+chmod +x ./zmqsrc/config/config.sub
+chmod +x ./zmqsrc/config/depcomp
+chmod +x ./zmqsrc/config/install-sh
+chmod +x ./zmqsrc/config/missing

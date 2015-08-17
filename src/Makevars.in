@@ -1,0 +1,47 @@
+### R Default Makeconf
+MkInclude = ${R_HOME}/etc${R_ARCH}/Makeconf
+
+### Setup R package flags and substitute by configure
+PKG_CPPFLAGS = -w @ZMQ_INCLUDE@
+PKG_CFLAGS = -w @ZMQ_INCLUDE@
+PKG_CXXFLAGS = -w @ZMQ_INCLUDE@
+PKG_LIBS = @ZMQ_LDFLAGS@
+
+### Setup R source code and objects.
+R_OBJS = R_zmq_context.o R_zmq_socket.o R_zmq_sendrecv.o R_zmq_utility.o \
+         R_zmq_message.o shellexec_wcc.o zzz.o
+R_ZMQ = libzmq$(SHLIB_EXT)
+OBJECTS = $(R_OBJS)
+BUILD_LIBS = $(SHLIB) @EXT_LIBS@
+
+### Start making here.
+all: $(BUILD_LIBS)
+	@echo "ZMQ_INCLUDE = $(ZMQ_INCLUDE)" >> Makeconf
+	@echo "ZMQ_LDFLAGS = $(ZMQ_LDFLAGS)" >> Makeconf
+	@echo "ZMQ_POLLER = $(ZMQ_POLLER)" >> Makeconf
+	@echo "EXT_LIBS = $(EXT_LIBS)" >> Makeconf
+	@echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> Makeconf
+	@echo "PKG_CFLAGS = $(PKG_CFLAGS)" >> Makeconf
+	@echo "PKG_CXXFLAGS = $(PKG_CXXFLAGS)" >> Makeconf
+	@echo "PKG_LIBS = $(PKG_LIBS)" >> Makeconf 
+	@echo "R_ZMQ_INC = lib${R_ARCH}/include" >> Makeconf
+	@echo "R_ZMQ_LIB = lib${R_ARCH}/lib/$(R_ZMQ_NAME)" >> Makeconf
+
+$(SHLIB): $(OBJECTS)
+
+$(R_ZMQ):
+	@sed -e "s#@MAKE@#${MAKE}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
+	@sed -e "s#@CC@#${CC}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
+	@sed -e "s#@CFLAGS@#${CFLAGS}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
+	@sed -e "s#@LDFLAGS@#${LDFLAGS}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
+	@sed -e "s#@CPPFLAGS@#${CPPFLAGS}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
+	@sed -e "s#@CXX@#${CXX}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
+	@sed -e "s#@CXXFLAGS@#${CXXFLAGS}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
+	( sh ./chmod_zmq.inc; cd zmqsrc; sh ../build_zmq )
+	( cp ./zmq/lib/libzmq$(SHLIB_EXT) ./libzmq$(SHLIB_EXT) )
+
+clean:
+	@rm -rf *.o *.d *.rc *.so* *.dylib *.dll *.a *.lib \
+	        Makedeps Makevars Makeconf
+	@rm -rf build_zmq zmq
+	( cd zmqsrc; make distclean )

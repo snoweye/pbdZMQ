@@ -1,0 +1,105 @@
+%\VignetteIndexEntry{pbdZMQ-guide}
+
+\documentclass[article,shortnames,nojss]{jss}
+
+\newcommand{\mpiversion}{0.1-0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% declarations for jss.cls %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% almost as usual
+\author{
+\begin{minipage}{6in}
+\centering
+Wei-Chen Chen$^1$ and Drew Schmidt$^2$
+\end{minipage}
+\\
+\\
+$^1$Center for Biologics Evaluation and Research, \\
+Food and Drug Adminstration, \\
+Silver Spring, MD, USA \\
+\\
+$^2$National Institute for Computational Sciences, \\
+University of Tennessee, \\
+Knoxville, TN, USA \\
+\\
+%\\
+%\\
+%\today
+}
+\title{A Quick Guide for the \pkg{pbdZMQ} Package {\small (Ver. \mpiversion)}}
+
+
+%% for pretty printing and a nice hypersummary also set:
+\Plainauthor{Wei-Chen Chen, Drew Schmidt} %% comma-separated
+\Plaintitle{Quick Guide for pbdZMQ (Ver. \mpiversion)} %% without formatting
+\Shorttitle{Quick Guide for pbdZMQ (Ver. \mpiversion)} %% a short title (if necessary)
+
+%% an abstract and keywords
+%\Abstract{
+%}
+%\Keywords{}
+%\Plainkeywords{} %% without formatting
+%% at least one keyword must be supplied
+
+%% publication information
+%% NOTE: Typically, this can be left commented and will be filled out by the technical editor
+%% \Volume{13}
+%% \Issue{9}
+%% \Month{September}
+%% \Year{2004}
+%% \Submitdate{2004-09-29}
+%% \Acceptdate{2004-09-29}
+
+%% The address of (at least) one author should be given
+%% in the following format:
+\Address{
+  Wei-Chen Chen\\
+  E-mail: \email{wccsnow@gmail.com}\\
+  URL: \url{http://thirteen-01.stat.iastate.edu/snoweye/mypage/}
+}
+%% It is also possible to add a telephone and fax number
+%% before the e-mail in the following format:
+%% Telephone: +43/1/31336-5053
+%% Fax: +43/1/31336-734
+
+%% for those who use Sweave please include the following line (with % symbols):
+%% need no \usepackage{Sweave.sty}
+
+%% end of declarations %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\input{./pbdZMQ-include/my_jss.cls}
+\input{./pbdZMQ-include/00-preamble}
+
+\begin{document}
+
+\pagenumbering{roman}
+\tableofcontents
+
+%\newpage
+\input{./pbdZMQ-include/01-copyright}
+
+%% include your article here, just as usual
+%% Note that you should use the \pkg{}, \proglang{} and \code{} commands.
+
+\newpage
+\input{./pbdZMQ-include/01-acknowledgement}
+
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{./pbdZMQ-include/01-introduction}
+\input{./pbdZMQ-include/02-installation}
+\input{./pbdZMQ-include/03-example}
+\input{./pbdZMQ-include/04-backward}
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{References}
+\bibliography{./pbdZMQ-include/pbdZMQ}
+
+\end{document}
+

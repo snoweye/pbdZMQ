@@ -1,0 +1,13 @@
+pbdZMQ is an R package providing a simplified interface to ZeroMQ 4.1.0 rc1
+with a focus on client servers programming framework.
+
+pbdZMQ requires
+  - R version 3.0.0 or higher.
+  - Linux, Mac OSX, or Windows.
+
+For installing pbdZMQ, 
+  - see "INSTALL" for Linux, Mac OSX, or Windows.
+
+More information about pbdZMQ can be found in
+  1. pbdZMQ vignette at 'pbdZMQ/inst/doc/pbdZMQ-guide.pdf'.
+  2. 'http://r-pbd.org/'.

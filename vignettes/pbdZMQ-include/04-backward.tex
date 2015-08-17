@@ -1,0 +1,24 @@
+\section[Backward Comparable with rzmq]{Backward Comparable with \pkg{rzmq}}
+\label{sec:backward}
+\addcontentsline{toc}{section}{\thesection. Backward Comparable with \pkg{rzmq}}
+
+The package currently has a few wrapper functions to server as the same
+functions in \pkg{rzmq}~\citep{Armstrong2014}. The original intension is only
+for backward comparable but without 100\% fully functional guarantee.
+Users are recommended to use native \code{zmq.*()} functions
+provided by \pkg{pbdZMQ}.
+
+The wrapper functions are listed in next \\
+\begin{center}
+\vspace{0.2cm}
+\begin{tabular}{l} \hline\hline
+Functions  \\ \hline
+\code{send.socket()} \\
+\code{receive.socket()} \\
+\code{init.context()} \\
+\code{init.socket()} \\
+\code{bind.socket()} \\
+\code{connect.socket()} \\ \hline\hline
+\end{tabular}
+\end{center}
+

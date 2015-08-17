@@ -1,0 +1,92 @@
+\name{Send Receive Functions}
+\alias{zmq.send}
+\alias{zmq.recv}
+\title{ Send Receive Functions }
+\description{ Send and receive functions }
+\usage{
+  zmq.send(socket, buf, flags = .ZMQ.SR$BLOCK)
+  zmq.recv(socket, len = 1024, flags = .ZMQ.SR$BLOCK,
+           buf.type = c("char", "raw"))
+}
+\arguments{
+  \item{socket}{a ZMQ socket}
+  \item{buf}{a buffer to be sent}
+  \item{len}{a length of buffer to be received, default 1024 bytes}
+  \item{flags}{a flag for the method using by
+               \code{zmq_send} and \code{zmq_recv}}
+  \item{buf.type}{buffer type to be received}
+}
+\details{
+  \code{zmq.send()} is a high level R function calling ZMQ C API
+  \code{zmq_send()} sending \code{buf} out.
+
+  \code{zmq.recv()} is a high level R function calling ZMQ C API
+  \code{zmq_recv()} receiving buffers of length \code{len} according to
+  the \code{buf.type}.
+
+  \code{flags} see \code{\link{.ZMQ.SR}} for detail options of send and
+  receive functions.
+
+  \code{buf.type} currently supports \code{char} and \code{raw} which are
+  both in R object format.
+}
+\value{
+  \code{zmq.send()} returns number of bytes (invisible) in the sent message
+  if successful, otherwise returns -1 (invisible) and sets \code{errno} to
+  the error value, see ZeroMQ manual for details.
+
+  \code{zmq.recv()} returns a list (\code{ret}) containing the received buffer
+  \code{ret$buf} and the length of received buffer (\code{ret$len} which is
+  less or equal to the input \code{len}) if successful, otherwise returns -1
+  and sets \code{errno} to the error value, see ZeroMQ manual for details.
+}
+\references{
+  ZeroMQ/4.1.0 API Reference:
+  \url{http://api.zeromq.org/4-1:_start}
+
+  Programming with Big Data in R Website:
+  \url{http://r-pbd.org/}
+}
+\author{
+  Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
+\seealso{
+  \code{\link{zmq.msg.send}()}, \code{\link{zmq.msg.recv}()}.
+}
+\examples{
+\dontrun{
+### Using request-reply pattern.
+
+### At the server, run next in background or the other window.
+library(pbdZMQ, quietly = TRUE)
+
+context <- zmq.ctx.new()
+responder <- zmq.socket(context, .ZMQ.ST$REP)
+zmq.bind(responder, "tcp://*:5555")
+for(i.res in 1:5){
+  buf <- zmq.recv(responder, 10L)
+  cat(buf$buf, "\n")
+  Sys.sleep(0.5)
+  zmq.send(responder, "World")
+}
+zmq.close(responder)
+zmq.ctx.destroy(context)
+
+
+### At a client, run next in foreground.
+library(pbdZMQ, quietly = TRUE)
+
+context <- zmq.ctx.new()
+requester <- zmq.socket(context, .ZMQ.ST$REQ)
+zmq.connect(requester, "tcp://localhost:5555")
+for(i.req in 1:5){
+  cat("Sending Hello ", i.req, "\n")
+  zmq.send(requester, "Hello")
+  buf <- zmq.recv(requester, 10L)
+  cat("Received World ", i.req, "\n")
+}
+zmq.close(requester)
+zmq.ctx.destroy(context)
+}
+}
+\keyword{programming}

@@ -1,0 +1,15 @@
+### The same reason as the pbdMPI. "libzmq.so" should be load before
+### "pbdZMQ.so", so use .onLoad and .unLoad in R/zzz.r to handle the shared
+### library.
+# useDynLib(pbdZMQ)
+
+exportPattern("^zmq\\.[[:alpha:]]+")
+export(
+  "send.socket",
+  "receive.socket",
+  "init.context",
+  "init.socket",
+  "bind.socket",
+  "connect.socket",
+  "shellexec.wcc"
+)

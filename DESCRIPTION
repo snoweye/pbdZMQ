@@ -1,0 +1,39 @@
+Package: pbdZMQ
+Version: 0.1-0
+Date: 2015-08-15
+Title: Programming with Big Data -- Interface to ZeroMQ
+Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
+        "wccsnow@gmail.com"),
+        person("Drew", "Schmidt", role = "aut"),
+        person("Whit", "Armstrong", role = "ctb", comment = "some functions
+                are modified from the rzmq for backward comparable"),
+        person("Brian", "Ripley", role = "ctb", comment = "shellexec"),
+        person("R Core team", role = "ctb", comment = "some functions are
+                modified from the R source codes"))
+Depends: R (>= 3.0.0)
+LazyLoad: yes
+LazyData: yes
+Copyright: See files AUTHORS, COPYING, COPYING.LESSER, and MAINTAINERS
+        in pbdZMQ/inst/zmq_copyright/ for the ZeroMQ source files in
+        src/zmq_src/ which are under GPL-3.
+Description: Providing high level R wrapper functions to utilize
+        ZeroMQ C API functions in detail manners. pbdZMQ mainly focuses on
+        client/servers programming framework in an interaction style. A
+        minimum ZeroMQ library 4.1.0 rc1 is built and linked within pbdZMQ
+        if no external ZerMQ library is not provided. A few compatible wrapper
+        functions to rzmq are also provided.
+SystemRequirements: Linux, Mac OSX, and Windows.
+License: Mozilla Public License 2.0
+URL: http://r-pbd.org/
+BugReports: http://group.r-pbd.org/
+MailingList: Please send questions and comments regarding pbdR to
+        RBigData@gmail.com
+NeedsCompilation: yes
+Packaged: 2015-08-16 21:09:22 UTC; snoweye
+Author: Wei-Chen Chen [aut, cre],
+  Drew Schmidt [aut],
+  Whit Armstrong [ctb] (some functions are modified from the rzmq for
+    backward comparable),
+  Brian Ripley [ctb] (shellexec),
+  R Core team [ctb] (some functions are modified from the R source codes)
+Maintainer: Wei-Chen Chen <wccsnow@gmail.com>

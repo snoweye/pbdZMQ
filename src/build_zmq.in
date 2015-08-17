@@ -1,0 +1,48 @@
+### Change make and flags.
+MY_MAKE=`echo '@MAKE@'`
+MY_CC=`echo '@CC@' | sed -e "s/ -std=gnu99//"`
+MY_CFLAGS=`echo '@CFLAGS@' | sed -e "s/-g //" | sed -e "s/-fpic //" | sed -e "s/-w //" | sed -e "s/-O\?[0-9] //"`
+MY_LDFLAGS=`echo '@LDFLAGS@' | sed -e "s/-g //" | sed -e "s/-fpic //" | sed -e "s/-w //" | sed -e "s/-O\?[0-9] //"`
+MY_CPPFLAGS=`echo '@CPPFLAGS@' | sed -e "s/-g //" | sed -e "s/-fpic //" | sed -e "s/-w //" | sed -e "s/-O\?[0-9] //"`
+MY_CXX=`echo '@CXX@'`
+MY_CXXFLAGS=`echo '@CXXFLAGS@' | sed -e "s/-g //" | sed -e "s/-fpic //" | sed -e "s/-w //" | sed -e "s/-O\?[0-9] //"`
+MY_POLLER=`echo '@ZMQ_POLLER@'`
+echo "MY_MAKE = '${MY_MAKE}'" > ../Makeconf
+echo "MY_CC = '${MY_CC}'" >> ../Makeconf
+echo "MY_CFLAGAS = '${MY_CFLAGS}'" >> ../Makeconf
+echo "MY_LDFLAGAS = '${MY_LDFLAGS}'" >> ../Makeconf
+echo "MY_CPPFLAGAS = '${MY_CPPFLAGS}'" >> ../Makeconf
+echo "MY_CXX = '${MY_CXX}'" >> ../Makeconf
+echo "MY_CXXFLAGAS = '${MY_CXXFLAGS}'" >> ../Makeconf
+echo "MY_POLLER = '${MY_POLLER}'" >> ../Makeconf
+
+### Configure zmq.
+MY_PREFIX_DIR=`pwd | sed -e "s/zmqsrc$/zmq/"`
+./configure \
+  CC=${MY_CC} \
+  CFLAGS=${MY_CFLAGS} \
+  LDFLAGS=${MY_LDFLAGS} \
+  CPPFLAGS=${MY_CPPFLAGS} \
+  CXX=${MY_CXX} \
+  CXXFLAGS=${MY_CXXFLAGS} \
+  --prefix=${MY_PREFIX_DIR} \
+  --with-poller=${MY_POLLER} \
+  --enable-static=no \
+  --enable-shared=yes \
+  --without-documentation # \
+  # --without-libsodium
+
+### Assign zmq informaton, make, and install.
+MY_ZMQ_DIR=`pwd`
+echo "MY_ZMQ_DIR = '${MY_ZMQ_DIR}'" >> ../Makeconf
+cd src
+${MY_MAKE} all
+
+### Install
+${MY_MAKE} install
+# rm -rf ../../zmq
+# mkdir ../../zmq
+# mkdir ../../zmq/include
+# mkdir ../../zmq/lib
+# cp ../include/* ../../zmq/include
+# cp ./libzmq.* ../../zmq/lib

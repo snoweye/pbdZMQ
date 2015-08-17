@@ -1,0 +1,69 @@
+.onLoad <- function(libname, pkgname){
+  zmq.ldflags <- "@ZMQ_LDFLAGS@"
+  ext.libs <- "@EXT_LIBS"
+
+  if(ext.libs == ""){
+    ### Use default zmq library.
+    dn <- paste(libname, "/", pkgname, "/libs/", sep = "")
+  } else{
+    ### Use external zmq library.
+    dn <- gsub("-L(.*) -lzmq", "\\1", zmq.ldflags)
+    if(gsub(".*(.)$", "\\1", dn) != "/"){
+      dn <- paste(dn, "/", sep = "")
+    }
+  }
+
+  ### Load ZMQ.
+  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.dll")
+  for(i.file in files){
+    fn <- paste(dn, i.file, sep = "")
+    if(file.exists(fn)){
+      ### Load "libzmq.so".
+      test <- try(dyn.load(fn, local = FALSE), silent = TRUE)
+      if(class(test) == "try-error"){
+        stop(paste("Could not load ", fn, sep = ""))
+      }
+    }
+  }
+
+  ### Load "pbdZMQ.so".
+  library.dynam("pbdZMQ", pkgname, libname)
+  invisible()
+} # End of .onLoad().
+
+.onUnload <- function(libpath){
+  ### Unload "pbdZMQ.so".
+  library.dynam.unload("pbdZMQ", libpath)
+
+  ### Check external.
+  zmq.ldflags <- "@ZMQ_LDFLAGS@"
+  ext.libs <- "@EXT_LIBS"
+
+  if(ext.libs == ""){
+    ### Use default zmq library.
+    dn <- paste(libname, "/", pkgname, "/libs/", sep = "")
+  } else{
+    ### Use external zmq library.
+    dn <- gsub("-L(.*) -lzmq", "\\1", zmq.ldflags)
+    if(gsub(".*(.)$", "\\1", dn) != "/"){
+      dn <- paste(dn, "/", sep = "")
+    }
+  }
+
+  ### Unload ZMQ.
+  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.dll")
+  for(i.file in files){
+    fn <- paste(dn, i.file, sep = "")
+    if(file.exists(fn)){
+      ### Unload "libzmq.so".
+      test <- try(dyn.unload(fn), silent = TRUE)
+    }
+  }
+
+  invisible()
+} # End of .onUnload().
+
+.onAttach <- function(libname, pkgname){
+  invisible()
+} # End of .onAttach().
+
