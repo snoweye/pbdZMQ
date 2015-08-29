@@ -1,5 +1,6 @@
 .onLoad <- function(libname, pkgname){
-  dn <- paste(libname, "/", pkgname, "/libs/", sep = "")
+  dn <- paste(libname, "/", pkgname, "/libs",
+              Sys.getenv("R_ARCH"), "/", sep = "")
   i.file <- "libzmq.dll"
   fn <- paste(dn, i.file, sep = "")
   ### Load "libzmq.dll".
@@ -17,7 +18,8 @@
   ### Unload "pbdZMQ.dll".
   library.dynam.unload("pbdZMQ", libpath)
 
-  dn <- paste(libpath, "/libs/", sep = "")
+  dn <- paste(libpath, "/libs",
+              Sys.getenv("R_ARCH"), "/", sep = "")
   i.file <- "libzmq.dll"
   fn <- paste(dn, i.file, sep = "")
   if(file.exists(fn)){

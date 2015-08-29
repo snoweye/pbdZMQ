@@ -1,5 +1,8 @@
 
 ======================= Log Before Release =====================================
+2015-08-28:
+  * Fix windows zzz.r with R_ARCH.
+
 2015-08-15:
   * Add author.
   * Add local to dyn.load in zzz.r.
