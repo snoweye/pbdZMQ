@@ -41,7 +41,7 @@
 
   if(ext.libs == ""){
     ### Use default zmq library.
-    dn <- paste(libname, "/", pkgname, "/libs/", sep = "")
+    dn <- paste(libpath, "/libs/", sep = "")
   } else{
     ### Use external zmq library.
     dn <- gsub("-L(.*) -lzmq", "\\1", zmq.ldflags)

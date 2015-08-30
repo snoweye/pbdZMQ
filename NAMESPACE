@@ -4,6 +4,7 @@
 # useDynLib(pbdZMQ)
 
 exportPattern("^zmq\\.[[:alpha:]]+")
+exportPattern("^ZMQ\\.[[:alpha:]]+")
 export(
   "send.socket",
   "receive.socket",

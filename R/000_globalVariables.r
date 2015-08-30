@@ -7,5 +7,5 @@
 ### ?globalVariables
 
 if(getRversion() >= "2.15.1"){
-  utils::globalVariables(c(".ZMQ.ST", ".ZMQ.SR", ".ZMQ.SO", ".ZMQ.MC"))
+  utils::globalVariables(c(".pbdZMQEnv"))
 }

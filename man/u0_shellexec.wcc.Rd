@@ -42,9 +42,9 @@
   A new windows with certain applications depending on the association of
   the input \code{file}.
 }
-\references{
-  \url{https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153\%28v=vs.85\%29.aspx}
-}
+%\references{
+%  \url{https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153\(v=vs.85\).aspx}
+%}
 \author{
   Wei-Chen Chen \email{wccsnow@gmail.com}.
 }

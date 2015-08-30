@@ -1,5 +1,5 @@
 ### Socket related.
-zmq.socket <- function(ctx, type = .ZMQ.ST$REP){
+zmq.socket <- function(ctx, type = .pbdZMQEnv$ZMQ.ST$REP){
   ret <- .Call("R_zmq_socket", ctx, type, PACKAGE = "pbdZMQ")
   ### Users are responsible to take care free and gc.
   # reg.finalizer(ret, zmq.close, TRUE)
@@ -11,7 +11,7 @@ zmq.close <- function(socket){
   invisible(ret)
 } # End of zmq.close().
 
-zmq.bind <- function(socket, endpoint, MC = .ZMQ.MC){
+zmq.bind <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
   ret <- .Call("R_zmq_bind", socket, endpoint, PACKAGE = "pbdZMQ")
 
   if(ret != 0){
@@ -25,7 +25,7 @@ zmq.bind <- function(socket, endpoint, MC = .ZMQ.MC){
   invisible(ret)
 } # End of zmq.bind().
 
-zmq.connect <- function(socket, endpoint, MC = .ZMQ.MC){
+zmq.connect <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
   ret <- .Call("R_zmq_connect", socket, endpoint, PACKAGE = "pbdZMQ")
 
   if(ret != 0){
@@ -39,7 +39,7 @@ zmq.connect <- function(socket, endpoint, MC = .ZMQ.MC){
   invisible(ret)
 } # End of zmq.connect().
 
-zmq.setsockopt <- function(socket, option.name, option.value, MC = .ZMQ.MC){
+zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbdZMQEnv$ZMQ.MC){
   if(is.character(option.value)){
     option.type <- 0L
   } else if(is.integer(option.value)){
