@@ -2,6 +2,7 @@
 ======================= Log Before Release =====================================
 2015-08-30:
   * Change option controlling method. Move from data to new.env.
+  * Fix configure and installation.
 
 2015-08-28:
   * Fix windows zzz.r with R_ARCH.
