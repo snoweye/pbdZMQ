@@ -43,7 +43,12 @@
   the input \code{file}.
 }
 \references{
-  \url{https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153\%28v=vs.85\%29.aspx}
+  Microsoft, Windows Dev Center:
+  Windows desktop applications > Develop > Desktop technologies >
+  Desktop Environment > The Windows Shell > Shell Reference >
+  Shell Functions > ShellExecute
+
+  \code{https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx}
 }
 \author{
   Wei-Chen Chen \email{wccsnow@gmail.com}.

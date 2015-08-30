@@ -1,8 +1,8 @@
 .onLoad <- function(libname, pkgname){
   zmq.ldflags <- "@ZMQ_LDFLAGS@"
-  ext.libs <- "@EXT_LIBS"
+  ext.libs <- "@EXT_LIBS@"
 
-  if(ext.libs == ""){
+  if(ext.libs == "$(R_ZMQ)"){
     ### Use default zmq library.
     dn <- paste(libname, "/", pkgname, "/libs/", sep = "")
   } else{
@@ -37,11 +37,11 @@
 
   ### Check external.
   zmq.ldflags <- "@ZMQ_LDFLAGS@"
-  ext.libs <- "@EXT_LIBS"
+  ext.libs <- "@EXT_LIBS@"
 
   if(ext.libs == ""){
     ### Use default zmq library.
-    dn <- paste(libname, "/", pkgname, "/libs/", sep = "")
+    dn <- paste(libpath, "/libs/", sep = "")
   } else{
     ### Use external zmq library.
     dn <- gsub("-L(.*) -lzmq", "\\1", zmq.ldflags)

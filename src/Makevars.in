@@ -16,18 +16,18 @@ BUILD_LIBS = $(SHLIB) @EXT_LIBS@
 
 ### Start making here.
 all: $(BUILD_LIBS)
-	@echo "ZMQ_INCLUDE = $(ZMQ_INCLUDE)" >> Makeconf
-	@echo "ZMQ_LDFLAGS = $(ZMQ_LDFLAGS)" >> Makeconf
-	@echo "ZMQ_POLLER = $(ZMQ_POLLER)" >> Makeconf
-	@echo "EXT_LIBS = $(EXT_LIBS)" >> Makeconf
+	@echo "ZMQ_INCLUDE = @ZMQ_INCLUDE@" >> Makeconf
+	@echo "ZMQ_LDFLAGS = @ZMQ_LDFLAGS@" >> Makeconf
+	@echo "ZMQ_POLLER = @ZMQ_POLLER@" >> Makeconf
+	@echo "EXT_LIBS = @EXT_LIBS@" >> Makeconf
 	@echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> Makeconf
 	@echo "PKG_CFLAGS = $(PKG_CFLAGS)" >> Makeconf
 	@echo "PKG_CXXFLAGS = $(PKG_CXXFLAGS)" >> Makeconf
 	@echo "PKG_LIBS = $(PKG_LIBS)" >> Makeconf 
-	@echo "R_ZMQ_INC = lib${R_ARCH}/include" >> Makeconf
-	@echo "R_ZMQ_LIB = lib${R_ARCH}/lib/$(R_ZMQ_NAME)" >> Makeconf
 
 $(SHLIB): $(OBJECTS)
+
+$(OBJECTS): @EXT_LIBS@
 
 $(R_ZMQ):
 	@sed -e "s#@MAKE@#${MAKE}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
