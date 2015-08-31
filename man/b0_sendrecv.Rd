@@ -4,8 +4,8 @@
 \title{ Send Receive Functions }
 \description{ Send and receive functions }
 \usage{
-  zmq.send(socket, buf, flags = .ZMQ.SR$BLOCK)
-  zmq.recv(socket, len = 1024, flags = .ZMQ.SR$BLOCK,
+  zmq.send(socket, buf, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+  zmq.recv(socket, len = 1024, flags = .pbdZMQEnv$ZMQ.SR$BLOCK,
            buf.type = c("char", "raw"))
 }
 \arguments{
@@ -24,7 +24,7 @@
   \code{zmq_recv()} receiving buffers of length \code{len} according to
   the \code{buf.type}.
 
-  \code{flags} see \code{\link{.ZMQ.SR}} for detail options of send and
+  \code{flags} see \code{\link{ZMQ.SR}()} for detail options of send and
   receive functions.
 
   \code{buf.type} currently supports \code{char} and \code{raw} which are
@@ -61,7 +61,7 @@
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .ZMQ.ST$REP)
+responder <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
 zmq.bind(responder, "tcp://*:5555")
 for(i.res in 1:5){
   buf <- zmq.recv(responder, 10L)
@@ -77,7 +77,7 @@ zmq.ctx.destroy(context)
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .ZMQ.ST$REQ)
+requester <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 for(i.req in 1:5){
   cat("Sending Hello ", i.req, "\n")

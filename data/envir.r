@@ -1,5 +1,24 @@
-### For ZMQ socket options, see zmq.h for details.
-.ZMQ.SO <- list(
+### Export control to new env.
+.pbdZMQEnv <- new.env()
+
+### socket type.
+.pbdZMQEnv$ZMQ.ST <- list(
+  PAIR = 0L,
+  PUB = 1L,
+  SUB = 2L,
+  REQ = 3L,
+  REP = 4L,
+  DEALER = 5L,
+  ROUTER = 6L,
+  PULL = 7L,
+  PUSH = 8L,
+  XPUB = 9L,
+  XSUB = 10L,
+  STREAM = 11L
+) # End of ZMQ.ST.
+
+### socket option.
+.pbdZMQEnv$ZMQ.SO <- list(
   AFFINITY = 4L,
   IDENTITY = 5L,
   SUBSCRIBE = 6L,
@@ -60,4 +79,19 @@
   IDENTITY_FD = 67L,
   SOCKS_PROXY = 68L,
   XPUB_NODROP = 69L
-) # End of ZMQ.SO
+) # End of ZMQ.SO.
+
+### sned and receive
+.pbdZMQEnv$ZMQ.SR <- list(
+  BLOCK = 0L,
+  DONTWAIT = 1L,
+  NOBLOCK = 1L,
+  SNDMORE = 2L
+) # End of ZMQ.SR
+
+### message control.
+.pbdZMQEnv$ZMQ.MC <- list(
+  warning.at.error = TRUE,
+  stop.at.error = FALSE
+) # End of ZMQ.MC.
+

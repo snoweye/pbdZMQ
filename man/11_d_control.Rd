@@ -1,8 +1,5 @@
-\name{ZMQ Control}
-\alias{.ZMQ.ST}
-\alias{.ZMQ.SO}
-\alias{.ZMQ.SR}
-\alias{.ZMQ.MC}
+\name{ZMQ Control Environment}
+\alias{.pbdZMQEnv}
 \docType{data}
 \title{Sets of controls in pbdZMQ.}
 \description{
@@ -12,7 +9,7 @@
   Objects contain several parameters for communicators and methods.
 }
 \details{
-  The elements of \code{.SPMD.ST} are default values for socket types
+  The elements of \code{.pbdZMQEnv$ZMQ.ST} are default values for socket types
   as defined in `zmq.h' including
 \tabular{lcl}{
   Elements          \tab Value   \tab Usage \cr
@@ -30,12 +27,12 @@
   \code{STREAM}     \tab 11L     \tab socket type STREAM
 }
 
-  The elements of \code{.ZMQ.SO} are default values for socket options
-  as defined in `zmq.h' including 60 different values, see \code{.ZMQ.SO}
-  and `zmq.h' for details.
+  The elements of \code{.pbdZMQEnv$ZMQ.SO} are default values for socket
+  options as defined in `zmq.h' including 60 different values,
+  see \code{.pbdZMQEnv$ZMQ.SO} and `zmq.h' for details.
 
-  The elements of \code{.ZMQ.SR} are default values for send/recv options
-  as defined in `zmq.h' including
+  The elements of \code{.pbdZMQEnv$ZMQ.SR} are default values for
+  send/recv options as defined in `zmq.h' including
 \tabular{lcl}{
   Elements          \tab Value   \tab Usage \cr
   \code{BLOCK}      \tab 0L      \tab send/recv option BLOCK \cr
@@ -44,8 +41,8 @@
   \code{SNDMORE}    \tab 2L      \tab send/recv option SNDMORE (not supported)
 }
 
-  The elements of \code{.ZMQ.MC} are default values for warning and stop
-  controls in R. These are not the ZeroMQ's internal default values. They
+  The elements of \code{.pbdZMQEnv$ZMQ.MC} are default values for warning and
+  stop controls in R. These are not the ZeroMQ's internal default values. They
   are defined as
 \tabular{lcl}{
   Elements                 \tab Value \tab Usage \cr

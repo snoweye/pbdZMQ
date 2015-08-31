@@ -1,17 +1,17 @@
 send.socket <- function(socket, data, send.more = FALSE, serialize = TRUE){
   if(send.more){
-    flags <- .ZMQ.SR$SNDMORE
+    flags <- .pbdZMQEnv$ZMQ.SR$SNDMORE
   } else{
-    flags <- .ZMQ.SR$BLOCK
+    flags <- .pbdZMQEnv$ZMQ.SR$BLOCK
   }
   zmq.msg.send(data, socket, flags = flags, serialize = serialize)
 } # End of send.socket().
 
 receive.socket <- function(socket, unserialize = TRUE, dont.wait = FALSE){
   if(dont.wait){
-    flags <- .ZMQ.SR$DONTWAIT
+    flags <- .pbdZMQEnv$ZMQ.SR$DONTWAIT
   } else{
-    flags <- .ZMQ.SR$BLOCK
+    flags <- .pbdZMQEnv$ZMQ.SR$BLOCK
   }
   zmq.msg.recv(socket, flags = flags, unserialize = unserialize)
 } # End of receive.socket().
@@ -32,11 +32,11 @@ init.socket <- function(context, socket.type){
   }
 
   socket.type <- sub(".*_", "", socket.type)
-  id <- which(names(.ZMQ.ST) == socket.type)
+  id <- which(names(.pbdZMQEnv$ZMQ.ST) == socket.type)
   if(length(id) != 1){
     stop("socket.type is not found.")
   } else{
-    socket.type <- .ZMQ.ST[[id]]
+    socket.type <- .pbdZMQEnv$ZMQ.ST[[id]]
   }
 
   socket <- zmq.socket(context, type = socket.type)

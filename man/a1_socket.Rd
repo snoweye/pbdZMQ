@@ -7,11 +7,11 @@
 \title{ Socket Functions }
 \description{ Socket functions }
 \usage{
-  zmq.socket(ctx, type = .ZMQ.ST$REP)
+  zmq.socket(ctx, type = .pbdZMQEnv$ZMQ.ST$REP)
   zmq.close(socket)
-  zmq.bind(socket, endpoint, MC = .ZMQ.MC)
-  zmq.connect(socket, endpoint, MC = .ZMQ.MC)
-  zmq.setsockopt(socket, option.name, option.value, MC = .ZMQ.MC)
+  zmq.bind(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC)
+  zmq.connect(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC)
+  zmq.setsockopt(socket, option.name, option.value, MC = .pbdZMQEnv$ZMQ.MC)
 }
 \arguments{
   \item{ctx}{a ZMQ context}
@@ -20,11 +20,11 @@
   \item{endpoint}{a ZMQ socket endpoint}
   \item{option.name}{an option name to the socket}
   \item{option.value}{an option value to the option name}
-  \item{MC}{a message control, see \code{\link{.ZMQ.MC}} for details}
+  \item{MC}{a message control, see \code{\link{ZMQ.MC}()} for details}
 }
 \details{
   \code{zmq.socket()} initials a ZMQ socket given a ZMQ context \code{ctx}
-  and a socket \code{type}. See \code{\link{.ZMQ.ST}} for the possible values
+  and a socket \code{type}. See \code{\link{ZMQ.ST}()} for the possible values
   of \code{type}. ZMQ defines several patterns for the socket type
   and utilize them to communicate in different ways including
   request-reply, publish-subscribe, pipeline, exclusive pair, and naive
@@ -100,7 +100,7 @@
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .ZMQ.ST$REP)
+responder <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
 zmq.bind(responder, "tcp://*:5555")
 zmq.close(responder)
 zmq.ctx.destroy(context)
@@ -110,7 +110,7 @@ zmq.ctx.destroy(context)
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .ZMQ.ST$REQ)
+requester <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 zmq.close(requester)
 zmq.ctx.destroy(context)

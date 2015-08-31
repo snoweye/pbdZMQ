@@ -30,11 +30,3 @@ BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
-Packaged: 2015-08-30 21:03:21 UTC; snoweye
-Author: Wei-Chen Chen [aut, cre],
-  Drew Schmidt [aut],
-  Whit Armstrong [ctb] (some functions are modified from the rzmq for
-    backward compatibility),
-  Brian Ripley [ctb] (C code of shellexec),
-  R Core team [ctb] (some functions are modified from the R source code)
-Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
