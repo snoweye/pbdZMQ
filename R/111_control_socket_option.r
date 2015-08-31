@@ -123,4 +123,4 @@ ZMQ.SO <- function(
     SOCKS_PROXY = SOCKS_PROXY,
     XPUB_NODROP = XPUB_NODROP
   )
-} # End of ZMQ.SO()
+} # End of ZMQ.SO().
