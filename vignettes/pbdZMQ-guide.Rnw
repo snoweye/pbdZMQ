@@ -17,7 +17,7 @@ Wei-Chen Chen$^1$ and Drew Schmidt$^2$
 \\
 \\
 $^1$Center for Biologics Evaluation and Research, \\
-Food and Drug Adminstration, \\
+Food and Drug Administration, \\
 Silver Spring, MD, USA \\
 \\
 $^2$National Institute for Computational Sciences, \\
