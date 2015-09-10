@@ -20,18 +20,50 @@ if test -z "${R_HOME}"; then
 fi
 R_SCMD="${R_HOME}/bin/Rscript -e"
 
-dnl Set ZMQ include.
-AC_ARG_VAR(ZMQ_INCLUDE, [], [ "-I/path_to_zmq_include/" ])
-AS_VAR_SET_IF(ZMQ_INCLUDE, [], [ AS_VAR_SET(ZMQ_INCLUDE, "") ])
-if test "X$ZMQ_INCLUDE" = "X" ; then
-  ZMQ_INCLUDE="-I./zmqsrc/include"
+dnl Check if force enable internal ZeroMQ.
+AC_ARG_ENABLE(izmq,
+  AC_HELP_STRING([--enable-izmq], [Enable internal ZeroMQ, default no.]),
+  [ENABLE_IZMQ="yes"], [ENABLE_IZMQ="no"])
+
+dnl Check system default with pkg-config
+PKG_CONFIG="notok"
+if test "X$ENABLE_IZMQ" = "Xno" ; then
+  PKG_PROG_PKG_CONFIG([0.25])
+
+  PKG_CHECK_MODULES([ZMQ_CFLAG], [zmq-4.1],
+    [ac_zmq_cflags=`$PKG_CONFIG --cflags libzmq`],
+    [ac_zmq_cflags=;])
+
+  PKG_CHECK_MODULES([ZMQ_LIBS], [zmq-4.1],
+    [ac_zmq_libs=`$PKG_CONFIG --libs libzmq`],
+    [ac_zmq_libs=;])
+
+  if test "X$ac_zmq_cflags" = "X" -o "X$ac_zmq_libs" = "X" ; then
+    PKG_CONFIG="notok"
+  else
+    PKG_CONFIG="ok"
+  fi
 fi
 
-dnl Set ZMQ LDFLAGS.
-AC_ARG_VAR(ZMQ_LDFLAGS, [], [ "-L/path_to_zmq_lib/ -lzmq" ])
-AS_VAR_SET_IF(ZMQ_LDFLAGS, [], [ AS_VAR_SET(ZMQ_LDFLAGS, "") ])
-if test "X$ZMQ_LDFLAGS" = "X" ; then
-  ZMQ_LDFLAGS="-L./ -lzmq"
+dnl Use internal ZMQ or check if user provided path.
+if test "X$PKG_CONFIG" = "Xnotok" ; then
+  dnl Set ZMQ include.
+  AC_ARG_VAR(ZMQ_INCLUDE, [], [ "-I/path_to_zmq_include/" ])
+  AS_VAR_SET_IF(ZMQ_INCLUDE, [], [ AS_VAR_SET(ZMQ_INCLUDE, "") ])
+  if test "X$ZMQ_INCLUDE" = "X" ; then
+    ZMQ_INCLUDE="-I./zmqsrc/include"
+  fi
+
+  dnl Set ZMQ LDFLAGS.
+  AC_ARG_VAR(ZMQ_LDFLAGS, [], [ "-L/path_to_zmq_lib/ -lzmq" ])
+  AS_VAR_SET_IF(ZMQ_LDFLAGS, [], [ AS_VAR_SET(ZMQ_LDFLAGS, "") ])
+  if test "X$ZMQ_LDFLAGS" = "X" ; then
+    ZMQ_LDFLAGS="-L./ -lzmq"
+  fi
+else
+  dnl reset ZMQ include and LDFLAGS to the values set by pkg-config.
+  ZMQ_INCLUDE="$ac_zmq_clfags"
+  ZMQ_LDFLAGS="$ac_zmq_libs"
 fi
 
 dnl Set EXT_LIBS if external ZeroMQ library is provided.
@@ -56,6 +88,10 @@ echo ">> ZMQ_INCLUDE = ${ZMQ_INCLUDE}"
 echo ">> ZMQ_LDFLAGS = ${ZMQ_LDFLAGS}"
 echo ">> ZMQ_POLLER = ${ZMQ_POLLER}"
 echo ">> EXT_LIBS = ${EXT_LIBS}"
+echo ">> ENABLE_IZMQ = ${ENABLE_IZMQ}"
+echo ">> PKG_CONFIG = ${PKG_CONFIG}"
+echo ">> ac_zmq_cflags = ${ac_zmq_cflags}"
+echo ">> ac_zmq_libs = ${ac_zmq_libs}"
 echo " "
 echo "************************************************************************"
 echo " "

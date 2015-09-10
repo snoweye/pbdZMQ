@@ -20,6 +20,10 @@ all: $(BUILD_LIBS)
 	@echo "ZMQ_LDFLAGS = @ZMQ_LDFLAGS@" >> Makeconf
 	@echo "ZMQ_POLLER = @ZMQ_POLLER@" >> Makeconf
 	@echo "EXT_LIBS = @EXT_LIBS@" >> Makeconf
+	@echo "ENABLE_IZMQ = @ENABLE_IZMQ@" >> Makeconf
+	@echo "PKG_CONFIG = @PKG_CONFIG@" >> Makeconf
+	@echo "ac_zmq_cflags = @ac_zmq_cflags@" >> Makeconf
+	@echo "ac_zmq_libs = @ac_zmq_libs@" >> Makeconf
 	@echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> Makeconf
 	@echo "PKG_CFLAGS = $(PKG_CFLAGS)" >> Makeconf
 	@echo "PKG_CXXFLAGS = $(PKG_CXXFLAGS)" >> Makeconf

@@ -24,7 +24,7 @@ Description: Providing high level R wrapper functions to utilize
         if no external ZerMQ library is not provided. A few compatible wrapper
         functions to rzmq are also provided.
 SystemRequirements: Linux, Mac OSX, and Windows.
-License: Mozilla Public License 2.0
+License: GPL-3
 URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
