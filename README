@@ -4,6 +4,7 @@ with a focus on client servers programming framework.
 pbdZMQ requires
   - R version 3.0.0 or higher.
   - Linux, Mac OSX, or Windows.
+  - libzmq >= 4.0.4.
 
 For installing pbdZMQ, 
   - see "INSTALL" for Linux, Mac OSX, or Windows.

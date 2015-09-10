@@ -23,14 +23,15 @@ Description: Providing high level R wrapper functions to utilize
         minimum ZeroMQ library 4.1.0 rc1 is built and linked within pbdZMQ
         if no external ZerMQ library is not provided. A few compatible wrapper
         functions to rzmq are also provided.
-SystemRequirements: Linux, Mac OSX, and Windows.
+SystemRequirements: Linux, Mac OSX, and Windows, or ZeroMQ library >=
+        4.0.4.
 License: GPL-3
 URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
-Packaged: 2015-09-02 23:46:02 UTC; snoweye
+Packaged: 2015-09-10 04:45:46 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut],
   Whit Armstrong [ctb] (some functions are modified from the rzmq for

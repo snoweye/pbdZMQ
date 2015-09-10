@@ -584,6 +584,11 @@ PACKAGE_URL=
 ac_unique_file="DESCRIPTION"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+ZMQ_LIBDIR
+ZMQ_INCLUDEDIR
+PKG_CONFIG
+GET_PKG_CONFIG
+ENABLE_INTERNAL_ZMQ
 EXT_LIBS
 ZMQ_POLLER
 ZMQ_LDFLAGS
@@ -629,6 +634,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+enable_zmq
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1239,6 +1245,12 @@ if test -n "$ac_init_help"; then
 
   cat <<\_ACEOF
 
+Optional Features:
+  --disable-option-checking  ignore unrecognized --enable/--with options
+  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --enable-internal-zmq   Enable internal ZeroMQ, default no.
+
 Some influential environment variables:
   ZMQ_INCLUDE
   ZMQ_LDFLAGS
@@ -1693,24 +1705,50 @@ if test -z "${R_HOME}"; then
 fi
 R_SCMD="${R_HOME}/bin/Rscript -e"
 
+# Check whether --enable-zmq was given.
+if test "${enable_zmq+set}" = set; then :
+  enableval=$enable_zmq; ENABLE_INTERNAL_ZMQ="no"
+else
+  ENABLE_INTERNAL_ZMQ="yes"
+fi
 
-if ${ZMQ_INCLUDE+:} false; then :
+
+# PKG_PROG_PKG_CONFIG
+PKG_CONFIG="pkg-config"
+GET_PKG_CONFIG="not_ok"
+ZMQ_INCLUDEDIR=""
+ZMQ_LIBDIR=""
+if test "X$ENABLE_INTERNAL_ZMQ" = "Xno" ; then
+  ZMQ_INCLUDEDIR=`$PKG_CONFIG --variable=includedir libzmq`
+  ZMQ_LIBDIR=`$PKG_CONFIG --variable=libdir libzmq`
+  if test "X$ZMQ_INCLUDEDIR" != "X" -a "X$ZMQ_LIBDIR" != "X" ; then
+    GET_PKG_CONFIG="ok"
+  fi
+fi
+
+if test "X$GET_PKG_CONFIG" = "Xnot_ok" ; then
+
+  if ${ZMQ_INCLUDE+:} false; then :
 
 else
    ZMQ_INCLUDE=""
 fi
-if test "X$ZMQ_INCLUDE" = "X" ; then
-  ZMQ_INCLUDE="-I./zmqsrc/include"
-fi
+  if test "X$ZMQ_INCLUDE" = "X" ; then
+    ZMQ_INCLUDE="-I./zmqsrc/include"
+  fi
 
 
-if ${ZMQ_LDFLAGS+:} false; then :
+  if ${ZMQ_LDFLAGS+:} false; then :
 
 else
    ZMQ_LDFLAGS=""
 fi
-if test "X$ZMQ_LDFLAGS" = "X" ; then
-  ZMQ_LDFLAGS="-L./ -lzmq"
+  if test "X$ZMQ_LDFLAGS" = "X" ; then
+    ZMQ_LDFLAGS="-L./ -lzmq"
+  fi
+else
+    ZMQ_INCLUDE="-I${ZMQ_INCLUDEDIR}"
+  ZMQ_LDFLAGS="-L${ZMQ_LIBDIR} -lzmq"
 fi
 
 if test "$ZMQ_INCLUDE" != "-I./zmqsrc/include" -a "$ZMQ_LDFLAGS" != "-L./ -lzmq" ; then
@@ -1736,9 +1774,19 @@ echo ">> ZMQ_INCLUDE = ${ZMQ_INCLUDE}"
 echo ">> ZMQ_LDFLAGS = ${ZMQ_LDFLAGS}"
 echo ">> ZMQ_POLLER = ${ZMQ_POLLER}"
 echo ">> EXT_LIBS = ${EXT_LIBS}"
+echo ">> ENABLE_INTERNAL_ZMQ = ${ENABLE_INTERNAL_ZMQ}"
+echo ">> GET_PKG_CONFIG = ${GET_PKG_CONFIG}"
+echo ">> PKG_CONFIG = ${PKG_CONFIG}"
+echo ">> ZMQ_INCLUDEDIR = ${ZMQ_INCLUDEDIR}"
+echo ">> ZMQ_LIBDIR = ${ZMQ_LIBDIR}"
 echo " "
 echo "************************************************************************"
 echo " "
+
+
+
+
+
 
 
 
