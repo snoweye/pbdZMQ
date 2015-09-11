@@ -23,7 +23,8 @@
   The install command using default \pkg{pbdZMQ}'s internal ZeroMQ library
   is \cr
   \cr
-  \code{> R CMD INSTALL pbdZMQ_0.1-0.tar.gz } \cr
+  \code{> R CMD INSTALL pbdZMQ_0.1-0.tar.gz \\} \cr
+  \code{    --configure-args="--enable-internal-zmq" } \cr
   \cr
   Other available variables include
 \tabular{ll}{
@@ -32,7 +33,7 @@
   \code{ZMQ_LDFLAGS} \tab \code{-L./ -lzmq} \cr
   \code{ZMQ_POLLER}  \tab \code{select}
 }
-  See the package source file \code{pbdZMQ/configure} for details.
+  See the package source file \code{pbdZMQ/configure.ac} for details.
 
   For installation using an external ZeroMQ library, see the package
   source file \code{pbdZMQ/INSTALL} for details.
