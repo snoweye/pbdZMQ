@@ -634,7 +634,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
-enable_zmq
+enable_internal_zmq
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1705,11 +1705,11 @@ if test -z "${R_HOME}"; then
 fi
 R_SCMD="${R_HOME}/bin/Rscript -e"
 
-# Check whether --enable-zmq was given.
-if test "${enable_zmq+set}" = set; then :
-  enableval=$enable_zmq; ENABLE_INTERNAL_ZMQ="no"
+# Check whether --enable-internal-zmq was given.
+if test "${enable_internal_zmq+set}" = set; then :
+  enableval=$enable_internal_zmq; ENABLE_INTERNAL_ZMQ="yes"
 else
-  ENABLE_INTERNAL_ZMQ="yes"
+  ENABLE_INTERNAL_ZMQ="no"
 fi
 
 

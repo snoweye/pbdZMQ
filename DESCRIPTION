@@ -31,7 +31,7 @@ BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
-Packaged: 2015-09-10 04:45:46 UTC; snoweye
+Packaged: 2015-09-11 01:41:45 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut],
   Whit Armstrong [ctb] (some functions are modified from the rzmq for

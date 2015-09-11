@@ -2,15 +2,34 @@
 \label{sec:installation}
 \addcontentsline{toc}{section}{\thesection. Installation}
 
-There are two ways to install \pkg{pbdZMQ} either with internal ZeroMQ library
-(4.1.0 rc1) or with external ZeroMQ library (newer version).
-The former way is tested under Linux, Mac OSX, and Windows systems, while
-the later way is only tested under Linux system. Solaris has been tested
-without any success in neither ways.
+There are three ways to install \pkg{pbdZMQ}
+\begin{enumerate}
+\item with system \code{libzmq} and \code{libzmq-dev} packages
+      (as \code{pkg-config} is available),
+\item with internal ZeroMQ library (4.1.0 rc1), or
+\item with external ZeroMQ library (newer version).
+\end{enumerate}
+The first way is easiest when a package managing system is available and
+produces both
+\begin{itemize}
+\item \code{pkg-config --variable=includedir libzmq} and
+\item \code{pkg-config --variable=libsdir libzmq}.
+\end{itemize}
+The second way is tested under Linux, Mac OSX, and Windows systems, while
+the third way is only tested under Linux system. Solaris has been tested
+without any success in neither ways. FreeBSD is not tested yet.
 
-Install with internal ZeroMQ library: it can be simply done with
+Installation with system \code{libzmq} and \code{libzmq-dev} packages:
+it can be simply done with
 \begin{Command}
 R CMD INSTALL pbdZMQ_0.1-0.tar.gz
+\end{Command}
+
+Installation with internal ZeroMQ library:
+it can be simply done with
+\begin{Command}
+R CMD INSTALL pbdZMQ_0.1-0.tar.gz \
+  --configure-args="--enable-internal-zmq"
 \end{Command}
 
 Example steps for installing with external ZeroMQ library:
