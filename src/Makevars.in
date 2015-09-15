@@ -16,15 +16,20 @@ BUILD_LIBS = $(SHLIB) @EXT_LIBS@
 
 ### Start making here.
 all: $(BUILD_LIBS)
+	@echo "GET_PKG_CONFIG = @GET_PKG_CONFIG@" >> Makeconf
+	@echo "GET_SYSTEM_ZMQ = @GET_SYSTEM_ZMQ@" >> Makeconf
+	@echo "PKG_CONFIG = @PKG_CONFIG@" >> Makeconf
+	@echo "SYSTEM_ZMQ_INCLUDEDIR = @SYSTEM_ZMQ_INCLUDEDIR@" >> Makeconf
+	@echo "SYSTEM_ZMQ_LIBDIR = @SYSTEM_ZMQ_LIBDIR@" >> Makeconf
+	@echo "ENABLE_INTERNAL_ZMQ = @ENABLE_INTERNAL_ZMQ@" >> Makeconf
+	@echo "INTERNAL_ZMQ_INCLUDEDIR = @INTERNAL_ZMQ_INCLUDEDIR@" >> Makeconf
+	@echo "INTERNAL_ZMQ_LIBDIR = @INTERNAL_ZMQ_LIBDIR@" >> Makeconf
+	@echo "EXTERNAL_ZMQ_INCLUDE = @EXTERNAL_ZMQ_INCLUDE@" >> Makeconf
+	@echo "EXTERNAL_ZMQ_LDFLAGS = @EXTERNAL_ZMQ_LDFLAGS@" >> Makeconf
 	@echo "ZMQ_INCLUDE = @ZMQ_INCLUDE@" >> Makeconf
 	@echo "ZMQ_LDFLAGS = @ZMQ_LDFLAGS@" >> Makeconf
-	@echo "ZMQ_POLLER = @ZMQ_POLLER@" >> Makeconf
 	@echo "EXT_LIBS = @EXT_LIBS@" >> Makeconf
-	@echo "ENABLE_INTERNAL_ZMQ = @ENABLE_INTERNAL_ZMQ@" >> Makeconf
-	@echo "GET_PKG_CONFIG = @GET_PKG_CONFIG@" >> Makeconf
-	@echo "PKG_CONFIG = @PKG_CONFIG@" >> Makeconf
-	@echo "ZMQ_INCLUDEDIR = @ZMQ_INCLUDEDIR@" >> Makeconf
-	@echo "ZMQ_LIBDIR = @ZMQ_LIBDIR@" >> Makeconf
+	@echo "ZMQ_POLLER = @ZMQ_POLLER@" >> Makeconf
 	@echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> Makeconf
 	@echo "PKG_CFLAGS = $(PKG_CFLAGS)" >> Makeconf
 	@echo "PKG_CXXFLAGS = $(PKG_CXXFLAGS)" >> Makeconf

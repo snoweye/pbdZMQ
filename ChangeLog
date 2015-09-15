@@ -1,3 +1,10 @@
+2015-09-14: Ver. 0.1-1
+  * Check version of pkg-config.
+  * Check version of system libzmq.
+
+2015-09-11: Ver. 0.1-0
+  * Change to pkg-config and use different installation order.
+  * On CRAN.
 
 ======================= Log Before Release =====================================
 2015-08-30:
