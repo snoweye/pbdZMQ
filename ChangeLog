@@ -1,4 +1,7 @@
-2015-09-14: Ver. 0.1-1
+2015-09-15:
+  * Rewrite R/get_conf.r for windows.
+
+2015-09-14:
   * Check version of pkg-config.
   * Check version of system libzmq.
 
