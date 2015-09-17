@@ -1,5 +1,6 @@
 *.o
 *.mod
+*.lo
 *.so
 *.log
 *.status
