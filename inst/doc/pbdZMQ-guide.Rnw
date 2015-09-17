@@ -16,9 +16,7 @@ Wei-Chen Chen$^1$ and Drew Schmidt$^2$
 \end{minipage}
 \\
 \\
-$^1$Center for Biologics Evaluation and Research, \\
-Food and Drug Administration, \\
-Silver Spring, MD, USA \\
+$^1$pbdR Core Team \\
 \\
 $^2$National Institute for Computational Sciences, \\
 University of Tennessee, \\
