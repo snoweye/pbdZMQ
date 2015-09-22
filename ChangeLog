@@ -1,5 +1,6 @@
 2015-09-15:
   * Rewrite R/get_conf.r for windows.
+  * Fix Mac OSX problem.
 
 2015-09-14:
   * Check version of pkg-config.
