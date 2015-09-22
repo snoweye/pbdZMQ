@@ -1,5 +1,6 @@
 *.o
 *.mod
+*.lo
 *.so
 *.log
 *.status
@@ -12,3 +13,9 @@ src/Makeconf
 src/Makevars
 
 R/zzz.r
+
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc

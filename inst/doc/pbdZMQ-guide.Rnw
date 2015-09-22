@@ -18,7 +18,7 @@ Wei-Chen Chen$^1$ and Drew Schmidt$^2$
 \\
 $^1$pbdR Core Team \\
 \\
-$^2$National Institute for Computational Sciences, \\
+$^2$Business Analytics and Statistics, \\
 University of Tennessee, \\
 Knoxville, TN, USA \\
 \\

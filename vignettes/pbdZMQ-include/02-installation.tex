@@ -2,39 +2,62 @@
 \label{sec:installation}
 \addcontentsline{toc}{section}{\thesection. Installation}
 
-There are three ways to install \pkg{pbdZMQ}
+
+\subsection{Installing}
+
+The \pkg{pbdZMQ} package requires an installation of the ZeroMQ library.  So 
+before we may discuss particulars of installing the \proglang{R} package, we 
+take a moment here to describe the various ways in which you may install ZeroMQ 
+itself.  For convenience, we distribute with the package a distribution of 
+ZeroMQ, although if you have access to a system installation, that may be 
+preferable.  We separate installation of ZeroMQ into 3 cases:
 \begin{enumerate}
-\item with system \code{libzmq} and \code{libzmq-dev} packages
-      (as \code{pkg-config} is available),
-\item with internal ZeroMQ library (4.1.0 rc1), or
-\item with external ZeroMQ library (newer version).
+  \item system package manager, such as the \code{libzmq} and 
+  \code{libzmq-dev} packages in Debian-derived systems,
+  \item \pkg{pbdZMQ}'s internal ZeroMQ library (4.1.0 rc1), or
+  \item an external ZeroMQ library (4.1.0 rc1 or later).
 \end{enumerate}
-The first way is easiest when a package managing system is available and
-produces both
+
+
+\paragraph{With System Package Manager}
+
+This method is perhaps the easiest when a package managing system is available, 
+such as on Linux, and returns the locations of the \code{libzmq} include and 
+library paths via:
 \begin{itemize}
 \item \code{pkg-config --variable=includedir libzmq} and
 \item \code{pkg-config --variable=libsdir libzmq}.
 \end{itemize}
-The second way is tested under Linux, Mac OSX, and Windows systems, while
-the third way is only tested under Linux system. Solaris has been tested
-without any success in neither ways. FreeBSD is not tested yet.
-
-Installation with system \code{libzmq} and \code{libzmq-dev} packages:
-it can be simply done with
+In this setup, installation is very straightforward.  From a shell, you can 
+execute:
 \begin{Command}
 R CMD INSTALL pbdZMQ_0.1-0.tar.gz
 \end{Command}
 
-Installation with internal ZeroMQ library:
-it can be simply done with
+
+
+\paragraph{Using Internal ZeroMQ}
+
+This method uses the ZeroMQ library bundled with \pkg{pbdZMQ}, and should be 
+fairly simple.  This method has been successfully tested under Linux, Mac OSX, 
+Windows, and FreeBSD. Solaris has been tested with no success.
+
+Installation in this way can be simply done by adding the configure argument 
+\code{--enable-internal-zmq}.  In practice, this might look something like:
 \begin{Command}
 R CMD INSTALL pbdZMQ_0.1-0.tar.gz \
   --configure-args="--enable-internal-zmq"
 \end{Command}
 
-Example steps for installing with external ZeroMQ library:
-\begin{itemize}
-\item The minimum steps for installing \pkg{zeromq-4.1.2.tar.gz} is
+
+\paragraph{Using External ZeroMQ}
+
+This method assumes you have built your own ZeroMQ library somewhere, or 
+perhaps one is offered to you by your system administrator.  In any event, 
+this method is only tested under Linux systems.  As with the previous method, 
+we were unsuccessful in our attempts to build on Solaris.
+
+To build ZeroMQ yourself, you might do something like the following:
 \begin{Command}
 ./configure \
    --prefix=/usr/local/zmq \
@@ -49,33 +72,39 @@ which will install the library to \code{/usr/local/zmq/} where
 \code{/usr/local/zmq/include/} will have the header file \code{zmq.h} and
 \code{/usr/local/zmq/lib/} will have the shared library file \code{libzmq.so}.
 
-\item Therefore, we can install \pkg{pbdZMQ} as next:
+With an external ZeroMQ available, we can install \pkg{pbdZMQ} via:
 \begin{Command}
 R CMD INSTALL pbdZMQ_0.1-0.tar.gz \
   --configure-vars="ZMQ_INCLUDE='-I/usr/local/zmq/include' \
                     ZMQ_LDFLAGS='-L/usr/local/zmq/lib -lzmq'"
 \end{Command}
 
-\end{itemize}
 
-Suppose \pkg{pbdZMQ} is installed correctly. One may run the next from
-{\em one} terminal to test the library.
+
+\subsection{Testing the Installation}
+
+To make sure that \pkg{pbdZMQ} is installed correctly, one may run a simple 
+``hello world'' test from {\em one} terminal to test the library as follows:
 \begin{Command}
 Rscript -e "demo(hwserver,'pbdZMQ',ask=F,echo=F)" &
 Rscript -e "demo(hwclient,'pbdZMQ',ask=F,echo=F)"
 \end{Command}
-This will run 5 iterations to send and receive 5 times of
-'Hello World' messages between two instances (simple server and client).
+This will run 5 iterations of sending and receiving 'Hello World' messages 
+between two instances (simple server and client).
+
+
+
+\subsection{Polling System}
 
 Note that one may want to use different polling system provided by 
-ZeroMQ library.
-By default \code{select} method is used in \pkg{pbdZMQ} for Linux, Windows, and
-Mac OSX. However, users may want to use \code{autodetect} or try others for
-better polling. Currently, the options as given by ZeroMQ may be \code{kqueue},
-\code{epoll}, \code{devpoll}, \code{poll}, or \code{select} depending on
-libraries and system. The next may be used to change the polling method:
+the ZeroMQ library.  By default, the \code{select} method is used in 
+\pkg{pbdZMQ} for Linux, Windows, and Mac OSX. However, users may want to use 
+\code{autodetect} or try others for better polling. Currently, the options as 
+given by ZeroMQ may be \code{kqueue}, \code{epoll}, \code{devpoll}, 
+\code{poll}, or \code{select} depending on libraries and system. You may set 
+the polling method at compile time via:
 \begin{Command}
 R CMD INSTALL pbdZMQ_0.1-0.tar.gz \
   --configure-vars="ZMQ_POLLER='autodetect'"
 \end{Command}
-
+See the ZeroMQ manual for more details.
