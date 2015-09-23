@@ -1,6 +1,10 @@
+2015-09-22:
+  * Fix src_Makefile (windows).
+
 2015-09-15:
+  * Rewrite configure.ac for version checking (Fedora).
   * Rewrite R/get_conf.r for windows.
-  * Fix Mac OSX problem.
+  * Fix Mac OSX problem. $(SHLIB) can not be ".so", but on CRAN Mac checks ...
 
 2015-09-14:
   * Check version of pkg-config.

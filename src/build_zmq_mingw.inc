@@ -63,6 +63,11 @@ sed -i "s/^platform.hpp: /platform.hpp_org: /" src_Makefile
 sed -i "/^platform.hpp_org: /i platform.hpp: " src_Makefile
 sed -i "s/^libzmq.pc: /libzmq.pc_org: /" src_Makefile
 sed -i "/^libzmq.pc_org: /i libzmq.pc: " src_Makefile
+sed -i "s#/usr/bin//grep#grep.exe#" src_Makefile
+sed -i "s#/usr/bin//mkdir#mkdir.exe#" src_Makefile
+sed -i "s#/usr/bin//sed#sed.exe#" src_Makefile
+sed -i "s#/usr/mingw/bin//nm#nm.exe#" src_Makefile
+sed -i "s#/bin/sh#sh.exe#" src_Makefile
 
 ### LIBTOOL
 sed -i "s/^\t$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile /\t/" src_Makefile
