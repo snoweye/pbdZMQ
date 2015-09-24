@@ -20,8 +20,8 @@ Copyright: See files AUTHORS, COPYING, COPYING.LESSER, and MAINTAINERS
 Description: Providing high level R wrapper functions to utilize
         ZeroMQ C API functions in detail manners. pbdZMQ mainly focuses on
         client/servers programming framework in an interaction style. A
-        minimum ZeroMQ library 4.1.0 rc1 is built and linked within pbdZMQ
-        if no external ZerMQ library is not provided. A few compatible wrapper
+        minimal ZeroMQ library 4.1.0 rc1 is built and linked within pbdZMQ
+        if no external ZeroMQ library is provided. A few compatible wrapper
         functions to rzmq are also provided.
 SystemRequirements: Linux, Mac OSX, and Windows, or ZeroMQ library >=
         4.0.4.
