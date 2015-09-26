@@ -1,4 +1,7 @@
-2015-09-22:
+2015-09-26:
+  * Give Solaris another try.
+
+2015-09-22: Ver. 0.1-1
   * Fix src_Makefile (windows).
 
 2015-09-15:
