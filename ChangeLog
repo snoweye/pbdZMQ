@@ -1,5 +1,8 @@
 2015-09-30:
-  * Cleaned up DESCRIPTION, enhanced README.
+  * Converted manual to roxygen.
+  * Added significant examples to the vignette.
+  * Enhanced the README.
+  * Cleaned up DESCRIPTION.
 
 2015-09-26:
   * Give Solaris another try.
