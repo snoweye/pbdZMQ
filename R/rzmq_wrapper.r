@@ -1,3 +1,21 @@
+#' All Wrapper Functions for rzmq
+#' 
+#' All wrapper functions for rzmq
+#' 
+#' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
+#' @references ZeroMQ/4.1.0 API Reference:
+#' \url{http://api.zeromq.org/4-1:_start}
+#' 
+#' Programming with Big Data in R Website: \url{http://r-pbd.org/}
+#' @keywords internal
+#' @rdname xx_rzmq_wrapper
+#' @name Wrapper Functions for rzmq
+NULL
+
+
+
+#' @rdname xx_rzmq_wrapper
+#' @export
 send.socket <- function(socket, data, send.more = FALSE, serialize = TRUE){
   if(send.more){
     flags <- .pbdZMQEnv$ZMQ.SR$SNDMORE
@@ -5,8 +23,12 @@ send.socket <- function(socket, data, send.more = FALSE, serialize = TRUE){
     flags <- .pbdZMQEnv$ZMQ.SR$BLOCK
   }
   zmq.msg.send(data, socket, flags = flags, serialize = serialize)
-} # End of send.socket().
+}
 
+
+
+#' @rdname xx_rzmq_wrapper
+#' @export
 receive.socket <- function(socket, unserialize = TRUE, dont.wait = FALSE){
   if(dont.wait){
     flags <- .pbdZMQEnv$ZMQ.SR$DONTWAIT
@@ -14,8 +36,12 @@ receive.socket <- function(socket, unserialize = TRUE, dont.wait = FALSE){
     flags <- .pbdZMQEnv$ZMQ.SR$BLOCK
   }
   zmq.msg.recv(socket, flags = flags, unserialize = unserialize)
-} # End of receive.socket().
+}
 
+
+
+#' @rdname xx_rzmq_wrapper
+#' @export
 init.context <- function(){
   try.zmq.ctx.destroy <- function(ctx){
     try(zmq.ctx.destroy(ctx), silent = TRUE)
@@ -24,8 +50,12 @@ init.context <- function(){
   ctx <- zmq.ctx.new()  
   reg.finalizer(ctx, try.zmq.ctx.destroy, onexit = TRUE)
   ctx
-} # End of init.context()
+}
 
+
+
+#' @rdname xx_rzmq_wrapper
+#' @export
 init.socket <- function(context, socket.type){
   try.zmqt.close <- function(socket){
     try(zmq.close(socket), silent = TRUE)
@@ -42,12 +72,21 @@ init.socket <- function(context, socket.type){
   socket <- zmq.socket(context, type = socket.type)
   reg.finalizer(socket, try.zmqt.close, onexit = TRUE)
   socket
-} # End of init.socket()
+}
 
+
+
+#' @rdname xx_rzmq_wrapper
+#' @export
 bind.socket <- function(socket, address){
   zmq.bind(socket, address)
-} # End of bind.socket()
+}
 
+
+
+#' @rdname xx_rzmq_wrapper
+#' @export
 connect.socket <- function(socket, address){
   zmq.connect(socket, address)
-} # End of connect.socket()
+}
+

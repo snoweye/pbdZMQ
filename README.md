@@ -11,6 +11,70 @@ should allow for the use of ZeroMQ on Windows platforms.
 
 
 
+## Usage
+
+The primary focus of pbdZMQ is for building client/server interfaces
+for R.  An example of this can be found in the pbdCS package, which
+uses this model to control batch MPI servers interactively.
+The basic idea is that you need a server R process, and a separate
+client R process.  For demonstration/simplicity, assume they are
+both running on the same machine.
+
+
+#### Setting Up The Server
+
+Run the following 
+
+```r
+library(pbdZMQ)
+ctxt <- init.context()
+socket <- init.socket(ctxt, "ZMQ_REP")
+bind.socket(socket, "tcp://*:5555")
+
+
+while(TRUE)
+{
+  cat("Server waiting for commands...\n")
+  msg <- receive.socket(socket)
+  
+  print(msg)
+}
+
+zmq.close(socket)
+zmq.ctx.destroy(context)
+```
+
+
+#### Setting Up The Client
+
+From and interactive R session (*not* in batch!), enter the
+following:
+
+```r
+library(pbdZMQ)
+ctxt <- init.context()
+socket <- init.socket(ctxt, "ZMQ_REQ")
+connect.socket(socket, "tcp://localhost:5555")
+```
+
+
+#### Executing Commands
+
+From the client
+
+```r
+send.socket(socket, "1+1")
+```
+
+
+#### Shutting Everything Down
+
+```r
+zmq.close(requester)
+zmq.ctx.destroy(context)
+```
+
+
 ## Installation
 
 pbdZMQ requires

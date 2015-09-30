@@ -19,3 +19,8 @@ R/zzz.r
 *.blg
 *.out
 *.toc
+
+
+src/build_zmq
+src/zmqsrc/autom4te.cache/
+
