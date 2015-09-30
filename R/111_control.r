@@ -1,4 +1,59 @@
+#' Sets of controls in pbdZMQ.
+#' 
+#' These sets of controls are used to provide default values in this package.
+#' 
+#' 
+#' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
+#' @seealso \code{\link{.pbdZMQEnv}}.
+#' @references ZeroMQ/4.1.0 API Reference:
+#' \url{http://api.zeromq.org/4-1:_start}
+#' 
+#' Programming with Big Data in R Website: \url{http://r-pbd.org/}
+#' @keywords global variables
+#' 
+#' @name ZMQ Control Functions
+#' @rdname zz_zmq_control
+NULL
+
+
+
+### For ZMQ message control.
+#' @export
+#' @rdname zz_zmq_control
+ZMQ.MC <- function(
+  warning.at.error = TRUE,
+  stop.at.error = FALSE
+){
+  list(
+    warning.at.error = warning.at.error,
+    stop.at.error = stop.at.error
+  )
+}
+
+
+
+### For ZMQ send/recv options, see zmq.h for details.
+#' @export
+#' @rdname zz_zmq_control
+ZMQ.SR <- function(
+  BLOCK = 0L,
+  DONTWAIT = 1L,
+  NOBLOCK = 1L,
+  SNDMORE = 2L
+){
+  list(
+    BLOCK = BLOCK,
+    DONTWAIT = DONTWAIT,
+    NOBLOCK = NOBLOCK,
+    SNDMORE = SNDMORE
+  )
+}
+
+
+
 ### For ZMQ socket options, see zmq.h for details.
+#' @export
+#' @rdname zz_zmq_control
 ZMQ.SO <- function(
   AFFINITY = 4L,
   IDENTITY = 5L,
@@ -123,4 +178,39 @@ ZMQ.SO <- function(
     SOCKS_PROXY = SOCKS_PROXY,
     XPUB_NODROP = XPUB_NODROP
   )
-} # End of ZMQ.SO().
+}
+
+
+
+### For ZMQ socket types, see zmq.h for details.
+#' @export
+#' @rdname zz_zmq_control
+ZMQ.ST <- function(
+  PAIR = 0L,
+  PUB = 1L,
+  SUB = 2L,
+  REQ = 3L,
+  REP = 4L,
+  DEALER = 5L,
+  ROUTER = 6L,
+  PULL = 7L,
+  PUSH = 8L,
+  XPUB = 9L,
+  XSUB = 10L,
+  STREAM = 11L
+){
+  list(
+    PAIR = PAIR,
+    PUB = PUB,
+    SUB = SUB,
+    REQ = REQ,
+    REP = REP,
+    DEALER = DEALER,
+    ROUTER = ROUTER,
+    PULL = PULL,
+    PUSH = PUSH,
+    XPUB = XPUB,
+    XSUB = XSUB,
+    STREAM = STREAM
+  )
+}
