@@ -42,6 +42,7 @@
 #' \url{http://api.zeromq.org/4-1:_start}
 #' 
 #' Programming with Big Data in R Website: \url{http://r-pbd.org/}
+#' 
 #' @examples
 #' \dontrun{
 #' ### Using request-reply pattern.

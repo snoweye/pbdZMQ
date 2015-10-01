@@ -40,6 +40,7 @@
 NULL
 
 
+
 #' @rdname a0_c_context
 #' @export
 zmq.ctx.new <- function(){
