@@ -43,7 +43,6 @@
 #' \code{https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153(v=vs.85).aspx}
 #' 
 #' @examples
-#' 
 #' \dontrun{
 #' library(pbdZMQ, quietly = TRUE)
 #' 

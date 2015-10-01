@@ -6,20 +6,21 @@
 \alias{pbdZMQ-package}
 \title{Programming with Big Data -- Interface to ZeroMQ}
 \description{
-pbdZMQ makes high level R wrapper functions to utilize ZeroMQ C API
-functions in detail manners. pbdZMQ mainly focuses on client/servers
-programming framework in an interaction style. A minimum ZeroMQ library
-4.1.0 rc1 is built and linked within pbdZMQ if no external ZerMQ library is
-not provided.  A few compatible wrapper functions to rzmq are also provided.
+ZeroMQ is a well-known library for high-performance
+asynchronous messaging in scalable, distributed applications.  This
+package provides high level R wrapper functions to easily utilize
+ZeroMQ. We mainly focus on interactive client/server programming
+frameworks. For convenience, a minimal ZeroMQ library (4.1.0 rc1)
+is shipped with pbdZMQ, which can be used if no system installation
+of ZeroMQ is available.  A few wrapper functions compatible with
+rzmq are also provided.
 }
 \details{
 \tabular{ll}{
-Package: \tab pbdZMQ \cr
-Type: \tab Package \cr
-% Version: \tab 0.1-2 \cr
-% Date: \tab 2010-02-18 \cr
-License: \tab GPL-3 2.0 \cr
-LazyLoad: \tab yes \cr
+  Package: \tab pbdZMQ \cr
+  Type: \tab Package \cr
+  License: \tab GPL-3 2.0 \cr
+  LazyLoad: \tab yes \cr
 }
 
 The install command using default \pkg{pbdZMQ}'s internal ZeroMQ library is
@@ -29,10 +30,10 @@ The install command using default \pkg{pbdZMQ}'s internal ZeroMQ library is
 \cr \cr
 Other available variables include
 \tabular{ll}{
-Variable \tab Default \cr
-\code{ZMQ_INCLUDE} \tab \code{-I./zmqsrc/include} \cr
-\code{ZMQ_LDFLAGS} \tab \code{-L./ -lzmq} \cr
-\code{ZMQ_POLLER} \tab \code{select} \cr
+  Variable \tab Default \cr
+  \code{ZMQ_INCLUDE} \tab \code{-I./zmqsrc/include} \cr
+  \code{ZMQ_LDFLAGS} \tab \code{-L./ -lzmq} \cr
+  \code{ZMQ_POLLER} \tab \code{select} \cr
 }
 See the package source file \code{pbdZMQ/configure.ac} for details.
 
