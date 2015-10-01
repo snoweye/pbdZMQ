@@ -44,7 +44,7 @@ NULL
 #' @rdname xx_utility
 #' @export
 zmq.strerror <- function(errno){
-  .Call("R_zmq_strerror", as.integer(errno[1]), PACKAGE = "pbdZMQ")
+  .Call(R_zmq_strerror, as.integer(errno[1]))
 }
 
 
@@ -52,7 +52,7 @@ zmq.strerror <- function(errno){
 #' @rdname xx_utility
 #' @export
 zmq.version <- function(){
-  .Call("R_zmq_version", PACKAGE = "pbdZMQ")
+  .Call(R_zmq_version)
   invisible()
 }
 

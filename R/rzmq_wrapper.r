@@ -1,6 +1,30 @@
 #' All Wrapper Functions for rzmq
 #' 
-#' All wrapper functions for rzmq
+#' Wrapper functions for backwards compatibility with rzmq.
+#' 
+#' @details
+#' TODO
+#' 
+#' @param socket
+#' A ZMQ socket.
+#' @param data
+#' An R object.
+#' @param send.more
+#' Logical; will more messages be sent?
+#' @param serialize,unserialize
+#' Logical; determines if serialize/unserialize should be called
+#' on the sent/received data.
+#' @param dont.wait
+#' Logical; determines if reception is blocking.
+#' @param context
+#' A ZMQ context.
+#' @param socket.type
+#' The type of ZMQ socket.
+#' @param address
+#' A valid address.  See details.
+#' 
+#' @return
+#' TODO
 #' 
 #' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
 #' @references ZeroMQ/4.1.0 API Reference:

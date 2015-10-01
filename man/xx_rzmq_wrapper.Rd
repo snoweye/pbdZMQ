@@ -22,8 +22,32 @@ bind.socket(socket, address)
 
 connect.socket(socket, address)
 }
+\arguments{
+\item{socket}{A ZMQ socket.}
+
+\item{data}{An R object.}
+
+\item{send.more}{Logical; will more messages be sent?}
+
+\item{serialize,unserialize}{Logical; determines if serialize/unserialize should be called
+on the sent/received data.}
+
+\item{dont.wait}{Logical; determines if reception is blocking.}
+
+\item{context}{A ZMQ context.}
+
+\item{socket.type}{The type of ZMQ socket.}
+
+\item{address}{A valid address.  See details.}
+}
+\value{
+TODO
+}
 \description{
-All wrapper functions for rzmq
+Wrapper functions for backwards compatibility with rzmq.
+}
+\details{
+TODO
 }
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.

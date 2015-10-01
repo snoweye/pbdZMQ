@@ -43,7 +43,7 @@ NULL
 #' @rdname a0_c_context
 #' @export
 zmq.ctx.new <- function(){
-  ret <- .Call("R_zmq_ctx_new", PACKAGE = "pbdZMQ")
+  ret <- .Call(R_zmq_ctx_new)
   ### Users are responsible to take care free and gc.
   # reg.finalizer(ret, zmq.ctx.destroy, TRUE)
   ret
@@ -54,7 +54,7 @@ zmq.ctx.new <- function(){
 #' @rdname a0_c_context
 #' @export
 zmq.ctx.destroy <- function(ctx){
-  .Call("R_zmq_ctx_destroy", ctx, PACKAGE = "pbdZMQ")
+  .Call(R_zmq_ctx_destroy, ctx)
   invisible()
 }
 
