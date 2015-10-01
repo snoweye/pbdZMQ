@@ -20,13 +20,15 @@ are also several illustrative examples in the pbdZMQ package vignette.
 
 The basic idea is that you need a server R process, and a separate
 client R process.  For demonstration/simplicity, assume they are
-both running on the same machine.
-
+both running on the same machine.  The server we describe here is
+very basic.  You can see a more detailed example in the pbdZMQ
+package vignette.
 
 
 #### Setting Up The Server
 
-Run the following 
+Save the following as, say, `server.r` and run it in batch by 
+running `Rscript server.r` from a terminal.
 
 ```r
 library(pbdZMQ)
@@ -44,7 +46,7 @@ send.socket(socket, "Message received!")
 
 #### Setting Up The Client
 
-From and interactive R session (*not* in batch!), enter the
+From an interactive R session (not in batch), enter the
 following:
 
 ```r
