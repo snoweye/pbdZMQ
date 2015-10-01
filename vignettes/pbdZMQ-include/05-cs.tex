@@ -24,12 +24,12 @@ want to see.  Finally, the client should be run inside of an interactive
 guis, or by running the command \code{R} at the terminal --- the way you are
 used to using \proglang{R}.
 
-
+The source code for the final example here can be found in the 
+\code{inst/examples/reqrep/} subtree of the \pkg{pbdZMQ} source, or under
+\code{examples/reqrep/} of the binary installation.
 
 
 \subsection{Our First Client/Server}
-
-
 
 \paragraph{The Server}
 Our first server will be very humble.  It will receive one command from the
@@ -83,11 +83,10 @@ develop examples with these features in the remainder of this section.
 
 \subsection{A Persistent Server}
 
+\paragraph{The Server}
 Next, we make the server \emph{persistent}, in the sense that it will not
 immediately die after receiving its first command.  This is trivial, as all
 we need to do is encapsulate the receive/send piece inside a \code{while} loop.
-
-\paragraph{The Server}
 As before, save the following to a file and execute in batch via \code{Rscript}:
 
 \begin{lstlisting}[language=R,title=Server]
