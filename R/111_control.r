@@ -2,15 +2,25 @@
 #' 
 #' These sets of controls are used to provide default values in this package.
 #' 
+#' @param warning.at.error,stop.at.error
+#' Logical; if there is a messaging error, should there be an
+#' R warning/error.
+#' @param BLOCK,DONTWAIT,NOBLOCK,SNDMORE
+#' ZMQ socket options; see zmq.h for details.
+#' @param AFFINITY,IDENTITY,SUBSCRIBE,UNSUBSCRIBE,RATE,RECOVERY_IVL,SNDBUF,RCVBUF,RCVMORE,FD,EVENTS,TYPE,LINGER,RECONNECT_IVL,BACKLOG,RECONNECT_IVL_MAX,MAXMSGSIZE,SNDHWM,RCVHWM,MULTICAST_HOPS,RCVTIMEO,SNDTIMEO,LAST_ENDPOINT,ROUTER_MANDATORY,TCP_KEEPALIVE,TCP_KEEPALIVE_CNT,TCP_KEEPALIVE_IDLE,TCP_KEEPALIVE_INTVL,TCP_ACCEPT_FILTER,IMMEDIATE,XPUB_VERBOSE,ROUTER_RAW,IPV6,MECHANISM,PLAIN_SERVER,PLAIN_USERNAME,PLAIN_PASSWORD,CURVE_SERVER,CURVE_PUBLICKEY,CURVE_SECRETKEY,CURVE_SERVERKEY,PROBE_ROUTER,REQ_CORRELATE,REQ_RELAXED,CONFLATE,ZAP_DOMAIN,ROUTER_HANDOVER,TOS,IPC_FILTER_PID,IPC_FILTER_UID,IPC_FILTER_GID,CONNECT_RID,GSSAPI_SERVER,GSSAPI_PRINCIPAL,GSSAPI_SERVICE_PRINCIPAL,GSSAPI_PLAINTEXT,HANDSHAKE_IVL,IDENTITY_FD,SOCKS_PROXY,XPUB_NODROP
+#' ZMQ socket options; see zmq.h for details.
+#' @param PAIR,PUB,SUB,REQ,REP,DEALER,ROUTER,PULL,PUSH,XPUB,XSUB,STREAM
+#' ZMQ socket types; see zmq.h for details.
 #' 
 #' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
-#' @seealso \code{\link{.pbdZMQEnv}}.
+#' 
 #' @references ZeroMQ/4.1.0 API Reference:
 #' \url{http://api.zeromq.org/4-1:_start}
 #' 
 #' Programming with Big Data in R Website: \url{http://r-pbd.org/}
-#' @keywords global variables
 #' 
+#' @keywords global variables
+#' @seealso \code{\link{.pbdZMQEnv}}.
 #' @name ZMQ Control Functions
 #' @rdname zz_zmq_control
 NULL

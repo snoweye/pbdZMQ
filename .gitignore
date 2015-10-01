@@ -14,6 +14,7 @@ src/Makevars
 
 R/zzz.r
 
+*.tex.backup
 *.aux
 *.bbl
 *.blg
