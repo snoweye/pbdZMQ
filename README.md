@@ -10,8 +10,17 @@ with a focus on client/server programming frameworks.  Notably, pbdZMQ
 should allow for the use of ZeroMQ on Windows platforms.
 
 
+## Interfaces
 
-## Usage
+The package contains 3 separate interfaces:
+
+1. One modeled after the ZeroMQ C interface (see help("czmq"))
+2. One modeled after the PyZMQ interface (see help("pyzmq"))
+3. One modeled after the rzmq interface (see help("rzmq"))
+
+
+
+## Client/Server Example
 
 The primary focus of pbdZMQ is for building client/server interfaces
 for R.  An example of this can be found in the pbdCS package, which
