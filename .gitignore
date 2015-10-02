@@ -14,8 +14,14 @@ src/Makevars
 
 R/zzz.r
 
+*.tex.backup
 *.aux
 *.bbl
 *.blg
 *.out
 *.toc
+
+
+src/build_zmq
+src/zmqsrc/autom4te.cache/
+

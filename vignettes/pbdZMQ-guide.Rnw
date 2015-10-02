@@ -93,6 +93,7 @@ Knoxville, TN, USA \\
 \input{./pbdZMQ-include/02-installation}
 \input{./pbdZMQ-include/03-example}
 \input{./pbdZMQ-include/04-backward}
+\input{./pbdZMQ-include/05-cs}
 
 \newpage
 \phantomsection

@@ -1,0 +1,14 @@
+Each of these examples should be executed in the following way:
+
+1. Start the server by running server.r IN BATCH.  You can do this by
+   executing `Rscript server.r` from a terminal.
+2. Start the client by sourcing client.r INTERACTIVELY.  You can do this
+   by starting an R session (Rstudio, wingui, R.app, ...) and running
+   `source client.r`.
+3. Pass commands from client to server by executing 
+   `sendrecv(socket, "1+1")` from the client (replace "1+1" with the
+   command of your choice, as a string).
+4. Shut down the server by executing `sendrecv(socket, "EXIT")` on
+   the client.
+
+See the package vignette for more details.

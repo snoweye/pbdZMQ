@@ -1,0 +1,236 @@
+\section[A Basic Client/Server]{A Basic Client/Server}
+\label{sec:backward}
+\addcontentsline{toc}{section}{\thesection. A Basic Client/Server}
+
+
+In this section, we will develop a more complicated and realistic example using
+\pkg{pbdZMQ}.  The example will show the construction of a basic client and
+server.  To do so, we will (eventually) use the Request/Reply pattern, where a
+message is passed from client to server, executed on the server, and then the
+result is passed back to the client as a message.
+
+Throughout our examples here, we will be using the \pkg{rzmq}-like bindings 
+available in \pkg{pbdZMQ}.  Also, all server code is meant to be executed in
+batch; though it can be used from an interactive R session, we feel this
+somewhat misses the point.  To do this, save the server code as, say,
+\code{server.r} and start the server by running
+\begin{Command}
+Rscript server.r
+\end{Command}
+from a terminal.  One could use \code{R CMD BATCH} in place of \code{Rscript}, 
+though by default it will suppress some messages on the server that we will 
+want to see.  Finally, the client should be run inside of an interactive
+\proglang{R} session.  This can be from RStudio, the Windows/Mac \proglang{R}
+guis, or by running the command \code{R} at the terminal --- the way you are
+used to using \proglang{R}.
+
+The source code for the final example here can be found in the 
+\code{inst/examples/reqrep/} subtree of the \pkg{pbdZMQ} source, or under
+\code{examples/reqrep/} of the binary installation.
+
+
+\subsection{Our First Client/Server}
+
+\paragraph{The Server}
+Our first server will be very humble.  It will receive one command from the
+client, print that command, and send back a success message before terminating
+--- nothing  more.  Save the following in a file, say \code{server.r}, and
+execute it by running \code{Rscript server.r} from a terminal:
+
+\begin{lstlisting}[language=R,title=Server]
+library(pbdZMQ)
+ctxt <- init.context()
+socket <- init.socket(ctxt, "ZMQ_REP")
+bind.socket(socket, "tcp://*:5555")
+
+cat("Client command:  ")
+msg <- receive.socket(socket)
+cat(msg, "\n")
+
+send.socket(socket, "Message received!")
+\end{lstlisting}
+
+Unfortunately, the first 4 lines are just boilerplate; see the package manual
+for an explanation.  The good news is that this is about as complicated as
+it gets on the ZeroMQ side; everything beyond this is just \proglang{R}
+programming.
+
+\paragraph{The Client}
+From and interactive R session (\emph{not} in batch!), enter the
+following:
+
+\begin{lstlisting}[language=R,title=Client]
+library(pbdZMQ)
+ctxt <- init.context()
+socket <- init.socket(ctxt, "ZMQ_REQ")
+connect.socket(socket, "tcp://localhost:5555")
+
+send.socket(socket, "1+1")
+receive.socket(socket)
+\end{lstlisting}
+
+If all goes well, your message (namely, \code{"1+1"}) should be sent from the
+client to the server, and the response \code{"Message received!"} should be 
+sent from server to client.  Afterwards, the server will terminate and you are
+free to exit your interactive \proglang{R} session (i.e., the client).  
+
+This example is deliberately as basic as can be, and lacks 2 crucial
+features:  server persistence, and remote execution of commands.  We will
+develop examples with these features in the remainder of this section.
+
+
+
+
+\subsection{A Persistent Server}
+
+\paragraph{The Server}
+Next, we make the server \emph{persistent}, in the sense that it will not
+immediately die after receiving its first command.  This is trivial, as all
+we need to do is encapsulate the receive/send piece inside a \code{while} loop.
+As before, save the following to a file and execute in batch via \code{Rscript}:
+
+\begin{lstlisting}[language=R,title=Server]
+library(pbdZMQ)
+ctxt <- init.context()
+socket <- init.socket(ctxt, "ZMQ_REP")
+bind.socket(socket, "tcp://*:5555")
+
+
+while(TRUE)
+{
+  cat("Client command:  ")
+  msg <- receive.socket(socket)
+  cat(msg, "\n")
+  
+  send.socket(socket, "Message received!")
+}
+\end{lstlisting}
+
+The \code{receive.socket()} command does not use \emph{busy waiting}.  You can
+verify this by starting up the server and then looking at a process monitor for
+your operating system; you should see no elevated activity.
+
+
+\paragraph{The Client}
+
+Set up the client as above (everything but the \code{send.socket()} line is
+necessary) in an interaction \proglang{R} session.  Now that we have a 
+persistent server, we can make a shorthand function that encapsulates
+sending a message (from client to server) and receiving a response (from
+server to client):
+
+\begin{lstlisting}[language=R,title=Client Send/Receive]
+sendrecv <- function(socket, data)
+{
+  send.socket(socket, data)
+  receive.socket(socket)
+}
+\end{lstlisting}
+
+This assumes that the various optional arguments in \code{send.socket()} and
+\code{receive.socket()} are acceptable; and for the purposes of this 
+demonstration they are.  But the reader is encouraged to consult the
+\pkg{pbdZMQ} manual for more details about these two functions.
+
+Now, with the convenience function, we can simply execute:
+
+\begin{lstlisting}[language=R,title=Client Usage]
+sendrecv(socket, "1+1")
+sendrecv(socket, "rnorm(10)")
+\end{lstlisting}
+
+or any other valid \proglang{R} command.
+
+
+
+
+\subsection{More Than Messaging}\label{fullcs}
+
+
+The final piece is to actually execute commands that are sent to the server,
+and to pass the result back to the client.  This is very easy, and only 
+requires a slight modification to the server code.  Modify the server piece
+above to do the following just after receiving (and printing) the client's
+message:
+
+\begin{lstlisting}[language=R,title=Server Modification]
+result <- eval(parse(text=msg))
+
+send.socket(socket, result)
+\end{lstlisting}
+
+Of course, you will also need to remove the original \code{send.socket()} line
+with the one here.  A nasty source of bugs in client/server programming is
+sending when you should receive or vice-versa, leading to deadlocks.
+
+One additional thing the observant reader may have already realized is that our
+client/server framework leaves the server running perpetually, with no
+reasonable way for the client to terminate it.  This just requires basic
+filtering of incoming messages (from the client, on the server).  So for
+example, we might want the message \code{"EXIT"} to terminate the server.
+Modifying the server to handle this is trivial, and we present the full server
+below:
+
+\begin{lstlisting}[language=R,title=Full Server]
+library(pbdZMQ)
+ctxt <- init.context()
+socket <- init.socket(ctxt, "ZMQ_REP")
+bind.socket(socket, "tcp://*:5555")
+
+
+while(TRUE)
+{
+  cat("Client command:  ")
+  msg <- receive.socket(socket)
+  cat(msg, "\n")
+
+  if (msg == "EXIT")
+    break
+  
+  result <- eval(parse(text=msg))
+
+  send.socket(socket, result)
+}
+
+send.socket(socket, "shutting down!")
+\end{lstlisting}
+
+Notice that we essentially added just a few lines.  The first and more obvious
+is the check on \code{msg} for the magic word \code{"EXIT"}.  The addition
+of the final \code{send.socket()} line at the end, which returns the string
+\code{"shutting down!"} to the client is necessary to prevent the client from
+hanging after the server shuts down.  Recall, the client expects a response
+from the server for every message the client sends!
+
+
+
+\subsection{Other Issues}
+
+The above examples are all very basic, but should illustrate how one could
+proceed to a more complex client/server design using ZeroMQ from R.  Of course,
+there are a host of issues that we have not gone into here that are very 
+important.  For example, we perform no scrubbing of inputs that are to be 
+executed on the server.  This could be more or less important depending on the
+application.  
+
+Another important issue we have not addressed is error and warning handling.
+The reader is encouraged to return to the example in Subsection~\ref{fullcs}
+and try executing something like 
+\code{sendrecv(socket, "object_does_not_exist")}
+or
+\code{sendrecv(socket, "warning('uh oh')")}
+to see what happens.
+
+Additionally, each time the client wanted to send a message,
+the user had to manually pass it as an argument to the function 
+\code{sendrecv()}.  It is possible --- though complicated --- to create a
+custom REPL which will automatically handle the client/server 
+send-evaluate-receive pattern as though the user were at a standard \proglang{R}
+terminal.
+
+Finally, we have not addressed the important issue of logging user commands
+sent to the server.  Although anyone comfortable with \proglang{R} should
+see the path forward.
+
+For a more detailed example illustrating these points, see the \pkg{pbdCS}
+package.
