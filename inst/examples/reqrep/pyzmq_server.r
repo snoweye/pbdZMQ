@@ -2,26 +2,24 @@ if (interactive())
   cat("WARNING: You are encouraged to run the server in batch; you can do so by executing 'Rscript server.r' from a terminal.\n\n")
 
 library(pbdZMQ)
-ctxt <- zmq.ctx.new()
-socket <- zmq.socket(ctxt, .pbdZMQEnv$ZMQ.ST$REP)
-zmq.bind(socket, "tcp://*:5555")
+context = zmq$Context()
+socket = context$socket("ZMQ_REP")
+socket$bind("tcp://*:5555")
 
 
 while(TRUE)
 {
   cat("Client command:  ")
-  msg <- zmq.msg.recv(socket)
+  msg <- socket$receive()
   cat(msg, "\n")
-  
+
   if (msg == "EXIT")
     break
   
   result <- eval(parse(text=msg))
-  
-  zmq.msg.send(result, socket)
+
+  socket$send(result)
 }
 
-zmq.msg.send("shutting down!", socket)
+socket$send("shutting down!")
 
-zmq.close(socket)
-zmq.ctx.destroy(ctxt)

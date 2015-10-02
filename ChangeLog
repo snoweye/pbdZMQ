@@ -1,3 +1,6 @@
+2015-10-01:
+  * Added PyZMQ-like R6 interface.
+
 2015-09-30:
   * Converted manual to roxygen.
   * Added significant examples to the vignette.
