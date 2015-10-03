@@ -1,5 +1,10 @@
+2015-10-02:
+  * Take off -rpath $(libdir) from line 598 in "src/zmqsrc/src/Makefile.in".
+
 2015-10-01:
   * Added PyZMQ-like R6 interface.
+  * Change to roxygen2.
+  * Add vignettes.
 
 2015-09-30:
   * Converted manual to roxygen.

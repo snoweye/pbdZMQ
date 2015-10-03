@@ -94,6 +94,7 @@ Knoxville, TN, USA \\
 \input{./pbdZMQ-include/03-example}
 \input{./pbdZMQ-include/04-backward}
 \input{./pbdZMQ-include/05-cs}
+\input{./pbdZMQ-include/99-faq}
 
 \newpage
 \phantomsection

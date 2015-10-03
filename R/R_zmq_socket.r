@@ -108,7 +108,7 @@ NULL
 #' @rdname a1_socket
 #' @export
 zmq.socket <- function(ctx, type = .pbdZMQEnv$ZMQ.ST$REP){
-  ret <- .Call(R_zmq_socket, ctx, type)
+  ret <- .Call(R_zmq_socket, ctx, type, package = "pbdZMQ")
   ### Users are responsible to take care free and gc.
   # reg.finalizer(ret, zmq.close, TRUE)
   ret
@@ -119,7 +119,7 @@ zmq.socket <- function(ctx, type = .pbdZMQEnv$ZMQ.ST$REP){
 #' @rdname a1_socket
 #' @export
 zmq.close <- function(socket){
-  ret <- .Call(R_zmq_close, socket)
+  ret <- .Call(R_zmq_close, socket, package = "pbdZMQ")
   invisible(ret)
 }
 
@@ -128,7 +128,7 @@ zmq.close <- function(socket){
 #' @rdname a1_socket
 #' @export
 zmq.bind <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
-  ret <- .Call(R_zmq_bind, socket, endpoint)
+  ret <- .Call(R_zmq_bind, socket, endpoint, package = "pbdZMQ")
 
   if(ret != 0){
     if(MC$stop.at.error){
@@ -146,7 +146,7 @@ zmq.bind <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
 #' @rdname a1_socket
 #' @export
 zmq.connect <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
-  ret <- .Call(R_zmq_connect, socket, endpoint)
+  ret <- .Call(R_zmq_connect, socket, endpoint, package = "pbdZMQ")
 
   if(ret != 0){
     if(MC$stop.at.error){
@@ -173,7 +173,7 @@ zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbdZMQEnv$ZM
   }
 
   ret <- .Call(R_zmq_setsockopt, socket, option.name, option.value,
-               option.type)
+               option.type, package = "pbdZMQ")
 
   if(ret != 0){
     if(MC$stop.at.error){

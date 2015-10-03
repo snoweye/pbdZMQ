@@ -2,7 +2,8 @@
 ### For libs
 files <- c("pbdZMQ.so", "pbdZMQ.so.dSYM", "pbdZMQ.dylib", "pbdZMQ.dll",
            "symbols.rds",
-           "libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.dll")
+           "libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
+           "libzmq.dll")
 files <- files[file.exists(files)]
 if(length(files) > 0){
   libsarch <- if (nzchar(R_ARCH)) paste("libs", R_ARCH, sep='') else "libs"

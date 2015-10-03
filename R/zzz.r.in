@@ -14,7 +14,8 @@
   }
 
   ### Load ZMQ.
-  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.dll")
+  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
+             "libzmq.dll")
   for(i.file in files){
     fn <- paste(dn, i.file, sep = "")
     if(file.exists(fn)){
@@ -51,7 +52,8 @@
   }
 
   ### Unload ZMQ.
-  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.dll")
+  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
+             "libzmq.dll")
   for(i.file in files){
     fn <- paste(dn, i.file, sep = "")
     if(file.exists(fn)){
