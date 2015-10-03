@@ -71,13 +71,13 @@ NULL
 
 
 zmq.msg.init <- function(){
-  .Call(R_zmq_msg_init, package = "pbdZMQ")
+  .Call("R_zmq_msg_init", PACKAGE = "pbdZMQ")
 }
 
 
 
 zmq.msg.close <- function(msg.t){
-  .Call(R_zmq_msg_close, msg.t, package = "pbdZMQ")
+  .Call("R_zmq_msg_close", msg.t, PACKAGE = "pbdZMQ")
 }
 
 
@@ -88,7 +88,7 @@ zmq.msg.send <- function(rmsg, socket, flags = .pbdZMQEnv$ZMQ.SR$BLOCK, serializ
   if(serialize){
     rmsg <- serialize(rmsg, NULL)
   }
-  ret <- .Call(R_zmq_msg_send, rmsg, socket, as.integer(flags), package = "pbdZMQ")
+  ret <- .Call("R_zmq_msg_send", rmsg, socket, as.integer(flags), PACKAGE = "pbdZMQ")
   invisible(ret)
 }
 
@@ -97,7 +97,7 @@ zmq.msg.send <- function(rmsg, socket, flags = .pbdZMQEnv$ZMQ.SR$BLOCK, serializ
 #' @rdname a2_message
 #' @export
 zmq.msg.recv <- function(socket, flags = .pbdZMQEnv$ZMQ.SR$BLOCK, unserialize = TRUE){
-  rmsg <- .Call(R_zmq_msg_recv, socket, as.integer(flags), package = "pbdZMQ")
+  rmsg <- .Call("R_zmq_msg_recv", socket, as.integer(flags), PACKAGE = "pbdZMQ")
   if(unserialize && is.raw(rmsg)){
     rmsg <- unserialize(rmsg)
   }
