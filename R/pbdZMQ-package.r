@@ -39,13 +39,6 @@
 #' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
 #' @seealso \code{\link{zmq.ctx.new}()}, \code{\link{zmq.socket}()}.
 #' 
-#' @useDynLib pbdZMQ, R_zmq_ctx_new, R_zmq_ctx_destroy, 
-#'   R_zmq_msg_init, R_zmq_msg_close, R_zmq_msg_send, 
-#'   R_zmq_msg_recv, R_zmq_send_char, R_zmq_send_raw, 
-#'   R_zmq_recv_char, R_zmq_recv_raw, R_zmq_socket,
-#'   R_zmq_close, R_zmq_bind, R_zmq_connect, R_zmq_setsockopt,
-#'   R_zmq_strerror, R_zmq_version, shellexec_wcc
-#' 
 #' @references ZeroMQ/4.1.0 API Reference:
 #' \url{http://api.zeromq.org/4-1:_start}
 #' 
