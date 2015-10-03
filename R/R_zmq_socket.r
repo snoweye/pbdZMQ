@@ -163,6 +163,24 @@ zmq.connect <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
 
 #' @rdname a1_socket
 #' @export
+zmq.disconnect <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
+  ret <- .Call("R_zmq_disconnect", socket, endpoint, PACKAGE = "pbdZMQ")
+
+  if(ret != 0){
+    if(MC$stop.at.error){
+      stop(paste("zmq.disconnect fails, ", endpoint, sep = ""))
+    }
+    if(MC$warning.at.error){
+      warning(paste("zmq.disconnect fails, ", endpoint, sep = ""))
+    }
+  }
+  invisible(ret)
+}
+
+
+
+#' @rdname a1_socket
+#' @export
 zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbdZMQEnv$ZMQ.MC){
   if(is.character(option.value)){
     option.type <- 0L

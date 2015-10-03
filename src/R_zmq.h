@@ -19,6 +19,7 @@ SEXP R_zmq_socket(SEXP R_context, SEXP type);
 SEXP R_zmq_close(SEXP R_socket);
 SEXP R_zmq_bind(SEXP R_socket, SEXP R_endpoint);
 SEXP R_zmq_connect(SEXP R_socket, SEXP R_endpoint);
+SEXP R_zmq_disconnect(SEXP R_socket, SEXP R_endpoint);
 SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 	SEXP R_option_type);
 
