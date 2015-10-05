@@ -5,6 +5,7 @@
 \alias{zmq.bind}
 \alias{zmq.close}
 \alias{zmq.connect}
+\alias{zmq.disconnect}
 \alias{zmq.setsockopt}
 \alias{zmq.socket}
 \title{Socket Functions}
@@ -16,6 +17,8 @@ zmq.close(socket)
 zmq.bind(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC)
 
 zmq.connect(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC)
+
+zmq.disconnect(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC)
 
 zmq.setsockopt(socket, option.name, option.value, MC = .pbdZMQEnv$ZMQ.MC)
 }

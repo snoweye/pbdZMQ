@@ -9,8 +9,7 @@ server.  To do so, we will (eventually) use the Request/Reply pattern, where a
 message is passed from client to server, executed on the server, and then the
 result is passed back to the client as a message.
 
-Throughout our examples here, we will be using the \pkg{rzmq}-like bindings 
-available in \pkg{pbdZMQ}.  Also, all server code is meant to be executed in
+All server code is meant to be executed in
 batch; though it can be used from an interactive R session, we feel this
 somewhat misses the point.  To do this, save the server code as, say,
 \code{server.r} and start the server by running
@@ -24,9 +23,14 @@ want to see.  Finally, the client should be run inside of an interactive
 guis, or by running the command \code{R} at the terminal --- the way you are
 used to using \proglang{R}.
 
-The source code for the final example here can be found in the 
+Throughout our examples here, we will be using the \pkg{rzmq}-like bindings 
+available in \pkg{pbdZMQ}.  The other interfaces are easy enough to figure out
+once you understand one of them; and the \pkg{rzmq} ones are arguably the most
+\proglang{R}-like of the three.
+The source code for the final example can be found in the 
 \code{inst/examples/reqrep/} subtree of the \pkg{pbdZMQ} source, or under
-\code{examples/reqrep/} of the binary installation.
+\code{examples/reqrep/} of the binary installation.  The same directory
+contains versions of this example using the other \pkg{pbdZMQ} interfaces.
 
 
 \subsection{Our First Client/Server}

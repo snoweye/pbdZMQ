@@ -108,7 +108,7 @@ NULL
 #' @rdname a1_socket
 #' @export
 zmq.socket <- function(ctx, type = .pbdZMQEnv$ZMQ.ST$REP){
-  ret <- .Call(R_zmq_socket, ctx, type, package = "pbdZMQ")
+  ret <- .Call("R_zmq_socket", ctx, type, PACKAGE = "pbdZMQ")
   ### Users are responsible to take care free and gc.
   # reg.finalizer(ret, zmq.close, TRUE)
   ret
@@ -119,7 +119,7 @@ zmq.socket <- function(ctx, type = .pbdZMQEnv$ZMQ.ST$REP){
 #' @rdname a1_socket
 #' @export
 zmq.close <- function(socket){
-  ret <- .Call(R_zmq_close, socket, package = "pbdZMQ")
+  ret <- .Call("R_zmq_close", socket, PACKAGE = "pbdZMQ")
   invisible(ret)
 }
 
@@ -128,7 +128,7 @@ zmq.close <- function(socket){
 #' @rdname a1_socket
 #' @export
 zmq.bind <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
-  ret <- .Call(R_zmq_bind, socket, endpoint, package = "pbdZMQ")
+  ret <- .Call("R_zmq_bind", socket, endpoint, PACKAGE = "pbdZMQ")
 
   if(ret != 0){
     if(MC$stop.at.error){
@@ -146,7 +146,7 @@ zmq.bind <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
 #' @rdname a1_socket
 #' @export
 zmq.connect <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
-  ret <- .Call(R_zmq_connect, socket, endpoint, package = "pbdZMQ")
+  ret <- .Call("R_zmq_connect", socket, endpoint, PACKAGE = "pbdZMQ")
 
   if(ret != 0){
     if(MC$stop.at.error){
@@ -154,6 +154,24 @@ zmq.connect <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
     }
     if(MC$warning.at.error){
       warning(paste("zmq.connect fails, ", endpoint, sep = ""))
+    }
+  }
+  invisible(ret)
+}
+
+
+
+#' @rdname a1_socket
+#' @export
+zmq.disconnect <- function(socket, endpoint, MC = .pbdZMQEnv$ZMQ.MC){
+  ret <- .Call("R_zmq_disconnect", socket, endpoint, PACKAGE = "pbdZMQ")
+
+  if(ret != 0){
+    if(MC$stop.at.error){
+      stop(paste("zmq.disconnect fails, ", endpoint, sep = ""))
+    }
+    if(MC$warning.at.error){
+      warning(paste("zmq.disconnect fails, ", endpoint, sep = ""))
     }
   }
   invisible(ret)
@@ -172,8 +190,8 @@ zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbdZMQEnv$ZM
     stop("Type of option.value is not implemented")
   }
 
-  ret <- .Call(R_zmq_setsockopt, socket, option.name, option.value,
-               option.type, package = "pbdZMQ")
+  ret <- .Call("R_zmq_setsockopt", socket, option.name, option.value,
+               option.type, PACKAGE = "pbdZMQ")
 
   if(ret != 0){
     if(MC$stop.at.error){

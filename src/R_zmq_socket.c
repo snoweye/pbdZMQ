@@ -95,6 +95,24 @@ SEXP R_zmq_connect(SEXP R_socket, SEXP R_endpoint){
 	return(AsInt(C_ret));
 } /* End of R_zmq_connect(). */
 
+SEXP R_zmq_disconnect(SEXP R_socket, SEXP R_endpoint){
+	int C_ret = -1, C_errno;
+	void *C_socket = R_ExternalPtrAddr(R_socket);
+	const char *C_endpoint = CHARPT(R_endpoint, 0);
+
+	if(C_socket != NULL){
+		C_ret = zmq_disconnect(C_socket, C_endpoint);
+		if(C_ret == -1){
+			C_errno = zmq_errno();
+			REprintf("R_zmq_disconnect errno: %d strerror: %s\n",
+				C_errno, zmq_strerror(C_errno));
+		}
+	} else{
+		REprintf("R_zmq_disconnect: C_socket is not available.\n");
+	}
+	return(AsInt(C_ret));
+} /* End of R_zmq_disconnect(). */
+
 SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 		SEXP R_option_type){
 	int C_ret = -1, C_errno;
