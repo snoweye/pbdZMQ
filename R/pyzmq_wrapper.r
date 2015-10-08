@@ -47,16 +47,9 @@ Socket <- R6Class("Socket",
     {
       private$check.boundaddr()
       
-      for (i in 1:max_tries)
-      {
-        port <- random_port(min_port=min_port, max_port=max_port)
-        addr <- paste0(address, ":", port)
-        catch <- tryCatch(self$bind(addr), error=identity, warning=identity)
-        if (!inherits(catch, "error"))
-          return(invisible(self))
-      }
-      
-      stop("Could not bind socket to random port.")
+      port <- random_unused_port(min_port=min_port, max_port=max_port, max_tries=max_tries)
+      addr <- address(address, port)
+      self$bind(addr)
     },
     closed = function()
     {
