@@ -45,7 +45,7 @@ execute it by running \code{Rscript server.r} from a terminal:
 library(pbdZMQ)
 ctxt <- init.context()
 socket <- init.socket(ctxt, "ZMQ_REP")
-bind.socket(socket, "tcp://*:5555")
+bind.socket(socket, "tcp://*:55555")
 
 cat("Client command:  ")
 msg <- receive.socket(socket)
@@ -67,7 +67,7 @@ following:
 library(pbdZMQ)
 ctxt <- init.context()
 socket <- init.socket(ctxt, "ZMQ_REQ")
-connect.socket(socket, "tcp://localhost:5555")
+connect.socket(socket, "tcp://localhost:55555")
 
 send.socket(socket, "1+1")
 receive.socket(socket)
@@ -97,7 +97,7 @@ As before, save the following to a file and execute in batch via \code{Rscript}:
 library(pbdZMQ)
 ctxt <- init.context()
 socket <- init.socket(ctxt, "ZMQ_REP")
-bind.socket(socket, "tcp://*:5555")
+bind.socket(socket, "tcp://*:55555")
 
 
 while(TRUE)
@@ -179,7 +179,7 @@ below:
 library(pbdZMQ)
 ctxt <- init.context()
 socket <- init.socket(ctxt, "ZMQ_REP")
-bind.socket(socket, "tcp://*:5555")
+bind.socket(socket, "tcp://*:55555")
 
 
 while(TRUE)
