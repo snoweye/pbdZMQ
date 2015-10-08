@@ -4,7 +4,7 @@ if (!interactive())
 library(pbdZMQ)
 ctxt <- zmq.ctx.new()
 socket <- zmq.socket(ctxt, .pbdZMQEnv$ZMQ.ST$REQ)
-zmq.connect(socket, "tcp://localhost:5555")
+zmq.connect(socket, "tcp://localhost:55555")
 
 sendrecv <- function(socket, data)
 {
