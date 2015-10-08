@@ -19,13 +19,6 @@
 #' "The Ephemeral Port Range" by Mike Gleason.  
 #' \url{http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html}
 #' 
-#' @name Random TCP Ports
-#' @rdname random_port
-#' @export
-NULL
-
-
-
 #' @rdname random_port
 #' @export
 random_port <- function(min_port=49152, max_port=65536)
