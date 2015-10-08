@@ -10,14 +10,21 @@
 #' tcp port.  \code{random_unused_port()} will generate a port
 #' that is available for socket connections.
 #' 
+#' \code{random_open_port()} finds a random port not already bound
+#' to an endpoint.
+#' 
 #' @param min_port,max_port
 #' The minimum/maximum value to be generated.  The minimum should not
 #' be below 49152 and the maximum should not exceed 65536 (see
 #' details).
+#' @param max_tries
+#' The maximum number of times a random port will be searched for.
 #' 
 #' @references
 #' "The Ephemeral Port Range" by Mike Gleason.  
 #' \url{http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html}
+#' 
+#' @importFrom stats runif
 #' 
 #' @rdname random_port
 #' @export
@@ -36,7 +43,7 @@ random_port <- function(min_port=49152, max_port=65536)
 
 #' @rdname random_port
 #' @export
-random_unused_port <- function(min_port=49152, max_port=65536, max_tries=100)
+random_open_port <- function(min_port=49152, max_port=65536, max_tries=100)
 {
   ctxt <- init.context()
   socket <- init.socket(ctxt, "ZMQ_REP")

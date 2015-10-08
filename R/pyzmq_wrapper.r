@@ -47,7 +47,7 @@ Socket <- R6Class("Socket",
     {
       private$check.boundaddr()
       
-      port <- random_unused_port(min_port=min_port, max_port=max_port, max_tries=max_tries)
+      port <- random_open_port(min_port=min_port, max_port=max_port, max_tries=max_tries)
       addr <- address(address, port)
       self$bind(addr)
     },
