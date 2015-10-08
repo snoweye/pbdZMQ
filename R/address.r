@@ -15,6 +15,8 @@
 #' @return
 #' An address, for use with pbdZMQ functions.
 #' 
+#' @author Drew Schmidt
+#' 
 #' @examples
 #' address("localhost", 55555)
 #' 

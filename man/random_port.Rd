@@ -31,6 +31,12 @@ that is available for socket connections.
 \code{random_open_port()} finds a random port not already bound
 to an endpoint.
 }
+\examples{
+random_port()
+}
+\author{
+Drew Schmidt
+}
 \references{
 "The Ephemeral Port Range" by Mike Gleason.
 \url{http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html}

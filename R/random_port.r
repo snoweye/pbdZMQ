@@ -24,6 +24,11 @@
 #' "The Ephemeral Port Range" by Mike Gleason.  
 #' \url{http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html}
 #' 
+#' @author Drew Schmidt
+#' 
+#' @examples
+#' random_port()
+#' 
 #' @importFrom stats runif
 #' 
 #' @rdname random_port
