@@ -33,19 +33,48 @@ Socket <- R6Class("Socket",
   public = list(
     bind = function(address)
     {
-      zmq.bind(self$get(), address)
+      private$check.boundaddr()
+      
+      ret <- zmq.bind(self$get(), address)
+      if (ret == -1)
+        stop("")
+      
       private$bound.address <- address
       
       invisible(self)
     },
+    bind_to_random_port = function(address, min_port=49152, max_port=65536, max_tries=100)
+    {
+      private$check.boundaddr()
+      
+      port <- random_open_port(min_port=min_port, max_port=max_port, max_tries=max_tries)
+      addr <- address(address, port)
+      self$bind(addr)
+    },
+    closed = function()
+    {
+      private$is.closed
+    },
     close = function()
     {
       zmq.close(self$get())
+      private$is.closed <- TRUE
     },
     connect = function(address)
     {
       zmq.connect(self$get(), address)
       private$connected.address <- address
+      
+      invisible(self)
+    },
+    disconnect = function()
+    {
+      addr <- private$connected.address
+      if (!is.null(addr))
+      {
+        zmq.disconnect(self$get(), private$connected.address)
+        private$connected.address <- NULL
+      }
       
       invisible(self)
     },
@@ -85,7 +114,23 @@ Socket <- R6Class("Socket",
     value = NULL,
     socket.type = NULL,
     bound.address = NULL,
-    connected.address = NULL
+    connected.address = NULL,
+    is.closed = FALSE,
+    
+    check.boundaddr = function()
+    {
+      if (!is.null(private$bound.address))
+        stop(paste("Socket already bound to address", private$bound.address))
+      
+      invisible()
+    },
+    check.connaddr = function()
+    {
+      if (!is.null(private$bound.address))
+        stop(paste("Socket already connected to address", private$connected.address))
+      
+      invinsible()
+    }
   )
 )
 

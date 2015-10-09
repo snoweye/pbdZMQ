@@ -4,7 +4,7 @@ if (interactive())
 library(pbdZMQ)
 context = zmq$Context()
 socket = context$socket("ZMQ_REP")
-socket$bind("tcp://*:5555")
+socket$bind("tcp://*:55555")
 
 
 while(TRUE)

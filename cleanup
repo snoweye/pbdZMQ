@@ -14,6 +14,7 @@ rm -rf ./src/*.dll
 rm -rf ./src/*.a
 rm -rf ./src/*.rc
 rm -rf ./src/*.rds
+rm -rf ./src/*.la
 rm -rf ./src-*
 rm -rf ./R/zzz.r
 rm -rf ./man/*.pdf

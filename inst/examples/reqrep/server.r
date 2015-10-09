@@ -4,7 +4,7 @@ if (interactive())
 library(pbdZMQ)
 ctxt <- zmq.ctx.new()
 socket <- zmq.socket(ctxt, .pbdZMQEnv$ZMQ.ST$REP)
-zmq.bind(socket, "tcp://*:5555")
+zmq.bind(socket, "tcp://*:55555")
 
 
 while(TRUE)

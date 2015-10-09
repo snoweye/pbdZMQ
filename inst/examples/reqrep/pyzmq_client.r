@@ -4,7 +4,7 @@ if (!interactive())
 library(pbdZMQ)
 context = zmq$Context()
 socket = context$socket("ZMQ_REQ")
-socket$connect("tcp://localhost:5555")
+socket$connect("tcp://localhost:55555")
 
 sendrecv <- function(data)
 {
