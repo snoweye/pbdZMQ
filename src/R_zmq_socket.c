@@ -2,23 +2,7 @@
 
 
 /* Socket related. */
-/* Use R level reg.finalizer to handle this and avoid seg. fault.
-static void socket_Finalizer(SEXP R_socket){
-	int C_ret = -1, C_errno;
-	void *C_socket = R_ExternalPtrAddr(R_socket);
-
-	if(C_socket != NULL){
-		C_ret = zmq_close(C_socket);
-		// No need to cast error at the end of R.
-		//if(C_ret == -1){
-		//	C_errno = zmq_errno();
-		//	REprintf("socket_Finalizer errno: %d strerror: %s\n",
-		//		C_errno, zmq_strerror(C_errno));
-		//}
-
-		R_ClearExternalPtr(R_socket);
-	}
-}*/ /* End of socket_Finalizer(). */
+/* Use R level reg.finalizer to handle this and avoid seg. fault. */
 
 SEXP R_zmq_socket(SEXP R_context, SEXP R_type){
 	SEXP R_socket = R_NilValue;
@@ -34,10 +18,10 @@ SEXP R_zmq_socket(SEXP R_context, SEXP R_type){
 			// R_RegisterCFinalizerEx(R_socket, socket_Finalizer, TRUE);
 			UNPROTECT(1);
 		} else{
-			REprintf("R_zmq_socket: R_socket is not available.\n");
+			warning("R_zmq_socket: R_socket is not available.\n");
 		}
 	} else{
-		REprintf("R_zmq_socket: C_context is not available.\n");
+		warning("R_zmq_socket: C_context is not available.\n");
 	}
 	return(R_socket);
 } /* End of R_zmq_socket(). */
@@ -53,7 +37,7 @@ SEXP R_zmq_close(SEXP R_socket){
 	C_ret = zmq_close(C_socket);
 	if(C_ret == -1){
 		C_errno = zmq_errno();
-		REprintf("R_zmq_socket_close errno: %d strerror: %s\n",
+		warning("R_zmq_socket_close errno: %d strerror: %s\n",
 			C_errno, zmq_strerror(C_errno));
 	}
 	return(AsInt(C_ret));
@@ -68,11 +52,11 @@ SEXP R_zmq_bind(SEXP R_socket, SEXP R_endpoint){
 		C_ret = zmq_bind(C_socket, C_endpoint);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_bind errno: %d strerror: %s\n",
+			warning("R_zmq_bind errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 	} else{
-		REprintf("R_zmq_bind: C_socket is not available.\n");
+		warning("R_zmq_bind: C_socket is not available.\n");
 	}
 	return(AsInt(C_ret));
 } /* End of R_zmq_bind(). */
@@ -86,11 +70,11 @@ SEXP R_zmq_connect(SEXP R_socket, SEXP R_endpoint){
 		C_ret = zmq_connect(C_socket, C_endpoint);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_connect errno: %d strerror: %s\n",
+			warning("R_zmq_connect errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 	} else{
-		REprintf("R_zmq_connect: C_socket is not available.\n");
+		warning("R_zmq_connect: C_socket is not available.\n");
 	}
 	return(AsInt(C_ret));
 } /* End of R_zmq_connect(). */
@@ -104,11 +88,11 @@ SEXP R_zmq_disconnect(SEXP R_socket, SEXP R_endpoint){
 		C_ret = zmq_disconnect(C_socket, C_endpoint);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_disconnect errno: %d strerror: %s\n",
+			warning("R_zmq_disconnect errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 	} else{
-		REprintf("R_zmq_disconnect: C_socket is not available.\n");
+		warning("R_zmq_disconnect: C_socket is not available.\n");
 	}
 	return(AsInt(C_ret));
 } /* End of R_zmq_disconnect(). */
@@ -133,7 +117,7 @@ SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 				C_option_len = sizeof(int);
 				break;
 			default:
-				REprintf("C_option_type: %d is not implemented.\n",
+				warning("C_option_type: %d is not implemented.\n",
 					C_option_type);
 		} // End of switch().
 
@@ -141,11 +125,11 @@ SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 				C_option_value, C_option_len);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_setsockopt errno: %d strerror: %s\n",
+			warning("R_zmq_setsockopt errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 	} else{
-		REprintf("R_zmq_connect: C_socket is not available.\n");
+		warning("R_zmq_connect: C_socket is not available.\n");
 	}
 	return(AsInt(C_ret));
 } /* End of R_zmq_setsockopt(). */
