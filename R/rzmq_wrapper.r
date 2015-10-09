@@ -84,7 +84,7 @@ receive.socket <- function(socket, unserialize = TRUE, dont.wait = FALSE){
 #' @export
 init.context <- function(){
   try.zmq.ctx.destroy <- function(ctx){
-    try(zmq.ctx.destroy(ctx), silent = TRUE)
+    invisible(tryCatch(zmq.ctx.destroy(ctx), warning=identity))
   }
   
   ctx <- zmq.ctx.new()  
