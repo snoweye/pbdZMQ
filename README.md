@@ -1,6 +1,6 @@
 # pbdZMQ
 
-* **Version:** 0.1-2
+* **Version:** 0.2-0
 * **License:** GPL-3
 * **Author:** See section below.
 
