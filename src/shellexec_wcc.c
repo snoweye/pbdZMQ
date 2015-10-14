@@ -46,11 +46,11 @@ wchar_t *filenameToWchar_wcc(const SEXP fn, const Rboolean expand){
 
 	if(IS_LATIN1(fn)) from = "latin1";
 	if(IS_UTF8(fn)) from = "UTF-8";
-	if(IS_BYTES(fn)) REprintf("encoding of a filename cannot be 'bytes'");
+	if(IS_BYTES(fn)) warning("encoding of a filename cannot be 'bytes'");
 
 	obj = Riconv_open("UCS-2LE", from);
 	if(obj == (void *)(-1))
-		REprintf("unsupported conversion from '%s' in shellexec_wcc.c",
+		warning("unsupported conversion from '%s' in shellexec_wcc.c",
 			  from);
 
 	if(expand) inbuf = R_ExpandFileName(CHAR(fn)); else inbuf = CHAR(fn);
@@ -59,8 +59,8 @@ wchar_t *filenameToWchar_wcc(const SEXP fn, const Rboolean expand){
 	outbuf = (char *) filename;
 	res = Riconv(obj, &inbuf , &inb, &outbuf, &outb);
 	Riconv_close(obj);
-	if(inb > 0) REprintf("file name conversion problem -- name too long?");
-	if(res == -1) REprintf("file name conversion problem");
+	if(inb > 0) warning("file name conversion problem -- name too long?");
+	if(res == -1) warning("file name conversion problem");
 
 	return filename;
 } /* End of filenameToWchar_wcc(). */
@@ -76,7 +76,7 @@ static void internal_shellexecW_wcc(const wchar_t * file, Rboolean rhome,
 
 	if(rhome){
 		home = _wgetenv(L"R_HOME");
-		if(home == NULL) REprintf("R_HOME not set");
+		if(home == NULL) warning("R_HOME not set");
 		wcsncpy(home2, home, 10000);
 		for(p = home2; *p; p++) if(*p == L'/') *p = L'\\';
 		home = home2;
@@ -89,13 +89,13 @@ static void internal_shellexecW_wcc(const wchar_t * file, Rboolean rhome,
 	if(ret <= 32){ /* an error condition */
 		if(ret == ERROR_FILE_NOT_FOUND || ret == ERROR_PATH_NOT_FOUND
 		   || ret == SE_ERR_FNF || ret == SE_ERR_PNF)
-			REprintf("'%ls' not found", file);
+			warning("'%ls' not found", file);
 		if(ret == SE_ERR_ASSOCINCOMPLETE || ret == SE_ERR_NOASSOC)
-			REprintf("file association for '%ls' not available or invalid",
+			warning("file association for '%ls' not available or invalid",
 				file);
 		if(ret == SE_ERR_ACCESSDENIED || ret == SE_ERR_SHARE)
-			REprintf("access to '%ls' denied", file);
-		REprintf("problem in displaying '%ls'", file);
+			warning("access to '%ls' denied", file);
+		warning("problem in displaying '%ls'", file);
 	}
 #endif
 } /* End of internal_shellexecW_wcc().*/
