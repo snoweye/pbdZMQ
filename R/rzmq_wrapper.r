@@ -84,12 +84,12 @@ receive.socket <- function(socket, unserialize = TRUE, dont.wait = FALSE){
 #' @export
 init.context <- function(){
   try.zmq.ctx.destroy <- function(ctx){
-    try(zmq.ctx.destroy(ctx), silent = TRUE)
+    invisible(tryCatch(zmq.ctx.destroy(ctx), warning=identity))
   }
   
   ctx <- zmq.ctx.new()  
   reg.finalizer(ctx, try.zmq.ctx.destroy, onexit = TRUE)
-  ctx
+  ctx 
 }
 
 
@@ -98,7 +98,7 @@ init.context <- function(){
 #' @export
 init.socket <- function(context, socket.type){
   try.zmqt.close <- function(socket){
-    try(zmq.close(socket), silent = TRUE)
+    invisible(tryCatch(zmq.close(socket), warning=identity))
   }
   
   socket.type <- sub(".*_", "", socket.type)

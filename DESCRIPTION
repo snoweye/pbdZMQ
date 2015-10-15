@@ -1,6 +1,5 @@
 Package: pbdZMQ
-Version: 0.1-2
-Date: 2015-09-26
+Version: 0.2-0
 Title: Programming with Big Data -- Interface to 'ZeroMQ'
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -36,10 +35,3 @@ MailingList: Please send questions and comments regarding pbdR to
 NeedsCompilation: yes
 ByteCompile: yes
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
-Packaged: 2015-10-03 02:06:48 UTC; snoweye
-Author: Wei-Chen Chen [aut, cre],
-  Drew Schmidt [aut],
-  Whit Armstrong [ctb] (some functions are modified from the rzmq package
-    for backwards compatibility),
-  Brian Ripley [ctb] (C code of shellexec),
-  R Core team [ctb] (some functions are modified from the R source code)

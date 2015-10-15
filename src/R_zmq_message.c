@@ -17,7 +17,7 @@ SEXP R_zmq_msg_init(){
 		UNPROTECT(1);
 	} else{
 		C_errno = zmq_errno();
-		REprintf("R_zmq_msg_init errno: %d strerror: %s\n",
+		warning("R_zmq_msg_init errno: %d strerror: %s\n",
 			C_errno, zmq_strerror(C_errno));
 	}
 	return(R_msg_t);
@@ -34,7 +34,7 @@ SEXP R_zmq_msg_close(SEXP R_msg_t){
 	C_ret = zmq_msg_close(&C_msg_t);
 	if(C_ret == -1){
 		C_errno = zmq_errno();
-		REprintf("R_zmq_msg_close errno: %d stderror: %s\n",
+		warning("R_zmq_msg_close errno: %d stderror: %s\n",
 			C_errno, zmq_strerror(C_errno));
 	}
 	return(AsInt(C_ret));
@@ -50,7 +50,7 @@ SEXP R_zmq_msg_send(SEXP R_rmsg, SEXP R_socket, SEXP R_flags){
 		C_ret = zmq_msg_init_size(&msg, C_rmsg_length);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_msg_init_size errno: %d strerror: %s\n",
+			warning("R_zmq_msg_init_size errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 		memcpy(zmq_msg_data(&msg), RAW(R_rmsg), C_rmsg_length);
@@ -58,18 +58,18 @@ SEXP R_zmq_msg_send(SEXP R_rmsg, SEXP R_socket, SEXP R_flags){
 		C_ret = zmq_msg_send(&msg, C_socket, C_flags);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_msg_send errno: %d strerror: %s\n",
+			warning("R_zmq_msg_send errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 
 		C_ret = zmq_msg_close(&msg);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_msg_close errno: %d strerror: %s\n",
+			warning("R_zmq_msg_close errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 	} else{
-		REprintf("R_zmq_send: C_socket is not available.\n");
+		warning("R_zmq_send: C_socket is not available.\n");
 	}
 
 	return(R_NilValue);
@@ -86,14 +86,14 @@ SEXP R_zmq_msg_recv(SEXP R_socket, SEXP R_flags){
 		C_ret = zmq_msg_init(&msg);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_msg_init errno: %d strerror: %s\n",
+			warning("R_zmq_msg_init errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 
 		C_ret = zmq_msg_recv(&msg, C_socket, C_flags);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_msg_recv errno: %d strerror: %s\n",
+			warning("R_zmq_msg_recv errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 		C_rmsg_length = zmq_msg_size(&msg);
@@ -103,14 +103,14 @@ SEXP R_zmq_msg_recv(SEXP R_socket, SEXP R_flags){
 		C_ret = zmq_msg_close(&msg);
 		if(C_ret == -1){
 			C_errno = zmq_errno();
-			REprintf("R_zmq_msg_close errno: %d strerror: %s\n",
+			warning("R_zmq_msg_close errno: %d strerror: %s\n",
 				C_errno, zmq_strerror(C_errno));
 		}
 
 		UNPROTECT(1);
 		return(R_rmsg);
 	} else{
-		REprintf("R_zmq_send: C_socket is not available.\n");
+		warning("R_zmq_send: C_socket is not available.\n");
 	}
 
 	return(R_rmsg);

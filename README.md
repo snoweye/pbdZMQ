@@ -1,6 +1,6 @@
 # pbdZMQ
 
-* **Version:** 0.1-2
+* **Version:** 0.2-0
 * **License:** GPL-3
 * **Author:** See section below.
 
@@ -34,37 +34,38 @@ very basic.  You can see a more detailed example in the pbdZMQ
 package vignette.
 
 
-#### Setting Up The Server
+#### Server
 
 Save the following as, say, `server.r` and run it in batch by 
 running `Rscript server.r` from a terminal.
 
 ```r
 library(pbdZMQ)
-ctxt <- init.context()
-socket <- init.socket(ctxt, "ZMQ_REP")
-bind.socket(socket, "tcp://*:5555")
+context = zmq$Context()
+socket = context$socket("ZMQ_REP")
+socket$bind("tcp://*:55555")
 
 cat("Client command:  ")
-msg <- receive.socket(socket)
+msg <- socket$receive()
 
 cat(msg, "\n")
-send.socket(socket, "Message received!")
+socket$send("Message received!")
 ```
 
 
-#### Setting Up The Client
+#### Client
 
 From an interactive R session (not in batch), enter the
 following:
 
 ```r
 library(pbdZMQ)
-ctxt <- init.context()
-socket <- init.socket(ctxt, "ZMQ_REQ")
-connect.socket(socket, "tcp://localhost:5555")
+context = zmq$Context()
+socket = context$socket("ZMQ_REQ")
+socket$connect("tcp://localhost:55555")
 
-send.socket(socket, "1+1")
+socket$send("1+1")
+socket$receive()
 ```
 
 If all goes well, your message should be sent from the client
