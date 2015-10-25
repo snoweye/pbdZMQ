@@ -35,13 +35,13 @@
 #' @keywords programming
 #' @seealso \code{\link{zmq.socket}()}, \code{\link{zmq.close}()},
 #' \code{\link{zmq.bind}()}, \code{\link{zmq.connect}()}.
-#' @rdname a0_c_context
+#' @rdname a0_d_context
 #' @name Context Functions
 NULL
 
 
 
-#' @rdname a0_c_context
+#' @rdname a0_d_context
 #' @export
 zmq.ctx.new <- function(){
   ret <- .Call("R_zmq_ctx_new", PACKAGE = "pbdZMQ")
@@ -52,7 +52,7 @@ zmq.ctx.new <- function(){
 
 
 
-#' @rdname a0_c_context
+#' @rdname a0_d_context
 #' @export
 zmq.ctx.destroy <- function(ctx){
   .Call("R_zmq_ctx_destroy", ctx, PACKAGE = "pbdZMQ")

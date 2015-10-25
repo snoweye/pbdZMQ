@@ -1,9 +1,16 @@
+2015-10-24: Ver. 0.2-0
+  * Change to common environment, but this will create masking, overwritting,
+    and texting problems when other pbdR pacakges are loading.
+  * Change again to .pbd_env, .zmqopt_set(), .zmqopt_get(), and
+    .zmqopt_init() with huge options rewritting.
+
 2015-10-08:
   * Expanded PyZMQ-like interface.
   * Added address and port validation utilities.
 
 2015-10-02:
-  * Take off -rpath $(libdir) from line 598 in "src/zmqsrc/src/Makefile.in".
+  * Take off -rpath $(libdir) from line 598 in
+    "src/zmqsrc/src/Makefile.in". (fail)
 
 2015-10-01:
   * Added PyZMQ-like R6 interface.

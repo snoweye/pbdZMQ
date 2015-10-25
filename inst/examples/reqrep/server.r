@@ -3,7 +3,7 @@ if (interactive())
 
 library(pbdZMQ)
 ctxt <- zmq.ctx.new()
-socket <- zmq.socket(ctxt, .pbdZMQEnv$ZMQ.ST$REP)
+socket <- zmq.socket(ctxt, .zmqopt_get("ZMQ.ST", "REP"))
 zmq.bind(socket, "tcp://*:55555")
 
 

@@ -8,11 +8,11 @@ library(pbdZMQ, quietly = TRUE)
 
 ### Initial.
 context <- zmq.ctx.new()
-receiver <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$PULL)
+receiver <- zmq.socket(context, .zmqopt_get("ZMQ.ST")$PULL)
 zmq.connect(receiver, "tcp://localhost:5557")
-subscriber <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$SUB)
+subscriber <- zmq.socket(context, .zmqopt_get("ZMQ.ST")$SUB)
 zmq.connect(subscriber, "tcp://localhost:5556")
-zmq.setsockopt(subscriber, .pbdZMQEnv$ZMQ.SO$SUBSCRIBE, "20993")
+zmq.setsockopt(subscriber, .zmqopt_get("ZMQ.SO", "SUBSCRIBE"), "20993")
 
 ### Process messages from both sockets.
 cat("Press Ctrl+C or Esc to stop msreader.\n")

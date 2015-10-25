@@ -7,5 +7,5 @@
 ### ?globalVariables
 
 if(getRversion() >= "2.15.1"){
-  utils::globalVariables(c(".pbdZMQEnv"))
+  # utils::globalVariables(c(".pbd_env"))
 }

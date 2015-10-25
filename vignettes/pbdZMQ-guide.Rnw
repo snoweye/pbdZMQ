@@ -26,7 +26,8 @@ Knoxville, TN, USA \\
 %\\
 %\today
 }
-\title{A Quick Guide for the \pkg{pbdZMQ} Package {\small (Ver. \mpiversion)}}
+%\title{A Quick Guide for the \pkg{pbdZMQ} Package {\small (Ver. \mpiversion)}}
+\title{A Quick Guide for the \pkg{pbdZMQ} Package}
 
 
 %% for pretty printing and a nice hypersummary also set:

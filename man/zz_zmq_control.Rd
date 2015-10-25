@@ -59,7 +59,7 @@ ZeroMQ/4.1.0 API Reference:
 Programming with Big Data in R Website: \url{http://r-pbd.org/}
 }
 \seealso{
-\code{\link{.pbdZMQEnv}}.
+\code{\link{.pbd_env}}.
 }
 \keyword{global}
 \keyword{variables}

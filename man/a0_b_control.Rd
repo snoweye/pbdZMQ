@@ -2,18 +2,18 @@
 % Please edit documentation in R/222_export_env.r
 \docType{data}
 \name{ZMQ Control Environment}
-\alias{.pbdZMQEnv}
+\alias{.pbd_env}
 \alias{ZMQ Control Environment}
 \title{Sets of controls in pbdZMQ.}
 \format{Objects contain several parameters for communicators and methods.}
 \usage{
-.pbdZMQEnv
+.pbd_env
 }
 \description{
 These sets of controls are used to provide default values in this package.
 }
 \details{
-The elements of \code{.pbdZMQEnv$ZMQ.ST} are default values for socket types
+The elements of \code{.pbd_env$ZMQ.ST} are default values for socket types
 as defined in `zmq.h' including \tabular{lcl}{ Elements \tab Value \tab
 Usage \cr \code{PAIR} \tab 0L \tab socket type PAIR \cr \code{PUB} \tab 1L
 \tab socket type PUB \cr \code{SUB} \tab 2L \tab socket type SUB \cr
@@ -24,18 +24,18 @@ PULL \cr \code{PUSH} \tab 8L \tab socket type PUSH \cr \code{XPUB} \tab 9L
 \tab socket type XPUB \cr \code{XSUB} \tab 10L \tab socket type XSUB \cr
 \code{STREAM} \tab 11L \tab socket type STREAM }
 
-The elements of \code{.pbdZMQEnv$ZMQ.SO} are default values for socket
+The elements of \code{.pbd_env$ZMQ.SO} are default values for socket
 options as defined in `zmq.h' including 60 different values, see
-\code{.pbdZMQEnv$ZMQ.SO} and `zmq.h' for details.
+\code{.pbd_env$ZMQ.SO} and `zmq.h' for details.
 
-The elements of \code{.pbdZMQEnv$ZMQ.SR} are default values for send/recv
+The elements of \code{.pbd_env$ZMQ.SR} are default values for send/recv
 options as defined in `zmq.h' including \tabular{lcl}{ Elements \tab Value
 \tab Usage \cr \code{BLOCK} \tab 0L \tab send/recv option BLOCK \cr
 \code{DONTWAIT} \tab 1L \tab send/recv option DONTWAIT \cr \code{NOBLOCK}
 \tab 1L \tab send/recv option NOBLOCK \cr \code{SNDMORE} \tab 2L \tab
 send/recv option SNDMORE (not supported) }
 
-The elements of \code{.pbdZMQEnv$ZMQ.MC} are default values for warning and
+The elements of \code{.pbd_env$ZMQ.MC} are default values for warning and
 stop controls in R. These are not the ZeroMQ's internal default values. They
 are defined as \tabular{lcl}{ Elements \tab Value \tab Usage \cr
 \code{warning.at.error} \tab TRUE \tab if warn at error \cr
@@ -49,6 +49,10 @@ ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
 Programming with Big Data in R Website: \url{http://r-pbd.org/}
+}
+\seealso{
+\code{\link{.zmqopt_set}()}, \code{\link{.zmqopt_get}()}, and
+\code{\link{.zmqopt_init}()}.
 }
 \keyword{global}
 \keyword{variables}

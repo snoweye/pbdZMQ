@@ -8,9 +8,9 @@ library(pbdZMQ, quietly = TRUE)
 
 ### Initial.
 context <- zmq.ctx.new()
-receiver <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$PULL)
+receiver <- zmq.socket(context, .zmqopt_get("ZMQ.ST")$PULL)
 zmq.connect(receiver, "tcp://localhost:5557")
-sender <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$PUSH)
+sender <- zmq.socket(context, .zmqopt_get("ZMQ.ST")$PUSH)
 zmq.connect(sender, "tcp://localhost:5558")
 
 ### Process tasks forever.

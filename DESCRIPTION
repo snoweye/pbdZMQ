@@ -35,3 +35,10 @@ MailingList: Please send questions and comments regarding pbdR to
 NeedsCompilation: yes
 ByteCompile: yes
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
+Packaged: 2015-10-25 22:08:24 UTC; snoweye
+Author: Wei-Chen Chen [aut, cre],
+  Drew Schmidt [aut],
+  Whit Armstrong [ctb] (some functions are modified from the rzmq package
+    for backwards compatibility),
+  Brian Ripley [ctb] (C code of shellexec),
+  R Core team [ctb] (some functions are modified from the R source code)

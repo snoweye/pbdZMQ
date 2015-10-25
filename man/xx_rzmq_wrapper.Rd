@@ -57,7 +57,7 @@ around \code{zmq.ctx.new()} which handles freeing memory for you, i.e.
 
 \code{init.socket()} creates a ZeroMQ socket; serves as a high-level
 binding for \code{zmq.socket()}, including handling freeing memory
-automatically.  See also \code{.pbdZMQEnv$ZMQ.ST}.
+automatically.  See also \code{.zmqopt_get("ZMQ.ST")}.
 
 \code{bind.socket()}:  see \code{zmq.bind()}.
 

@@ -13,12 +13,12 @@ citEntry(
 
 citEntry(
   entry = "Manual",
-  title = "A Quick Guide for the {pbdZMQ} Package (Ver. 0.1-0)",
+  title = "A Quick Guide for the {pbdZMQ} Package",
   author = personList(as.person("Wei-Chen Chen"),
                       as.person("Drew Schmidt")),
   year = "2015",
   note = "{R} Vignette, URL http://cran.r-project.org/package=pbdZMQ",
-  textVersion = "Chen, W.-C. and Schmidt, D. (2015) A Quick Guide for the pbdZMQ Package (Ver. 0.1-0). R Vignette, URL http://cran.r-project.org/package=pbdZMQ",
+  textVersion = "Chen, W.-C. and Schmidt, D. (2015) A Quick Guide for the pbdZMQ Package. R Vignette, URL http://cran.r-project.org/package=pbdZMQ",
   key = "Chen2015pbdZMQvignette"
 )
 
