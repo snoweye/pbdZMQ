@@ -41,7 +41,7 @@
 #' .zmqopt_init()
 #' ls(.pbd_env)
 #'
-#' .zmqopt_get("ZMQ.SR", "BLOCK")
+#' .pbd_env$ZMQ.SR$BLOCK
 #' .zmqopt_set(0L, "ZMQ.SR", "BLOCK")
 #' }
 #' 

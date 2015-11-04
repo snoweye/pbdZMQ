@@ -8,14 +8,14 @@ library(pbdZMQ, quietly = TRUE)
 ### Initial.
 cat("Collecting updates from weather server ...\n");
 context <- zmq.ctx.new()
-subscriber <- zmq.socket(context, .zmqopt_get("ZMQ.ST")$SUB)
+subscriber <- zmq.socket(context, .pbd_env$ZMQ.ST$SUB)
 zmq.connect(subscriber, "tcp://localhost:5556")
 
 ### Ask for four zip codes.
 filters <- c("50011", "37831", "37996", "20993")
 for(i in 1:length(filters)){
   cat("Subscribe zipcode", filters[i], "\n")
-  zmq.setsockopt(subscriber, .zmqopt_get("ZMQ.SO", "SUBSCRIBE"), filters[i])
+  zmq.setsockopt(subscriber, .pbd_env$ZMQ.SO$SUBSCRIBE, filters[i])
 }
 
 ### Process weather updates.
@@ -31,7 +31,7 @@ while(any(sapply(temperature, length) < N.updates)){
   if(length(temperature[[id]]) == N.updates){
     ### No need to unsubscribe but demo the way how to do it.
     cat("Unsubscribe zipcode", filters[id], "\n", sep = " ");
-    zmq.setsockopt(subscriber, .zmqopt_get("ZMQ.SO", "UNSUBSCRIBE"), filters[id])
+    zmq.setsockopt(subscriber, .pbd_env$ZMQ.SO$UNSUBSCRIBE, filters[id])
   }
 }
 avg.temperature <- sapply(temperature, mean)

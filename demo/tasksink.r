@@ -8,7 +8,7 @@ library(pbdZMQ, quietly = TRUE)
 
 ### Initial.
 context <- zmq.ctx.new()
-receiver <- zmq.socket(context, .zmqopt_get("ZMQ.ST")$PULL)
+receiver <- zmq.socket(context, .pbd_env$ZMQ.ST$PULL)
 zmq.bind(receiver, "tcp://*:5558")
 
 ### Wait for start of batch.

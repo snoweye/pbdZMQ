@@ -3,7 +3,7 @@ if (!interactive())
 
 library(pbdZMQ)
 ctxt <- zmq.ctx.new()
-socket <- zmq.socket(ctxt, .zmqopt_get("ZMQ.ST", "REQ"))
+socket <- zmq.socket(ctxt, .pbd_env$ZMQ.ST$REQ)
 zmq.connect(socket, "tcp://localhost:55555")
 
 sendrecv <- function(socket, data)
