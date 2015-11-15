@@ -47,4 +47,10 @@ See any operating system documentation about shared libraries for
 more information, such as the ld(1) and ld.so(8) manual pages.
 \end{Code}
 
+    Further, for Mac OSX, the \code{otool} and \code{install_name_tool}
+    commands are able to find and modify the linking path of \code{pbdZMQ.so}
+    to the library \code{libzmq.4.dylib}. See the source of
+    \code{pbdZMQ/src/install.libs.R} for how to change the linking path,
+    accordingly.
+
 \end{enumerate}
