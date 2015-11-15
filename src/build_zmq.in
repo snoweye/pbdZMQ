@@ -37,6 +37,7 @@ CC="${MY_CC}" \
   --enable-static=no \
   --enable-shared=yes \
   --without-documentation # \
+  # --with-pic=PIC
   # --without-libsodium
 
 ### Assign zmq informaton, make, and install.

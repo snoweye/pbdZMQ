@@ -1,3 +1,8 @@
+2015-11-14: Ver. 0.2-0
+  * Fix the RPATH problem in  Mac OSX 10.10 Yosemite by using otool and
+    install_name_tool after shared libraries are installed in
+    "src/install.libs.R".
+
 2015-11-03: Ver. 0.2-0
   * Simplify global environment.
 

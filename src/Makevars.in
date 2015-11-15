@@ -52,7 +52,7 @@ $(R_ZMQ):
 	( cp ./zmq/lib/libzmq* ./ )
 
 clean:
-	@rm -rf *.o *.d *.rc *.so* *.dylib *.dll *.a *.lib \
+	@rm -rf *.o *.d *.rc *.so* *.dylib *.dll *.a *.lib *.la \
 	        Makedeps Makevars Makeconf
 	@rm -rf build_zmq zmq
 	( cd zmqsrc; make distclean )

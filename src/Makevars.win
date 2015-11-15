@@ -61,6 +61,6 @@ $(R_ZMQ): Makeconf
 	( cd zmqsrc/src; $(MAKE) )
 
 clean:
-	@$(RM) -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib \
+	@$(RM) -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib *.la \
 	           Makedeps Makevars Makeconf $(SHLIB) $(OBJECTS) \
 	           zmq
