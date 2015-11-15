@@ -4,6 +4,7 @@ Title: Programming with Big Data -- Interface to 'ZeroMQ'
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
         person("Drew", "Schmidt", role = "aut"),
+        person("George", "Ostrouchov", role = "aut"),
         person("Whit", "Armstrong", role = "ctb", comment = "some functions
                 are modified from the rzmq package for backwards compatibility"),
         person("Brian", "Ripley", role = "ctb",
