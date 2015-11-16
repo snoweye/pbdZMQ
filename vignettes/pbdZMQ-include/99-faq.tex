@@ -46,11 +46,24 @@ flag during linking and do at least one of the following:
 See any operating system documentation about shared libraries for
 more information, such as the ld(1) and ld.so(8) manual pages.
 \end{Code}
-
     Further, for Mac OSX, the \code{otool} and \code{install_name_tool}
     commands are able to find and modify the linking path of \code{pbdZMQ.so}
-    to the library \code{libzmq.4.dylib}. See the source of
+    to the library \code{libzmq.4.dylib}.
+    See the source of
     \code{pbdZMQ/src/install.libs.R} for how to change the linking path,
-    accordingly.
-
+    accordingly. The basic steps are:
+    \begin{enumerate}
+    \item to use \code{otool -L pbdZMQ.so} to figure which
+          \code{libzmq.4.dylib} is linked. Note that \code{pbdZMQ.so}
+          should be the one in the installed directory, e.g.
+          \code{/your_R_library_root_path/library/pbdZMQ/libs/pbdZMQ.so},
+          and
+    \item to use \code{install_name_tool -change org_dylib new_dylib pbdZMQ.so}
+          to update to the right \code{new_dylib}, e.g.
+          \code{/your_R_library_root_path/library/pbdZMQ/libs/libzmq.4.dylib}.
+    \end{enumerate}
+    For linux/unix, the \code{readelf}, \code{chrpath}, \code{pathelf},
+    \code{ld.so}, and \code{/etc/ld.so.conf} (depending on systems and
+    compilers) may serve the same roles as the \code{otool} and
+    \code{install_name_tool} in Mac OSX.
 \end{enumerate}

@@ -12,7 +12,7 @@
 \author{
 \begin{minipage}{6in}
 \centering
-Wei-Chen Chen$^1$ and Drew Schmidt$^2$
+Wei-Chen Chen$^1$, Drew Schmidt$^2$, George Ostrouchov$^{3,4}$
 \end{minipage}
 \\
 \\
@@ -22,6 +22,13 @@ $^2$Business Analytics and Statistics, \\
 University of Tennessee, \\
 Knoxville, TN, USA \\
 \\
+$^3$Computer Science and Mathematics Division, \\
+Oak Ridge National Laboratory, \\
+Oak Ridge, TN, USA \\
+\\
+$^4$National Institute for Computational Sciences, \\
+University of Tennessee, \\
+Knoxville, TN, USA \\
 %\\
 %\\
 %\today
@@ -31,7 +38,7 @@ Knoxville, TN, USA \\
 
 
 %% for pretty printing and a nice hypersummary also set:
-\Plainauthor{Wei-Chen Chen, Drew Schmidt} %% comma-separated
+\Plainauthor{Wei-Chen Chen, Drew Schmidt, George Ostrouchov} %% comma-separated
 \Plaintitle{Quick Guide for pbdZMQ (Ver. \mpiversion)} %% without formatting
 \Shorttitle{Quick Guide for pbdZMQ (Ver. \mpiversion)} %% a short title (if necessary)
 
