@@ -100,9 +100,10 @@ install_github("RBigData/pbdZMQ")
 
 ## Authors
 
-pbdMPI is authored and maintained by the pbdR core team:
+pbdMPI is authored and maintained by:
 * Wei-Chen Chen
 * Drew Schmidt
+* Christian Heckendorf
 
 With additional contributions from:
 * Whit Armstrong (some functions are modified from rzmq for backwards compatibility)
