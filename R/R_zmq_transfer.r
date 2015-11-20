@@ -26,7 +26,7 @@
 #' otherwise returns -1 (invisible) and sets \code{errno} to the error
 #' value, see ZeroMQ manual for details.
 #' 
-#' @author Christian Heckendorf \email{heckendorfc@gmail.com}.
+#' @author Christian Heckendorf and Drew Schmidt.
 #' 
 #' @references ZeroMQ/4.1.0 API Reference:
 #' \url{http://api.zeromq.org/4-1:_start}
@@ -37,37 +37,46 @@
 #' \dontrun{
 #' ### Using request-reply pattern.
 #' 
-#' ### At the server, run next in background or the other window.
+#' ### Server --- run in the background/in another R session
+#' # setup
 #' library(pbdZMQ, quietly = TRUE)
-#' 
 #' context <- zmq.ctx.new()
 #' socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
-#' zmq.bind(socket, "tcp://*:5555")
-#' zmq.sendfile(socket,"/home/me/data.csv")
+#' zmq.bind(socket, "tcp://*:55555")
+#' 
+#' # Receive file from client, store locally as "/tmp/data.csv"
+#' zmq.recvfile(socket, "/tmp/data.csv")
+#' 
+#' # cleanup
 #' zmq.close(socket)
 #' zmq.ctx.destroy(context)
 #' 
 #' 
-#' ### At a client, run next in foreground.
-#' library(pbdZMQ, quietly = TRUE)
 #' 
+#' ### Client --- run in the foreground.
+#' # setup
+#' library(pbdZMQ, quietly = TRUE)
 #' context <- zmq.ctx.new()
 #' socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
-#' zmq.connect(socket, "tcp://localhost:5555")
-#' zmq.recvfile(socket, "/tmp/data.csv")
+#' zmq.connect(socket, "tcp://localhost:55555")
+#' 
+#' # Send file "data.csv" to server
+#' zmq.sendfile(socket,"data.csv")
+#' 
+#' # cleanup
 #' zmq.close(socket)
 #' zmq.ctx.destroy(context)
 #' }
 #' 
 #' @keywords programming
 #' @seealso \code{\link{zmq.msg.send}()}, \code{\link{zmq.msg.recv}()}.
-#' @rdname b0_sendrecvfile
+#' @rdname b1_sendrecvfile
 #' @name File Transfer Functions
 NULL
 
 
 
-#' @rdname b0_sendrecvfile
+#' @rdname b1_sendrecvfile
 #' @export
 zmq.sendfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
   ret <- .Call("R_zmq_send_file", socket, filename, as.integer(flags),
@@ -77,7 +86,7 @@ zmq.sendfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
 
 
 
-#' @rdname b0_sendrecvfile
+#' @rdname b1_sendrecvfile
 #' @export
 zmq.recvfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
   ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(flags),

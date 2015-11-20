@@ -13,7 +13,7 @@ zmq.recvfile(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
 \arguments{
 \item{socket}{a ZMQ socket}
 
-\item{filename}{the name of the file to send}
+\item{filename}{the name of the file to send or the location to receive (recv) it into}
 
 \item{flags}{a flag for the method used by \code{zmq_sendfile} and
 \code{zmq_recvfile}}
@@ -42,41 +42,40 @@ in R object format.
 \dontrun{
 ### Using request-reply pattern.
 
-### At the server, run next in background or the other window.
+### Server --- run in the background/in another R session
+# setup
 library(pbdZMQ, quietly = TRUE)
-
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
-zmq.bind(responder, "tcp://*:5555")
-for(i.res in 1:5){
-  buf <- zmq.recv(responder, 10L)
-  cat(buf$buf, "\\n")
-  Sys.sleep(0.5)
-  zmq.send(responder, "World")
-}
-zmq.close(responder)
+socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
+zmq.bind(socket, "tcp://*:55555")
+
+# Receive file from client, store locally as "/tmp/data.csv"
+zmq.recvfile(socket, "/tmp/data.csv")
+
+# cleanup
+zmq.close(socket)
 zmq.ctx.destroy(context)
 
 
-### At a client, run next in foreground.
-library(pbdZMQ, quietly = TRUE)
 
+### Client --- run in the foreground.
+# setup
+library(pbdZMQ, quietly = TRUE)
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
-zmq.connect(requester, "tcp://localhost:5555")
-for(i.req in 1:5){
-  cat("Sending Hello ", i.req, "\\n")
-  zmq.send(requester, "Hello")
-  buf <- zmq.recv(requester, 10L)
-  cat("Received World ", i.req, "\\n")
-}
-zmq.close(requester)
+socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
+zmq.connect(socket, "tcp://localhost:55555")
+
+# Send file "data.csv" to server
+zmq.sendfile(socket,"data.csv")
+
+# cleanup
+zmq.close(socket)
 zmq.ctx.destroy(context)
 }
 
 }
 \author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
+Christian Heckendorf and Drew Schmidt.
 }
 \references{
 ZeroMQ/4.1.0 API Reference:
