@@ -1,3 +1,6 @@
+2015-11-20:
+  * Added zmq.sendfile() and zmq.recvfile().
+
 2015-10-08:
   * Expanded PyZMQ-like interface.
   * Added address and port validation utilities.
