@@ -52,7 +52,7 @@ zmq.strerror <- function(errno){
 #' @rdname xx_utility
 #' @export
 zmq.version <- function(){
-  .Call("R_zmq_version", PACKAGE = "pbdZMQ")
-  invisible()
+  ret <- .Call("R_zmq_version", PACKAGE = "pbdZMQ")
+  package_version(ret)
 }
 
