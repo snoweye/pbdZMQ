@@ -20,7 +20,7 @@
 #' Programming with Big Data in R Website: \url{http://r-pbd.org/}
 #' 
 #' @keywords global variables
-#' @seealso \code{\link{.pbdZMQEnv}}.
+#' @seealso \code{\link{.pbd_env}}.
 #' @name ZMQ Control Functions
 #' @rdname zz_zmq_control
 NULL

@@ -6,7 +6,7 @@ library(pbdZMQ, quietly = TRUE)
 
 ### Initial.
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
+responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
 zmq.bind(responder, "tcp://*:5555")
 
 ### Send and receive 5 times.

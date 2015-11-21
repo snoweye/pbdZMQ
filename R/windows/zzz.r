@@ -11,6 +11,10 @@
 
   ### Load "pbdZMQ.dll".
   library.dynam("pbdZMQ", pkgname, libname)
+
+  ### Preload to global environment.
+  invisible(eval(parse(text = "pbdZMQ:::.zmqopt_init()")))
+
   invisible()
 } # End of .onLoad().
 

@@ -14,7 +14,7 @@
 #' 
 #' \code{init.socket()} creates a ZeroMQ socket; serves as a high-level
 #' binding for \code{zmq.socket()}, including handling freeing memory
-#' automatically.  See also \code{.pbdZMQEnv$ZMQ.ST}.
+#' automatically.  See also \code{.pbd_env$ZMQ.ST}.
 #' 
 #' \code{bind.socket()}:  see \code{zmq.bind()}.
 #' 
@@ -58,9 +58,9 @@ NULL
 #' @export
 send.socket <- function(socket, data, send.more = FALSE, serialize = TRUE){
   if(send.more){
-    flags <- .pbdZMQEnv$ZMQ.SR$SNDMORE
+    flags <- .pbd_env$ZMQ.SR$SNDMORE
   } else{
-    flags <- .pbdZMQEnv$ZMQ.SR$BLOCK
+    flags <- .pbd_env$ZMQ.SR$BLOCK
   }
   zmq.msg.send(data, socket, flags = flags, serialize = serialize)
 }
@@ -71,9 +71,9 @@ send.socket <- function(socket, data, send.more = FALSE, serialize = TRUE){
 #' @export
 receive.socket <- function(socket, unserialize = TRUE, dont.wait = FALSE){
   if(dont.wait){
-    flags <- .pbdZMQEnv$ZMQ.SR$DONTWAIT
+    flags <- .pbd_env$ZMQ.SR$DONTWAIT
   } else{
-    flags <- .pbdZMQEnv$ZMQ.SR$BLOCK
+    flags <- .pbd_env$ZMQ.SR$BLOCK
   }
   zmq.msg.recv(socket, flags = flags, unserialize = unserialize)
 }
@@ -102,11 +102,11 @@ init.socket <- function(context, socket.type){
   }
   
   socket.type <- sub(".*_", "", socket.type)
-  id <- which(names(.pbdZMQEnv$ZMQ.ST) == socket.type)
+  id <- which(names(.pbd_env$ZMQ.ST) == socket.type)
   if(length(id) != 1){
     stop("socket.type is not found.")
   } else{
-    socket.type <- .pbdZMQEnv$ZMQ.ST[[id]]
+    socket.type <- .pbd_env$ZMQ.ST[[id]]
   }
   
   socket <- zmq.socket(context, type = socket.type)

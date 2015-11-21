@@ -6,10 +6,9 @@
 \alias{zmq.msg.send}
 \title{Message Functions}
 \usage{
-zmq.msg.send(rmsg, socket, flags = .pbdZMQEnv$ZMQ.SR$BLOCK,
-  serialize = TRUE)
+zmq.msg.send(rmsg, socket, flags = .pbd_env$ZMQ.SR$BLOCK, serialize = TRUE)
 
-zmq.msg.recv(socket, flags = .pbdZMQEnv$ZMQ.SR$BLOCK, unserialize = TRUE)
+zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK, unserialize = TRUE)
 }
 \arguments{
 \item{rmsg}{an R message}
@@ -45,7 +44,7 @@ Message functions
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
+responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
 zmq.bind(responder, "tcp://*:5555")
 buf <- zmq.msg.recv(responder)
 set.seed(1234)
@@ -60,7 +59,7 @@ zmq.ctx.destroy(context)
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
+requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 zmq.msg.send(NULL, requester)
 ret <- zmq.msg.recv(requester)
