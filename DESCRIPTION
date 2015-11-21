@@ -12,15 +12,13 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
                comment = "C code of shellexec"),
         person("R Core team", role = "ctb", comment = "some functions are
                 modified from the R source code"))
-Depends:
-    R (>= 3.0.0)
-Imports:
-    R6
+Depends: R (>= 3.0.0)
+Imports: R6
 LazyLoad: yes
 LazyData: yes
 Copyright: See files AUTHORS, COPYING, COPYING.LESSER, and MAINTAINERS
-    in pbdZMQ/inst/zmq_copyright/ for the ZeroMQ source files in
-    src/zmq_src/ which are under GPL-3.
+        in pbdZMQ/inst/zmq_copyright/ for the ZeroMQ source files in
+        src/zmq_src/ which are under GPL-3.
 Description: 'ZeroMQ' is a well-known library for high-performance
     asynchronous messaging in scalable, distributed applications.  This
     package provides high level R wrapper functions to easily utilize
@@ -30,15 +28,15 @@ Description: 'ZeroMQ' is a well-known library for high-performance
     of 'ZeroMQ' is available.  A few wrapper functions compatible with
     'rzmq' are also provided.
 SystemRequirements: Linux, Mac OSX, and Windows, or ZeroMQ library >=
-    4.0.4.
+        4.0.4.
 License: GPL-3
 URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
-    RBigData@gmail.com
+        RBigData@gmail.com
 NeedsCompilation: yes
 ByteCompile: yes
-Packaged: 2015-11-16 02:34:01 UTC; snoweye
+Packaged: 2015-11-21 07:34:21 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut],
   George Ostrouchov [aut] (Mac OSX),

@@ -41,7 +41,7 @@
 #' # setup
 #' library(pbdZMQ, quietly = TRUE)
 #' context <- zmq.ctx.new()
-#' socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
+#' socket <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
 #' zmq.bind(socket, "tcp://*:55555")
 #' 
 #' # Receive file from client, store locally as "/tmp/data.csv"
@@ -57,7 +57,7 @@
 #' # setup
 #' library(pbdZMQ, quietly = TRUE)
 #' context <- zmq.ctx.new()
-#' socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
+#' socket <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
 #' zmq.connect(socket, "tcp://localhost:55555")
 #' 
 #' # Send file "data.csv" to server
@@ -78,7 +78,7 @@ NULL
 
 #' @rdname b1_sendrecvfile
 #' @export
-zmq.sendfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
+zmq.sendfile <- function(socket, filename, flags = .pbd_env$ZMQ.SR$BLOCK){
   ret <- .Call("R_zmq_send_file", socket, filename, as.integer(flags),
                PACKAGE = "pbdZMQ")
   invisible(ret)
@@ -88,7 +88,7 @@ zmq.sendfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
 
 #' @rdname b1_sendrecvfile
 #' @export
-zmq.recvfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
+zmq.recvfile <- function(socket, filename, flags = .pbd_env$ZMQ.SR$BLOCK){
   ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(flags),
                PACKAGE = "pbdZMQ")
   invisible(ret)

@@ -10,7 +10,7 @@ random_port(min_port = 49152, max_port = 65536)
 random_open_port(min_port = 49152, max_port = 65536, max_tries = 100)
 }
 \arguments{
-\item{min_port, max_port}{The minimum/maximum value to be generated.  The minimum should not
+\item{min_port,max_port}{The minimum/maximum value to be generated.  The minimum should not
 be below 49152 and the maximum should not exceed 65536 (see
 details).}
 
@@ -33,13 +33,12 @@ to an endpoint.
 }
 \examples{
 random_port()
-
 }
 \author{
 Drew Schmidt
 }
 \references{
-"The Ephemeral Port Range" by Mike Gleason.  
+"The Ephemeral Port Range" by Mike Gleason.
 \url{http://www.ncftp.com/ncftpd/doc/misc/ephemeral_ports.html}
 }
 

@@ -6,9 +6,9 @@
 \alias{zmq.sendfile}
 \title{File Transfer Functions}
 \usage{
-zmq.sendfile(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+zmq.sendfile(socket, filename, flags = .pbd_env$ZMQ.SR$BLOCK)
 
-zmq.recvfile(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+zmq.recvfile(socket, filename, flags = .pbd_env$ZMQ.SR$BLOCK)
 }
 \arguments{
 \item{socket}{a ZMQ socket}
@@ -46,7 +46,7 @@ in R object format.
 # setup
 library(pbdZMQ, quietly = TRUE)
 context <- zmq.ctx.new()
-socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
+socket <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
 zmq.bind(socket, "tcp://*:55555")
 
 # Receive file from client, store locally as "/tmp/data.csv"
@@ -62,7 +62,7 @@ zmq.ctx.destroy(context)
 # setup
 library(pbdZMQ, quietly = TRUE)
 context <- zmq.ctx.new()
-socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
+socket <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
 zmq.connect(socket, "tcp://localhost:55555")
 
 # Send file "data.csv" to server
@@ -72,7 +72,6 @@ zmq.sendfile(socket,"data.csv")
 zmq.close(socket)
 zmq.ctx.destroy(context)
 }
-
 }
 \author{
 Christian Heckendorf and Drew Schmidt.

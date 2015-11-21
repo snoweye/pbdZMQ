@@ -36,7 +36,6 @@ zmq.strerror(0)
 zmq.ctx.destroy(context) # Error since context is free.
 zmq.strerror(14)
 }
-
 }
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.

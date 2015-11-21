@@ -43,6 +43,15 @@
 #' @seealso \code{\link{.zmqopt_set}()}, \code{\link{.zmqopt_get}()}, and
 #' \code{\link{.zmqopt_init}()}.
 #' @rdname a0_b_control
+
+### These are fake. These only be here for reference and to fool
+### ``R CMD check''.
+### The real one ``in practicee and runtime'' is initialed by the
+### .zmqopt_init() which is always called by .OnLoad() in "zzz.r" to avoid
+### overloaded and can be really accessed by users instead of sealed by R
+### after loaded.
+###
+### WCC: DO ``NOT'' remark ``NOR'' use the next.
 .pbd_env <- new.env()
 .pbd_env$ZMQ.MC <- ZMQ.MC()
 .pbd_env$ZMQ.SR <- ZMQ.SR()
