@@ -1,6 +1,8 @@
 #include "R_zmq.h"
 #include <stdint.h>
 
+// 200 KiB
+#define BUFLEN 204800
 
 #define BARLEN 30
 #define SCALE 1024
@@ -62,9 +64,6 @@ static inline void progress_fin(const int verbose, double total, const int ind)
 
 
 
-// 100 KiB
-#define BUFLEN 102400
-
 SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags){
   SEXP ret;
   int ind;
@@ -117,8 +116,12 @@ cleanup:
 
 
 
-SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose, SEXP R_flags){
+SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags)
+{
   SEXP ret;
+  int ind;
+  const int verbose = INTEGER(verbose_)[0];
+  const double filesize = REAL(filesize_)[0];
   size_t expected_size, size;
   uint64_t total_size = 0;
   int info = -1, C_errno;
@@ -132,6 +135,8 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose, SEXP R_flags)
   
   if (buf == NULL)
     error("Could not allocate temporary buffer");
+  
+  ind = progress_init(verbose, filesize);
   
   do
   {
@@ -152,11 +157,14 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose, SEXP R_flags)
     if (size < expected_size)
       error("Could not write to file: %s", CHARPT(R_filename, 0));
     
+    progress_update(verbose, (double) total_size, filesize, ind);
+    
   } while (size == BUFLEN);
   
 cleanup:
   free(buf);
   fclose(outfile);
+  progress_fin(verbose, total_size, ind);
   
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = 0;
