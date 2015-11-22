@@ -16,6 +16,8 @@
 #' a ZMQ socket
 #' @param filename
 #' the name of the file to send or the location to receive (recv) it into
+#' @param verbose
+#' logical; determines if 
 #' @param flags
 #' a flag for the method used by \code{zmq_sendfile} and
 #' \code{zmq_recvfile}
@@ -78,8 +80,12 @@ NULL
 
 #' @rdname b1_sendrecvfile
 #' @export
-zmq.sendfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
-  ret <- .Call("R_zmq_send_file", socket, filename, as.integer(flags),
+zmq.sendfile <- function(socket, filename, verbose=FALSE, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+{
+  filesize <- as.double(file.info(filename)$size)
+  # zmq.msg.send(socket, filesize)
+  
+  ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose), filesize, as.integer(flags),
                PACKAGE = "pbdZMQ")
   invisible(ret)
 }
@@ -88,8 +94,11 @@ zmq.sendfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
 
 #' @rdname b1_sendrecvfile
 #' @export
-zmq.recvfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
-  ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(flags),
+zmq.recvfile <- function(socket, filename, verbose=FALSE, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+{
+  # filesize <- zmq.msg.recv(socket)
+  
+  ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(verbose), as.integer(flags),
                PACKAGE = "pbdZMQ")
   invisible(ret)
 }

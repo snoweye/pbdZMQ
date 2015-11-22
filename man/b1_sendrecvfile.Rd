@@ -6,14 +6,18 @@
 \alias{zmq.sendfile}
 \title{File Transfer Functions}
 \usage{
-zmq.sendfile(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+zmq.sendfile(socket, filename, verbose = FALSE,
+  flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
 
-zmq.recvfile(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+zmq.recvfile(socket, filename, verbose = FALSE,
+  flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
 }
 \arguments{
 \item{socket}{a ZMQ socket}
 
 \item{filename}{the name of the file to send or the location to receive (recv) it into}
+
+\item{verbose}{logical; determines if}
 
 \item{flags}{a flag for the method used by \code{zmq_sendfile} and
 \code{zmq_recvfile}}
