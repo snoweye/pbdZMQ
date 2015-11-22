@@ -46,22 +46,6 @@ static inline void progress_update(const int verbose, const double current, cons
   Rprintf("] %.2f / %.2f %s", current*divby, total*divby, memnames[ind]);
 }
 
-static inline void progress_fin(const int verbose, double total, const int ind)
-{
-  int i;
-  
-  double divby = 1./pow(SCALE, ind);
-  
-  if (!verbose) return;
-  
-  Rprintf("\r[");
-  for (i=0; i<BARLEN; i++)
-    Rprintf("#");
-  
-  Rprintf("] %.2f / %.2f %s\n", total*divby, total*divby, memnames[ind]);
-  return ind;
-}
-
 
 
 SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags){
@@ -106,7 +90,7 @@ SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesiz
 cleanup:
   free(buf);
   fclose(infile);
-  progress_fin(verbose, total_size, ind);
+  Rprintf("\n");
   
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = 0;
@@ -164,7 +148,7 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesiz
 cleanup:
   free(buf);
   fclose(outfile);
-  progress_fin(verbose, total_size, ind);
+  Rprintf("\n");
   
   PROTECT(ret = allocVector(INTSXP, 1));
   INTEGER(ret)[0] = 0;
