@@ -6,11 +6,11 @@
 \alias{zmq.sendfile}
 \title{File Transfer Functions}
 \usage{
-zmq.sendfile(port, filename, verbose = FALSE,
-  flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+zmq.sendfile(socket, filename, verbose = FALSE,
+             flags = .pbd_env$ZMQ.SR$BLOCK)
 
-zmq.recvfile(port, endpoint, filename, verbose = FALSE,
-  flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+zmq.recvfile(socket, filename, verbose = FALSE,
+             flags = .pbd_env$ZMQ.SR$BLOCK)
 }
 \arguments{
 \item{port}{A valid tcp port.}
@@ -50,7 +50,6 @@ zmq.recvfile(55555, "localhost", "/tmp/outfile", verbose=TRUE)
 library(pbdZMQ, quietly = TRUE)
 zmq.sendfile(55555, "/tmp/infile", verbose=TRUE)
 }
-
 }
 \author{
 Drew Schmidt and Christian Heckendorf

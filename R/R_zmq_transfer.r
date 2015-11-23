@@ -55,7 +55,8 @@ NULL
 
 #' @rdname b1_sendrecvfile
 #' @export
-zmq.sendfile <- function(port, filename, verbose=FALSE, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+zmq.sendfile <- function(port, filename, verbose=FALSE,
+                         flags = .pbd_env$ZMQ.SR$BLOCK)
 {
   ctx <- zmq.ctx.new()
   socket <- zmq.socket(ctx, .pbdZMQEnv$ZMQ.ST$PUSH)
@@ -65,7 +66,8 @@ zmq.sendfile <- function(port, filename, verbose=FALSE, flags = .pbdZMQEnv$ZMQ.S
   filesize <- as.double(file.info(filename)$size)
   send.socket(socket, filesize)
   
-  ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose), filesize, as.integer(flags),
+  ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose),
+               filesize, as.integer(flags),
                PACKAGE = "pbdZMQ")
   
   zmq.close(socket)
@@ -78,7 +80,8 @@ zmq.sendfile <- function(port, filename, verbose=FALSE, flags = .pbdZMQEnv$ZMQ.S
 
 #' @rdname b1_sendrecvfile
 #' @export
-zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
+                         flags = .pbd_env$ZMQ.SR$BLOCK)
 {
   ctx <- zmq.ctx.new()
   socket <- zmq.socket(ctx, .pbdZMQEnv$ZMQ.ST$PULL)
@@ -87,7 +90,8 @@ zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE, flags = .pbdZM
   
   filesize <- receive.socket(socket)
   
-  ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(verbose), filesize, as.integer(flags),
+  ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(verbose),
+               filesize, as.integer(flags),
                PACKAGE = "pbdZMQ")
   
   invisible(ret)

@@ -36,7 +36,6 @@ library(pbdZMQ, quietly = TRUE)
 context <- zmq.ctx.new()
 zmq.ctx.destroy(context)
 }
-
 }
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.

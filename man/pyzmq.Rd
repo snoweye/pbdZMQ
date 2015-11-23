@@ -26,7 +26,6 @@ socket = context$socket("ZMQ_REQ")
 socket$connect("tcp://localhost:5555")
 ### etc...
 }
-
 }
 \author{
 Drew Schmidt

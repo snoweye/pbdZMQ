@@ -85,7 +85,6 @@ for(i.req in 1:5){
 zmq.close(requester)
 zmq.ctx.destroy(context)
 }
-
 }
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.

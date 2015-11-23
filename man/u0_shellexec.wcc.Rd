@@ -47,7 +47,6 @@ library(pbdZMQ, quietly = TRUE)
 
 shellexec.wcc("a.txt", 5L)
 }
-
 }
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.
