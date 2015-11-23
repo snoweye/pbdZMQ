@@ -1,3 +1,7 @@
+2015-11-22:
+  * Added verbose option to zmq.sendfile() and zmq.recvfile().
+  * Change zmq.sendfile()/zmq.recvfile() to use PUSH/PULL.
+
 2015-11-20:
   * Added zmq.sendfile() and zmq.recvfile().
 

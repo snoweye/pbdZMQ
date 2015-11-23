@@ -1,21 +1,20 @@
 #' File Transfer Functions
 #' 
-#' File transfer functions
+#' High level functions calling \code{zmq_send()} and \code{zmq_recv()}
+#' to transfer a file in 200 KiB chunks.
 #' 
-#' \code{zmq.sendfile()} is a high level R function calling ZMQ C API
-#' \code{zmq_send()} sending the data stored at \code{filename} out in chunks.
+#' @details
+#' \code{zmq.sendfile()} binds a \code{ZMQ_PUSH} socket, and 
+#' \code{zmq.recvfile()} connects to this with a \code{ZMQ_PULL} socket.
 #' 
-#' \code{zmq.recvfile()} is a high level R function calling ZMQ C API
-#' \code{zmq_recv()} receiving data from \code{zmq.sendfile()} and
-#' storing it in \code{filename}.
-#' 
-#' \code{buf.type} currently supports \code{char} and \code{raw} which are both
-#' in R object format.
-#' 
-#' @param socket 
-#' a ZMQ socket
+#' @param port 
+#' A valid tcp port.
+#' @param endpoint
+#' A ZMQ socket endpoint.
 #' @param filename
-#' the name of the file to send or the location to receive (recv) it into
+#' The name (as a string) of the in/out files.
+#' @param verbose
+#' logical; determines if a progress bar should be shown.
 #' @param flags
 #' a flag for the method used by \code{zmq_sendfile} and
 #' \code{zmq_recvfile}
@@ -26,7 +25,7 @@
 #' otherwise returns -1 (invisible) and sets \code{errno} to the error
 #' value, see ZeroMQ manual for details.
 #' 
-#' @author Christian Heckendorf and Drew Schmidt.
+#' @author Drew Schmidt and Christian Heckendorf
 #' 
 #' @references ZeroMQ/4.1.0 API Reference:
 #' \url{http://api.zeromq.org/4-1:_start}
@@ -35,37 +34,15 @@
 #' 
 #' @examples
 #' \dontrun{
-#' ### Using request-reply pattern.
+#' ### Run the sender and receiver code in separate R sessions.
 #' 
-#' ### Server --- run in the background/in another R session
-#' # setup
+#' # Receiver
 #' library(pbdZMQ, quietly = TRUE)
-#' context <- zmq.ctx.new()
-#' socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REP)
-#' zmq.bind(socket, "tcp://*:55555")
+#' zmq.recvfile(55555, "localhost", "/tmp/outfile", verbose=TRUE)
 #' 
-#' # Receive file from client, store locally as "/tmp/data.csv"
-#' zmq.recvfile(socket, "/tmp/data.csv")
-#' 
-#' # cleanup
-#' zmq.close(socket)
-#' zmq.ctx.destroy(context)
-#' 
-#' 
-#' 
-#' ### Client --- run in the foreground.
-#' # setup
+#' # Sender
 #' library(pbdZMQ, quietly = TRUE)
-#' context <- zmq.ctx.new()
-#' socket <- zmq.socket(context, .pbdZMQEnv$ZMQ.ST$REQ)
-#' zmq.connect(socket, "tcp://localhost:55555")
-#' 
-#' # Send file "data.csv" to server
-#' zmq.sendfile(socket,"data.csv")
-#' 
-#' # cleanup
-#' zmq.close(socket)
-#' zmq.ctx.destroy(context)
+#' zmq.sendfile(55555, "/tmp/infile", verbose=TRUE)
 #' }
 #' 
 #' @keywords programming
@@ -78,9 +55,22 @@ NULL
 
 #' @rdname b1_sendrecvfile
 #' @export
-zmq.sendfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
-  ret <- .Call("R_zmq_send_file", socket, filename, as.integer(flags),
+zmq.sendfile <- function(port, filename, verbose=FALSE, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+{
+  ctx <- zmq.ctx.new()
+  socket <- zmq.socket(ctx, .pbdZMQEnv$ZMQ.ST$PUSH)
+  endpoint <- address("*", port)
+  zmq.bind(socket, endpoint)
+  
+  filesize <- as.double(file.info(filename)$size)
+  send.socket(socket, filesize)
+  
+  ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose), filesize, as.integer(flags),
                PACKAGE = "pbdZMQ")
+  
+  zmq.close(socket)
+  zmq.ctx.destroy(ctx)
+  
   invisible(ret)
 }
 
@@ -88,8 +78,17 @@ zmq.sendfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
 
 #' @rdname b1_sendrecvfile
 #' @export
-zmq.recvfile <- function(socket, filename, flags = .pbdZMQEnv$ZMQ.SR$BLOCK){
-  ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(flags),
+zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE, flags = .pbdZMQEnv$ZMQ.SR$BLOCK)
+{
+  ctx <- zmq.ctx.new()
+  socket <- zmq.socket(ctx, .pbdZMQEnv$ZMQ.ST$PULL)
+  endpoint <- address(endpoint, port)
+  zmq.connect(socket, endpoint)
+  
+  filesize <- receive.socket(socket)
+  
+  ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(verbose), filesize, as.integer(flags),
                PACKAGE = "pbdZMQ")
+  
   invisible(ret)
 }
