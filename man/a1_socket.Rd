@@ -114,6 +114,7 @@ zmq.connect(requester, "tcp://localhost:5555")
 zmq.close(requester)
 zmq.ctx.destroy(context)
 }
+
 }
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.

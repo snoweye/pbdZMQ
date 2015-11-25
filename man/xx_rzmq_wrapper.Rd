@@ -29,7 +29,7 @@ connect.socket(socket, address)
 
 \item{send.more}{Logical; will more messages be sent?}
 
-\item{serialize,unserialize}{Logical; determines if serialize/unserialize should be called
+\item{serialize, unserialize}{Logical; determines if serialize/unserialize should be called
 on the sent/received data.}
 
 \item{dont.wait}{Logical; determines if reception is blocking.}

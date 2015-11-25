@@ -12,7 +12,7 @@ address(host, port, transport = "tcp")
 \item{port}{A port; necessary for all transports except ipc.}
 
 \item{transport}{The transport protocol.  Choices are "inproc", "ipc", "tcp", and
-"pgm"/"epgm" for local in-process (inter-thread), local
+"pgm"/"epgm" for local in-process (inter-thread), local 
 inter-process, tcp, and pgm, respectively.}
 }
 \value{
@@ -24,6 +24,7 @@ It's a simple wrapper around the \code{paste0()} function.
 }
 \examples{
 address("localhost", 55555)
+
 }
 \author{
 Drew Schmidt

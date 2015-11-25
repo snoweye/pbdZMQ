@@ -59,7 +59,7 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
                          flags = .pbd_env$ZMQ.SR$BLOCK)
 {
   ctx <- zmq.ctx.new()
-  socket <- zmq.socket(ctx, .pbdZMQEnv$ZMQ.ST$PUSH)
+  socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PUSH)
   endpoint <- address("*", port)
   zmq.bind(socket, endpoint)
   
@@ -84,7 +84,7 @@ zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
                          flags = .pbd_env$ZMQ.SR$BLOCK)
 {
   ctx <- zmq.ctx.new()
-  socket <- zmq.socket(ctx, .pbdZMQEnv$ZMQ.ST$PULL)
+  socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PULL)
   endpoint <- address(endpoint, port)
   zmq.connect(socket, endpoint)
   
