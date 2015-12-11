@@ -1,0 +1,39 @@
+### Read pbdZMQ vignettes first at
+### http://cran.r-project.org/web/packages/pbdZMQ/vignettes/pbdZMQ-guide.pdf
+###
+### Solaris needs ZeroMQ 4.0.7 library with GNU Make 4.1 (OpenCSW).
+
+--- Install 'ZeroMQ 4.0.7' library:
+1. Make sure gmake, gcc, g++ are in the PATH. For example, I have
+
+PATH=/opt/csw/gnu:/opt/csw/bin:/opt/csw/i386-pc-solaris2.10/bin:/usr/sbin:/usr/bin:/usr/openwin/bin:/usr/ucb
+export PATH
+
+2. Download 'zeromq-4.0.7.tar.gz' from "http://download.zeromq.org".
+
+3. Untar, configure, make, and make install as next:
+
+     # gtar zxvf zeromq-4.0.7.tar.gz
+     # cd zeromq-4.0.7
+     # ./configure --prefix=/work-my/local/zmq 
+     # make
+     # make install
+
+--- 'pbdZMQ' installation with external ZeroMQ library such as version 4.0.7:
+1. Steps for pbdZMQ with the external ZeroMQ library.
+
+     > R CMD INSTALL pbdZMQ_0.2-0.tar.gz \
+       --configure-vars="ZMQ_INCLUDE='-I/work-my/local/zmq/include' \
+                         ZMQ_LDFLAGS='-L/work-my/local/zmq/lib -lzmq'"
+
+   provided the external library is installed at "/work-my/local/zmq" where
+   "include/" subdirectory contains "zmq.h" and "lib/" subdirectory contains
+   the shared library such as "libzmq.so".
+
+--- Testing:
+   Suppose 'pbdZMQ' is installed correctly. I can run the next from one
+   terminal.
+
+     > Rscript -e "demo(hwserver,'pbdZMQ',ask=F,echo=F)" &
+     > Rscript -e "demo(hwclient,'pbdZMQ',ask=F,echo=F)"
+

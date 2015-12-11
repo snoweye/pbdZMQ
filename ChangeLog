@@ -1,3 +1,6 @@
+2015-12-10:
+  * Solaris works with external ZeroMQ 4.0.7.
+
 2015-11-22:
   * Added verbose option to zmq.sendfile() and zmq.recvfile().
   * Change zmq.sendfile()/zmq.recvfile() to use PUSH/PULL.

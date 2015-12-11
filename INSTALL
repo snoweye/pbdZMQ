@@ -5,7 +5,10 @@
 ### since pbdZMQ includes a minimum requirement of ZeroMQ 4.1.0 rc 1 library.
 ###
 ### pbdZMQ is also tested mainly on Linux (XUbuntu-14.04.1), Windows 7, and
-### Mac OSX 10.7 systems. Solaris has no success yet.
+### Mac OSX 10.7 systems.
+###
+### Solaris needs ZeroMQ 4.0.7 library with GNU Make 4.1 (OpenCSW).
+### See INSTALL.solaris for details.
 
 --- 'pbdZMQ' installation:
 0. 'pkg-config' and system ZeroMQ library (libzmq, libzmq-dev) are requrired.
