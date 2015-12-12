@@ -29,7 +29,7 @@ Description: 'ZeroMQ' is a well-known library for high-performance
     of 'ZeroMQ' is available.  A few wrapper functions compatible with
     'rzmq' are also provided.
 SystemRequirements: Linux, Mac OSX, and Windows, or ZeroMQ library >=
-        4.0.4. Solaris needs ZeroMQ library 4.0.7.
+        4.0.4. Solaris 10 needs ZeroMQ library 4.0.7 and OpenCSW.
 License: GPL-3
 URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
@@ -37,7 +37,7 @@ MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
 ByteCompile: yes
-Packaged: 2015-11-25 02:16:21 UTC; snoweye
+Packaged: 2015-12-12 05:09:37 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut],
   Christian Heckendorf [aut] (file transfer),

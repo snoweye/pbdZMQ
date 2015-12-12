@@ -80,8 +80,9 @@ package vignette.
 
 pbdZMQ requires
 * R version 3.0.0 or higher.
-* Linux, Mac OSX, Windows, or FreeBSD (doesn't work on Solaris).
+* Linux, Mac OSX, Windows, or FreeBSD.
 * libzmq >= 4.0.4.
+* Solaris 10 requiring external libzmq 4.0.7 and OpenCSW.
 
 A distribution of libzmq is shipped with pbdZMQ for convenience.  However,
 if you already have a system installation of ZeroMQ, then it is simple

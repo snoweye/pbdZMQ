@@ -1,0 +1,111 @@
+\section[Solaris 10]{Solaris 10}
+\label{sec:solaris_10}
+\addcontentsline{toc}{section}{\thesection. Solaris 10}
+
+Solaris 10 with external ZeroMQ 4.0.7 library and GNU tools (OpenCSW)
+has be tested for \pkg{pbdZMQ} successfully. The \code{INSTALL.solaris}
+has the steps which basically are
+\begin{enumerate}
+\item install GNU tools from OpenCSW using \code{pkgutil},
+\item set path to GNU tools,
+\item install external ZeroMQ 4.0.7 library using GNU tools, and
+\item install \pkg{pbdZMQ} linked with external ZeroMQ.
+\end{enumerate}
+Next, I write down some considerations as a note.
+
+
+\subsection[Have a Solaris 10?]{Have a Solaris 10?}
+\label{sec:have_solaris_10}
+\addcontentsline{toc}{subsection}{\thesubsection. Have a Solaris 10?}
+It is easy and fun.
+\begin{enumerate}
+\item
+Install an Oracle VM VirtualBox which is available at
+\url{https://www.virtualbox.org/}.
+\item
+Download a Solaris template from \\
+\url{http://www.oracle.com/technetwork/server-storage/vm/solaris-098101.html}.
+\item
+Import the template to the VM.
+\item
+Boot and setup root password, internet, share drives, etc.
+\item
+Done.
+\end{enumerate}
+
+
+\subsection{OpenCSW}{OpenCSW}
+\label{sec:opencsw}
+\addcontentsline{toc}{subsection}{\thesubsection. OpenCSW}
+The OpenCSW (\url{www.opencsw.org}) provides binary packages of GNU tools
+for Solaris 10. Ideally, gmake, gcc, g++, autoconf, automake, gtar are
+required which all availalbe from the website. For example, the gcc is in
+"gcc4core" package which can be installed with a few \code{pkgutil}
+commands by
+\begin{Code}
+> pkgadd -d http://get.opencsw.org/now
+> /opt/csw/bin/pkgutil -U
+> /opt/csw/bin/pkgutil -y -i gcc4core 
+> /usr/sbin/pkgchk -L CSWgcc4core # list files
+\end{Code}
+Typically, the binary packages are installed under
+\code{/opt/csw/}.
+
+Make sure those GNU tools are also in the path and export it to
+the environment. For example, I have
+\begin{Code}
+PATH=/opt/csw/gnu:/opt/csw/bin:/opt/csw/i386-pc-solaris2.10/bin:
+/usr/sbin:/usr/bin:/usr/openwin/bin:/usr/ucb
+export PATH
+\end{Code}
+in a file name \code{set_path.sh}. Then, I set it to the environment by
+\begin{Code}
+> . ./set_path.sh
+\end{Code}
+I also have a symbolic link "make" to "gmake" to avoid configuration problems.
+If not, use \code{ln -s} to make one.
+
+
+\subsection{Compile ZeroMQ}{Compile ZeroMQ}
+\label{sec:compile_zeromq}
+\addcontentsline{toc}{subsection}{\thesubsection. Compile ZeroMQ}
+The OpenCSW also has a binary package for ZeroMQ, named \pkg{libzmq1} or
+\pkg{libzmq1\_dev}.
+The package is a little bit out of date (version 2.2.0 built in 2012).
+This old version is not comparable with current \pkg{pbdZMQ}.
+The solution is to compile and install an external ZeroMQ 4.0.7
+which available from \url{http://download.zeromq.org}.
+This version 4.0.7 is the latest stable ZeroMQ version.
+The newer versions of ZeroMQ, such as >= 4.1.0, may have more bugs
+for Solaris 10.
+
+I install the ZeroMQ library to \code{/work-my/local/zmq} with
+the following commands.
+\begin{Code}
+> gtar zxvf zeromq-4.0.7.tar.gz
+> cd zeromq-4.0.7
+> ./configure --prefix=/work-my/local/zmq 
+> make
+> make install
+\end{Code}
+There may have some warnings, but they are ok. The default installs
+the share library which can be linked by \pkg{pbdZMQ}.
+
+
+\subsection{Install pbdZMQ}{Install pbdZMQ}
+\label{sec:install_pbdzmq}
+\addcontentsline{toc}{subsection}{\thesubsection. Install pbdZMQ}
+With the OpenCSW and external ZeroMQ 4.0.7 installed, I can install
+\pkg{pbdZMQ} simply via
+\begin{Code}
+> R CMD INSTALL pbdZMQ_0.2-0.tar.gz \
+  --configure-vars="ZMQ_INCLUDE='-I/work-my/local/zmq/include' \
+                    ZMQ_LDFLAGS='-L/work-my/local/zmq/lib -lzmq'"
+\end{Code}
+Then, the test can be done by
+\begin{Code}
+> Rscript -e "demo(hwserver,'pbdZMQ',ask=F,echo=F)" &
+> Rscript -e "demo(hwclient,'pbdZMQ',ask=F,echo=F)"
+\end{Code}
+when the \pkg{pbdZMQ} installation is done correctly.
+

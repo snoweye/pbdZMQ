@@ -55,11 +55,11 @@ more information, such as the ld(1) and ld.so(8) manual pages.
     \begin{enumerate}
     \item to use \code{otool -L pbdZMQ.so} to figure which
           \code{libzmq.4.dylib} is linked. Note that \code{pbdZMQ.so}
-          should be the one in the installed directory, e.g.
+          should be the one in the installed directory, e.g. \\
           \code{/your_R_library_root_path/library/pbdZMQ/libs/pbdZMQ.so},
           and
     \item to use \code{install_name_tool -change org_dylib new_dylib pbdZMQ.so}
-          to update to the right \code{new_dylib}, e.g.
+          to update to the right \code{new_dylib}, e.g. \\
           \code{/your_R_library_root_path/library/pbdZMQ/libs/libzmq.4.dylib}.
     \end{enumerate}
     For linux/unix, the \code{readelf}, \code{chrpath}, \code{pathelf},
