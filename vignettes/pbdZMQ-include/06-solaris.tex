@@ -39,7 +39,7 @@ Done.
 \addcontentsline{toc}{subsection}{\thesubsection. OpenCSW}
 The OpenCSW (\url{www.opencsw.org}) provides binary packages of GNU tools
 for Solaris 10. Ideally, gmake, gcc, g++, autoconf, automake, gtar are
-required which all availalbe from the website. For example, the gcc is in
+required which all available from the website. For example, the gcc is in
 "gcc4core" package which can be installed with a few \code{pkgutil}
 commands by
 \begin{Code}
@@ -64,6 +64,18 @@ in a file name \code{set_path.sh}. Then, I set it to the environment by
 \end{Code}
 I also have a symbolic link "make" to "gmake" to avoid configuration problems.
 If not, use \code{ln -s} to make one.
+
+Further, the \proglang{R} may not be easy to compile in Solaris 10, but the
+binary package of \proglang{R} is also available in OpenCSW. It can be
+installed by
+\begin{Code}
+> pkgadd -d http://get.opencsw.org/now
+> /opt/csw/bin/pkgutil -U
+> /opt/csw/bin/pkgutil -y -i r_base 
+> /usr/sbin/pkgchk -L CSWr-base # list files
+\end{Code}
+which has currently \proglang{R} version 3.1.1. It may be a little bit old,
+but it is good enough for testing ZeroMQ and \pkg{pbdZMQ}.
 
 
 \subsection{Compile ZeroMQ}{Compile ZeroMQ}
