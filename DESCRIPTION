@@ -38,13 +38,13 @@ MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
 ByteCompile: yes
-Packaged: 2015-12-16 01:08:36 UTC; snoweye
+Packaged: 2015-12-16 13:00:16 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut],
   Christian Heckendorf [aut] (file transfer),
   George Ostrouchov [aut] (Mac OSX),
   Whit Armstrong [ctb] (some functions are modified from the rzmq package
     for backwards compatibility),
-  Brian Ripley [ctb] (C code of shellexec),
+  Brian Ripley [ctb] (C code of shellexec, and Solaris),
   R Core team [ctb] (some functions are modified from the R source code)
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
