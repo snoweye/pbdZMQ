@@ -9,7 +9,7 @@ citEntry(
                       as.person("George Ostrouchov")),
   year = "2015",
   note = "{R} Package, URL http://cran.r-project.org/package=pbdZMQ",
-  textVersion = "Chen, W.-C., Schmidt, P., Heckendorf, C., and Ostrouchov, G. (2015) pbdZMQ: Programming with Big Data -- Interface to ZeroMQ. R Package, URL http://cran.r-project.org/package=pbdZMQ",
+  textVersion = "Chen, W.-C., Schmidt, D., Heckendorf, C., and Ostrouchov, G. (2015) pbdZMQ: Programming with Big Data -- Interface to ZeroMQ. R Package, URL http://cran.r-project.org/package=pbdZMQ",
   key = "Chen2015pbdZMQpackage"
 )
 
