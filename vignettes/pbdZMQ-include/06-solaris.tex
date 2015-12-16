@@ -11,13 +11,24 @@ has the steps which basically are
 \item install external ZeroMQ 4.0.7 library using GNU tools, and
 \item install \pkg{pbdZMQ} linked with external ZeroMQ.
 \end{enumerate}
-Next, I write down some considerations as a note.
+The steps are tested without too much time effort for further changes and
+can quickly provide a compiled library and install the \pkg{pbdZMQ}.
+I write down some considerations about ZeroMQ library here as a note in next.
+\begin{enumerate}
+\item Current, the ZeroMQ library on OpenCSW is 2.2.0 which is too old to
+      be compiled with \pkg{pbdZMQ}.
+\item Newer ZeroMQ (> 4.0.7) can not be compiled with OpenCSW, there are
+      more bugs to fix for Solaris according github's pull request.
+\item Using Sun CC is even more complicated because there are more
+      compile flags needed to take care first.
+\end{enumerate}
 
 
 \subsection[Have a Solaris 10?]{Have a Solaris 10?}
 \label{sec:have_solaris_10}
 \addcontentsline{toc}{subsection}{\thesubsection. Have a Solaris 10?}
-It is easy and fun.
+
+It is easy and has a lot of fun.
 \begin{enumerate}
 \item
 Install an Oracle VM VirtualBox which is available at
@@ -33,8 +44,15 @@ Boot and setup root password, internet, share drives, etc.
 Done.
 \end{enumerate}
 
+The next to do is having compilers by installing OpenCSW first, then
+install libraries and software either from OpenCSW website or compile
+them manually. One can have most GNU tools and \proglang{R} installed
+from OpenCSW via \code{pkgutil} command, and compile ZeroMQ library externally
+using those tools, then install \pkg{pbdZMQ} by linking with the compiled
+ZeroMQ library. The details are given in the following Sections.
 
-\subsection{OpenCSW}{OpenCSW}
+
+\subsection[OpenCSW]{OpenCSW}
 \label{sec:opencsw}
 \addcontentsline{toc}{subsection}{\thesubsection. OpenCSW}
 The OpenCSW (\url{www.opencsw.org}) provides binary packages of GNU tools
@@ -76,12 +94,14 @@ installed by
 \end{Code}
 which has currently \proglang{R} version 3.1.1. It may be a little bit old,
 but it is good enough for testing ZeroMQ and \pkg{pbdZMQ}.
+The developing/daily version of \proglang{R} may not be easily compiled
+by the OpenCSW.
 
 
-\subsection{Compile ZeroMQ}{Compile ZeroMQ}
+\subsection[Compile ZeroMQ]{Compile ZeroMQ}
 \label{sec:compile_zeromq}
 \addcontentsline{toc}{subsection}{\thesubsection. Compile ZeroMQ}
-The OpenCSW also has a binary package for ZeroMQ, named \pkg{libzmq1} or
+The OpenCSW also has binary packages for ZeroMQ, named \pkg{libzmq1} and
 \pkg{libzmq1\_dev}.
 The package is a little bit out of date (version 2.2.0 built in 2012).
 This old version is not comparable with current \pkg{pbdZMQ}.
@@ -104,7 +124,7 @@ There may have some warnings, but they are ok. The default installs
 the share library which can be linked by \pkg{pbdZMQ}.
 
 
-\subsection{Install pbdZMQ}{Install pbdZMQ}
+\subsection[Install pbdZMQ]{Install pbdZMQ}
 \label{sec:install_pbdzmq}
 \addcontentsline{toc}{subsection}{\thesubsection. Install pbdZMQ}
 With the OpenCSW and external ZeroMQ 4.0.7 installed, I can install
