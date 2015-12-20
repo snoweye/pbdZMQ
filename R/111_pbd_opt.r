@@ -2,7 +2,15 @@
 #' 
 #' Set control functions
 #' 
-#' \code{pbd_opt()} sets ZMQ controls.
+#' \code{pbd_opt()} sets pbd options for ZMQ controls.
+#'
+#' \code{...} allows multiple options in
+#' \code{envir$.pbd_env}, but only in a simple way.
+#'
+#' \code{bytext} allows to assign options by text in
+#' \code{envir$.pbd_env}, but can assign advanced objects. For example,
+#' \code{"option$suboption <- value"} will set
+#' \code{envir$.pbd_env$option$suboption <- value}.
 #' 
 #' @param ... 
 #' in argument format \code{option = value} to set
