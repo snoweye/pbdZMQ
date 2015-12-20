@@ -1,28 +1,14 @@
-#' Set controls in pbdZMQ
+#' Initial controls in pbdZMQ
 #' 
-#' Control functions
-#' 
-#' \code{.zmqopt_get()} gets a ZMQ control.
-#'
-#' \code{.zmqopt_set()} sets a ZMQ control.
+#' Initial control functions
 #' 
 #' \code{.zmqopt_init()} initials default ZMQ controls.
 #' 
-#' @param main 
-#' a ZMQ control variable
-#' @param sub 
-#' a ZMQ control sub-variable
-#' @param val 
-#' a value for the ZMQ control
 #' @param envir 
 #' an environment where ZMQ controls locate
 #' 
 #' @return 
-#' \code{.zmqopt_get()} returns the value of the ZMQ control.
-#' 
-#' \code{.zmqopt_set()} sets the value to the ZMQ control.
-#' 
-#' \code{.zmqopt_init()} initial the ZMQ control to \code{\link{.pbd_env}}
+#' \code{.zmqopt_init()} initial the ZMQ control
 #' at \code{envir}.
 #' 
 #' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
@@ -42,39 +28,33 @@
 #' ls(.pbd_env)
 #'
 #' .pbd_env$ZMQ.SR$BLOCK
-#' .zmqopt_set(0L, "ZMQ.SR", "BLOCK")
+#' .pbd_opt(bytext = "ZMQ.SR$BLOCK = 0L")
 #' }
 #' 
 #' @keywords programming
 #' @seealso \code{\link{.pbd_env}}.
 #' @rdname a0_c_options
-#' @name Control Functions
-NULL
+#' @name Initial Control Functions
 
 
 ### Get ZMQ options.
-#' @export
-#' @rdname a0_c_options
-.zmqopt_get <- function(main, sub = NULL, envir = .GlobalEnv){
-  if(!is.null(sub)){
-    envir$.pbd_env[[main]][[sub]]
-  } else{
-    envir$.pbd_env[[main]]
-  }
-} # End of .zmqopt_get().
+# .zmqopt_get <- function(main, sub = NULL, envir = .GlobalEnv){
+#   if(!is.null(sub)){
+#     envir$.pbd_env[[main]][[sub]]
+#   } else{
+#     envir$.pbd_env[[main]]
+#   }
+# } # End of .zmqopt_get().
 
 ### Set ZMQ options.
-#' @export
-#' @rdname a0_c_options
-.zmqopt_set <- function(val, main, sub = NULL, envir = .GlobalEnv){
-  if(!is.null(sub)){
-    envir$.pbd_env[[main]][[sub]] <- val
-  } else{
-    envir$.pbd_env[[main]] <- val
-  }
-
-  invisible()
-} # End of .zmqopt_set().
+# .zmqopt_set <- function(val, main, sub = NULL, envir = .GlobalEnv){
+#   if(!is.null(sub)){
+#     envir$.pbd_env[[main]][[sub]] <- val
+#   } else{
+#     envir$.pbd_env[[main]] <- val
+#   }
+#   invisible()
+# } # End of .zmqopt_set().
 
 ### Initial ZMQ options.
 #' @export
