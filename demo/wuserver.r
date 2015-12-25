@@ -22,6 +22,7 @@ while(TRUE){
   humidity <- sample.int(50, size = 1) + 10
   ret <- sprintf("%05d %d %d", zipcode, temperature, humidity)
   zmq.send(publisher, ret)
+  Sys.sleep(runif(1, 0.1, 0.5))
 }
 
 ### Finish.

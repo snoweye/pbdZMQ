@@ -21,11 +21,12 @@ zmq.send(sink, "0")
 ### Send 100 tasks.
 set.seed(1234)
 total.msec <- 0
-for(i in 1:50){
+for(i in 1:100){
   workload <- as.integer(runif(1, 1, 30))
   total.msec <- total.msec + workload
   string <- sprintf("%d", workload)
   zmq.send(sender, string)
+  Sys.sleep(runif(1, 3, 5))
 }
 cat("Total expected cost: ", total.msec, " msec\n", sep = "")
 

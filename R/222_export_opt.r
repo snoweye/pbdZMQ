@@ -67,6 +67,7 @@
   envir$.pbd_env$ZMQ.SR <- ZMQ.SR()
   envir$.pbd_env$ZMQ.SO <- ZMQ.SO()
   envir$.pbd_env$ZMQ.ST <- ZMQ.ST()
+  envir$.pbd_env$ZMQ.PO <- ZMQ.PO()
 
   invisible()
 } # End of .zmqopt_init().

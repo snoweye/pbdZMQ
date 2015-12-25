@@ -5,7 +5,7 @@
 #' @param warning.at.error,stop.at.error
 #' Logical; if there is a messaging error, should there be an
 #' R warning/error.
-#' @param POLLIN, POLLOUT, POLLERR, POLLITEMS_DFLT 
+#' @param POLLIN, POLLOUT, POLLERR
 #' ZMQ poll options; see zmq.h for details.
 #' @param BLOCK,DONTWAIT,NOBLOCK,SNDMORE
 #' ZMQ socket options; see zmq.h for details.
@@ -46,18 +46,18 @@ ZMQ.MC <- function(
 
 ### For ZMQ polll (I/O multiplexing).
 #' @export
-#' @rname zz_zmq_control
+#' @rdname zz_zmq_control
 ZMQ.PO <- function(
   POLLIN = 1L,
   POLLOUT = 2L,
-  POLLERR = 4L,
-  POLLITEMS_DFLT = 16L
+  POLLERR = 4L# ,
+  # POLLITEMS_DFLT = 16L
 ){
   list(
     POLLIN = POLLIN,
     POLLOUT = POLLOUT,
-    POLLERR = POLLERR,
-    POLLITEMS_DFLT = POLLITEMS_DFLT
+    POLLERR = POLLERR# ,
+    # POLLITEMS_DFLT = POLLITEMS_DFLT
   )
 }
 

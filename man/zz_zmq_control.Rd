@@ -3,12 +3,15 @@
 \name{ZMQ Control Functions}
 \alias{ZMQ Control Functions}
 \alias{ZMQ.MC}
+\alias{ZMQ.PO}
 \alias{ZMQ.SO}
 \alias{ZMQ.SR}
 \alias{ZMQ.ST}
 \title{Sets of controls in pbdZMQ.}
 \usage{
 ZMQ.MC(warning.at.error = TRUE, stop.at.error = FALSE)
+
+ZMQ.PO(POLLIN = 1L, POLLOUT = 2L, POLLERR = 4L)
 
 ZMQ.SR(BLOCK = 0L, DONTWAIT = 1L, NOBLOCK = 1L, SNDMORE = 2L)
 
@@ -39,6 +42,9 @@ ZMQ.ST(PAIR = 0L, PUB = 1L, SUB = 2L, REQ = 3L, REP = 4L,
 \arguments{
 \item{warning.at.error, stop.at.error}{Logical; if there is a messaging error, should there be an
 R warning/error.}
+
+\item{POLLIN, }{POLLOUT, POLLERR
+ZMQ poll options; see zmq.h for details.}
 
 \item{BLOCK, DONTWAIT, NOBLOCK, SNDMORE}{ZMQ socket options; see zmq.h for details.}
 

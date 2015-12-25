@@ -6,3 +6,4 @@ taskvent	pbdZMQ	Parallel task ventilator.
 taskwork	pbdZMQ	Parallel task worker.
 tasksink	pbdZMQ	Parallel task sink.
 msreader	pbdZMQ	Multiple socket reader.
+mspoller	pbdZMQ	Multiple socket reader using poll method.

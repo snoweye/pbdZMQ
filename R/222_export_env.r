@@ -57,4 +57,5 @@
 .pbd_env$ZMQ.SR <- ZMQ.SR()
 .pbd_env$ZMQ.SO <- ZMQ.SO()
 .pbd_env$ZMQ.ST <- ZMQ.ST()
+.pbd_env$ZMQ.PO <- ZMQ.PO()
 

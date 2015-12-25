@@ -46,4 +46,10 @@ SEXP R_zmq_version();
 /* shellexec. */
 SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd);
 
+/* Poll related. */
+SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout);
+SEXP R_zmq_poll_free();
+SEXP R_zmq_poll_length();
+SEXP R_zmq_poll_get_revents(SEXP R_index);
+
 #endif
