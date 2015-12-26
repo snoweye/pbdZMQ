@@ -22,6 +22,8 @@ SEXP R_zmq_connect(SEXP R_socket, SEXP R_endpoint);
 SEXP R_zmq_disconnect(SEXP R_socket, SEXP R_endpoint);
 SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 	SEXP R_option_type);
+SEXP R_zmq_getsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
+	SEXP R_option_type);
 
 /* Message related. */
 // static void msg_Finalizer(SEXP R_msg_t);

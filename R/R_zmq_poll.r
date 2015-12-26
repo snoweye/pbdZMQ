@@ -102,13 +102,13 @@
 #' 
 #' @keywords programming
 #' @seealso \code{\link{zmq.recv}()}, \code{\link{zmq.send}()}.
-#' @rdname b2_poll
+#' @rdname b3_poll
 #' @name Poll Functions
 NULL
 
 
 
-#' @rdname b2_poll
+#' @rdname b3_poll
 #' @export
 zmq.poll <- function(socket, type, timeout = -1L){
   if(length(socket) != length(type)){
@@ -127,21 +127,21 @@ zmq.poll <- function(socket, type, timeout = -1L){
   invisible(ret)
 }
 
-#' @rdname b2_poll
+#' @rdname b3_poll
 #' @export
 zmq.poll.free <- function(){
   ret <- .Call("R_zmq_poll_free", PACKAGE = "pbdZMQ")
   invisible(ret)
 }
 
-#' @rdname b2_poll
+#' @rdname b3_poll
 #' @export
 zmq.poll.length <- function(){
   ret <- .Call("R_zmq_poll_length", PACKAGE = "pbdZMQ")
   invisible(ret)
 }
 
-#' @rdname b2_poll
+#' @rdname b3_poll
 #' @export
 zmq.poll.get.revents <- function(index = 1L){
   if(index < 1){

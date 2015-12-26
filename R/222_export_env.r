@@ -40,8 +40,7 @@
 #' 
 #' Programming with Big Data in R Website: \url{http://r-pbd.org/}
 #' @keywords global variables
-#' @seealso \code{\link{.zmqopt_set}()}, \code{\link{.zmqopt_get}()}, and
-#' \code{\link{.zmqopt_init}()}.
+#' @seealso \code{\link{.zmqopt_init}()}.
 #' @rdname a0_b_control
 
 ### These are fake. These only be here for reference and to fool

@@ -4,11 +4,11 @@
 #' 
 #' \code{zmq.send()} is a high level R function calling ZMQ C API
 #' \code{zmq_send()} sending \code{buf} out.
-#' 
+#'
 #' \code{zmq.recv()} is a high level R function calling ZMQ C API
 #' \code{zmq_recv()} receiving buffers of length \code{len} according to the
 #' \code{buf.type}.
-#' 
+#'
 #' \code{flags} see \code{\link{ZMQ.SR}()} for detail options of send and
 #' receive functions.
 #' 
@@ -120,7 +120,7 @@ zmq.send.raw <- function(socket, buf, len, flags = .pbd_env$ZMQ.SR$BLOCK){
 
 #' @rdname b0_sendrecv
 #' @export
-zmq.recv <- function(socket, len = 1024, flags = .pbd_env$ZMQ.SR$BLOCK,
+zmq.recv <- function(socket, len = 1024L, flags = .pbd_env$ZMQ.SR$BLOCK,
     buf.type = c("char", "raw")){
   if(buf.type[1] == "char"){
     ret <- zmq.recv.char(socket, len, flags = flags)

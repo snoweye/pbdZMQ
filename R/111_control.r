@@ -5,7 +5,7 @@
 #' @param warning.at.error,stop.at.error
 #' Logical; if there is a messaging error, should there be an
 #' R warning/error.
-#' @param POLLIN, POLLOUT, POLLERR
+#' @param POLLIN,POLLOUT,POLLERR
 #' ZMQ poll options; see zmq.h for details.
 #' @param BLOCK,DONTWAIT,NOBLOCK,SNDMORE
 #' ZMQ socket options; see zmq.h for details.

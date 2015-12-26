@@ -14,6 +14,7 @@ static const R_CallMethodDef callMethods[] = {
 	{"R_zmq_bind", (DL_FUNC) &R_zmq_bind, 2},
 	{"R_zmq_connect", (DL_FUNC) &R_zmq_connect, 2},
 	{"R_zmq_setsockopt", (DL_FUNC) &R_zmq_setsockopt, 4},
+	{"R_zmq_getsockopt", (DL_FUNC) &R_zmq_getsockopt, 4},
 
 	/* In file "R_zmq_message.c". */
 	{"R_zmq_msg_init", (DL_FUNC) &R_zmq_msg_init, 0},

@@ -6,6 +6,7 @@
 \alias{zmq.close}
 \alias{zmq.connect}
 \alias{zmq.disconnect}
+\alias{zmq.getsockopt}
 \alias{zmq.setsockopt}
 \alias{zmq.socket}
 \title{Socket Functions}
@@ -21,6 +22,8 @@ zmq.connect(socket, endpoint, MC = .pbd_env$ZMQ.MC)
 zmq.disconnect(socket, endpoint, MC = .pbd_env$ZMQ.MC)
 
 zmq.setsockopt(socket, option.name, option.value, MC = .pbd_env$ZMQ.MC)
+
+zmq.getsockopt(socket, option.name, option.value, MC = .pbd_env$ZMQ.MC)
 }
 \arguments{
 \item{ctx}{a ZMQ context}
@@ -55,8 +58,11 @@ value, see ZeroMQ manual for details.
 returns 0 if successful, otherwise returns -1 and sets \code{errno} to the
 error value, see ZeroMQ manual for details.
 
-\code{zmq.setsockopt()} set/change the socket option and returns 0 if
+\code{zmq.setsockopt()} sets/changes the socket option and returns 0 if
 successful, otherwise returns -1 and sets \code{errno} to the error value,
+see ZeroMQ manual for details.
+
+\code{zmq.getsockopt()} returns the value of socket option,
 see ZeroMQ manual for details.
 }
 \description{
@@ -90,6 +96,9 @@ default in the pbdZMQ's internal ZeroMQ library. \cr *** warning: \code{ipc}
 is not supported in Windows system.
 
 \code{zmq.setsockopt()} is to set/change socket options.
+
+\code{zmq.getsockopt()} is to get socket options and returns
+\code{option.value}.
 }
 \examples{
 \dontrun{

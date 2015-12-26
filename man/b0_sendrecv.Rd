@@ -8,7 +8,7 @@
 \usage{
 zmq.send(socket, buf, flags = .pbd_env$ZMQ.SR$BLOCK)
 
-zmq.recv(socket, len = 1024, flags = .pbd_env$ZMQ.SR$BLOCK,
+zmq.recv(socket, len = 1024L, flags = .pbd_env$ZMQ.SR$BLOCK,
   buf.type = c("char", "raw"))
 }
 \arguments{

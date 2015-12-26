@@ -43,8 +43,7 @@ ZMQ.ST(PAIR = 0L, PUB = 1L, SUB = 2L, REQ = 3L, REP = 4L,
 \item{warning.at.error, stop.at.error}{Logical; if there is a messaging error, should there be an
 R warning/error.}
 
-\item{POLLIN, }{POLLOUT, POLLERR
-ZMQ poll options; see zmq.h for details.}
+\item{POLLIN, POLLOUT, POLLERR}{ZMQ poll options; see zmq.h for details.}
 
 \item{BLOCK, DONTWAIT, NOBLOCK, SNDMORE}{ZMQ socket options; see zmq.h for details.}
 

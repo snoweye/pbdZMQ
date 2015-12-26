@@ -61,7 +61,7 @@ pbd_opt <- function(..., bytext = "", envir = .GlobalEnv){
   if(length(arg) > 0){
     names.arg <- names(arg)
     if(is.null(names.arg) || any(names.arg == "")){
-      comm.stop("Options are all named.")
+      stop("Options are all named.")
     }
 
     for(i.arg in 1:length(arg)){

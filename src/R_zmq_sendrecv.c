@@ -89,7 +89,7 @@ SEXP R_zmq_recv_raw(SEXP R_socket, SEXP R_len, SEXP R_flags){
 	PROTECT(R_recv_len = allocVector(INTSXP, 1));
 
 	/* Receive buffer. */
-	INTEGER(R_recv_len)[0] = R_zmq_recv(R_socket, (void *) RAW(R_ret), R_len, R_flags);
+	INTEGER(R_recv_len)[0] = R_zmq_recv(R_socket, (void *) RAW(R_buf), R_len, R_flags);
 
 	/* Set the elements and names. */
 	SET_VECTOR_ELT(R_ret, 0, R_buf);

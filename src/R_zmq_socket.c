@@ -129,8 +129,45 @@ SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 				C_errno, zmq_strerror(C_errno));
 		}
 	} else{
-		warning("R_zmq_connect: C_socket is not available.\n");
+		warning("R_zmq_setsockopt: C_socket is not available.\n");
 	}
 	return(AsInt(C_ret));
 } /* End of R_zmq_setsockopt(). */
+
+SEXP R_zmq_getsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
+		SEXP R_option_type){
+	int C_ret = -1, C_errno;
+	int C_option_name = INTEGER(R_option_name)[0];
+	int C_option_type = INTEGER(R_option_type)[0];
+	void *C_socket = R_ExternalPtrAddr(R_socket);
+	void *C_option_value;
+	size_t C_option_len;
+
+	if(C_socket != NULL){
+		switch(C_option_type){
+			case 0:
+				C_option_value = (void *) CHARPT(R_option_value, 0);
+				C_option_len = strlen(C_option_value);
+				break;
+			case 1:
+				C_option_value = (void *) INTEGER(R_option_value);
+				C_option_len = sizeof(int);
+				break;
+			default:
+				warning("C_option_type: %d is not implemented.\n",
+					C_option_type);
+		} // End of switch().
+
+		C_ret = zmq_getsockopt(C_socket, C_option_name,
+				C_option_value, &C_option_len);
+		if(C_ret == -1){
+			C_errno = zmq_errno();
+			warning("R_zmq_getsockopt errno: %d strerror: %s\n",
+				C_errno, zmq_strerror(C_errno));
+		}
+	} else{
+		warning("R_zmq_getsockopt: C_socket is not available.\n");
+	}
+	return(AsInt(C_ret));
+} /* End of R_zmq_getsockopt(). */
 

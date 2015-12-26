@@ -51,7 +51,6 @@ ZeroMQ/4.1.0 API Reference:
 Programming with Big Data in R Website: \url{http://r-pbd.org/}
 }
 \seealso{
-\code{\link{.zmqopt_set}()}, \code{\link{.zmqopt_get}()}, and
 \code{\link{.zmqopt_init}()}.
 }
 \keyword{global}

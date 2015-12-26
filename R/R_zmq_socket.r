@@ -29,6 +29,9 @@
 #' is not supported in Windows system.
 #' 
 #' \code{zmq.setsockopt()} is to set/change socket options.
+#'
+#' \code{zmq.getsockopt()} is to get socket options and returns
+#' \code{option.value}.
 #' 
 #' @param ctx 
 #' a ZMQ context
@@ -62,10 +65,13 @@
 #' returns 0 if successful, otherwise returns -1 and sets \code{errno} to the
 #' error value, see ZeroMQ manual for details.
 #' 
-#' \code{zmq.setsockopt()} set/change the socket option and returns 0 if
+#' \code{zmq.setsockopt()} sets/changes the socket option and returns 0 if
 #' successful, otherwise returns -1 and sets \code{errno} to the error value,
 #' see ZeroMQ manual for details.
-#' 
+#'
+#' \code{zmq.getsockopt()} returns the value of socket option,
+#' see ZeroMQ manual for details.
+#'
 #' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
 #' 
 #' @references ZeroMQ/4.1.0 API Reference:
@@ -204,3 +210,27 @@ zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.
   invisible(ret)
 }
 
+#' @rdname a1_socket
+#' @export
+zmq.getsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.MC){
+  if(is.character(option.value)){
+    option.type <- 0L
+  } else if(is.integer(option.value)){
+    option.type <- 1L
+  } else{
+    stop("Type of option.value is not implemented")
+  }
+
+  ret <- .Call("R_zmq_getsockopt", socket, option.name, option.value,
+               option.type, PACKAGE = "pbdZMQ")
+
+  if(ret != 0){
+    if(MC$stop.at.error){
+      stop(paste("zmq.getsockopt fails, ", option.value, sep = ""))
+    }
+    if(MC$warning.at.error){
+      warning(paste("zmq.getsockopt fails, ", option.value, sep = ""))
+    }
+  }
+  invisible(option.value)
+}

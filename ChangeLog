@@ -1,4 +1,8 @@
-2015-12-20:
+2015-12-25: Ver 0.2-1
+  * Poller demo and man added and checked.
+  * Add multiple parts for send and recv using raw and serialization.
+
+2015-12-20: Ver 0.2-1
   * Add Poll functions.
 
 2015-12-15:
