@@ -12,8 +12,8 @@
 #' a ZMQ socket
 #' @param parts
 #' a vector of multiple buffers to be sent
-#' @param unserialize
-#' if unserialize the received multiple buffers
+#' @param serialize,unserialize
+#' if serialize/unserialize the received multiple buffers
 #' 
 #' @return \code{zmq.send.multipart()} returns.
 #'
@@ -71,20 +71,13 @@ NULL
 
 #' @rdname b2_sendrecv_multipart
 #' @export
-zmq.send.multipart <- function(socket, parts){
+zmq.send.multipart <- function(socket, parts, serialize = TRUE){
   for(i.part in 1:(length(parts) - 1)){
-    part <- parts[[i.part]]
-    if(!is.raw(part)){
-      part <- serialize(part, NULL)
-    }
-    zmq.send.raw(socket, part, length(part), flags = .pbd_env$ZMQ.SR$SNDMORE)
+    zmq.msg.send(parts[[i.part]], socket, flags = .pbd_env$ZMQ.SR$SNDMORE,
+                 serialize = serialize)
   }
-
-  part <- parts[[length(parts)]]
-  if(!is.raw(part)){
-    part <- serialize(part, NULL)
-  }
-  zmq.send.raw(socket, part, length(part), flags = .pbd_env$ZMQ.SR$BLOCK)
+  zmq.msg.send(parts[[length(parts)]], socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+               serialize = serialize)
 
   invisible()
 }
@@ -93,23 +86,20 @@ zmq.send.multipart <- function(socket, parts){
 
 #' @rdname b2_sendrecv_multipart
 #' @export
-zmq.recv.multipart <- function(socket, unserialize = FALSE){
+zmq.recv.multipart <- function(socket, unserialize = TRUE){
   ret <- list() 
   i.part <- 1
-  ret[[i.part]] <- zmq.recv.raw(socket, 1024L, flags = .pbd_env$ZMQ.SR$BLOCK)
+  ret[[i.part]] <- zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+                                unserialize = unserialize)
   opt.val <- zmq.getsockopt(socket, .pbd_env$ZMQ.SO$RCVMORE, 0L)
 
   while(opt.val == 1){
     i.part <- i.part + 1
-    ret[[i.part]] <- zmq.recv.raw(socket, 1024L, .pbd_env$ZMQ.SR$NOBLOCK)
+    ret[[i.part]] <- zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+                                  unserialize = unserialize)
     opt.val <- zmq.getsockopt(socket, .pbd_env$ZMQ.SO$RCVMORE, 0L)
   }
 
-  if(unserialize){
-    ret <- lapply(1:length(ret), function(i){ unserialize(ret[[i]]$buf) })
-  } else{
-    ret <- lapply(1:length(ret), function(i){ ret[[i]]$buf })
-  }
   ret
 }
 

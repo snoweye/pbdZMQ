@@ -6,16 +6,16 @@
 \alias{zmq.send.multipart}
 \title{Send Receive Multiple Raw Buffers}
 \usage{
-zmq.send.multipart(socket, parts)
+zmq.send.multipart(socket, parts, serialize = TRUE)
 
-zmq.recv.multipart(socket, unserialize = FALSE)
+zmq.recv.multipart(socket, unserialize = TRUE)
 }
 \arguments{
 \item{socket}{a ZMQ socket}
 
 \item{parts}{a vector of multiple buffers to be sent}
 
-\item{unserialize}{if unserialize the received multiple buffers}
+\item{serialize, unserialize}{if serialize/unserialize the received multiple buffers}
 }
 \value{
 \code{zmq.send.multipart()} returns.
