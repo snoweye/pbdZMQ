@@ -2,13 +2,14 @@ citHeader("To cite pbdZMQ in a publication use:")
 
 citEntry(
   entry = "Misc",
-  title = "{pbdZMQ}: Programming with Big Data -- Interface to ZeroMQ",
+  title = "{pbdZMQ}: Programming with Big Data -- Interface to {ZeroMQ}",
   author = personList(as.person("Wei-Chen Chen"),
                       as.person("Drew Schmidt"),
                       as.person("Christian Heckendorf"),
                       as.person("George Ostrouchov")),
   year = "2015",
-  note = "{R} Package, URL http://cran.r-project.org/package=pbdZMQ",
+  note = "{R} Package",
+  url = "http://cran.r-project.org/package=pbdZMQ",
   textVersion = "Chen, W.-C., Schmidt, D., Heckendorf, C., and Ostrouchov, G. (2015) pbdZMQ: Programming with Big Data -- Interface to ZeroMQ. R Package, URL http://cran.r-project.org/package=pbdZMQ",
   key = "Chen2015pbdZMQpackage"
 )
@@ -19,7 +20,8 @@ citEntry(
   author = personList(as.person("Wei-Chen Chen"),
                       as.person("Drew Schmidt")),
   year = "2015",
-  note = "{R} Vignette, URL http://cran.r-project.org/package=pbdZMQ",
+  note = "{R} Vignette",
+  url = "http://cran.r-project.org/package=pbdZMQ",
   textVersion = "Chen, W.-C. and Schmidt, D. (2015) A Quick Guide for the pbdZMQ Package. R Vignette, URL http://cran.r-project.org/package=pbdZMQ",
   key = "Chen2015pbdZMQvignette"
 )
