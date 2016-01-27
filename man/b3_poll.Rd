@@ -8,7 +8,7 @@
 \alias{zmq.poll.length}
 \title{Poll Functions}
 \usage{
-zmq.poll(socket, type, timeout = -1L)
+zmq.poll(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC)
 
 zmq.poll.free()
 
@@ -22,6 +22,8 @@ zmq.poll.get.revents(index = 1L)
 \item{type}{a vector of socket types corresponding to \code{socket} argument}
 
 \item{timeout}{timeout for poll, see ZeroMQ manual for details}
+
+\item{MC}{a message control, see \code{\link{ZMQ.MC}()} for details}
 
 \item{index}{an index of ZMQ poll items to obtain revents}
 }

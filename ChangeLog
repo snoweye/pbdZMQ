@@ -1,3 +1,6 @@
+2016-01-25: Ver 0.2-2
+  * Add MC option (stop.at.error) to zmq.poll().
+
 2015-12-25: Ver 0.2-1
   * Poller demo and man added and checked.
   * Add multiple parts for send and recv using raw and serialization.

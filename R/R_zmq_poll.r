@@ -25,6 +25,8 @@
 #' timeout for poll, see ZeroMQ manual for details
 #' @param index
 #' an index of ZMQ poll items to obtain revents
+#' @param MC 
+#' a message control, see \code{\link{ZMQ.MC}()} for details
 #' 
 #' @return \code{zmq.poll()} returns a ZMQ code,
 #' see ZeroMQ manual for details
@@ -110,7 +112,7 @@ NULL
 
 #' @rdname b3_poll
 #' @export
-zmq.poll <- function(socket, type, timeout = -1L){
+zmq.poll <- function(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC){
   if(length(socket) != length(type)){
     stop("socket and type are of different length.")
   }
@@ -124,6 +126,15 @@ zmq.poll <- function(socket, type, timeout = -1L){
 
   ret <- .Call("R_zmq_poll", socket, type, as.integer(timeout),
                PACKAGE = "pbdZMQ")
+
+  if(ret != 0){
+    if(MC$stop.at.error){
+      stop(paste("zmq.poll fails, ", ret, sep = ""))
+    }
+    if(MC$warning.at.error){
+      warning(paste("zmq.poll fails, ", ret, sep = ""))
+    }
+  }
   invisible(ret)
 }
 
