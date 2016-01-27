@@ -139,12 +139,15 @@ zmq.bind <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
   if(ret != 0){
     if(MC$stop.at.error){
       stop(paste("zmq.bind fails, ", endpoint, sep = ""))
+      return(invisible(ret))
     }
     if(MC$warning.at.error){
       warning(paste("zmq.bind fails, ", endpoint, sep = ""))
+      return(invisible(ret))
     }
+  } else{
+    return(invisible(ret))
   }
-  invisible(ret)
 }
 
 
@@ -157,12 +160,15 @@ zmq.connect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
   if(ret != 0){
     if(MC$stop.at.error){
       stop(paste("zmq.connect fails, ", endpoint, sep = ""))
+      return(invisible(ret))
     }
     if(MC$warning.at.error){
       warning(paste("zmq.connect fails, ", endpoint, sep = ""))
+      return(invisible(ret))
     }
+  } else{
+    return(invisible(ret))
   }
-  invisible(ret)
 }
 
 
@@ -175,12 +181,15 @@ zmq.disconnect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
   if(ret != 0){
     if(MC$stop.at.error){
       stop(paste("zmq.disconnect fails, ", endpoint, sep = ""))
+      return(invisible(ret))
     }
     if(MC$warning.at.error){
       warning(paste("zmq.disconnect fails, ", endpoint, sep = ""))
+      return(invisible(ret))
     }
+  } else{
+    return(invisible(ret))
   }
-  invisible(ret)
 }
 
 
@@ -202,12 +211,15 @@ zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.
   if(ret != 0){
     if(MC$stop.at.error){
       stop(paste("zmq.setsockopt fails, ", option.value, sep = ""))
+      return(invisible(ret))
     }
     if(MC$warning.at.error){
       warning(paste("zmq.setsockopt fails, ", option.value, sep = ""))
+      return(invisible(ret))
     }
+  } else{
+    return(invisible(ret))
   }
-  invisible(ret)
 }
 
 #' @rdname a1_socket
@@ -227,10 +239,13 @@ zmq.getsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.
   if(ret != 0){
     if(MC$stop.at.error){
       stop(paste("zmq.getsockopt fails, ", option.value, sep = ""))
+      return(invisible(ret))
     }
     if(MC$warning.at.error){
       warning(paste("zmq.getsockopt fails, ", option.value, sep = ""))
+      return(invisible(ret))
     }
+  } else{
+    return(invisible(option.value))
   }
-  invisible(option.value)
 }

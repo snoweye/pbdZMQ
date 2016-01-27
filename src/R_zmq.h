@@ -4,6 +4,7 @@
 #include <R.h>
 #include <Rinternals.h>
 #include "zmq.h"
+extern int C_errno;
 
 /* Obtain character pointers. */
 #define CHARPT(x,i)	((char*)CHAR(STRING_ELT(x,i)))
@@ -43,6 +44,7 @@ SEXP R_zmq_recv_raw(SEXP R_socket, SEXP R_len, SEXP R_flags);
 /* Utility related. */
 SEXP AsInt(int x);
 SEXP R_zmq_strerror();
+SEXP R_zmq_errno();
 SEXP R_zmq_version();
 
 /* shellexec. */

@@ -1,5 +1,6 @@
 #include "R_zmq.h"
 
+int C_errno;
 
 /* Internal. */
 SEXP AsInt(int C_x){
@@ -21,6 +22,12 @@ SEXP R_zmq_strerror(SEXP R_errno){
 	UNPROTECT(1);
 	return(R_strerror);
 } /* End of R_zmq_strerror(). */
+
+SEXP R_zmq_errno(){
+	C_errno = zmq_errno();
+	Rprintf("errno: %d strerror: %s\n", C_errno, zmq_strerror(C_errno));
+	return(AsInt(C_errno));
+} /* End of R_zmq_errno(). */
 
 
 /* Version. */

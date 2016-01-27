@@ -6,9 +6,6 @@
 \alias{ZMQ Control Environment}
 \title{Sets of controls in pbdZMQ.}
 \format{Objects contain several parameters for communicators and methods.}
-\usage{
-.pbd_env
-}
 \description{
 These sets of controls are used to provide default values in this package.
 }

@@ -43,7 +43,7 @@ rm(.pbd_env)
 ls(.pbd_env)
 
 .pbd_env$ZMQ.SR$BLOCK
-.pbd_opt(bytext = "ZMQ.SR$BLOCK <- 0L")
+pbd_opt(bytext = "ZMQ.SR$BLOCK <- 0L")
 }
 
 }

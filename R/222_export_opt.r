@@ -3,9 +3,17 @@
 #' Initial control functions
 #' 
 #' \code{.zmqopt_init()} initials default ZMQ controls.
+#' \code{.zmqopt_get()} gets a ZMQ control.
+#' \code{.zmqopt_set()} sets a ZMQ control.
 #' 
 #' @param envir 
 #' an environment where ZMQ controls locate
+#' @param val
+#' a value to be set
+#' @param main
+#' a variable to be get from or set to
+#' @param sub
+#' a subvariable to be get from or set to
 #' 
 #' @return 
 #' \code{.zmqopt_init()} initial the ZMQ control
@@ -28,7 +36,7 @@
 #' ls(.pbd_env)
 #'
 #' .pbd_env$ZMQ.SR$BLOCK
-#' .pbd_opt(bytext = "ZMQ.SR$BLOCK = 0L")
+#' pbd_opt(bytext = "ZMQ.SR$BLOCK = 0L")
 #' }
 #' 
 #' @keywords programming
@@ -38,23 +46,27 @@
 
 
 ### Get ZMQ options.
-# .zmqopt_get <- function(main, sub = NULL, envir = .GlobalEnv){
-#   if(!is.null(sub)){
-#     envir$.pbd_env[[main]][[sub]]
-#   } else{
-#     envir$.pbd_env[[main]]
-#   }
-# } # End of .zmqopt_get().
+#' @export
+#' @rdname a0_c_options
+.zmqopt_get <- function(main, sub = NULL, envir = .GlobalEnv){
+  if(!is.null(sub)){
+    envir$.pbd_env[[main]][[sub]]
+  } else{
+    envir$.pbd_env[[main]]
+  }
+} # End of .zmqopt_get().
 
 ### Set ZMQ options.
-# .zmqopt_set <- function(val, main, sub = NULL, envir = .GlobalEnv){
-#   if(!is.null(sub)){
-#     envir$.pbd_env[[main]][[sub]] <- val
-#   } else{
-#     envir$.pbd_env[[main]] <- val
-#   }
-#   invisible()
-# } # End of .zmqopt_set().
+#' @export
+#' @rdname a0_c_options
+.zmqopt_set <- function(val, main, sub = NULL, envir = .GlobalEnv){
+  if(!is.null(sub)){
+    envir$.pbd_env[[main]][[sub]] <- val
+  } else{
+    envir$.pbd_env[[main]] <- val
+  }
+  invisible()
+} # End of .zmqopt_set().
 
 ### Initial ZMQ options.
 #' @export

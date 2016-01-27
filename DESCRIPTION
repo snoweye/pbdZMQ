@@ -38,7 +38,7 @@ MailingList: Please send questions and comments regarding pbdR to
 NeedsCompilation: yes
 ByteCompile: yes
 RoxygenNote: 5.0.1
-Packaged: 2016-01-27 04:09:17 UTC; snoweye
+Packaged: 2016-01-27 21:09:28 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut],
   Christian Heckendorf [aut] (file transfer),

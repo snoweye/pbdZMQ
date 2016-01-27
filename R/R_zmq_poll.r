@@ -130,12 +130,15 @@ zmq.poll <- function(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC){
   if(ret != 0){
     if(MC$stop.at.error){
       stop(paste("zmq.poll fails, ", ret, sep = ""))
+      return(invisible(ret))
     }
     if(MC$warning.at.error){
       warning(paste("zmq.poll fails, ", ret, sep = ""))
+      return(invisible(ret))
     }
+  } else{
+    return(invisible(ret))
   }
-  invisible(ret)
 }
 
 #' @rdname b3_poll

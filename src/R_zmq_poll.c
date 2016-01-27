@@ -6,7 +6,7 @@ int PBD_POLLITEM_MAXSIZE = 10;
 
 /* Poll related. */
 SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout){
-	int C_ret = -1, C_errno, i;
+	int C_ret = -1, i;
 
 	PBD_POLLITEM_LENGTH = LENGTH(R_socket);
 	if(PBD_POLLITEM_LENGTH > PBD_POLLITEM_MAXSIZE){
@@ -22,7 +22,7 @@ SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout){
 	C_ret = zmq_poll(PBD_POLLITEM, PBD_POLLITEM_LENGTH, (long) INTEGER(R_timeout)[0]);
 	if(C_ret == -1){
 		C_errno = zmq_errno();
-		warning("R_zmq_poll: %d strerror: %s\n",
+		Rprintf("R_zmq_poll: %d strerror: %s\n",
 			C_errno, zmq_strerror(C_errno));
 	}
 	return(AsInt(C_ret));

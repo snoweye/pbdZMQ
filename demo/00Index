@@ -9,3 +9,4 @@ msreader	pbdZMQ	Multiple socket reader.
 mspoller	pbdZMQ	Multiple socket reader using poll method.
 mpserver	pbdZMQ	Hello World server in multiple part version.
 mpclient	pbdZMQ	Hello World client in multiple part version.
+tryCatch	pbdZMQ  Examples for using tryCatch().

@@ -3,6 +3,8 @@
 #' Utility functions
 #' 
 #' \code{zmq.strerror()} gets ZeroMQ error message string.
+#'
+#' \code{zmq.errno()} gets ZeroMQ error message number.
 #' 
 #' \code{zmq.version()} print current ZeroMQ version.
 #' 
@@ -12,6 +14,7 @@
 #' @return 
 #' \code{zmq.strerror()} returns an R string containing ZeroMQ error
 #' message.
+#' \code{zmq.errno()} returns a ZeroMQ error number.
 #' 
 #' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
 #' 
@@ -47,6 +50,11 @@ zmq.strerror <- function(errno){
   .Call("R_zmq_strerror", as.integer(errno[1]), PACKAGE = "pbdZMQ")
 }
 
+#' @rdname xx_utility
+#' @export
+zmq.errno <- function(){
+  .Call("R_zmq_errno", PACKAGE = "pbdZMQ")
+}
 
 
 #' @rdname xx_utility

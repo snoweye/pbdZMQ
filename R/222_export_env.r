@@ -42,6 +42,7 @@
 #' @keywords global variables
 #' @seealso \code{\link{.zmqopt_init}()}.
 #' @rdname a0_b_control
+NULL
 
 ### These are fake. These only be here for reference and to fool
 ### ``R CMD check''.
@@ -51,10 +52,10 @@
 ### after loaded.
 ###
 ### WCC: DO ``NOT'' remark ``NOR'' use the next.
-.pbd_env <- new.env()
-.pbd_env$ZMQ.MC <- ZMQ.MC()
-.pbd_env$ZMQ.SR <- ZMQ.SR()
-.pbd_env$ZMQ.SO <- ZMQ.SO()
-.pbd_env$ZMQ.ST <- ZMQ.ST()
-.pbd_env$ZMQ.PO <- ZMQ.PO()
+# .pbd_env <- new.env()
+# .pbd_env$ZMQ.MC <- ZMQ.MC()
+# .pbd_env$ZMQ.SR <- ZMQ.SR()
+# .pbd_env$ZMQ.SO <- ZMQ.SO()
+# .pbd_env$ZMQ.ST <- ZMQ.ST()
+# .pbd_env$ZMQ.PO <- ZMQ.PO()
 

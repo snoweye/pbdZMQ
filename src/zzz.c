@@ -30,6 +30,7 @@ static const R_CallMethodDef callMethods[] = {
 
 	/* In file "R_zmq_utility.c". */
 	{"R_zmq_strerror", (DL_FUNC) &R_zmq_strerror, 1},
+	{"R_zmq_errno", (DL_FUNC) &R_zmq_errno, 0},
 	{"R_zmq_version", (DL_FUNC) &R_zmq_version, 0},
 
 	/* In file "shellexec_wcc.c". */
