@@ -136,7 +136,7 @@ zmq.close <- function(socket){
 zmq.bind <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
   ret <- .Call("R_zmq_bind", socket, endpoint, PACKAGE = "pbdZMQ")
 
-  if(ret != 0){
+  if(ret == -1){
     if(MC$stop.at.error){
       stop(paste("zmq.bind fails, ", endpoint, sep = ""))
       return(invisible(ret))
@@ -157,7 +157,7 @@ zmq.bind <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
 zmq.connect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
   ret <- .Call("R_zmq_connect", socket, endpoint, PACKAGE = "pbdZMQ")
 
-  if(ret != 0){
+  if(ret == -1){
     if(MC$stop.at.error){
       stop(paste("zmq.connect fails, ", endpoint, sep = ""))
       return(invisible(ret))
@@ -178,7 +178,7 @@ zmq.connect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
 zmq.disconnect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
   ret <- .Call("R_zmq_disconnect", socket, endpoint, PACKAGE = "pbdZMQ")
 
-  if(ret != 0){
+  if(ret == -1){
     if(MC$stop.at.error){
       stop(paste("zmq.disconnect fails, ", endpoint, sep = ""))
       return(invisible(ret))
@@ -208,7 +208,7 @@ zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.
   ret <- .Call("R_zmq_setsockopt", socket, option.name, option.value,
                option.type, PACKAGE = "pbdZMQ")
 
-  if(ret != 0){
+  if(ret == -1){
     if(MC$stop.at.error){
       stop(paste("zmq.setsockopt fails, ", option.value, sep = ""))
       return(invisible(ret))
@@ -236,7 +236,7 @@ zmq.getsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.
   ret <- .Call("R_zmq_getsockopt", socket, option.name, option.value,
                option.type, PACKAGE = "pbdZMQ")
 
-  if(ret != 0){
+  if(ret == -1){
     if(MC$stop.at.error){
       stop(paste("zmq.getsockopt fails, ", option.value, sep = ""))
       return(invisible(ret))

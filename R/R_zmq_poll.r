@@ -28,7 +28,7 @@
 #' @param MC 
 #' a message control, see \code{\link{ZMQ.MC}()} for details
 #' 
-#' @return \code{zmq.poll()} returns a ZMQ code,
+#' @return \code{zmq.poll()} returns a ZMQ code and an errno,
 #' see ZeroMQ manual for details
 #' @return \code{zmq.poll.length()} returns the total number of poll items
 #' @return \code{zmq.poll.get.revents()} returns the revent type
@@ -127,13 +127,22 @@ zmq.poll <- function(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC){
   ret <- .Call("R_zmq_poll", socket, type, as.integer(timeout),
                PACKAGE = "pbdZMQ")
 
-  if(ret != 0){
+  if(ret[1] == -1){
+    if(MC$check.ctrl.c){
+      ### ret = c(-1, 4), Ctrl+C is one of possible signals (EINTR).
+      if(ret[2] == 4){
+        EINTR <- list()
+        class(EINTR) <- c("interrupt", "condition")
+        ### Make a fake return for tryCatch().
+        return(invisible(EINTR))
+      }
+    }
     if(MC$stop.at.error){
-      stop(paste("zmq.poll fails, ", ret, sep = ""))
+      stop(paste("zmq.poll fails, ", ret[1], sep = ""))
       return(invisible(ret))
     }
     if(MC$warning.at.error){
-      warning(paste("zmq.poll fails, ", ret, sep = ""))
+      warning(paste("zmq.poll fails, ", ret[1], sep = ""))
       return(invisible(ret))
     }
   } else{

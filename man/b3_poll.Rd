@@ -28,7 +28,7 @@ zmq.poll.get.revents(index = 1L)
 \item{index}{an index of ZMQ poll items to obtain revents}
 }
 \value{
-\code{zmq.poll()} returns a ZMQ code,
+\code{zmq.poll()} returns a ZMQ code and an errno,
 see ZeroMQ manual for details
 
 \code{zmq.poll.length()} returns the total number of poll items
