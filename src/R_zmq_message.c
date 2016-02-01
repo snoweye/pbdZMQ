@@ -7,7 +7,7 @@ static void msg_Finalizer(SEXP R_msg_t){
 
 SEXP R_zmq_msg_init(){
 	SEXP R_msg_t = R_NilValue;
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	zmq_msg_t C_msg_t;
 
 	C_ret = zmq_msg_init(&C_msg_t);
@@ -24,7 +24,7 @@ SEXP R_zmq_msg_init(){
 } /* End of R_zmq_init(). */
 
 SEXP R_zmq_msg_close(SEXP R_msg_t){
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	void *C_msg_t = R_ExternalPtrAddr(R_msg_t);
 
 	if(C_msg_t == NULL){
@@ -42,7 +42,7 @@ SEXP R_zmq_msg_close(SEXP R_msg_t){
 
 SEXP R_zmq_msg_send(SEXP R_rmsg, SEXP R_socket, SEXP R_flags){
 	int C_rmsg_length = LENGTH(R_rmsg);
-	int C_ret = -1, C_flags = INTEGER(R_flags)[0];
+	int C_ret = -1, C_errno, C_flags = INTEGER(R_flags)[0];
 	void *C_socket = R_ExternalPtrAddr(R_socket);
 	zmq_msg_t msg;
 
@@ -78,7 +78,7 @@ SEXP R_zmq_msg_send(SEXP R_rmsg, SEXP R_socket, SEXP R_flags){
 SEXP R_zmq_msg_recv(SEXP R_socket, SEXP R_flags){
 	SEXP R_rmsg = R_NilValue;
 	int C_rmsg_length;
-	int C_ret = -1, C_flags = INTEGER(R_flags)[0];
+	int C_ret = -1, C_errno, C_flags = INTEGER(R_flags)[0];
 	void *C_socket = R_ExternalPtrAddr(R_socket);
 	zmq_msg_t msg;
 

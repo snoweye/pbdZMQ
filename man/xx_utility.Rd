@@ -2,14 +2,11 @@
 % Please edit documentation in R/R_zmq_utility.r
 \name{Utility Functions}
 \alias{Utility Functions}
-\alias{zmq.errno}
 \alias{zmq.strerror}
 \alias{zmq.version}
 \title{Utility Functions}
 \usage{
 zmq.strerror(errno)
-
-zmq.errno()
 
 zmq.version()
 }
@@ -19,15 +16,12 @@ zmq.version()
 \value{
 \code{zmq.strerror()} returns an R string containing ZeroMQ error
 message.
-\code{zmq.errno()} returns a ZeroMQ error number.
 }
 \description{
 Utility functions
 }
 \details{
 \code{zmq.strerror()} gets ZeroMQ error message string.
-
-\code{zmq.errno()} gets ZeroMQ error message number.
 
 \code{zmq.version()} print current ZeroMQ version.
 }

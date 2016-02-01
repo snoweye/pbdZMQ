@@ -27,7 +27,7 @@ SEXP R_zmq_socket(SEXP R_context, SEXP R_type){
 } /* End of R_zmq_socket(). */
 
 SEXP R_zmq_close(SEXP R_socket){
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	void *C_socket = R_ExternalPtrAddr(R_socket);
 
 	if(C_socket == NULL){
@@ -44,7 +44,7 @@ SEXP R_zmq_close(SEXP R_socket){
 } /* End of R_zmq_close(). */
 
 SEXP R_zmq_bind(SEXP R_socket, SEXP R_endpoint){
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	void *C_socket = R_ExternalPtrAddr(R_socket);
 	const char *C_endpoint = CHARPT(R_endpoint, 0);
 
@@ -62,7 +62,7 @@ SEXP R_zmq_bind(SEXP R_socket, SEXP R_endpoint){
 } /* End of R_zmq_bind(). */
 
 SEXP R_zmq_connect(SEXP R_socket, SEXP R_endpoint){
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	void *C_socket = R_ExternalPtrAddr(R_socket);
 	const char *C_endpoint = CHARPT(R_endpoint, 0);
 
@@ -80,7 +80,7 @@ SEXP R_zmq_connect(SEXP R_socket, SEXP R_endpoint){
 } /* End of R_zmq_connect(). */
 
 SEXP R_zmq_disconnect(SEXP R_socket, SEXP R_endpoint){
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	void *C_socket = R_ExternalPtrAddr(R_socket);
 	const char *C_endpoint = CHARPT(R_endpoint, 0);
 
@@ -99,7 +99,7 @@ SEXP R_zmq_disconnect(SEXP R_socket, SEXP R_endpoint){
 
 SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 		SEXP R_option_type){
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	int C_option_name = INTEGER(R_option_name)[0];
 	int C_option_type = INTEGER(R_option_type)[0];
 	void *C_socket = R_ExternalPtrAddr(R_socket);
@@ -136,7 +136,7 @@ SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 
 SEXP R_zmq_getsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 		SEXP R_option_type){
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	int C_option_name = INTEGER(R_option_name)[0];
 	int C_option_type = INTEGER(R_option_type)[0];
 	void *C_socket = R_ExternalPtrAddr(R_socket);

@@ -1,7 +1,7 @@
 ### Multiple socket reader as in the ZeroMQ guide.
 # SHELL> Rscript wuserver.r &
 # SHELL> Rscript taskvent.r &
-# SHELL> Rscript mspoller.r
+# SHELL> Rscript mspoller2.r
 # SHELL> rm weather.ipc
 
 library(pbdZMQ, quietly = TRUE)
@@ -20,11 +20,12 @@ i.rec <- 0
 i.sub <- 0
 while(TRUE){
   ### Set poller.
-  poller <- zmq.poll(c(receiver, subscriber),
-                     c(.pbd_env$ZMQ.PO$POLLIN, .pbd_env$ZMQ.PO$POLLIN))
+  poller <- zmq.poll2(c(receiver, subscriber),
+                      c(.pbd_env$ZMQ.PO$POLLIN, .pbd_env$ZMQ.PO$POLLIN))
 
   ### Check receiver.
-  if(bitwAnd(zmq.poll.get.revents(1), .pbd_env$ZMQ.PO$POLLIN)){
+  if(bitwAnd(zmq.poll2.get.revents(1, poller),
+             .pbd_env$ZMQ.PO$POLLIN)){
     ret <- zmq.recv(receiver)
     if(ret$len != -1){
       cat("task ventilator:", ret$buf, "at", i.rec, "\n")
@@ -33,7 +34,8 @@ while(TRUE){
   }
 
   ### Check subscriber.
-  if(bitwAnd(zmq.poll.get.revents(2), .pbd_env$ZMQ.PO$POLLIN)){
+  if(bitwAnd(zmq.poll2.get.revents(2, poller),
+             .pbd_env$ZMQ.PO$POLLIN)){
     ret <- zmq.recv(subscriber)
     if(ret$len != -1){
       cat("weather update:", ret$buf, "at", i.sub, "\n")
@@ -49,7 +51,6 @@ while(TRUE){
 }
 
 ### Finish.
-zmq.poll.free()
 zmq.close(receiver)
 zmq.close(subscriber)
 zmq.ctx.destroy(context)

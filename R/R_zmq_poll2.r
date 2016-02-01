@@ -1,23 +1,19 @@
-#' Poll Functions
+#' New Poll Functions
 #' 
-#' Poll functions
+#' New Poll functions
 #' 
-#' \code{zmq.poll()} initials ZMQ poll items given  ZMQ \code{socket}'s
+#' \code{zmq.poll2()} initials ZMQ poll items given  ZMQ \code{socket}'s
 #' and ZMQ poll \code{type}'s. Both \code{socket} and \code{type} are
 #' in vectors of the same length, while \code{socket} contains socket pointers
 #' and \code{type} contains types of poll.
 #' See \code{\link{ZMQ.PO}()} for the possible values of
 #' \code{type}. ZMQ defines several poll types and utilize
 #' them to poll multiple sockets.
-#' 
-#' \code{zmq.poll.interrupt()} call \code{zmq.poll()} and raise an interrupt
-#' signal if \code{ret[1] == -1} and \code{ret[2] == 4}.
 #'
-#' \code{zmq.poll.free()} frees ZMQ poll structure memory internally.
+#' \code{zmq.poll2.interrupt()} call \code{zmq.poll2()} and raise an interrupt
+#' signal if \code{ret$pollret[1] == -1} and \code{ret$pollret[2] == 4}.
 #'
-#' \code{zmq.poll.length()} obtains total numbers of ZMQ poll items.
-#'
-#' \code{zmq.poll.get.revents()} obtains revent types from ZMQ poll item by
+#' \code{zmq.poll2.get.revents()} obtains revent types from ZMQ poll item by
 #' the input index..
 #' 
 #' @param socket 
@@ -26,17 +22,20 @@
 #' a vector of socket types corresponding to \code{socket} argument
 #' @param timeout
 #' timeout for poll, see ZeroMQ manual for details
-#' @param index
-#' an index of ZMQ poll items to obtain revents
 #' @param MC 
 #' a message control, see \code{\link{ZMQ.MC}()} for details
+#' @param index
+#' an index of ZMQ poll items to obtain revents
+#' @param poller
+#' a pointer of ZMQ poller
 #' 
-#' @return \code{zmq.poll()} returns a ZMQ code and an errno,
-#' see ZeroMQ manual for details, no error/warning/interrupt in this
+#' @return \code{zmq.poll2()} returns a ZMQ code, an errno, and a pollitem
+#' pointer.
+#' No error/warning/interrupt in this
 #' \code{R} function, but some error/warning/interrupt may catch by
 #' the \code{C} function \code{zmq_poll()}.
-#' @return \code{zmq.poll.length()} returns the total number of poll items
-#' @return \code{zmq.poll.get.revents()} returns the revent type
+#' See ZeroMQ manual for details.
+#' @return \code{zmq.poll.get.revents.new()} returns the revent type.
 #' 
 #' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
 #' 
@@ -47,15 +46,12 @@
 #' 
 #' @examples
 #' \dontrun{
-#' ### Using poll pattern.
-#' ### See demo/mspoller.r for details.
-#'
-#' ### Run next in background or the other window.
-#' SHELL> Rscript wuserver.r &
-#' SHELL> Rscript taskvent.r &
-#' SHELL> Rscript mspoller.r
-#'
-#' ### The mspoller.r has next.
+#' ### Multiple socket reader as in the ZeroMQ guide.
+#' # SHELL> Rscript wuserver.r &
+#' # SHELL> Rscript taskvent.r &
+#' # SHELL> Rscript mspoller2.r
+#' # SHELL> rm weather.ipc
+#' 
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' ### Initial.
@@ -72,11 +68,12 @@
 #' i.sub <- 0
 #' while(TRUE){
 #'   ### Set poller.
-#'   zmq.poll(c(receiver, subscriber),
-#'            c(.pbd_env$ZMQ.PO$POLLIN, .pbd_env$ZMQ.PO$POLLIN))
+#'   poller <- zmq.poll2(c(receiver, subscriber),
+#'                       c(.pbd_env$ZMQ.PO$POLLIN, .pbd_env$ZMQ.PO$POLLIN))
 #' 
 #'   ### Check receiver.
-#'   if(bitwAnd(zmq.poll.get.revents(1), .pbd_env$ZMQ.PO$POLLIN)){
+#'   if(bitwAnd(zmq.poll2.get.revents(1, poller),
+#'              .pbd_env$ZMQ.PO$POLLIN)){
 #'     ret <- zmq.recv(receiver)
 #'     if(ret$len != -1){
 #'       cat("task ventilator:", ret$buf, "at", i.rec, "\n")
@@ -85,7 +82,8 @@
 #'   }
 #' 
 #'   ### Check subscriber.
-#'   if(bitwAnd(zmq.poll.get.revents(2), .pbd_env$ZMQ.PO$POLLIN)){
+#'   if(bitwAnd(zmq.poll2.get.revents(2, poller),
+#'              .pbd_env$ZMQ.PO$POLLIN)){
 #'     ret <- zmq.recv(subscriber)
 #'     if(ret$len != -1){
 #'       cat("weather update:", ret$buf, "at", i.sub, "\n")
@@ -101,7 +99,6 @@
 #' }
 #' 
 #' ### Finish.
-#' zmq.poll.free()
 #' zmq.close(receiver)
 #' zmq.close(subscriber)
 #' zmq.ctx.destroy(context)
@@ -109,15 +106,15 @@
 #' 
 #' @keywords programming
 #' @seealso \code{\link{zmq.recv}()}, \code{\link{zmq.send}()}.
-#' @rdname b3_poll
+#' @rdname b4_poll2
 #' @name Poll Functions
 NULL
 
 
 
-#' @rdname b3_poll
+#' @rdname b4_poll2
 #' @export
-zmq.poll <- function(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC){
+zmq.poll2 <- function(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC){
   if(length(socket) != length(type)){
     stop("socket and type are of different length.")
   }
@@ -127,21 +124,18 @@ zmq.poll <- function(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC){
     stop("type should be integers in 1 to 7.")
   }
 
-  zmq.poll.free()
-
-  ret <- .Call("R_zmq_poll", socket, type, as.integer(timeout),
+  ret <- .Call("R_zmq_poll2", socket, type, as.integer(timeout),
                PACKAGE = "pbdZMQ")
   return(invisible(ret))
 }
 
-
-#' @rdname b3_poll
+#' @rdname b4_poll2
 #' @export
-zmq.poll.interrupt <- function(socket, type, timeout = -1L,
+zmq.poll2.interrupt <- function(socket, type, timeout = -1L,
      MC = .pbd_env$ZMQ.MC){
-  ret <- zmq.poll(socket, type, timeout, MC)
+  ret <- zmq.poll2(socket, type, timeout, MC)
 
-  if(ret[1] == -1 && ret[2] == 4){
+  if(ret$pollret[1] == -1 && ret$pollret[2] == 4){
     my.c <- structure(list(ret = ret), class = c("interrupt", "condition"))
     signalCondition(my.c)
   }
@@ -150,27 +144,17 @@ zmq.poll.interrupt <- function(socket, type, timeout = -1L,
 }
 
 
-#' @rdname b3_poll
+#' @rdname b4_poll2
 #' @export
-zmq.poll.free <- function(){
-  ret <- .Call("R_zmq_poll_free", PACKAGE = "pbdZMQ")
-  invisible(ret)
-}
-
-#' @rdname b3_poll
-#' @export
-zmq.poll.length <- function(){
-  ret <- .Call("R_zmq_poll_length", PACKAGE = "pbdZMQ")
-  invisible(ret)
-}
-
-#' @rdname b3_poll
-#' @export
-zmq.poll.get.revents <- function(index = 1L){
+zmq.poll2.get.revents <- function(index = 1L, poller){
   if(index < 1){
     stop("index is a positive interger.")
+  } else if(index > poller$pollret[3]){
+    stop("index is too large.")
   }
-  ret <- .Call("R_zmq_poll_get_revents", as.integer(index - 1)[1],
+  ret <- .Call("R_zmq_poll2_get_revents",
+               as.integer(index - 1)[1], poller$pollitem,
                PACKAGE = "pbdZMQ")
   invisible(ret)
 }
+

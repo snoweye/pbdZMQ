@@ -7,6 +7,8 @@ taskwork	pbdZMQ	Parallel task worker.
 tasksink	pbdZMQ	Parallel task sink.
 msreader	pbdZMQ	Multiple socket reader.
 mspoller	pbdZMQ	Multiple socket reader using poll method.
+mspoller2	pbdZMQ	Multiple socket reader using poll2 method.
 mpserver	pbdZMQ	Hello World server in multiple part version.
 mpclient	pbdZMQ	Hello World client in multiple part version.
-tryCatch	pbdZMQ  Examples for using tryCatch().
+iter_next	pbdZMQ  "source('iter_next.r')" or "Rscript iter_next.r".
+iter_try	pbdZMQ  "Rscript iter_try.r".

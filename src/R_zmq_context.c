@@ -19,7 +19,7 @@ SEXP R_zmq_ctx_new(){
 } /* End of Rzmq_ctx_new(). */
 
 SEXP R_zmq_ctx_destroy(SEXP R_context){
-	int C_ret = -1;
+	int C_ret = -1, C_errno;
 	void *C_context = R_ExternalPtrAddr(R_context);
 
 	if(C_context == NULL){

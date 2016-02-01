@@ -55,7 +55,7 @@ SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesiz
   const double filesize = REAL(filesize_)[0];
   size_t size;
   uint64_t total_size = 0;
-  int info = -1;
+  int info = -1, C_errno;
   int C_flags = INTEGER(R_flags)[0];
   void *C_socket = R_ExternalPtrAddr(R_socket);
   FILE *infile = fopen(CHARPT(R_filename, 0), "r");
@@ -108,7 +108,7 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesiz
   const double filesize = REAL(filesize_)[0];
   size_t expected_size, size;
   uint64_t total_size = 0;
-  int info = -1;
+  int info = -1, C_errno;
   int C_flags = INTEGER(R_flags)[0];
   void *C_socket = R_ExternalPtrAddr(R_socket);
   FILE *outfile = fopen(CHARPT(R_filename, 0), "w");

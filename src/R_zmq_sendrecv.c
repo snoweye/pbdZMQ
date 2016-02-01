@@ -3,7 +3,7 @@
 
 /* Send related. */
 SEXP R_zmq_send(SEXP R_socket, void *C_buf, SEXP R_len, SEXP R_flags){
-	int C_ret = -1, C_flags = INTEGER(R_flags)[0];
+	int C_ret = -1, C_errno, C_flags = INTEGER(R_flags)[0];
 	void *C_socket = R_ExternalPtrAddr(R_socket);
 	size_t C_len = (size_t) INTEGER(R_len)[0];
 
@@ -31,7 +31,7 @@ SEXP R_zmq_send_raw(SEXP R_socket, SEXP R_buf, SEXP R_len, SEXP R_flags){
 
 /* Recv related. */
 int R_zmq_recv(SEXP R_socket, void *C_buf, SEXP R_len, SEXP R_flags){
-	int C_ret = -1, C_flags = INTEGER(R_flags)[0];
+	int C_ret = -1, C_errno, C_flags = INTEGER(R_flags)[0];
 	void *C_socket = R_ExternalPtrAddr(R_socket);
 	size_t C_len = (size_t) INTEGER(R_len)[0];
 
