@@ -14,7 +14,7 @@ get.path.lib <- function(arch, binpref, fn.in, debug = FALSE){
   }
 
   ### Find which path gcc.exe is located.
-  if(getRversion() >= "3.4.0"){
+  if(getRversion() >= "3.3.0"){
     if(binpref != ""){
       path.gcc <- paste(binpref, "gcc.exe", sep = "")
     } else{

@@ -1,5 +1,5 @@
 2016-04-23: Ver 0.2-2
-  * Migrate to Rtools33 and R 3.4.0 for Windows.
+  * Migrate to Rtools33 and R 3.3.0 for Windows.
 
 2016-01-26: Ver 0.2-2
   * Fix .pbd_env export problem.
