@@ -1,6 +1,6 @@
 Package: pbdZMQ
 Version: 0.2-2
-Date: 2016-01-25
+Date: 2016-04-23
 Title: Programming with Big Data -- Interface to ZeroMQ
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -38,7 +38,7 @@ MailingList: Please send questions and comments regarding pbdR to
 NeedsCompilation: yes
 ByteCompile: yes
 RoxygenNote: 5.0.1
-Packaged: 2016-04-23 18:56:13 UTC; snoweye
+Packaged: 2016-04-24 03:25:50 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut],
   Christian Heckendorf [aut] (file transfer),
