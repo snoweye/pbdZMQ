@@ -3,9 +3,9 @@ R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
 
 ### Get GNU_ROOT from PATH.
 MINGW_LIB = $(shell ${R_SCMD} \
-  "source('../R/get_conf.r');get.mingw.lib('"${R_ARCH}"')")
+  "source('../R/get_conf.r');get.mingw.lib('"${R_ARCH}"','"${BINPREF}"')")
 STDCXX_LIB = $(shell ${R_SCMD} \
-  "source('../R/get_conf.r');get.stdcxx.lib('"${R_ARCH}"')")
+  "source('../R/get_conf.r');get.stdcxx.lib('"${R_ARCH}"','"${BINPREF}"')")
 
 ### Default Makeconf
 MkInclude = ${R_HOME}/etc${R_ARCH}/Makeconf

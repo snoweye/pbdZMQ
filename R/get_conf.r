@@ -1,9 +1,9 @@
 ### This file is only called by
-###   "pbd*/src/Makevars.in" and "pbd*/src/Makevar.win"
+###   "pbd*/src/Makevars.in" or "pbd*/src/Makevar.win"
 ### to find the default configurations from
 ###   "pbd*/etc${R_ARCH}/Makconf".
 
-get.path.lib <- function(arch, fn.in, debug = FALSE){
+get.path.lib <- function(arch, binpref, fn.in, debug = FALSE){
   ### For the nm outputs to check 32- and 64-bits libraries.
   if(arch == "/i386"){
     n.zero <- 8
@@ -14,15 +14,29 @@ get.path.lib <- function(arch, fn.in, debug = FALSE){
   }
 
   ### Find which path gcc.exe is located.
-  path.env <- Sys.getenv("PATH")
-  path <- unlist(strsplit(path.env, ";"))
-  check.gcc <- FALSE
-  for(i.path in 1:length(path)){
-    dir.gcc <- gsub("\\\\", "/", path[i.path])
-    path.gcc <- paste(dir.gcc, "./gcc.exe", sep = "")
+  if(getRversion() >= "3.4.0"){
+    if(binpref != ""){
+      path.gcc <- paste(binpref, "gcc.exe", sep = "")
+    } else{
+      ### For Rtools33 or newer version
+      arch <- gsub("^.", "", arch)
+      cmd <- paste("R --arch ", arch, " CMD config CC", sep = "")
+      path.gcc <- shell(cmd, intern = TRUE, ignore.stderr = TRUE)
+      path.gcc <- paste(path.gcc, ".exe", sep = "")
+    }
     check.gcc <- file.exists(path.gcc)
-    if(check.gcc){
-      break
+  } else{
+    ### For Rtools32 or older version
+    path.env <- Sys.getenv("PATH")
+    path <- unlist(strsplit(path.env, ";"))
+    check.gcc <- FALSE
+    for(i.path in 1:length(path)){
+      dir.gcc <- gsub("\\\\", "/", path[i.path])
+      path.gcc <- paste(dir.gcc, "./gcc.exe", sep = "")
+      check.gcc <- file.exists(path.gcc)
+      if(check.gcc){
+        break
+      }
     }
   }
 
@@ -33,6 +47,9 @@ get.path.lib <- function(arch, fn.in, debug = FALSE){
     }
     stop("gcc is not found.")
   } else{
+    if(debug){
+      print(path.gcc)
+    }
     path.rtools <- gsub("/bin.*", "", path.gcc)
   }
 
@@ -76,9 +93,14 @@ get.path.lib <- function(arch, fn.in, debug = FALSE){
   path.lib
 } # End of get.path.lib().
 
-get.mingw.lib <- function(arch = '', debug = FALSE){
+### For libiphlpapi.a, librpcrt4.a, and libws2_32.a
+### C:\Rtools32\gcc-4.6.3\i686-w64-mingw32\lib
+### C:\Rtools32\gcc-4.6.3\i686-w64-mingw32\lib64
+### C:\Rtools33\mingw_32\i686-w64-mingw32\lib
+### C:\Rtools33\mingw_64\x86_64-w64-mingw32\lib
+get.mingw.lib <- function(arch = '', binpref = '', debug = FALSE){
   fn.in <- "libiphlpapi.a"
-  path.lib <- get.path.lib(arch, fn.in, debug = debug)
+  path.lib <- get.path.lib(arch, binpref, fn.in, debug = debug)
 
   fn.in <- "librpcrt4.a"
   path.fn <- paste(path.lib, fn.in, sep = "")
@@ -100,10 +122,14 @@ get.mingw.lib <- function(arch = '', debug = FALSE){
   invisible()
 } # End of get.mingw.lib().
 
-
-get.stdcxx.lib <- function(arch = '', debug = FALSE){
+### For libstdc++.a
+### C:\Rtools32\gcc-4.6.3\lib
+### C:\Rtools32\gcc-4.6.3\lib64
+### C:\Rtools33\mingw_32\lib\gcc\i686-w64-mingw32\4.9.3
+### C:\Rtools33\mingw_64\lib\gcc\x86_64-w64-mingw32\4.9.3
+get.stdcxx.lib <- function(arch = '', binpref = '', debug = FALSE){
   fn.in <- "libstdc++.a"
-  path.lib <- get.path.lib(arch, fn.in, debug = debug)
+  path.lib <- get.path.lib(arch, binpref, fn.in, debug = debug)
 
   ### Cat back to "Makefile.win".
   cat(path.lib)
