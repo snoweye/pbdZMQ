@@ -1,7 +1,7 @@
 #!/bin/sh
 
 removeFlags(){
-  sed -e "s/-g//g" -e "s/-f[Pp][Ii][Cc] //g" -e "s/-w //g" -e "s/-O\?[0-9] //" $1
+  sed -e "s/-g //" -e "s/-f[Pp][Ii][Cc] //" -e "s/-w //" -e "s/-O\?[0-9] //" $1
 }
 
 ### Change make and flags.
