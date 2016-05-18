@@ -7,7 +7,7 @@
 language: c
 
 os:
-  - linux
+  #- linux
   - osx
 
 before_install:
