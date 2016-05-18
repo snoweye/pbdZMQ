@@ -56,7 +56,7 @@
                      fn.pbdZMQ.so, sep = "")
         cat("\nIn install_name_tool:\n")
         print(cmd)
-        system(cmd)
+        # system(cmd)
       }
 
       ### Check updated path.
