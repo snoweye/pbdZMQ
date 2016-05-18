@@ -8,7 +8,7 @@ language: c
 
 os:
   - linux
-  # - osx
+  - osx
 
 before_install:
   #- sudo apt-get install -qq libzmq3-dev
