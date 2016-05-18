@@ -30,7 +30,7 @@
   ### For Mac OSX.
   ### Overwrite RPATH from the shared library installed to the destination.
   if(Sys.info()[['sysname']] == "Darwin"){
-    dest <- dn
+    dest <- gsub("/$", "", dn)
     cmd.int <- system("which install_name_tool", intern = TRUE)
     fn.pbdZMQ.so <- file.path(dest, "pbdZMQ.so")
     fn.libzmq.4.dylib <- file.path(dest, "libzmq.4.dylib")
