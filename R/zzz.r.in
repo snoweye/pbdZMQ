@@ -41,12 +41,12 @@
 
       ### Check orginal path.
       cmd.ot <- system("which otool", intern = TRUE)
-      if(length(grep("otool", cmd.ot)) > 0){
+      # if(length(grep("otool", cmd.ot)) > 0){
         rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
                         intern = TRUE)
-        cat("\nBefore install_name_tool:\n")
-        print(rpath)
-      }
+      #   cat("\nBefore install_name_tool:\n")
+      #   print(rpath)
+      # }
 
       # org <- file.path(getwd(), "zmq/lib/libzmq.4.dylib")
       org.rpath <- rpath[grep("\\t/.*/libzmq.4.dylib", rpath)][1]
@@ -54,18 +54,18 @@
       if(org != fn.libzmq.4.dylib){
         cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.4.dylib, " ",
                      fn.pbdZMQ.so, sep = "")
-        cat("\nIn install_name_tool:\n")
-        print(cmd)
+        # cat("\nIn install_name_tool:\n")
+        # print(cmd)
         system(cmd)
       }
 
       ### Check updated path.
-      if(length(grep("otool", cmd.ot)) > 0){
-        rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
-                        intern = TRUE)
-        cat("\nAfter install_name_tool:\n")
-        print(rpath)
-      }
+      # if(length(grep("otool", cmd.ot)) > 0){
+      #   rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
+      #                   intern = TRUE)
+      #   cat("\nAfter install_name_tool:\n")
+      #   print(rpath)
+      # }
     }
   }
 
