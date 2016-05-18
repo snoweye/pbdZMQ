@@ -35,7 +35,7 @@ if(length(files) > 0){
                    fn.pbdZMQ.so, sep = "")
       cat("\nIn install_name_tool:\n")
       print(cmd) 
-      # system(cmd)
+      system(cmd)
 
       if(length(grep("otool", cmd.ot)) > 0){
         rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
