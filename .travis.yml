@@ -6,8 +6,12 @@
 
 language: c
 
+os:
+  - linux
+  # - osx
+
 before_install:
-  - sudo apt-get install -qq libzmq3-dev
+  #- sudo apt-get install -qq libzmq3-dev
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
