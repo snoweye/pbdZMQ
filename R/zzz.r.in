@@ -48,12 +48,16 @@
         print(rpath)
       }
 
-      org <- file.path(getwd(), "zmq/lib/libzmq.4.dylib")
-      cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.4.dylib, " ",
-                   fn.pbdZMQ.so, sep = "")
-      cat("\nIn install_name_tool:\n")
-      print(cmd)
-      system(cmd)
+      # org <- file.path(getwd(), "zmq/lib/libzmq.4.dylib")
+      org.rpath <- rpath[grep("\\t/.*/libzmq.4.dylib", rpath)][1]
+      org <- gsub("\\t(.*libzmq.4.dylib) \\(.*\\)$", "\\1", org.rpath)
+      if(org != fn.libzmq.4.dylib){
+        cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.4.dylib, " ",
+                     fn.pbdZMQ.so, sep = "")
+        cat("\nIn install_name_tool:\n")
+        print(cmd)
+        system(cmd)
+      }
 
       ### Check updated path.
       if(length(grep("otool", cmd.ot)) > 0){
