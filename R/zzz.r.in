@@ -27,6 +27,44 @@
     }
   }
 
+  ### For Mac OSX.
+  ### Overwrite RPATH from the shared library installed to the destination.
+  if(Sys.info()[['sysname']] == "Darwin"){
+    dest <- dn
+    cmd.int <- system("which install_name_tool", intern = TRUE)
+    fn.pbdZMQ.so <- file.path(dest, "pbdZMQ.so")
+    fn.libzmq.4.dylib <- file.path(dest, "libzmq.4.dylib")
+
+    if(length(grep("install_name_tool", cmd.int)) > 0 &&
+       file.exists(fn.pbdZMQ.so) &&
+       file.exists(fn.libzmq.4.dylib)){
+
+      ### Check orginal path.
+      cmd.ot <- system("which otool", intern = TRUE)
+      if(length(grep("otool", cmd.ot)) > 0){
+        rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
+                        intern = TRUE)
+        cat("\nBefore install_name_tool:\n")
+        print(rpath)
+      }
+
+      org <- file.path(getwd(), "zmq/lib/libzmq.4.dylib")
+      cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.4.dylib, " ",
+                   fn.pbdZMQ.so, sep = "")
+      cat("\nIn install_name_tool:\n")
+      print(cmd)
+      # system(cmd)
+
+      ### Check updated path.
+      if(length(grep("otool", cmd.ot)) > 0){
+        rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
+                        intern = TRUE)
+        cat("\nAfter install_name_tool:\n")
+        print(rpath)
+      }
+    }
+  }
+
   ### Load "pbdZMQ.so".
   library.dynam("pbdZMQ", pkgname, libname)
 
