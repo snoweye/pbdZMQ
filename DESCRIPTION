@@ -1,6 +1,6 @@
 Package: pbdZMQ
 Version: 0.2-2
-Date: 2016-04-23
+Date: 2016-05-17
 Title: Programming with Big Data -- Interface to ZeroMQ
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -12,7 +12,8 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         person("Brian", "Ripley", role = "ctb",
                comment = "C code of shellexec, and Solaris"),
         person("R Core team", role = "ctb", comment = "some functions are
-                modified from the R source code"))
+                modified from the R source code"),
+        person("Philipp", "A.", role = "ctb", comment = "Fedora"))
 Depends: R (>= 3.0.0)
 Imports: R6
 LazyLoad: yes
@@ -36,9 +37,7 @@ BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
-ByteCompile: yes
-RoxygenNote: 5.0.1
-Packaged: 2016-04-24 03:37:26 UTC; snoweye
+Packaged: 2016-05-18 00:42:00 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   Drew Schmidt [aut],
   Christian Heckendorf [aut] (file transfer),
@@ -46,5 +45,6 @@ Author: Wei-Chen Chen [aut, cre],
   Whit Armstrong [ctb] (some functions are modified from the rzmq package
     for backwards compatibility),
   Brian Ripley [ctb] (C code of shellexec, and Solaris),
-  R Core team [ctb] (some functions are modified from the R source code)
+  R Core team [ctb] (some functions are modified from the R source code),
+  Philipp A. [ctb] (Fedora)
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>

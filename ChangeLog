@@ -1,3 +1,6 @@
+2016-05-17: Ver 0.2-2
+  * Fix build_zmq.in bugs for Fedora/Red Hat GCC (Philipp A.)
+
 2016-04-23: Ver 0.2-2
   * Migrate to Rtools33 and R 3.3.0 for Windows.
 
