@@ -1,4 +1,4 @@
-2016-05-17: Ver 0.2-2
+2016-05-17: Ver 0.2-3
   * Fix build_zmq.in bugs for Fedora/Red Hat GCC (Philipp A.)
   * Try to overwrite pbdZMQ.so path to libzmq.4.dylib in run-time.
 
