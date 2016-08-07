@@ -121,6 +121,7 @@ get.path.lib.330 <- function(arch, binpref, fn.in, debug = FALSE){
   path.lib
 } # End of get.path.lib().
 
+
 ### For libiphlpapi.a, librpcrt4.a, and libws2_32.a
 ### C:\Rtools32\gcc-4.6.3\i686-w64-mingw32\lib
 ### C:\Rtools32\gcc-4.6.3\i686-w64-mingw32\lib64
@@ -168,84 +169,3 @@ get.stdcxx.lib <- function(arch = '', binpref = '', debug = FALSE){
 
   invisible()
 } # End of get.stdcxx.lib().
-
-### For rzmq.
-get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
-  if(arch == "/i386" || arch == "/x64"){
-    file.name <- paste("./libs", arch, "/", sep = "")
-    dir.path <- tools::file_path_as_absolute(
-                  system.file(file.name, package = package))
-    zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
-  } else{
-    ### For non windows system.
-    file.name <- paste("./etc", arch, "/Makeconf", sep = "")
-    file.path <- tools::file_path_as_absolute(
-                   system.file(file.name, package = package))
-    ret <- scan(file.path, what = character(), sep = "\n", quiet = TRUE)
-
-    ### Check if external zmq is used.
-    arg <- "EXTERNAL_ZMQ_LDFLAGS"
-    id <- grep(paste("^", arg, " = ", sep = ""), ret)
-    ext.zmq.ld <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
-
-    ### Check if internal zmq is used.
-    arg <- "ENABLE_INTERNAL_ZMQ"
-    id <- grep(paste("^", arg, " = ", sep = ""), ret)
-    en.int.zmq <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
-
-    ### Check which zmq should be used.
-    if(ext.zmq.ld == "" || en.int.zmq == "yes"){
-      file.name <- paste("./libs", arch, "/", sep = "")
-      dir.path <- tools::file_path_as_absolute(
-                    system.file(file.name, package = package))
-      zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
-    } else{
-      zmq.ldflags <- ext.zmq.ld
-    }
-  }
-
-  ### Cat back to "Makevars".
-  cat(zmq.ldflags)
-
-  invisible()
-} # End of get.zmq.ldflags().
-
-get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
-  if(arch == "/i386" || arch == "/x64"){
-    file.name <- paste("./zmq", arch, "/include", sep = "")
-    dir.path <- tools::file_path_as_absolute(
-                  system.file(file.name, package = package))
-    zmq.cppflags <- paste("-I", dir.path, sep = "")
-  } else{
-    ### For non windows system.
-    file.name <- paste("./etc", arch, "/Makeconf", sep = "")
-    file.path <- tools::file_path_as_absolute(
-                   system.file(file.name, package = package))
-    ret <- scan(file.path, what = character(), sep = "\n", quiet = TRUE)
-
-    ### Check if external zmq is used.
-    arg <- "EXTERNAL_ZMQ_INCLUDE"
-    id <- grep(paste("^", arg, " = ", sep = ""), ret)
-    ext.zmq.inc <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
-
-    ### Check if internal zmq is used.
-    arg <- "ENABLE_INTERNAL_ZMQ"
-    id <- grep(paste("^", arg, " = ", sep = ""), ret)
-    en.int.zmq <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
-
-    ### Check which zmq should be used.
-    if(ext.zmq.inc == "" || en.int.zmq == "yes"){
-      file.name <- paste("./zmq", arch, "/include/", sep = "")
-      dir.path <- tools::file_path_as_absolute(
-                    system.file(file.name, package = package))
-      zmq.cppflags <- paste("-I", dir.path, sep = "")
-    } else{
-      zmq.cppflags <- ext.zmq.inc
-    }
-  }
-
-  ### Cat back to "Makevars".
-  cat(zmq.cppflags)
-
-  invisible()
-} # End of get.zmq.cppflags().
