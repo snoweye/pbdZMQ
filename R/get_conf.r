@@ -149,7 +149,7 @@ get.mingw.lib <- function(arch = '', binpref = '', debug = FALSE){
     cat(path.lib)
   }
 
-  invisible()
+  invisible(path.lib)
 } # End of get.mingw.lib().
 
 ### For libstdc++.a
@@ -166,7 +166,7 @@ get.stdcxx.lib <- function(arch = '', binpref = '', debug = FALSE){
     cat(path.lib)
   }
 
-  invisible()
+  invisible(path.lib)
 } # End of get.stdcxx.lib().
 
 ### For rzmq.
@@ -211,7 +211,7 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
   ### Cat back to "Makevars".
   cat(zmq.ldflags)
 
-  invisible()
+  invisible(zmq.ldflags)
 } # End of get.zmq.ldflags().
 
 get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
@@ -251,5 +251,5 @@ get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
   ### Cat back to "Makevars".
   cat(zmq.cppflags)
 
-  invisible()
+  invisible(zmq.cppflags)
 } # End of get.zmq.cppflags().
