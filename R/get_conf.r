@@ -149,7 +149,7 @@ get.mingw.lib <- function(arch = '', binpref = '', debug = FALSE){
     cat(path.lib)
   }
 
-  invisible(path.lib)
+  invisible()
 } # End of get.mingw.lib().
 
 ### For libstdc++.a
@@ -166,7 +166,7 @@ get.stdcxx.lib <- function(arch = '', binpref = '', debug = FALSE){
     cat(path.lib)
   }
 
-  invisible(path.lib)
+  invisible()
 } # End of get.stdcxx.lib().
 
 ### For rzmq.
