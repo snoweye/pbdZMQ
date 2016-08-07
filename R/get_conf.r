@@ -198,7 +198,11 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
       file.name <- paste("./libs", arch, "/", sep = "")
       dir.path <- tools::file_path_as_absolute(
                     system.file(file.name, package = package))
-      zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
+      if(Sys.info()[['sysname']] == "Darwin"){
+        zmq.ldflags <- paste("-L", dir.path, " -lzmq.4", sep = "")
+      } else{
+        zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
+      }
     } else{
       zmq.ldflags <- ext.zmq.ld
     }
