@@ -44,6 +44,12 @@ if(length(files) > 0){
         print(rpath)
       }
     }
+
+    fn.libzmq.dylib <- file.path(dest, "libzmq.dylib")
+    cmd <- paste("ln -s ", fn.libzmq.4.dylib, " ", fn.libzmq.dylib, sep = "")
+    cat("\nCreate a symbolic link:\n")
+    print(cmd) 
+    system(cmd)
   }
 }
 
