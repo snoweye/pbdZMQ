@@ -2,9 +2,9 @@
 MkInclude = ${R_HOME}/etc${R_ARCH}/Makeconf
 
 ### Setup R package flags and substitute by configure
-PKG_CPPFLAGS = -w @ZMQ_INCLUDE@
-PKG_CFLAGS = -w @ZMQ_INCLUDE@
-PKG_CXXFLAGS = -w @ZMQ_INCLUDE@
+PKG_CPPFLAGS = @ZMQ_INCLUDE@
+PKG_CFLAGS = @ZMQ_INCLUDE@
+PKG_CXXFLAGS = @ZMQ_INCLUDE@
 PKG_LIBS = @ZMQ_LDFLAGS@
 
 ### Setup R source code and objects.

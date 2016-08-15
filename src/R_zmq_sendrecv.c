@@ -80,7 +80,6 @@ SEXP R_zmq_recv_char(SEXP R_socket, SEXP R_len, SEXP R_flags){
 SEXP R_zmq_recv_raw(SEXP R_socket, SEXP R_len, SEXP R_flags){
 	SEXP R_ret, R_buf, R_recv_len, R_ret_names;
 	char *names_R_ret[] = {"buf", "len"};
-	void *C_buf;
 
 	/* Allocate and protect storages. */
 	PROTECT(R_ret = allocVector(VECSXP, 2));

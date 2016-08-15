@@ -25,13 +25,13 @@ SEXP R_zmq_msg_init(){
 
 SEXP R_zmq_msg_close(SEXP R_msg_t){
 	int C_ret = -1, C_errno;
-	void *C_msg_t = R_ExternalPtrAddr(R_msg_t);
+	zmq_msg_t *C_msg_t = R_ExternalPtrAddr(R_msg_t);
 
 	if(C_msg_t == NULL){
 		return(R_NilValue);
 	}
 
-	C_ret = zmq_msg_close(&C_msg_t);
+	C_ret = zmq_msg_close(C_msg_t);
 	if(C_ret == -1){
 		C_errno = zmq_errno();
 		Rprintf("R_zmq_msg_close errno: %d stderror: %s\n",
