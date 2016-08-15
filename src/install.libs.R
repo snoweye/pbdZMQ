@@ -44,6 +44,12 @@ if(length(files) > 0){
         print(rpath)
       }
     }
+
+    # fn.libzmq.dylib <- file.path(dest, "libzmq.dylib")
+    # cmd <- paste("ln -s ", fn.libzmq.4.dylib, " ", fn.libzmq.dylib, sep = "")
+    # cat("\nCreate a symbolic link:\n")
+    # print(cmd) 
+    # system(cmd)
   }
 }
 
@@ -56,13 +62,14 @@ if(file.exists(file)){
   file.copy(file, dest, overwrite = TRUE)
 }
 
-### For zmq
-# dir.zmq <- "./zmq"
-# if(file.exists(dir.zmq)){
-#   libarch <- if (nzchar(R_ARCH)) paste("lib", R_ARCH, sep='') else "lib"
-#   dest <- file.path(R_PACKAGE_DIR, libarch)
-#   dir.create(dest, recursive = TRUE, showWarnings = FALSE)
-#   files <- paste(dir.zmq, c("/include", "/lib") , sep = "")
-#   file.copy(files, dest, overwrite = TRUE, recursive = TRUE)
-# }
+### For zmq include
+dir.zmq <- "./zmq"
+if(file.exists(dir.zmq)){
+  libarch <- if (nzchar(R_ARCH)) paste("zmq", R_ARCH, sep='') else "zmq"
+  dest <- file.path(R_PACKAGE_DIR, libarch)
+  dir.create(dest, recursive = TRUE, showWarnings = FALSE)
+  # files <- paste(dir.zmq, c("/include", "/lib") , sep = "")
+  files <- paste(dir.zmq, "/include" , sep = "")
+  file.copy(files, dest, overwrite = TRUE, recursive = TRUE)
+}
 

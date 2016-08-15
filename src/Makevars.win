@@ -3,9 +3,9 @@ R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
 
 ### Get GNU_ROOT from PATH.
 MINGW_LIB = $(shell ${R_SCMD} \
-  "source('../R/get_conf.r');get.mingw.lib('"${R_ARCH}"')")
+  "source('../R/get_conf.r');get.mingw.lib('"${R_ARCH}"','"${BINPREF}"')")
 STDCXX_LIB = $(shell ${R_SCMD} \
-  "source('../R/get_conf.r');get.stdcxx.lib('"${R_ARCH}"')")
+  "source('../R/get_conf.r');get.stdcxx.lib('"${R_ARCH}"','"${BINPREF}"')")
 
 ### Default Makeconf
 MkInclude = ${R_HOME}/etc${R_ARCH}/Makeconf
@@ -44,8 +44,8 @@ Makeconf:
 	$(ECHO) 'PKG_CXXFLAGS = $(PKG_CXXFLAGS)' >> Makeconf
 	$(ECHO) 'PKG_LIBS = $(PKG_LIBS)' >> Makeconf
 	$(ECHO) 'PKG_LIBS_ZMQ = $(PKG_LIBS_ZMQ)' >> Makeconf
-	$(ECHO) 'R_ZMQ_INC = lib${R_ARCH}/include/' >> Makeconf
-	$(ECHO) 'R_ZMQ_LIB = lib${R_ARCH}/lib/' >> Makeconf
+	$(ECHO) 'R_ZMQ_INC = zmq${R_ARCH}/include/' >> Makeconf
+	$(ECHO) 'R_ZMQ_LIB = libs${R_ARCH}/' >> Makeconf
 
 $(SHLIB): $(OBJECTS)
 
@@ -59,6 +59,9 @@ $(R_ZMQ): Makeconf
 	$(CP) -f zmqsrc.win$(WIN)/src_platform.hpp zmqsrc/src/platform.hpp
 	$(CP) -Rf zmqsrc.win$(WIN)/src_deps zmqsrc/src/.deps
 	( cd zmqsrc/src; $(MAKE) )
+	$(MKDIR) ./zmq
+	$(MKDIR) ./zmq/include
+	$(CP) zmqsrc/include/*.h ./zmq/include
 
 clean:
 	@$(RM) -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib *.la \

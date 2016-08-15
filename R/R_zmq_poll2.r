@@ -1,6 +1,6 @@
 #' New Poll Functions
 #' 
-#' New Poll functions
+#' New poll functions
 #' 
 #' \code{zmq.poll2()} initials ZMQ poll items given  ZMQ \code{socket}'s
 #' and ZMQ poll \code{type}'s. Both \code{socket} and \code{type} are
@@ -107,7 +107,7 @@
 #' @keywords programming
 #' @seealso \code{\link{zmq.recv}()}, \code{\link{zmq.send}()}.
 #' @rdname b4_poll2
-#' @name Poll Functions
+#' @name New Poll Functions
 NULL
 
 
