@@ -8,7 +8,7 @@ SEXP AsInt(int C_x){
 	INTEGER(R_x)[0] = C_x;
 	UNPROTECT(1);
 	return(R_x);
-} /* End of AsInt().
+} /* End of AsInt(). */
 
 
 /* Error related. */
@@ -39,4 +39,3 @@ SEXP R_zmq_version(){
 	UNPROTECT(1);
 	return(ret);
 } /* End of R_zmq_version(). */
-

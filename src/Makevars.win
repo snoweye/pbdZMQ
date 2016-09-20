@@ -11,9 +11,9 @@ STDCXX_LIB = $(shell ${R_SCMD} \
 MkInclude = ${R_HOME}/etc${R_ARCH}/Makeconf
 
 ### Setup R package flags.
-PKG_CPPFLAGS = -w -I./zmqsrc/include -DWIN
-PKG_CFLAGS = -w -I./zmqsrc/include
-PKG_CXXFLAGS = -w -I./zmqsrc/include
+PKG_CPPFLAGS = -I./zmqsrc/include -DWIN
+PKG_CFLAGS = -I./zmqsrc/include
+PKG_CXXFLAGS = -I./zmqsrc/include
 ### Order is matter.
 ifeq "$(WIN)" "64"
 PKG_LIBS_ZMQ = -L"$(MINGW_LIB)" -liphlpapi -lrpcrt4 -lws2_32 \

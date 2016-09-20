@@ -30,7 +30,6 @@ SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout){
 } /* End of R_zmq_poll(). */
 
 SEXP R_zmq_poll_free(){
-	int i;
 	if(PBD_POLLITEM_LENGTH != 0){
 		free(PBD_POLLITEM);
 		PBD_POLLITEM = NULL;
@@ -48,4 +47,3 @@ SEXP R_zmq_poll_get_revents(SEXP R_index){
 	C_ret = (int) PBD_POLLITEM[C_index].revents;
 	return(AsInt(C_ret));
 } /* End of R_zmq_poll_get_revents(). */
-

@@ -68,15 +68,11 @@ random_open_port <- function(min_port=49152, max_port=65536, max_tries=100)
     }
   }
   
-  zmq.close(socket)
-  zmq.ctx.destroy(ctxt)
   rm(socket);rm(ctxt);
-  invisible(gc)
+  invisible(gc())
   
   if (ret == -1)
     stop("No valid port could be found.")
   else
     return(ret)
 }
-
-

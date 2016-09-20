@@ -16,6 +16,8 @@
 #include <Rinternals.h>
 #include <R_ext/Riconv.h>
 
+#include <wchar.h>
+
 #ifdef WIN
 #include <windows.h>
 #endif
@@ -130,4 +132,3 @@ SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd){
 
 	return(R_NilValue);
 } /* End of shellexec_wcc(). */
-

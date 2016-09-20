@@ -117,7 +117,7 @@ SEXP R_zmq_setsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 				C_option_len = sizeof(int);
 				break;
 			default:
-				warning("C_option_type: %d is not implemented.\n",
+				error("C_option_type: %d is not implemented.\n",
 					C_option_type);
 		} // End of switch().
 
@@ -154,7 +154,7 @@ SEXP R_zmq_getsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 				C_option_len = sizeof(int);
 				break;
 			default:
-				warning("C_option_type: %d is not implemented.\n",
+				error("C_option_type: %d is not implemented.\n",
 					C_option_type);
 		} // End of switch().
 
@@ -170,4 +170,3 @@ SEXP R_zmq_getsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 	}
 	return(AsInt(C_ret));
 } /* End of R_zmq_getsockopt(). */
-
