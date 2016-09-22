@@ -1,6 +1,6 @@
 Package: pbdZMQ
 Version: 0.2-4
-Date: 2016-08-06
+Date: 2016-09-21
 Title: Programming with Big Data -- Interface to ZeroMQ
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -36,3 +36,15 @@ URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
+NeedsCompilation: yes
+Packaged: 2016-09-22 00:19:47 UTC; snoweye
+Author: Wei-Chen Chen [aut, cre],
+  Drew Schmidt [aut],
+  Christian Heckendorf [aut] (file transfer),
+  George Ostrouchov [aut] (Mac OSX),
+  Whit Armstrong [ctb] (some functions are modified from the rzmq package
+    for backwards compatibility),
+  Brian Ripley [ctb] (C code of shellexec, and Solaris),
+  R Core team [ctb] (some functions are modified from the R source code),
+  Philipp A. [ctb] (Fedora)
+Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
