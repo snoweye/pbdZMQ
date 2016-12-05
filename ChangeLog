@@ -1,3 +1,20 @@
+2016-12-04: Ver 0.2-5
+  * Patch zeromq checking return code problem for sodium_init().
+    See the discussion at https://github.com/zeromq/libzmq/issues/1632 and
+    https://github.com/zeromq/libzmq/issues/1635 . This causes warning to stop
+    because changes were made in new version of libsodium.
+
+curve_client.cpp: In constructor 'zmq::curve_client_t::curve_client_t(const zmq::options_t&)':
+curve_client.cpp:51:18: error: ignoring return value of 'int sodium_init()', declared with attribute warn_unused_result [-Werror=unused-result]
+     sodium_init();
+                  ^
+cc1plus: all warnings being treated as errors
+Makefile:728: recipe for target 'libzmq_la-curve_client.lo' failed
+make[2]: *** [libzmq_la-curve_client.lo] Error 1
+
+    The patch is based on
+    https://github.com/zeromq/libzmq/commit/479db2113643e459c11db392e0fefd6400657c9e .
+
 2016-08-06: Ver 0.2-4
   * Export zmq header files.
   * Add get.zmq.cppflags() and get.zmq.ldflags() to "R/get_conf.r".
