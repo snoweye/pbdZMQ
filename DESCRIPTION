@@ -16,6 +16,7 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         person("Philipp", "A.", role = "ctb", comment = "Fedora"))
 Depends: R (>= 3.0.0)
 Imports: R6
+Enhances: pbdRPC, remoter
 LazyLoad: yes
 LazyData: yes
 Copyright: See files AUTHORS, COPYING, COPYING.LESSER, and MAINTAINERS
