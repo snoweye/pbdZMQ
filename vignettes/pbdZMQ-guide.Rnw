@@ -12,15 +12,11 @@
 \author{
 \begin{minipage}{6in}
 \centering
-Wei-Chen Chen$^1$ and Drew Schmidt$^2$
+Wei-Chen Chen$^1$ and Drew Schmidt$^1$
 \end{minipage}
 \\
 \\
 $^1$pbdR Core Team \\
-\\
-$^2$Business Analytics and Statistics, \\
-University of Tennessee, \\
-Knoxville, TN, USA \\
 %\\
 %\\
 %\today
