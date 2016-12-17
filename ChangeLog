@@ -1,3 +1,6 @@
+2016-12-17: Ver 0.2-5
+  * Change web address.
+
 2016-12-04: Ver 0.2-5
   * Patch zeromq checking return code problem for sodium_init().
     See the discussion at https://github.com/zeromq/libzmq/issues/1632 and
