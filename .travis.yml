@@ -26,7 +26,7 @@ after_failure:
 
 notifications:
   email:
-    on_success: change
-    on_failure: change
+    on_success: no
+    on_failure: no
 
 sudo: required
