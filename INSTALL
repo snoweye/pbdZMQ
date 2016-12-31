@@ -1,5 +1,5 @@
-### Read pbdZMQ vignettes first at
-### http://cran.r-project.org/web/packages/pbdZMQ/vignettes/pbdZMQ-guide.pdf
+### Read pbdZMQ vignettes "pbdZMQ-guide.pdf" first at 
+### "https://cran.r-project.org/package=pbdZMQ".
 ###
 ### pbdZMQ can be installed with/without external ZeroMQ 4.1.0 rc 1 library
 ### since pbdZMQ includes a minimum requirement of ZeroMQ 4.1.0 rc 1 library.
@@ -9,8 +9,6 @@
 ###
 ### Solaris needs ZeroMQ 4.0.7 library with GNU Make 4.1 (OpenCSW).
 ### See Section for Solaris in next for installation steps and read pbdZMQ
-### pbdZMQ vignettes for further considerations at
-### http://cran.r-project.org/web/packages/pbdZMQ/vignettes/pbdZMQ-guide.pdf
 
 --- 'pbdZMQ' installation:
 0. 'pkg-config' and system ZeroMQ library (libzmq, libzmq-dev) are requrired.

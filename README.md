@@ -102,12 +102,11 @@ install_github("RBigData/pbdZMQ")
 When mentioning the pbdZMQ, please cite:
 
 ```
-@ONLINE{pbdZMQ2015,
+@MISC{pbdZMQ2015,
   author = {Chen, W.-C. and Schmidt, D. and Ostrouchov, G.},
   title = {pbdZMQ: Programming with Big Data -- Interface to ZeroMQ},
   year = {2015},
-  note = {R Package},
-  url = {http://cran.r-project.org/package=pbdZMQ}
+  note = {R Package, URL https://cran.r-project.org/package=pbdZMQ}
 }
 ```
 
