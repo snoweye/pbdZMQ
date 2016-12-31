@@ -14,7 +14,7 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         person("R Core team", role = "ctb", comment = "some functions are
                 modified from the R source code"),
         person("Philipp", "A.", role = "ctb", comment = "Fedora"))
-Depends: R (>= 3.0.0)
+Depends: R (>= 3.2.0)
 Imports: R6
 Suggests: pbdRPC, remoter
 LazyLoad: yes
