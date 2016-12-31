@@ -20,7 +20,6 @@ The package contains 3 separate interfaces:
 3. One modeled after the rzmq interface (see help("rzmq"))
 
 
-
 ## Client/Server Example
 
 The primary focus of pbdZMQ is for building client/server interfaces
@@ -76,7 +75,6 @@ For an example of how to do this more persistently, see the pbdZMQ
 package vignette.
 
 
-
 ## Installation
 
 pbdZMQ requires
@@ -98,6 +96,20 @@ library(devtools)
 install_github("RBigData/pbdZMQ")
 ```
 
+
+## Citation
+
+When mentioning the pbdZMQ, please cite:
+
+```
+@ONLINE{pbdZMQ2015,
+  author = {Chen, W.-C. and Schmidt, D. and Ostrouchov, G.},
+  title = {pbdZMQ: Programming with Big Data -- Interface to ZeroMQ},
+  year = {2015},
+  note = {R Package},
+  url = {http://cran.r-project.org/package=pbdZMQ}
+}
+```
 
 
 ## Authors
