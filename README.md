@@ -78,6 +78,7 @@ package vignette.
 ## Installation
 
 pbdZMQ requires
+
 * R version 3.0.0 or higher.
 * Linux, Mac OSX, Windows, or FreeBSD.
 * libzmq >= 4.0.4.
@@ -103,7 +104,7 @@ When mentioning the pbdZMQ, please cite:
 
 ```
 @MISC{pbdZMQ2015,
-  author = {Chen, W.-C. and Schmidt, D. and Ostrouchov, G.},
+  author = {Chen, W.-C. and Schmidt, D. and Heckendorf, C. and Ostrouchov, G.},
   title = {pbdZMQ: Programming with Big Data -- Interface to ZeroMQ},
   year = {2015},
   note = {R Package, URL https://cran.r-project.org/package=pbdZMQ}
@@ -114,12 +115,14 @@ When mentioning the pbdZMQ, please cite:
 ## Authors
 
 pbdMPI is authored and maintained by:
+
 * Wei-Chen Chen
 * Drew Schmidt
 * Christian Heckendorf
 * George Ostrouchov
 
 With additional contributions from:
+
 * Whit Armstrong (some functions are modified from rzmq for backwards compatibility)
 * Brian Ripley (C code of shellexec)
 * The R Core team (some functions are modified from the R source code)
