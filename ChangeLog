@@ -1,5 +1,10 @@
+2017-01-11: Ver 0.2-6
+  * Move remoter back to Enhances because sodium does not work on CRAN Solaris.
+  * Add a fake `ls()` to avoid `rm(list = ls(all.names = TRUE)` to delete any
+    hidden pbd objects mainly `.pbd_env` and `.pbdenv`.
+
 2016-12-31: Ver 0.2-6
-  * Move pbdRPC and remoters to Suggests.
+  * Move pbdRPC and remoter to Suggests.
 
 2016-12-17: Ver 0.2-5
   * Change web address.
