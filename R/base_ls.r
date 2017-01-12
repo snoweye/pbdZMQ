@@ -7,7 +7,7 @@
 #' @details
 #' As the original \code{base::ls()}, it returns the names of the objects.
 #'
-#' @param name,pos,envir,all.names,patten,sorted
+#' @param name,pos,envir,all.names,pattern,sorted
 #' as the original \code{base::ls()}.
 #'
 #' @return
@@ -28,15 +28,21 @@
 #'
 #' @export
 ls <- function(name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
-    patten, sorted = TRUE)
+    pattern, sorted = TRUE)
 {
-  ret <- base::ls(name, pos = pos, envir = envir, all.names = all.names,
-                  patten, sorted = sorted)    
+  cmd <- "base::ls("
+  if (!missing(name))
+    cmd <- paste(cmd, as.character(name), ", ", sep = "")
+  cmd <- paste(cmd, "all.names = ", all.names, ", ", sep = "")
+  if (!missing(pattern))
+    cmd <- paste(cmd, as.character(pattern), ", ", sep = "")
+  cmd <- paste(cmd, "sorted = ", sorted, ")", sep = "")
+
+  ret <- eval(parse(text = cmd), envir = -2L)
 
   if (environmentName(envir) == "R_GlobalEnv" && all.names == TRUE)
-  {
-    ret <- ret[-grep("^\\.pbd(_|)env$", ret)]
-  }
+    ret <- grep("^\\.pbd(_|)env$", ret, value = TRUE, invert = TRUE)
 
   ret
 }
+
