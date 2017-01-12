@@ -40,7 +40,7 @@ ls <- function(name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
 
   ret <- eval(parse(text = cmd), envir = -2L)
 
-  if (environmentName(envir) == "R_GlobalEnv" && all.names == TRUE)
+  if (all.names == TRUE && environmentName(parent.frame()) == "R_GlobalEnv")
     ret <- grep("^\\.pbd(_|)env$", ret, value = TRUE, invert = TRUE)
 
   ret
