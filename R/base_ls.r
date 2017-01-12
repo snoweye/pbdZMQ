@@ -35,7 +35,7 @@ ls <- function(name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     cmd <- paste(cmd, as.character(name), ", ", sep = "")
   cmd <- paste(cmd, "all.names = ", all.names, ", ", sep = "")
   if (!missing(pattern))
-    cmd <- paste(cmd, as.character(pattern), ", ", sep = "")
+    cmd <- paste(cmd, "pattern = \"", as.character(pattern), "\", ", sep = "")
   cmd <- paste(cmd, "sorted = ", sorted, ")", sep = "")
 
   ret <- eval(parse(text = cmd), envir = -2L)
