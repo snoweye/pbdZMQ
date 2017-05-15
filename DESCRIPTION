@@ -1,6 +1,6 @@
 Package: pbdZMQ
 Version: 0.2-6
-Date: 2017-04-22
+Date: 2017-05-14
 Title: Programming with Big Data -- Interface to ZeroMQ
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -17,7 +17,7 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
 Depends: R (>= 3.2.0)
 Imports: R6
 Suggests: pbdRPC
-Enhances: remoter, pbdMPI, pbdCS
+Enhances: remoter, pbdMPI
 LazyLoad: yes
 LazyData: yes
 Copyright: See files AUTHORS, COPYING, COPYING.LESSER, and MAINTAINERS
@@ -40,4 +40,4 @@ MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

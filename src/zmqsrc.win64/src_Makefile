@@ -119,7 +119,8 @@ am_libzmq_la_OBJECTS = libzmq_la-address.lo libzmq_la-clock.lo \
 	libzmq_la-xsub.lo libzmq_la-zmq.lo libzmq_la-zmq_utils.lo \
 	libzmq_la-raw_decoder.lo libzmq_la-raw_encoder.lo \
 	libzmq_la-tipc_address.lo libzmq_la-tipc_listener.lo \
-	libzmq_la-tipc_connecter.lo
+	libzmq_la-tipc_connecter.lo \
+	libzmq_la-zzz.lo
 libzmq_la_OBJECTS = $(am_libzmq_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -499,7 +500,8 @@ libzmq_la_SOURCES = \
     tipc_listener.cpp \
     tipc_listener.hpp \
     tipc_connecter.cpp \
-    tipc_connecter.hpp
+    tipc_connecter.hpp \
+    zzz.cpp
 
 #libzmq_la_LDFLAGS = -version-info 4:0:0  -Wl
 ##libzmq_la_LDFLAGS = -version-info 4:0:0  -Wl,--version-script=$(srcdir)/libzmq.vers
@@ -1218,6 +1220,13 @@ libzmq_la-zmq.lo: zmq.cpp
 #	$(AM_V_CXX)source='zmq.cpp' object='libzmq_la-zmq.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libzmq_la_CPPFLAGS) $(CPPFLAGS) $(libzmq_la_CXXFLAGS) $(CXXFLAGS) -c -o libzmq_la-zmq.lo `test -f 'zmq.cpp' || echo '$(srcdir)/'`zmq.cpp
+
+libzmq_la-zzz.lo: zzz.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libzmq_la_CPPFLAGS) $(CPPFLAGS) $(libzmq_la_CXXFLAGS) $(CXXFLAGS) $(R_XTRA_CPPFLAGS) -MT libzmq_la-zzz.lo -MD -MP -MF $(DEPDIR)/libzmq_la-zzz.Tpo -c -o libzmq_la-zzz.lo `test -f 'zzz.cpp' || echo '$(srcdir)/'`zzz.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/libzmq_la-zzz.Tpo $(DEPDIR)/libzmq_la-zzz.Plo
+#	$(AM_V_CXX)source='zzz.cpp' object='libzmq_la-zzz.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libzmq_la_CPPFLAGS) $(CPPFLAGS) $(libzmq_la_CXXFLAGS) $(CXXFLAGS) -c -o libzmq_la-zzz.lo `test -f 'zzz.cpp' || echo '$(srcdir)/'`zzz.cpp
 
 libzmq_la-zmq_utils.lo: zmq_utils.cpp
 	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libzmq_la_CPPFLAGS) $(CPPFLAGS) $(libzmq_la_CXXFLAGS) $(CXXFLAGS) -MT libzmq_la-zmq_utils.lo -MD -MP -MF $(DEPDIR)/libzmq_la-zmq_utils.Tpo -c -o libzmq_la-zmq_utils.lo `test -f 'zmq_utils.cpp' || echo '$(srcdir)/'`zmq_utils.cpp

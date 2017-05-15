@@ -26,10 +26,9 @@ It's a simple wrapper around the \code{paste0()} function.
 address("localhost", 55555)
 
 }
-\author{
-Drew Schmidt
-}
 \seealso{
 \code{\link{zmq.bind}}
 }
-
+\author{
+Drew Schmidt
+}

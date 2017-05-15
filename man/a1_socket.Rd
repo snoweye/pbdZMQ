@@ -2,13 +2,13 @@
 % Please edit documentation in R/R_zmq_socket.r
 \name{Socket Functions}
 \alias{Socket Functions}
-\alias{zmq.bind}
+\alias{zmq.socket}
 \alias{zmq.close}
+\alias{zmq.bind}
 \alias{zmq.connect}
 \alias{zmq.disconnect}
-\alias{zmq.getsockopt}
 \alias{zmq.setsockopt}
-\alias{zmq.socket}
+\alias{zmq.getsockopt}
 \title{Socket Functions}
 \usage{
 zmq.socket(ctx, type = .pbd_env$ZMQ.ST$REP)
@@ -125,9 +125,6 @@ zmq.ctx.destroy(context)
 }
 
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -137,5 +134,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{zmq.ctx.new}()}, \code{\link{zmq.ctx.destroy}()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{programming}
-

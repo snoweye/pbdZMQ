@@ -49,9 +49,6 @@ shellexec.wcc("a.txt", 5L)
 }
 
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 Microsoft, Windows Dev Center: Windows desktop applications >
 Develop > Desktop technologies > Desktop Environment > The Windows Shell >
@@ -62,5 +59,7 @@ Shell Reference > Shell Functions > ShellExecute
 \seealso{
 \code{shell.exec()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{internal}
-

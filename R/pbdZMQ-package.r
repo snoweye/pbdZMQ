@@ -47,5 +47,6 @@
 #' @keywords package
 #' 
 #' @rdname a0_a_pbdZMQ-package
+#'
 NULL
 

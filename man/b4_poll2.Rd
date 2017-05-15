@@ -3,8 +3,8 @@
 \name{New Poll Functions}
 \alias{New Poll Functions}
 \alias{zmq.poll2}
-\alias{zmq.poll2.get.revents}
 \alias{zmq.poll2.interrupt}
+\alias{zmq.poll2.get.revents}
 \title{New Poll Functions}
 \usage{
 zmq.poll2(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC)
@@ -115,9 +115,6 @@ zmq.ctx.destroy(context)
 }
 
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -127,5 +124,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{zmq.recv}()}, \code{\link{zmq.send}()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{programming}
-

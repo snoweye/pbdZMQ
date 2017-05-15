@@ -5,10 +5,10 @@
 \title{A wrapper function for base::ls}
 \usage{
 ls(name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
-  patten, sorted = TRUE)
+  pattern, sorted = TRUE)
 }
 \arguments{
-\item{name, pos, envir, all.names, patten, sorted}{as the original \code{base::ls()}.}
+\item{name, pos, envir, all.names, pattern, sorted}{as the original \code{base::ls()}.}
 }
 \value{
 As the original \code{base::ls()} except when \code{all.names} is \code{TRUE}
@@ -33,4 +33,3 @@ base::ls(all.names = TRUE)
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.
 }
-

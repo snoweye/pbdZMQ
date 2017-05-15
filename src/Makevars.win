@@ -17,10 +17,10 @@ PKG_CXXFLAGS = -I./zmqsrc/include
 ### Order is matter.
 ifeq "$(WIN)" "64"
 PKG_LIBS_ZMQ = -L"$(MINGW_LIB)" -liphlpapi -lrpcrt4 -lws2_32 \
-               -L"$(STDCXX_LIB)" -lstdc++ -lpthread
+               -L"$(STDCXX_LIB)" -lstdc++ -lpthread ${LIBR}
 else
 PKG_LIBS_ZMQ = -L"$(MINGW_LIB)" -liphlpapi -lrpcrt4 -lws2_32 \
-               -L"$(STDCXX_LIB)" -lstdc++
+               -L"$(STDCXX_LIB)" -lstdc++ ${LIBR}
 endif
 PKG_LIBS = -L./ -lzmq ${PKG_LIBS_ZMQ}
 
@@ -46,6 +46,7 @@ Makeconf:
 	$(ECHO) 'PKG_LIBS_ZMQ = $(PKG_LIBS_ZMQ)' >> Makeconf
 	$(ECHO) 'R_ZMQ_INC = zmq${R_ARCH}/include/' >> Makeconf
 	$(ECHO) 'R_ZMQ_LIB = libs${R_ARCH}/' >> Makeconf
+	$(ECHO) 'R_XTRA_CPPFLAGS = ${R_XTRA_CPPFLAGS}' >> Makeconf
 
 $(SHLIB): $(OBJECTS)
 

@@ -2,8 +2,8 @@
 % Please edit documentation in R/R_zmq_transfer.r
 \name{File Transfer Functions}
 \alias{File Transfer Functions}
-\alias{zmq.recvfile}
 \alias{zmq.sendfile}
+\alias{zmq.recvfile}
 \title{File Transfer Functions}
 \usage{
 zmq.sendfile(port, filename, verbose = FALSE, flags = .pbd_env$ZMQ.SR$BLOCK)
@@ -51,9 +51,6 @@ zmq.sendfile(55555, "/tmp/infile", verbose=TRUE)
 }
 
 }
-\author{
-Drew Schmidt and Christian Heckendorf
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -63,5 +60,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{zmq.msg.send}()}, \code{\link{zmq.msg.recv}()}.
 }
+\author{
+Drew Schmidt and Christian Heckendorf
+}
 \keyword{programming}
-

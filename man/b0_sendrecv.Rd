@@ -2,8 +2,8 @@
 % Please edit documentation in R/R_zmq_sendrecv.r
 \name{Send Receive Functions}
 \alias{Send Receive Functions}
-\alias{zmq.recv}
 \alias{zmq.send}
+\alias{zmq.recv}
 \title{Send Receive Functions}
 \usage{
 zmq.send(socket, buf, flags = .pbd_env$ZMQ.SR$BLOCK)
@@ -87,9 +87,6 @@ zmq.ctx.destroy(context)
 }
 
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -99,5 +96,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{zmq.msg.send}()}, \code{\link{zmq.msg.recv}()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{programming}
-

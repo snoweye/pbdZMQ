@@ -2,8 +2,8 @@
 % Please edit documentation in R/R_zmq_context.r
 \name{Context Functions}
 \alias{Context Functions}
-\alias{zmq.ctx.destroy}
 \alias{zmq.ctx.new}
+\alias{zmq.ctx.destroy}
 \title{Context Functions}
 \usage{
 zmq.ctx.new()
@@ -38,9 +38,6 @@ zmq.ctx.destroy(context)
 }
 
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -51,5 +48,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \code{\link{zmq.socket}()}, \code{\link{zmq.close}()},
 \code{\link{zmq.bind}()}, \code{\link{zmq.connect}()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{programming}
-

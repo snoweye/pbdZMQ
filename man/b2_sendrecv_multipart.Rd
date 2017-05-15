@@ -2,8 +2,8 @@
 % Please edit documentation in R/R_zmq_sendrecv_multipart.r
 \name{Send Receive Multiple Raw Buffers}
 \alias{Send Receive Multiple Raw Buffers}
-\alias{zmq.recv.multipart}
 \alias{zmq.send.multipart}
+\alias{zmq.recv.multipart}
 \title{Send Receive Multiple Raw Buffers}
 \usage{
 zmq.send.multipart(socket, parts, serialize = TRUE)
@@ -68,9 +68,6 @@ zmq.ctx.destroy(context)
 }
 
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -80,5 +77,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{zmq.msg.send}()}, \code{\link{zmq.msg.recv}()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{programming}
-

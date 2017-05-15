@@ -1,3 +1,7 @@
+2017-05-14: Ver 0.2-6
+  * Add dynamic symbol registration.
+  * Add zzz.cpp in zmqsrc/src/ and relevance.
+
 2017-01-11: Ver 0.2-6
   * Move remoter back to Enhances because sodium does not work on CRAN Solaris.
   * Add a fake `ls()` to avoid `rm(list = ls(all.names = TRUE)` to delete any

@@ -4,8 +4,8 @@
 \alias{ZMQ Control Functions}
 \alias{ZMQ.MC}
 \alias{ZMQ.PO}
-\alias{ZMQ.SO}
 \alias{ZMQ.SR}
+\alias{ZMQ.SO}
 \alias{ZMQ.ST}
 \title{Sets of controls in pbdZMQ.}
 \usage{
@@ -54,9 +54,6 @@ R warning/error.}
 \description{
 These sets of controls are used to provide default values in this package.
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -66,6 +63,8 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{.pbd_env}}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{global}
 \keyword{variables}
-

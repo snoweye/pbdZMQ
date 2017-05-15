@@ -2,8 +2,8 @@
 % Please edit documentation in R/222_export_env.r
 \docType{data}
 \name{ZMQ Control Environment}
-\alias{.pbd_env}
 \alias{ZMQ Control Environment}
+\alias{.pbd_env}
 \title{Sets of controls in pbdZMQ.}
 \format{Objects contain several parameters for communicators and methods.}
 \description{
@@ -38,9 +38,6 @@ are defined as \tabular{lcl}{ Elements \tab Value \tab Usage \cr
 \code{warning.at.error} \tab TRUE \tab if warn at error \cr
 \code{stop.at.error} \tab TRUE \tab if stop at error }
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -50,6 +47,8 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{.zmqopt_init}()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{global}
 \keyword{variables}
-

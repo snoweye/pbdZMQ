@@ -2,12 +2,12 @@
 % Please edit documentation in R/rzmq_wrapper.r
 \name{Wrapper Functions for rzmq}
 \alias{Wrapper Functions for rzmq}
-\alias{bind.socket}
-\alias{connect.socket}
+\alias{send.socket}
+\alias{receive.socket}
 \alias{init.context}
 \alias{init.socket}
-\alias{receive.socket}
-\alias{send.socket}
+\alias{bind.socket}
+\alias{connect.socket}
 \title{All Wrapper Functions for rzmq}
 \usage{
 send.socket(socket, data, send.more = FALSE, serialize = TRUE)
@@ -63,14 +63,13 @@ automatically.  See also \code{.pbd_env$ZMQ.ST}.
 
 \code{connect.socket()}:  see \code{zmq.connect()}
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
 Programming with Big Data in R Website: \url{http://r-pbd.org/}
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{rzmq}
-

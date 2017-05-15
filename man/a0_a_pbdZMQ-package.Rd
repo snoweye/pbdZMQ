@@ -2,8 +2,8 @@
 % Please edit documentation in R/pbdZMQ-package.r
 \docType{package}
 \name{pbdZMQ-package}
-\alias{pbdZMQ}
 \alias{pbdZMQ-package}
+\alias{pbdZMQ}
 \title{Programming with Big Data -- Interface to ZeroMQ}
 \description{
 ZeroMQ is a well-known library for high-performance
@@ -40,9 +40,6 @@ See the package source file \code{pbdZMQ/configure.ac} for details.
 For installation using an external ZeroMQ library, see the package source
 file \code{pbdZMQ/INSTALL} for details.
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -52,5 +49,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{zmq.ctx.new}()}, \code{\link{zmq.socket}()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{package}
-

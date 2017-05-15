@@ -47,9 +47,6 @@ pbd_opt(bytext = "ZMQ.SR$BLOCK <- 0L")
 }
 
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com} and Drew Schmidt.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -59,5 +56,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{.pbd_env}}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com} and Drew Schmidt.
+}
 \keyword{programming}
-

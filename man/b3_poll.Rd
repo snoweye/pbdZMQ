@@ -3,10 +3,10 @@
 \name{Poll Functions}
 \alias{Poll Functions}
 \alias{zmq.poll}
-\alias{zmq.poll.free}
-\alias{zmq.poll.get.revents}
 \alias{zmq.poll.interrupt}
+\alias{zmq.poll.free}
 \alias{zmq.poll.length}
+\alias{zmq.poll.get.revents}
 \title{Poll Functions}
 \usage{
 zmq.poll(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC)
@@ -125,9 +125,6 @@ zmq.ctx.destroy(context)
 }
 
 }
-\author{
-Wei-Chen Chen \email{wccsnow@gmail.com}.
-}
 \references{
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
@@ -137,5 +134,7 @@ Programming with Big Data in R Website: \url{http://r-pbd.org/}
 \seealso{
 \code{\link{zmq.recv}()}, \code{\link{zmq.send}()}.
 }
+\author{
+Wei-Chen Chen \email{wccsnow@gmail.com}.
+}
 \keyword{programming}
-

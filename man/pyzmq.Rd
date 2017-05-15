@@ -2,10 +2,10 @@
 % Please edit documentation in R/pyzmq_wrapper.r
 \docType{class}
 \name{PyZMQ-like Interface}
-\alias{Context}
 \alias{PyZMQ-like Interface}
-\alias{Socket}
 \alias{pyzmq}
+\alias{Socket}
+\alias{Context}
 \alias{zmq}
 \title{R6 ZMQ Interface}
 \format{An \code{\link{R6Class}} generator object}
@@ -28,12 +28,11 @@ socket$connect("tcp://localhost:5555")
 }
 
 }
-\author{
-Drew Schmidt
-}
 \references{
 Modeled after the PyZMQ interface \url{https://zeromq.github.io/pyzmq/api/zmq.html}
 }
+\author{
+Drew Schmidt
+}
 \keyword{data}
 \keyword{datasets}
-
