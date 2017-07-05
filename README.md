@@ -13,11 +13,10 @@ should allow for the use of ZeroMQ on Windows platforms.
 
 ## Interfaces
 
-The package contains 3 separate interfaces:
+The package contains 2 separate interfaces:
 
 1. One modeled after the ZeroMQ C interface (see help("czmq"))
-2. One modeled after the PyZMQ interface (see help("pyzmq"))
-3. One modeled after the rzmq interface (see help("rzmq"))
+2. One modeled after the rzmq interface (see help("rzmq"))
 
 
 ## Client/Server Example
@@ -41,15 +40,16 @@ running `Rscript server.r` from a terminal.
 
 ```r
 library(pbdZMQ)
-context = zmq$Context()
-socket = context$socket("ZMQ_REP")
-socket$bind("tcp://*:55555")
+ctxt <- init.context()
+socket <- init.socket(ctxt, "ZMQ_REP")
+bind.socket(socket, "tcp://*:55555")
+
 
 cat("Client command:  ")
-msg <- socket$receive()
+  msg <- receive.socket(socket)
 
 cat(msg, "\n")
-socket$send("Message received!")
+send.socket(socket, "Message received!")
 ```
 
 
@@ -60,12 +60,12 @@ following:
 
 ```r
 library(pbdZMQ)
-context = zmq$Context()
-socket = context$socket("ZMQ_REQ")
-socket$connect("tcp://localhost:55555")
+ctxt <- init.context()
+socket <- init.socket(ctxt, "ZMQ_REQ")
+connect.socket(socket, "tcp://localhost:55555")
 
-socket$send("1+1")
-socket$receive()
+send.socket(socket, "1+1")
+receive.socket(socket)
 ```
 
 If all goes well, your message should be sent from the client
