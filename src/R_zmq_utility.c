@@ -25,7 +25,7 @@ SEXP R_zmq_strerror(SEXP R_errno){
 /* Version. */
 SEXP R_zmq_version(){
 	int major, minor, patch;
-	char ver[5];
+	char ver[6];
 	SEXP ret;
 	
 	zmq_version(&major, &minor, &patch);
