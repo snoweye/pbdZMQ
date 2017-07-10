@@ -105,7 +105,7 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesiz
   int ind;
   const int verbose = INTEGER(verbose_)[0];
   const double filesize = REAL(filesize_)[0];
-  size_t expected_size, size;
+  int expected_size, size;
   uint64_t total_size = 0;
   int C_errno;
   int C_flags = INTEGER(R_flags)[0];
