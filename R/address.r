@@ -35,10 +35,8 @@ address <- function(host, port, transport="tcp")
     if (!missing(port))
       warning("Ignoring specified port for ipc transport.")
     
-    port <- ""
+    paste0(transport, "://", host)
   }
-  
-  paste0(transport, "://", host, ":", port)
+  else
+    paste0(transport, "://", host, ":", port)
 }
-
-

@@ -69,7 +69,7 @@ wchar_t *filenameToWchar_wcc(const SEXP fn, const Rboolean expand){
 
 
 /* From R-devel\src\gnuwin32\extra.c */
-static void internal_shellexecW_wcc(const wchar_t * file, Rboolean rhome,
+static inline void internal_shellexecW_wcc(const wchar_t * file, Rboolean rhome,
 		int C_SW_cmd){
 #ifdef WIN
 	const wchar_t *home;

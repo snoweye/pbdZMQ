@@ -1,3 +1,6 @@
+2017-07-05: Ver 0.2-7
+  * Retire R6/pyzmq-like bindings.
+
 2017-05-14: Ver 0.2-6
   * Add dynamic symbol registration.
   * Add zzz.cpp in zmqsrc/src/ and relevance.

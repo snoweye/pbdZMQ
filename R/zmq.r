@@ -20,8 +20,7 @@
 #' 
 #' Programming with Big Data in R Website: \url{http://r-pbd.org/}
 #' 
-#' @keywords czmq
+#' @keywords zmq
 #' @rdname xx_czmq_wrapper
 #' @name C-like Wrapper Functions for ZeroMQ
 NULL
-
