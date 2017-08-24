@@ -29,15 +29,15 @@ SEXP R_zmq_version(){
 	char ver[36];
 	int chars;
 	SEXP ret;
-	
+
 	zmq_version(&major, &minor, &patch);
 	//Rprintf("Current ZeroMQ version is %d.%d.%d\n", major, minor, patch);
-	
+
 	chars = sprintf(ver, "%d.%d.%d", major, minor, patch);
-	
+
 	ret = PROTECT(allocVector(STRSXP, 1));
 	SET_STRING_ELT(ret, 0, mkCharLen(ver, chars));
-	
+
 	UNPROTECT(1);
 	return(ret);
 } /* End of R_zmq_version(). */
