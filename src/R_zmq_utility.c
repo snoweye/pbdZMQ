@@ -25,16 +25,18 @@ SEXP R_zmq_strerror(SEXP R_errno){
 /* Version. */
 SEXP R_zmq_version(){
 	int major, minor, patch;
-	char ver[6];
+	/* (10 bytes for int + 1 byte for sign) * 3 + 2 dots + 1 NUL */
+	char ver[36];
+	int chars;
 	SEXP ret;
 	
 	zmq_version(&major, &minor, &patch);
 	//Rprintf("Current ZeroMQ version is %d.%d.%d\n", major, minor, patch);
 	
-	sprintf(ver, "%d.%d.%d", major, minor, patch);
+	chars = sprintf(ver, "%d.%d.%d", major, minor, patch);
 	
 	ret = PROTECT(allocVector(STRSXP, 1));
-	SET_STRING_ELT(ret, 0, mkCharLen(ver, 5));
+	SET_STRING_ELT(ret, 0, mkCharLen(ver, chars));
 	
 	UNPROTECT(1);
 	return(ret);
