@@ -23,7 +23,7 @@ R_SCMD="${R_HOME}/bin/Rscript -e"
 dnl Check if force enable internal ZeroMQ.
 AC_ARG_ENABLE(internal-zmq,
   AC_HELP_STRING([--enable-internal-zmq], [Enable internal ZeroMQ, default no.]),
-  [ENABLE_INTERNAL_ZMQ="yes"], [ENABLE_INTERNAL_ZMQ="no"])
+  [ENABLE_INTERNAL_ZMQ=$enableval], [ENABLE_INTERNAL_ZMQ="no"])
 
 dnl Check system ZMQ with pkg-config
 GET_PKG_CONFIG="no"

@@ -1720,7 +1720,7 @@ R_SCMD="${R_HOME}/bin/Rscript -e"
 
 # Check whether --enable-internal-zmq was given.
 if test "${enable_internal_zmq+set}" = set; then :
-  enableval=$enable_internal_zmq; ENABLE_INTERNAL_ZMQ="yes"
+  enableval=$enable_internal_zmq; ENABLE_INTERNAL_ZMQ=$enableval
 else
   ENABLE_INTERNAL_ZMQ="no"
 fi
