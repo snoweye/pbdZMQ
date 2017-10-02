@@ -9,7 +9,8 @@
 \alias{ZMQ.ST}
 \title{Sets of controls in pbdZMQ.}
 \usage{
-ZMQ.MC(warning.at.error = TRUE, stop.at.error = FALSE)
+ZMQ.MC(warning.at.error = TRUE, stop.at.error = FALSE,
+  check.eintr = FALSE)
 
 ZMQ.PO(POLLIN = 1L, POLLOUT = 2L, POLLERR = 4L)
 
@@ -40,8 +41,8 @@ ZMQ.ST(PAIR = 0L, PUB = 1L, SUB = 2L, REQ = 3L, REP = 4L,
   XSUB = 10L, STREAM = 11L)
 }
 \arguments{
-\item{warning.at.error, stop.at.error}{Logical; if there is a messaging error, should there be an
-R warning/error.}
+\item{warning.at.error, stop.at.error, check.eintr}{Logical; if there is a messaging error, should there be an
+R warning/error, or check user interrupt events.}
 
 \item{POLLIN, POLLOUT, POLLERR}{ZMQ poll options; see zmq.h for details.}
 

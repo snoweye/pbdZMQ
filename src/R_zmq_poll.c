@@ -1,15 +1,19 @@
 #include "R_zmq.h"
+#include <R_ext/Utils.h>
 
 zmq_pollitem_t *PBD_POLLITEM = NULL;
 int PBD_POLLITEM_LENGTH = 0;
 
 /* Poll related. */
-SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout){
+SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout, SEXP R_check_eintr){
 	SEXP R_x, R_pbd_pollitem;
 	int C_ret = -1, C_errno, i;
 
 	PBD_POLLITEM_LENGTH = LENGTH(R_socket);
 
+	// TODO: Preallocated in R as an external pointer which can be as an
+        // input and reused for a common poller in a while loop. No need to
+        // allocated for each iteration.
 	PBD_POLLITEM = (zmq_pollitem_t *) malloc(PBD_POLLITEM_LENGTH * sizeof(zmq_pollitem_t));
 	PROTECT(R_pbd_pollitem = R_MakeExternalPtr(PBD_POLLITEM, R_NilValue, R_NilValue));
 	for(i = 0; i < PBD_POLLITEM_LENGTH; i++){
@@ -18,6 +22,9 @@ SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout){
 	}
 
 	C_ret = zmq_poll(PBD_POLLITEM, PBD_POLLITEM_LENGTH, (long) INTEGER(R_timeout)[0]);
+	if(LOGICAL(R_check_eintr)[0] == TRUE){
+		R_CheckUserInterrupt();
+	}
 	C_errno = zmq_errno();
 
 	/* Bring both C_ret and C_errno back to R. */

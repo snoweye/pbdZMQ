@@ -1,3 +1,6 @@
+2017-10-01: Ver 0.2-7
+  * Add check eintr to poller.
+
 2017-07-05: Ver 0.2-7
   * Retire R6/pyzmq-like bindings.
 

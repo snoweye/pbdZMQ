@@ -10,15 +10,12 @@
 #' \code{type}. ZMQ defines several poll types and utilize
 #' them to poll multiple sockets.
 #' 
-#' \code{zmq.poll.interrupt()} call \code{zmq.poll()} and raise an interrupt
-#' signal if \code{ret[1] == -1} and \code{ret[2] == 4}.
-#'
 #' \code{zmq.poll.free()} frees ZMQ poll structure memory internally.
 #'
 #' \code{zmq.poll.length()} obtains total numbers of ZMQ poll items.
 #'
 #' \code{zmq.poll.get.revents()} obtains revent types from ZMQ poll item by
-#' the input index..
+#' the input index.
 #' 
 #' @param socket 
 #' a vector of ZMQ sockets
@@ -130,22 +127,8 @@ zmq.poll <- function(socket, type, timeout = -1L, MC = .pbd_env$ZMQ.MC){
   zmq.poll.free()
 
   ret <- .Call("R_zmq_poll", socket, type, as.integer(timeout),
+               as.logical(MC$check.eintr),
                PACKAGE = "pbdZMQ")
-  return(invisible(ret))
-}
-
-
-#' @rdname b3_poll
-#' @export
-zmq.poll.interrupt <- function(socket, type, timeout = -1L,
-     MC = .pbd_env$ZMQ.MC){
-  ret <- zmq.poll(socket, type, timeout, MC)
-
-  if(ret[1] == -1 && ret[2] == 4){
-    my.c <- structure(list(ret = ret), class = c("interrupt", "condition"))
-    signalCondition(my.c)
-  }
-
   return(invisible(ret))
 }
 

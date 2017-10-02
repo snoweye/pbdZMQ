@@ -2,9 +2,9 @@
 #' 
 #' These sets of controls are used to provide default values in this package.
 #' 
-#' @param warning.at.error,stop.at.error
+#' @param warning.at.error,stop.at.error,check.eintr
 #' Logical; if there is a messaging error, should there be an
-#' R warning/error.
+#' R warning/error, or check user interrupt events.
 #' @param POLLIN,POLLOUT,POLLERR
 #' ZMQ poll options; see zmq.h for details.
 #' @param BLOCK,DONTWAIT,NOBLOCK,SNDMORE
@@ -34,11 +34,13 @@ NULL
 #' @rdname zz_zmq_control
 ZMQ.MC <- function(
   warning.at.error = TRUE,
-  stop.at.error = FALSE
+  stop.at.error = FALSE,
+  check.eintr = FALSE
 ){
   list(
     warning.at.error = warning.at.error,
-    stop.at.error = stop.at.error
+    stop.at.error = stop.at.error,
+    check.eintr = check.eintr
   )
 }
 

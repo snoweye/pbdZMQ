@@ -36,12 +36,10 @@ static const R_CallMethodDef callMethods[] = {
 	{"shellexec_wcc", (DL_FUNC) &shellexec_wcc, 2},
 
 	/* In file "R_zmq_poll.c". */
-	{"R_zmq_poll", (DL_FUNC) &R_zmq_poll, 3},
+	{"R_zmq_poll", (DL_FUNC) &R_zmq_poll, 4},
 	{"R_zmq_poll_free", (DL_FUNC) &R_zmq_poll_free, 0},
 	{"R_zmq_poll_length", (DL_FUNC) &R_zmq_poll_length, 0},
 	{"R_zmq_poll_get_revents", (DL_FUNC) &R_zmq_poll_get_revents, 1},
-	{"R_zmq_poll2", (DL_FUNC) &R_zmq_poll2, 3},
-	{"R_zmq_poll2_get_revents", (DL_FUNC) &R_zmq_poll2_get_revents, 2},
 
 	/* Finish R_CallMethodDef. */
 	{NULL, NULL, 0}
