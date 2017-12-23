@@ -1,29 +1,36 @@
 /*
-    Copyright (c) 2007-2014 Contributors as noted in the AUTHORS file
+    Copyright (c) 2007-2016 Contributors as noted in the AUTHORS file
 
-    This file is part of 0MQ.
+    This file is part of libzmq, the ZeroMQ core engine in C++.
 
-    0MQ is free software; you can redistribute it and/or modify it under
-    the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
+    libzmq is free software; you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License (LGPL) as published
+    by the Free Software Foundation; either version 3 of the License, or
     (at your option) any later version.
 
-    0MQ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
+    As a special exception, the Contributors give you permission to link
+    this library with independent modules to produce an executable,
+    regardless of the license terms of these independent modules, and to
+    copy and distribute the resulting executable under terms of your choice,
+    provided that you also meet, for each linked independent module, the
+    terms and conditions of the license of that module. An independent
+    module is a module which is not derived from or based on this library.
+    If you modify this library, you must extend this exception to your
+    version of the library.
+
+    libzmq is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+    License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "platform.hpp"
+#include "precompiled.hpp"
+#include "macros.hpp"
 
-#ifdef HAVE_LIBSODIUM
-
-#ifdef ZMQ_HAVE_WINDOWS
-#include "windows.hpp"
-#endif
+#ifdef ZMQ_HAVE_CURVE
 
 #include "msg.hpp"
 #include "session_base.hpp"
@@ -39,22 +46,11 @@ zmq::curve_server_t::curve_server_t (session_base_t *session_,
     peer_address (peer_address_),
     state (expect_hello),
     cn_nonce (1),
-    cn_peer_nonce(1),
-    sync()
+    cn_peer_nonce(1)
 {
     int rc;
     //  Fetch our secret key from socket options
     memcpy (secret_key, options_.curve_secret_key, crypto_box_SECRETKEYBYTES);
-    scoped_lock_t lock (sync);
-#if defined(HAVE_TWEETNACL)
-    // allow opening of /dev/urandom
-    unsigned char tmpbytes[4];
-    randombytes(tmpbytes, 4);
-#else
-    // todo check return code
-    rc = sodium_init ();
-    zmq_assert (rc != -1);
-#endif
 
     //  Generate short-term key pair
     rc = crypto_box_keypair (cn_public, cn_secret);
@@ -133,6 +129,8 @@ int zmq::curve_server_t::encode (msg_t *msg_)
     uint8_t flags = 0;
     if (msg_->flags () & msg_t::more)
         flags |= 0x01;
+    if (msg_->flags () & msg_t::command)
+        flags |= 0x02;
 
     uint8_t *message_plaintext = static_cast <uint8_t *> (malloc (mlen));
     alloc_assert (message_plaintext);
@@ -223,6 +221,8 @@ int zmq::curve_server_t::decode (msg_t *msg_)
         const uint8_t flags = message_plaintext [crypto_box_ZEROBYTES];
         if (flags & 0x01)
             msg_->set_flags (msg_t::more);
+        if (flags & 0x02)
+            msg_->set_flags (msg_t::command);
 
         memcpy (msg_->data (),
                 message_plaintext + crypto_box_ZEROBYTES + 1,
@@ -311,11 +311,11 @@ int zmq::curve_server_t::process_hello (msg_t *msg_)
                               hello_nonce, cn_client, secret_key);
     if (rc != 0) {
         //  Temporary support for security debugging
-        puts ("CURVE I: cannot open client HELLO -- wrong server key?");
+        puts("CURVE I: cannot open client HELLO -- wrong server key?");
         errno = EPROTO;
         return -1;
     }
-
+    
     state = send_welcome;
     return rc;
 }
@@ -367,7 +367,8 @@ int zmq::curve_server_t::produce_welcome (msg_t *msg_)
     rc = crypto_box (welcome_ciphertext, welcome_plaintext,
                      sizeof welcome_plaintext,
                      welcome_nonce, cn_client, secret_key);
-    zmq_assert (rc == 0);
+    if (rc == -1)
+        return -1;
 
     rc = msg_->init_size (168);
     errno_assert (rc == 0);

@@ -37,15 +37,20 @@ CC="${MY_CC}" \
   --with-poller="${MY_POLLER}" \
   --enable-static=no \
   --enable-shared=yes \
-  --without-documentation # \
+  --without-docs \
+  --without-documentation \
+  --disable-pedantic \
+  --disable-eventfd \
+  --disable-perf \
+  --disable-curve-keygen \
+  --disable-curve
   # --with-pic=PIC
   # --without-libsodium
 
 ### Assign zmq informaton, make, and install.
 MY_ZMQ_DIR=`pwd`
 echo "MY_ZMQ_DIR = '${MY_ZMQ_DIR}'" >> ../Makeconf
-cd src
-${MY_MAKE} all
+${MY_MAKE}
 
 ### Install
 ${MY_MAKE} install
