@@ -1,12 +1,6 @@
 ### Rscript
 R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
 
-### Get GNU_ROOT from PATH.
-MINGW_LIB = $(shell ${R_SCMD} \
-  "source('../R/get_conf.r');get.mingw.lib('"${R_ARCH}"','"${BINPREF}"')")
-STDCXX_LIB = $(shell ${R_SCMD} \
-  "source('../R/get_conf.r');get.stdcxx.lib('"${R_ARCH}"','"${BINPREF}"')")
-
 ### Default Makeconf
 MkInclude = ${R_HOME}/etc${R_ARCH}/Makeconf
 
@@ -14,14 +8,7 @@ MkInclude = ${R_HOME}/etc${R_ARCH}/Makeconf
 PKG_CPPFLAGS = -I./zmqsrc/include -DWIN
 PKG_CFLAGS = -I./zmqsrc/include
 PKG_CXXFLAGS = -I./zmqsrc/include
-### Order is matter.
-ifeq "$(WIN)" "64"
-PKG_LIBS_ZMQ = -L"$(MINGW_LIB)" -liphlpapi -lrpcrt4 -lws2_32 \
-               -L"$(STDCXX_LIB)" -lstdc++ -lpthread ${LIBR}
-else
-PKG_LIBS_ZMQ = -L"$(MINGW_LIB)" -liphlpapi -lrpcrt4 -lws2_32 \
-               -L"$(STDCXX_LIB)" -lstdc++ ${LIBR}
-endif
+PKG_LIBS_ZMQ = -liphlpapi -lrpcrt4 -lws2_32 -lstdc++ ${LIBR}
 PKG_LIBS = -L./ -lzmq ${PKG_LIBS_ZMQ}
 
 ### Setup R source code and objects.
@@ -35,8 +22,6 @@ all: Makeconf $(SHLIB) userLibrary
 	@$(CP) ../R/windows/zzz.r ../R/
 
 Makeconf:
-	$(ECHO) 'MINGW_LIB = $(MINGW_LIB)' >> Makeconf
-	$(ECHO) 'STDCXX_LIB = $(STDCXX_LIB)' >> Makeconf
 	$(ECHO) 'MY_CC = $(CC)' >> Makeconf
 	$(ECHO) 'MY_CXX = $(CXX)' >> Makeconf
 	$(ECHO) 'PKG_CPPFLAGS = $(PKG_CPPFLAGS)' >> Makeconf
@@ -55,14 +40,11 @@ userLibrary: $(SHLIB) $(R_ZMQ)
 $(R_OBJS): $(R_ZMQ)
 
 $(R_ZMQ): Makeconf
-	$(CP) -f zmqsrc.win$(WIN)/include_zmq.h zmqsrc/include/zmq.h
-	$(CP) -f zmqsrc.win$(WIN)/src_Makefile zmqsrc/src/Makefile
-	$(CP) -f zmqsrc.win$(WIN)/src_platform.hpp zmqsrc/src/platform.hpp
-	$(CP) -Rf zmqsrc.win$(WIN)/src_deps zmqsrc/src/.deps
-	( cd zmqsrc/src; $(MAKE) )
+	( cd ./zmqsrc.win; $(MAKE) all )
+	$(CP) ./zmqsrc.win/libzmq.dll ./
 	$(MKDIR) ./zmq
 	$(MKDIR) ./zmq/include
-	$(CP) zmqsrc/include/*.h ./zmq/include
+	$(CP) ./zmqsrc/include/*.h ./zmq/include
 
 clean:
 	@$(RM) -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib *.la \

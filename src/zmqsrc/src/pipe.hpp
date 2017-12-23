@@ -1,17 +1,27 @@
 /*
-    Copyright (c) 2007-2014 Contributors as noted in the AUTHORS file
+    Copyright (c) 2007-2016 Contributors as noted in the AUTHORS file
 
-    This file is part of 0MQ.
+    This file is part of libzmq, the ZeroMQ core engine in C++.
 
-    0MQ is free software; you can redistribute it and/or modify it under
-    the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
+    libzmq is free software; you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License (LGPL) as published
+    by the Free Software Foundation; either version 3 of the License, or
     (at your option) any later version.
 
-    0MQ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
+    As a special exception, the Contributors give you permission to link
+    this library with independent modules to produce an executable,
+    regardless of the license terms of these independent modules, and to
+    copy and distribute the resulting executable under terms of your choice,
+    provided that you also meet, for each linked independent module, the
+    terms and conditions of the license of that module. An independent
+    module is a module which is not derived from or based on this library.
+    If you modify this library, you must extend this exception to your
+    version of the library.
+
+    libzmq is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+    License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -27,7 +37,6 @@
 #include "stdint.hpp"
 #include "array.hpp"
 #include "blob.hpp"
-#include "fd.hpp"
 
 namespace zmq
 {
@@ -58,7 +67,7 @@ namespace zmq
 
     //  Note that pipe can be stored in three different arrays.
     //  The array of inbound pipes (1), the array of outbound pipes (2) and
-    //  the generic array of pipes to deallocate (3).
+    //  the generic array of pipes to be deallocated (3).
 
     class pipe_t :
         public object_t,
@@ -75,6 +84,10 @@ namespace zmq
         //  Specifies the object to send events to.
         void set_event_sink (i_pipe_events *sink_);
 
+        //  Pipe endpoint can store an routing ID to be used by its clients.
+        void set_routing_id (uint32_t routing_id_);
+        uint32_t get_routing_id ();
+
         //  Pipe endpoint can store an opaque ID to be used by its clients.
         void set_identity (const blob_t &identity_);
         blob_t get_identity ();
@@ -87,26 +100,28 @@ namespace zmq
         //  Reads a message to the underlying pipe.
         bool read (msg_t *msg_);
 
-        //  Checks whether messages can be written to the pipe. If writing
-        //  the message would cause high watermark the function returns false.
+        //  Checks whether messages can be written to the pipe. If the pipe is
+        //  closed or if writing the message would cause high watermark the
+        //  function returns false.
         bool check_write ();
 
         //  Writes a message to the underlying pipe. Returns false if the
-        //  message cannot be written because high watermark was reached.
+        //  message does not pass check_write. If false, the message object
+        //  retains ownership of its message buffer.
         bool write (msg_t *msg_);
 
         //  Remove unfinished parts of the outbound message from the pipe.
         void rollback ();
 
-        //  Flush the messages downsteam.
+        //  Flush the messages downstream.
         void flush ();
 
-        //  Temporaraily disconnects the inbound message stream and drops
+        //  Temporarily disconnects the inbound message stream and drops
         //  all the messages on the fly. Causes 'hiccuped' event to be generated
         //  in the peer.
         void hiccup ();
 
-        // Ensure the pipe wont block on receiving pipe_term.
+        //  Ensure the pipe won't block on receiving pipe_term.
         void set_nodelay ();
 
         //  Ask pipe to terminate. The termination will happen asynchronously
@@ -115,13 +130,17 @@ namespace zmq
         //  before actual shutdown.
         void terminate (bool delay_);
 
-        // set the high water marks.
+        //  Set the high water marks.
         void set_hwms (int inhwm_, int outhwm_);
 
-        // check HWM
+        //  Set the boost to high water marks, used by inproc sockets so total hwm are sum of connect and bind sockets watermarks
+        void set_hwms_boost(int inhwmboost_, int outhwmboost_);
+
+        // send command to peer for notify the change of hwm
+        void send_hwms_to_peer(int inhwm_, int outhwm_);
+
+        //  Returns true if HWM is not reached
         bool check_hwm () const;
-        // provide a way to link pipe to engine fd. Set on session initialization
-        fd_t assoc_fd; //=retired_fd
     private:
 
         //  Type of the underlying lock-free pipe.
@@ -133,6 +152,7 @@ namespace zmq
         void process_hiccup (void *pipe_);
         void process_pipe_term ();
         void process_pipe_term_ack ();
+        void process_pipe_hwm (int inhwm_, int outhwm_);
 
         //  Handler for delimiter read from the pipe.
         void process_delimiter ();
@@ -163,6 +183,10 @@ namespace zmq
         //  Low watermark for the inbound pipe.
         int lwm;
 
+        // boosts for high and low watermarks, used with inproc sockets so hwm are sum of send and recv hmws on each side of pipe
+        int inhwmboost;
+        int outhwmboost;
+
         //  Number of messages read and written so far.
         uint64_t msgs_read;
         uint64_t msgs_written;
@@ -181,7 +205,7 @@ namespace zmq
         //  active: common state before any termination begins,
         //  delimiter_received: delimiter was read from pipe before
         //      term command was received,
-        //  waiting_fo_delimiter: term command was already received
+        //  waiting_for_delimiter: term command was already received
         //      from the peer but there are still pending messages to read,
         //  term_ack_sent: all pending messages were already read and
         //      all we are waiting for is ack from the peer,
@@ -204,6 +228,9 @@ namespace zmq
 
         //  Identity of the writer. Used uniquely by the reader side.
         blob_t identity;
+
+        //  Identity of the writer. Used uniquely by the reader side.
+        int routing_id;
 
         //  Pipe's credential.
         blob_t credential;

@@ -1,17 +1,27 @@
 /*
-    Copyright (c) 2007-2014 Contributors as noted in the AUTHORS file
+    Copyright (c) 2007-2016 Contributors as noted in the AUTHORS file
 
-    This file is part of 0MQ.
+    This file is part of libzmq, the ZeroMQ core engine in C++.
 
-    0MQ is free software; you can redistribute it and/or modify it under
-    the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
+    libzmq is free software; you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License (LGPL) as published
+    by the Free Software Foundation; either version 3 of the License, or
     (at your option) any later version.
 
-    0MQ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
+    As a special exception, the Contributors give you permission to link
+    this library with independent modules to produce an executable,
+    regardless of the license terms of these independent modules, and to
+    copy and distribute the resulting executable under terms of your choice,
+    provided that you also meet, for each linked independent module, the
+    terms and conditions of the license of that module. An independent
+    module is a module which is not derived from or based on this library.
+    If you modify this library, you must extend this exception to your
+    version of the library.
+
+    libzmq is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+    License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -30,17 +40,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "platform.hpp"
+#ifndef ZMQ_HAVE_WINDOWS
+#include <netdb.h>
+#endif
+
 #include "likely.hpp"
 
 //  0MQ-specific error codes are defined in zmq.h
-#include "../include/zmq.h"
-
-#ifdef ZMQ_HAVE_WINDOWS
-#include "windows.hpp"
-#else
-#include <netdb.h>
-#endif
 
 // EPROTO is not used by OpenBSD and maybe other platforms.
 #ifndef EPROTO
@@ -51,6 +57,7 @@ namespace zmq
 {
     const char *errno_to_string (int errno_);
     void zmq_abort (const char *errmsg_);
+    void print_backtrace (void);
 }
 
 #ifdef ZMQ_HAVE_WINDOWS
@@ -58,7 +65,7 @@ namespace zmq
 namespace zmq
 {
     const char *wsa_error ();
-    const char *wsa_error_no (int no_);
+    const char *wsa_error_no (int no_, const char * wsae_wouldblock_string = "Operation would block");
     void win_error (char *buffer_, size_t buffer_size_);
     int wsa_error_to_errno (int errcode);
 }
@@ -71,6 +78,7 @@ namespace zmq
             if (errstr != NULL) {\
                 fprintf (stderr, "Assertion failed: %s (%s:%d)\n", errstr, \
                     __FILE__, __LINE__);\
+                fflush (stderr);\
                 zmq::zmq_abort (errstr);\
             }\
         }\
@@ -83,6 +91,7 @@ namespace zmq
         if (errstr != NULL) {\
             fprintf (stderr, "Assertion failed: %s (%s:%d)\n", errstr, \
                 __FILE__, __LINE__);\
+            fflush (stderr);\
             zmq::zmq_abort (errstr);\
         }\
     } while (false)
@@ -95,6 +104,7 @@ namespace zmq
             zmq::win_error (errstr, 256);\
             fprintf (stderr, "Assertion failed: %s (%s:%d)\n", errstr, \
                 __FILE__, __LINE__);\
+            fflush (stderr);\
             zmq::zmq_abort (errstr);\
         }\
     } while (false)
@@ -109,9 +119,10 @@ namespace zmq
         if (unlikely (!(x))) {\
             fprintf (stderr, "Assertion failed: %s (%s:%d)\n", #x, \
                 __FILE__, __LINE__);\
+            fflush (stderr);\
             zmq::zmq_abort (#x);\
         }\
-    } while (false) 
+    } while (false)
 
 //  Provides convenient way to check for errno-style errors.
 #define errno_assert(x) \
@@ -119,6 +130,7 @@ namespace zmq
         if (unlikely (!(x))) {\
             const char *errstr = strerror (errno);\
             fprintf (stderr, "%s (%s:%d)\n", errstr, __FILE__, __LINE__);\
+            fflush (stderr);\
             zmq::zmq_abort (errstr);\
         }\
     } while (false)
@@ -129,6 +141,7 @@ namespace zmq
         if (unlikely (x)) {\
             const char *errstr = strerror (x);\
             fprintf (stderr, "%s (%s:%d)\n", errstr, __FILE__, __LINE__);\
+            fflush (stderr);\
             zmq::zmq_abort (errstr);\
         }\
     } while (false)
@@ -139,6 +152,7 @@ namespace zmq
         if (unlikely (x)) {\
             const char *errstr = gai_strerror (x);\
             fprintf (stderr, "%s (%s:%d)\n", errstr, __FILE__, __LINE__);\
+            fflush (stderr);\
             zmq::zmq_abort (errstr);\
         }\
     } while (false)
@@ -149,6 +163,7 @@ namespace zmq
         if (unlikely (!x)) {\
             fprintf (stderr, "FATAL ERROR: OUT OF MEMORY (%s:%d)\n",\
                 __FILE__, __LINE__);\
+            fflush (stderr);\
             zmq::zmq_abort ("FATAL ERROR: OUT OF MEMORY");\
         }\
     } while (false)

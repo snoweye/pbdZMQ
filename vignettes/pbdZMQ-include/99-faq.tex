@@ -67,3 +67,27 @@ more information, such as the ld(1) and ld.so(8) manual pages.
     compilers) may serve the same roles as the \code{otool} and
     \code{install_name_tool} in Mac OSX.
 \end{enumerate}
+
+
+
+
+\subsection[ZeroMQ Flags]{ZeroMQ Flags}
+\label{sec:zmq_flags}
+\addcontentsline{toc}{subsection}{\thesubsection. ZeroMQ Flags}
+
+
+\begin{enumerate}
+\item {\bf\color{blue} Q:}
+      How do I compile and link with ZeroMQ via \pkg{pbdZMQ} for my package
+      which has \proglang{C/C++} code that call ZeroMQ functions?
+      {\bf\color{blue} A:}
+      There are two \pkg{pbdZMQ} functions: \code{get.zmq.cppflags()} and
+      \code{get.zmq.ldflags()} that provide flags for compiling
+      with ZMQ header files and linking against \code{libzmq.so} or
+      \code{libzmq.dll}, respectivelly.
+      Typically, these two functions will be envoked inside \code{Makevars}
+      and \code{Makevars.win} via \code{Rscript -e '...'} to return the flags
+      and append to whereever they are needed.
+
+\end{enumerate}
+

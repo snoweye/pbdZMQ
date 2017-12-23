@@ -1,24 +1,36 @@
 /*
-    Copyright (c) 2007-2014 Contributors as noted in the AUTHORS file
+    Copyright (c) 2007-2016 Contributors as noted in the AUTHORS file
 
-    This file is part of 0MQ.
+    This file is part of libzmq, the ZeroMQ core engine in C++.
 
-    0MQ is free software; you can redistribute it and/or modify it under
-    the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
+    libzmq is free software; you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License (LGPL) as published
+    by the Free Software Foundation; either version 3 of the License, or
     (at your option) any later version.
 
-    0MQ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
+    As a special exception, the Contributors give you permission to link
+    this library with independent modules to produce an executable,
+    regardless of the license terms of these independent modules, and to
+    copy and distribute the resulting executable under terms of your choice,
+    provided that you also meet, for each linked independent module, the
+    terms and conditions of the license of that module. An independent
+    module is a module which is not derived from or based on this library.
+    If you modify this library, you must extend this exception to your
+    version of the library.
+
+    libzmq is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+    License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "precompiled.hpp"
 #include <string.h>
 
+#include "macros.hpp"
 #include "xsub.hpp"
 #include "err.hpp"
 
@@ -45,8 +57,7 @@ zmq::xsub_t::~xsub_t ()
 
 void zmq::xsub_t::xattach_pipe (pipe_t *pipe_, bool subscribe_to_all_)
 {
-    // subscribe_to_all_ is unused
-    (void) subscribe_to_all_;
+    LIBZMQ_UNUSED (subscribe_to_all_);
 
     zmq_assert (pipe_);
     fq.attach (pipe_);
@@ -94,13 +105,13 @@ int zmq::xsub_t::xsend (msg_t *msg_)
         subscriptions.add (data + 1, size - 1);
         return dist.send_to_all (msg_);
     }
-    else 
+    else
     if (size > 0 && *data == 0) {
         //  Process unsubscribe message
         if (subscriptions.rm (data + 1, size - 1))
             return dist.send_to_all (msg_);
     }
-    else 
+    else
         //  User message sent upstream to XPUB socket
         return dist.send_to_all (msg_);
 
@@ -144,7 +155,7 @@ int zmq::xsub_t::xrecv (msg_t *msg_)
             return -1;
 
         //  Check whether the message matches at least one subscription.
-        //  Non-initial parts of the message are passed 
+        //  Non-initial parts of the message are passed
         if (more || !options.filter || match (msg_)) {
             more = msg_->flags () & msg_t::more ? true : false;
             return 0;
@@ -206,7 +217,9 @@ zmq::blob_t zmq::xsub_t::get_credential () const
 
 bool zmq::xsub_t::match (msg_t *msg_)
 {
-    return subscriptions.check ((unsigned char*) msg_->data (), msg_->size ());
+    bool matching = subscriptions.check ((unsigned char*) msg_->data (), msg_->size ());
+
+    return matching ^ options.invert_matching;
 }
 
 void zmq::xsub_t::send_subscription (unsigned char *data_, size_t size_,
@@ -214,13 +227,18 @@ void zmq::xsub_t::send_subscription (unsigned char *data_, size_t size_,
 {
     pipe_t *pipe = (pipe_t*) arg_;
 
-    //  Create the subsctription message.
+    //  Create the subscription message.
     msg_t msg;
     int rc = msg.init_size (size_ + 1);
     errno_assert (rc == 0);
     unsigned char *data = (unsigned char*) msg.data ();
     data [0] = 1;
-    memcpy (data + 1, data_, size_);
+
+    //  We explicitly allow a NULL subscription with size zero
+    if (size_) {
+        assert (data_);
+        memcpy (data + 1, data_, size_);
+    }
 
     //  Send it to the pipe.
     bool sent = pipe->write (&msg);

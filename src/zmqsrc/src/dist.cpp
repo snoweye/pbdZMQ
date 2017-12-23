@@ -1,22 +1,33 @@
 /*
-    Copyright (c) 2007-2014 Contributors as noted in the AUTHORS file
+    Copyright (c) 2007-2016 Contributors as noted in the AUTHORS file
 
-    This file is part of 0MQ.
+    This file is part of libzmq, the ZeroMQ core engine in C++.
 
-    0MQ is free software; you can redistribute it and/or modify it under
-    the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
+    libzmq is free software; you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License (LGPL) as published
+    by the Free Software Foundation; either version 3 of the License, or
     (at your option) any later version.
 
-    0MQ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
+    As a special exception, the Contributors give you permission to link
+    this library with independent modules to produce an executable,
+    regardless of the license terms of these independent modules, and to
+    copy and distribute the resulting executable under terms of your choice,
+    provided that you also meet, for each linked independent module, the
+    terms and conditions of the license of that module. An independent
+    module is a module which is not derived from or based on this library.
+    If you modify this library, you must extend this exception to your
+    version of the library.
+
+    libzmq is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+    License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "precompiled.hpp"
 #include "dist.hpp"
 #include "pipe.hpp"
 #include "err.hpp"
@@ -66,7 +77,23 @@ void zmq::dist_t::match (pipe_t *pipe_)
 
     //  Mark the pipe as matching.
     pipes.swap (pipes.index (pipe_), matching);
-    matching++;    
+    matching++;
+}
+
+void zmq::dist_t::reverse_match ()
+{
+    pipes_t::size_type prev_matching = matching;
+
+    // Reset matching to 0
+    unmatch();
+
+    // Mark all matching pipes as not matching and vice-versa.
+    // To do this, push all pipes that are eligible but not
+    // matched - i.e. between "matching" and "eligible" -
+    // to the beginning of the queue.
+    for (pipes_t::size_type i = prev_matching; i < eligible; ++i) {
+        pipes.swap(i, matching++);
+    }
 }
 
 void zmq::dist_t::unmatch ()
@@ -97,12 +124,14 @@ void zmq::dist_t::pipe_terminated (pipe_t *pipe_)
 void zmq::dist_t::activated (pipe_t *pipe_)
 {
     //  Move the pipe from passive to eligible state.
-    pipes.swap (pipes.index (pipe_), eligible);
-    eligible++;
+    if (eligible < pipes.size ()) {
+        pipes.swap (pipes.index (pipe_), eligible);
+        eligible++;
+    }
 
     //  If there's no message being sent at the moment, move it to
     //  the active state.
-    if (!more) {
+    if (!more && active < pipes.size ()) {
         pipes.swap (eligible - 1, active);
         active++;
     }
@@ -122,7 +151,7 @@ int zmq::dist_t::send_to_matching (msg_t *msg_)
     //  Push the message to matching pipes.
     distribute (msg_);
 
-    //  If mutlipart message is fully sent, activate all the eligible pipes.
+    //  If multipart message is fully sent, activate all the eligible pipes.
     if (!msg_more)
         active = eligible;
 
