@@ -1,22 +1,33 @@
 /*
-    Copyright (c) 2007-2014 Contributors as noted in the AUTHORS file
+    Copyright (c) 2007-2016 Contributors as noted in the AUTHORS file
 
-    This file is part of 0MQ.
+    This file is part of libzmq, the ZeroMQ core engine in C++.
 
-    0MQ is free software; you can redistribute it and/or modify it under
-    the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
+    libzmq is free software; you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License (LGPL) as published
+    by the Free Software Foundation; either version 3 of the License, or
     (at your option) any later version.
 
-    0MQ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
+    As a special exception, the Contributors give you permission to link
+    this library with independent modules to produce an executable,
+    regardless of the license terms of these independent modules, and to
+    copy and distribute the resulting executable under terms of your choice,
+    provided that you also meet, for each linked independent module, the
+    terms and conditions of the license of that module. An independent
+    module is a module which is not derived from or based on this library.
+    If you modify this library, you must extend this exception to your
+    version of the library.
+
+    libzmq is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+    License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "precompiled.hpp"
 #include "ipc_connecter.hpp"
 
 #if !defined ZMQ_HAVE_WINDOWS && !defined ZMQ_HAVE_OPENVMS
@@ -26,7 +37,6 @@
 
 #include "stream_engine.hpp"
 #include "io_thread.hpp"
-#include "platform.hpp"
 #include "random.hpp"
 #include "err.hpp"
 #include "ip.hpp"
@@ -93,7 +103,7 @@ void zmq::ipc_connecter_t::process_term (int linger_)
 
 void zmq::ipc_connecter_t::in_event ()
 {
-    //  We are not polling for incomming data, so we are actually called
+    //  We are not polling for incoming data, so we are actually called
     //  because of error here. However, we can get error on out event as well
     //  on some platforms, so we'll simply handle both events in the same way.
     out_event ();
@@ -177,14 +187,14 @@ int zmq::ipc_connecter_t::get_new_reconnect_ivl ()
 
     //  Only change the current reconnect interval  if the maximum reconnect
     //  interval was set and if it's larger than the reconnect interval.
-    if (options.reconnect_ivl_max > 0 && 
+    if (options.reconnect_ivl_max > 0 &&
         options.reconnect_ivl_max > options.reconnect_ivl) {
 
         //  Calculate the next interval
         current_reconnect_ivl = current_reconnect_ivl * 2;
         if(current_reconnect_ivl >= options.reconnect_ivl_max) {
             current_reconnect_ivl = options.reconnect_ivl_max;
-        }   
+        }
     }
     return this_interval;
 }
@@ -206,10 +216,10 @@ int zmq::ipc_connecter_t::open ()
         s, addr->resolved.ipc_addr->addr (),
         addr->resolved.ipc_addr->addrlen ());
 
-    //  Connect was successfull immediately.
+    //  Connect was successful immediately.
     if (rc == 0)
         return 0;
-        
+
     //  Translate other error codes indicating asynchronous connect has been
     //  launched to a uniform EINPROGRESS.
     if (rc == -1 && errno == EINTR) {
@@ -242,8 +252,11 @@ zmq::fd_t zmq::ipc_connecter_t::connect ()
     socklen_t len = sizeof (err);
 #endif
     int rc = getsockopt (s, SOL_SOCKET, SO_ERROR, (char*) &err, &len);
-    if (rc == -1)
+    if (rc == -1) {
+        if (errno == ENOPROTOOPT)
+            errno = 0;
         err = errno;
+    }
     if (err != 0) {
 
         //  Assert if the error was caused by 0MQ bug.

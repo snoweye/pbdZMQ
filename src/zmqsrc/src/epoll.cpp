@@ -1,22 +1,33 @@
 /*
-    Copyright (c) 2007-2014 Contributors as noted in the AUTHORS file
+    Copyright (c) 2007-2016 Contributors as noted in the AUTHORS file
 
-    This file is part of 0MQ.
+    This file is part of libzmq, the ZeroMQ core engine in C++.
 
-    0MQ is free software; you can redistribute it and/or modify it under
-    the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation; either version 3 of the License, or
+    libzmq is free software; you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License (LGPL) as published
+    by the Free Software Foundation; either version 3 of the License, or
     (at your option) any later version.
 
-    0MQ is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
+    As a special exception, the Contributors give you permission to link
+    this library with independent modules to produce an executable,
+    regardless of the license terms of these independent modules, and to
+    copy and distribute the resulting executable under terms of your choice,
+    provided that you also meet, for each linked independent module, the
+    terms and conditions of the license of that module. An independent
+    module is a module which is not derived from or based on this library.
+    If you modify this library, you must extend this exception to your
+    version of the library.
+
+    libzmq is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+    License for more details.
 
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "precompiled.hpp"
 #include "epoll.hpp"
 #if defined ZMQ_USE_EPOLL
 
@@ -27,6 +38,7 @@
 #include <algorithm>
 #include <new>
 
+#include "macros.hpp"
 #include "epoll.hpp"
 #include "err.hpp"
 #include "config.hpp"
@@ -36,7 +48,14 @@ zmq::epoll_t::epoll_t (const zmq::ctx_t &ctx_) :
     ctx(ctx_),
     stopping (false)
 {
+#ifdef ZMQ_USE_EPOLL_CLOEXEC
+    //  Setting this option result in sane behaviour when exec() functions
+    //  are used. Old sockets are closed and don't block TCP ports, avoid
+    //  leaks, etc.
+    epoll_fd = epoll_create1 (EPOLL_CLOEXEC);
+#else
     epoll_fd = epoll_create (1);
+#endif
     errno_assert (epoll_fd != -1);
 }
 
@@ -46,8 +65,9 @@ zmq::epoll_t::~epoll_t ()
     worker.stop ();
 
     close (epoll_fd);
-    for (retired_t::iterator it = retired.begin (); it != retired.end (); ++it)
-        delete *it;
+    for (retired_t::iterator it = retired.begin (); it != retired.end (); ++it) {
+        LIBZMQ_DELETE(*it);
+    }
 }
 
 zmq::epoll_t::handle_t zmq::epoll_t::add_fd (fd_t fd_, i_poll_events *events_)
@@ -79,7 +99,9 @@ void zmq::epoll_t::rm_fd (handle_t handle_)
     int rc = epoll_ctl (epoll_fd, EPOLL_CTL_DEL, pe->fd, &pe->ev);
     errno_assert (rc != -1);
     pe->fd = retired_fd;
+    retired_sync.lock ();
     retired.push_back (pe);
+    retired_sync.unlock ();
 
     //  Decrease the load metric of the thread.
     adjust_load (-1);
@@ -167,10 +189,12 @@ void zmq::epoll_t::loop ()
         }
 
         //  Destroy retired event sources.
-        for (retired_t::iterator it = retired.begin (); it != retired.end ();
-              ++it)
-            delete *it;
+        retired_sync.lock ();
+        for (retired_t::iterator it = retired.begin (); it != retired.end (); ++it) {
+            LIBZMQ_DELETE(*it);
+        }
         retired.clear ();
+        retired_sync.unlock ();
     }
 }
 

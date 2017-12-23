@@ -9,6 +9,9 @@
 /* Define to 1 if you have the `clock_gettime' function. */
 #undef HAVE_CLOCK_GETTIME
 
+/* define if the compiler supports basic C++11 syntax */
+#undef HAVE_CXX11
+
 /* Define to 1 if you have the declaration of `LOCAL_PEERCRED', and to 0 if
    you don't. */
 #undef HAVE_DECL_LOCAL_PEERCRED
@@ -38,14 +41,17 @@
 /* Define to 1 if you have the `gettimeofday' function. */
 #undef HAVE_GETTIMEOFDAY
 
+/* Define to 1 if you have the <gssapi/gssapi_generic.h> header file. */
+#undef HAVE_GSSAPI_GSSAPI_GENERIC_H
+
 /* Define to 1 if you have the <ifaddrs.h> header file. */
 #undef HAVE_IFADDRS_H
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
-/* Define to 1 if you have the `gssapi_krb5' library (-lgssapi_krb5). */
-#undef HAVE_LIBGSSAPI_KRB5
+/* Define to 1 if you have the `dl' library (-ldl). */
+#undef HAVE_LIBDL
 
 /* Define to 1 if you have the `iphlpapi' library (-liphlpapi). */
 #undef HAVE_LIBIPHLPAPI
@@ -65,8 +71,8 @@
 /* Define to 1 if you have the `socket' library (-lsocket). */
 #undef HAVE_LIBSOCKET
 
-/* Define to 1 if you have the `sodium' library (-lsodium). */
-#undef HAVE_LIBSODIUM
+/* The libunwind library is to be used */
+#undef HAVE_LIBUNWIND
 
 /* Define to 1 if you have the `ws2_32' library (-lws2_32). */
 #undef HAVE_LIBWS2_32
@@ -80,6 +86,9 @@
 /* Define to 1 if you have the `memset' function. */
 #undef HAVE_MEMSET
 
+/* Define to 1 if you have the `mkdtemp' function. */
+#undef HAVE_MKDTEMP
+
 /* Define to 1 if you have the <netinet/in.h> header file. */
 #undef HAVE_NETINET_IN_H
 
@@ -88,6 +97,9 @@
 
 /* Define to 1 if you have the `perror' function. */
 #undef HAVE_PERROR
+
+/* Define to 1 if you have the `posix_memalign' function. */
+#undef HAVE_POSIX_MEMALIGN
 
 /* Define to 1 if you have the `socket' function. */
 #undef HAVE_SOCKET
@@ -144,9 +156,6 @@
    */
 #undef LT_OBJDIR
 
-/* Define to 1 if your C compiler doesn't accept -c and -o together. */
-#undef NO_MINUS_C_MINUS_O
-
 /* Name of package */
 #undef PACKAGE
 
@@ -183,6 +192,9 @@
 /* Enable militant API assertions */
 #undef ZMQ_ACT_MILITANT
 
+/* Provide draft classes and methods */
+#undef ZMQ_BUILD_DRAFT_API
+
 /* Force to use mutexes */
 #undef ZMQ_FORCE_MUTEXES
 
@@ -192,14 +204,29 @@
 /* Have Android OS */
 #undef ZMQ_HAVE_ANDROID
 
+/* Whether compiler has __atomic_Xxx intrinsics. */
+#undef ZMQ_HAVE_ATOMIC_INTRINSICS
+
+/* Using curve encryption */
+#undef ZMQ_HAVE_CURVE
+
 /* Have Cygwin */
 #undef ZMQ_HAVE_CYGWIN
 
-/* Have eventfd extension. */
+/* Have DragonFly OS */
+#undef ZMQ_HAVE_DRAGONFLY
+
+/* Have eventfd extension */
 #undef ZMQ_HAVE_EVENTFD
+
+/* Whether EFD_CLOEXEC is defined and functioning. */
+#undef ZMQ_HAVE_EVENTFD_CLOEXEC
 
 /* Have FreeBSD OS */
 #undef ZMQ_HAVE_FREEBSD
+
+/* Have GNU/Hurd OS */
+#undef ZMQ_HAVE_GNU
 
 /* Have HPUX OS */
 #undef ZMQ_HAVE_HPUX
@@ -213,8 +240,8 @@
 /* Have LOCAL_PEERCRED socket option */
 #undef ZMQ_HAVE_LOCAL_PEERCRED
 
-/* Have MinGW32 */
-#undef ZMQ_HAVE_MINGW32
+/* Have MinGW */
+#undef ZMQ_HAVE_MINGW
 
 /* Have NetBSD OS */
 #undef ZMQ_HAVE_NETBSD
@@ -264,8 +291,38 @@
 /* Have uio.h header. */
 #undef ZMQ_HAVE_UIO
 
+/* Have VMCI transport */
+#undef ZMQ_HAVE_VMCI
+
 /* Have Windows OS */
 #undef ZMQ_HAVE_WINDOWS
+
+/* Use 'devpoll' polling system */
+#undef ZMQ_USE_DEVPOLL
+
+/* Use 'epoll' polling system */
+#undef ZMQ_USE_EPOLL
+
+/* Use 'epoll' polling system with CLOEXEC */
+#undef ZMQ_USE_EPOLL_CLOEXEC
+
+/* Use 'kqueue' polling system */
+#undef ZMQ_USE_KQUEUE
+
+/* Using libsodium for curve encryption */
+#undef ZMQ_USE_LIBSODIUM
+
+/* Use 'poll' polling system */
+#undef ZMQ_USE_POLL
+
+/* Use 'pollset' polling system */
+#undef ZMQ_USE_POLLSET
+
+/* Use 'select' polling system */
+#undef ZMQ_USE_SELECT
+
+/* Using tweetnacl for curve encryption */
+#undef ZMQ_USE_TWEETNACL
 
 /* Define for Solaris 2.5.1 so the uint32_t typedef from <sys/synch.h>,
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
