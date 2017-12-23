@@ -12,6 +12,9 @@ sed -i "/doc\/Makefile/i \]\)" configure.ac
 sed -i "689,691 s/^/# /" configure.ac
 sed -i "s/SUBDIRS = .*/SUBDIRS = /" Makefile.in
 sed -i "s/SUBDIRS = .*/SUBDIRS = /" Makefile.am
+sed -i "s/config\/lt\~obsolete.m4/config\/lt_obsolete.m4/" Makefile.in
+sed -i "s/config\/lt\~obsolete.m4/config\/lt_obsolete.m4/" aclocal.m4
+mv ./config/lt~obsolete.m4 ./config/lt_obsolete.m4
 
 ### Reconfigure
 autoconf
