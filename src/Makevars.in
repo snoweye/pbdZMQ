@@ -50,6 +50,7 @@ $(R_ZMQ):
 	@sed -e "s#@CXX@#${CXX}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
 	@sed -e "s#@CXXFLAGS@#${CXXFLAGS}#g" build_zmq > build_zmq.tmp && mv -f build_zmq.tmp build_zmq
 	( sh ./chmod_zmq.inc; cd zmqsrc; sh ../build_zmq )
+	mv ./zmqsrc/Makefile ./zmqsrc/Makefile.done
 	# ( cp ./zmq/lib/libzmq$(SHLIB_EXT) ./libzmq$(SHLIB_EXT) )
 	( cp ./zmq/lib/libzmq* ./ )
 
