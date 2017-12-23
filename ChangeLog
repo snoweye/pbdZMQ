@@ -2,6 +2,8 @@
   * Change to ZeroMQ 4.2.2 library.
   * Export ZerMQ flags (CPPFLAGS and LDFLAGS).
   * Add zzz.cpp in zmqsrc/src/ and relevance.
+  * Test with external ZeroMQ library.
+  * Add vignettes.
 
 2017-10-01: Ver 0.2-7
   * Add check eintr to poller.
