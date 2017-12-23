@@ -14,17 +14,19 @@
 tar zxvf zeromq-4.2.2.tar.gz
 
 ### Copy to pbdZMQ
-rm -rf C:/Users/snoweye/Desktop/DESKTOP-MY/R_Packages/13_pbdZMQ/pbdZMQ/src/zmqsrc.mingw*
-mkdir C:\Users\snoweye\Desktop\DESKTOP-MY\R_Packages\13_pbdZMQ\pbdZMQ\src\zmqsrc.mingw
+rm -rf C:/Users/snoweye/Desktop/DESKTOP-MY/R_Packages/13_pbdZMQ/pbdZMQ/src/zmqsrc.win*
 cp -Rf zeromq-4.2.2/builds/mingw32 C:/Users/snoweye/Desktop/DESKTOP-MY/R_Packages/13_pbdZMQ/pbdZMQ/src/zmqsrc.win
 cd C:/Users/snoweye/Desktop/DESKTOP-MY/R_Packages/13_pbdZMQ/pbdZMQ/src/zmqsrc.win
 mv Makefile.mingw32 Makefile
 
 ### Change Makefile
 sed -i "1 s/^/include ..\/Makeconf\n\n/" Makefile
-sed -i "s/CC=gcc/CC=\$(MY_CC)/" Makefile
+sed -i "s/^CC=gcc/CC=\$(MY_CC)/" Makefile
+sed -i "/^CFLAGS=/ s/$/ \$(R_XTRA_CPPFLAGS)/" Makefile
+sed -i "/^LIBS=/ s/$/ \$(PKG_LIBS_ZMQ)/" Makefile
 sed -i "s/ -g / /" Makefile
-sed -i "s/ -lsodium/ # -lsodium/" Makefile
+sed -i "s/ -lsodium//" Makefile
+sed -i "/ dgram.o/ s/$/ zzz.o/" Makefile
 sed -i "s/%.o: ..\/..\//%.o: ..\/zmqsrc\//" Makefile
 sed -i "s/g++ -shared -static /\$(MY_CXX) -shared /" Makefile
 sed -i "s/ -Wl,--out-implib,\$@.a / /" Makefile

@@ -48,6 +48,5 @@
 #' 
 #' @rdname a0_a_pbdZMQ-package
 #'
-#' @useDynLib pbdZMQ, .registration=TRUE, .fixes="R_"
 NULL
 

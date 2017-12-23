@@ -22,8 +22,6 @@ all: Makeconf $(SHLIB) userLibrary
 	@$(CP) ../R/windows/zzz.r ../R/
 
 Makeconf:
-	$(ECHO) 'MINGW_LIB = $(MINGW_LIB)' >> Makeconf
-	$(ECHO) 'STDCXX_LIB = $(STDCXX_LIB)' >> Makeconf
 	$(ECHO) 'MY_CC = $(CC)' >> Makeconf
 	$(ECHO) 'MY_CXX = $(CXX)' >> Makeconf
 	$(ECHO) 'PKG_CPPFLAGS = $(PKG_CPPFLAGS)' >> Makeconf
@@ -43,7 +41,7 @@ $(R_OBJS): $(R_ZMQ)
 
 $(R_ZMQ): Makeconf
 	( cd ./zmqsrc.win; $(MAKE) all )
-	$(CP) ./zmqsrc.win/*.dll ./
+	$(CP) ./zmqsrc.win/libzmq.dll ./
 	$(MKDIR) ./zmq
 	$(MKDIR) ./zmq/include
 	$(CP) ./zmqsrc/include/*.h ./zmq/include

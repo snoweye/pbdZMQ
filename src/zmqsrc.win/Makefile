@@ -1,8 +1,8 @@
 include ../Makeconf
 
 CC=$(MY_CC)
-CFLAGS=-Wall -Os -DDLL_EXPORT -DFD_SETSIZE=16384 -DZMQ_USE_SELECT -I.
-LIBS=-lws2_32 -lIphlpapi # -lsodium
+CFLAGS=-Wall -Os -DDLL_EXPORT -DFD_SETSIZE=16384 -DZMQ_USE_SELECT -I. $(R_XTRA_CPPFLAGS)
+LIBS=-lws2_32 -lIphlpapi $(PKG_LIBS_ZMQ)
 
 OBJS = ctx.o reaper.o dist.o err.o \
 	clock.o metadata.o random.o \
@@ -29,7 +29,7 @@ OBJS = ctx.o reaper.o dist.o err.o \
 	mechanism.o null_mechanism.o plain_client.o plain_server.o \
 	socks.o server.o decoder_allocators.o socks_connecter.o \
 	socket_poller.o mailbox_safe.o plain_server.o client.o timers.o \
-	zmq.o zmq_utils.o gather.o scatter.o dgram.o
+	zmq.o zmq_utils.o gather.o scatter.o dgram.o zzz.o
 
 %.o: ../zmqsrc/src/%.cpp
 	$(CC) -c -o $@ $< $(CFLAGS)
