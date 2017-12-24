@@ -44,7 +44,7 @@ $(R_ZMQ): Makeconf
 	$(CP) ./zmqsrc.win/libzmq.dll ./
 	$(MKDIR) ./zmq
 	$(MKDIR) ./zmq/include
-	$(CP) ./zmqsrc/include/*.h ./zmq/include
+	$(CP) ./zmqsrc/include/* ./zmq/include
 
 clean:
 	@$(RM) -rf *.o *.d *.rc *.so* *.dll *.dylib *.a *.lib *.la \
