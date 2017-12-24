@@ -17,7 +17,9 @@ lib_LTLIBRARIES = src/libzmq.la
 
 include_HEADERS = \
 	include/zmq.h \
-	include/zmq_utils.h
+	include/zmq_utils.h \
+	include/zmq.hpp \
+	include/zmq_addon.hpp
 
 src_libzmq_la_SOURCES = \
 	src/address.cpp \
