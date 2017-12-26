@@ -5,6 +5,7 @@
   * Test with external ZeroMQ library.
   * Add vignettes.
   * Add C++ header files to ZeroMQ library.
+  * Change libzmq.4.dylib to libzmq.5.dylib for Mac OSX.
 
 2017-10-01: Ver 0.2-7
   * Add check eintr to poller.

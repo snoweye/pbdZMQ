@@ -14,7 +14,7 @@
   }
 
   ### Load ZMQ.
-  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
+  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.5.dylib",
              "libzmq.dll")
   for(i.file in files){
     fn <- paste(dn, i.file, sep = "")
@@ -33,11 +33,11 @@
     dest <- gsub("/$", "", dn)
     cmd.int <- system("which install_name_tool", intern = TRUE)
     fn.pbdZMQ.so <- file.path(dest, "pbdZMQ.so")
-    fn.libzmq.4.dylib <- file.path(dest, "libzmq.4.dylib")
+    fn.libzmq.5.dylib <- file.path(dest, "libzmq.5.dylib")
 
     if(length(grep("install_name_tool", cmd.int)) > 0 &&
        file.exists(fn.pbdZMQ.so) &&
-       file.exists(fn.libzmq.4.dylib)){
+       file.exists(fn.libzmq.5.dylib)){
 
       ### Check orginal path.
       cmd.ot <- system("which otool", intern = TRUE)
@@ -48,11 +48,11 @@
       #   print(rpath)
       # }
 
-      # org <- file.path(getwd(), "zmq/lib/libzmq.4.dylib")
-      org.rpath <- rpath[grep("\\t/.*/libzmq.4.dylib", rpath)][1]
-      org <- gsub("\\t(.*libzmq.4.dylib) \\(.*\\)$", "\\1", org.rpath)
-      if(org != fn.libzmq.4.dylib){
-        cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.4.dylib, " ",
+      # org <- file.path(getwd(), "zmq/lib/libzmq.5.dylib")
+      org.rpath <- rpath[grep("\\t/.*/libzmq.5.dylib", rpath)][1]
+      org <- gsub("\\t(.*libzmq.5.dylib) \\(.*\\)$", "\\1", org.rpath)
+      if(org != fn.libzmq.5.dylib){
+        cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.5.dylib, " ",
                      fn.pbdZMQ.so, sep = "")
         # cat("\nIn install_name_tool:\n")
         # print(cmd)
@@ -98,7 +98,7 @@
   }
 
   ### Unload ZMQ.
-  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
+  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.5.dylib",
              "libzmq.dll")
   for(i.file in files){
     fn <- paste(dn, i.file, sep = "")
