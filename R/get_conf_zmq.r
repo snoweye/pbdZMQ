@@ -6,6 +6,8 @@
 #'
 #' \code{get.zmq.ldflags()} gets LDFLAGS
 #' 
+#' \code{test.load.zmq()} tests load libzmq and pbdZMQ shared libraries
+#' 
 #' @param arch 
 #' '' (default) for non-windows or '/i386' and '/ix64' for windows
 #' @param package
@@ -122,3 +124,21 @@ get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
 
   invisible(zmq.cppflags)
 } # End of get.zmq.cppflags().
+
+
+#' @rdname zz_zmq_flags
+#' @export
+test.load.zmq <- function(arch = '', package = "pbdZMQ"){
+  file.name <- paste("./libs", arch, "/", sep = "")
+  dir.path <- tools::file_path_as_absolute(
+                system.file(file.name, package = package))
+
+  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
+             "libzmq.5.dylib", "libzmq.dll")
+  for(i.file in files){
+    fn <- paste(dir.path, i.file, sep = "")
+    if(file.exists(fn)){
+      try(dyn.load(fn, local = FALSE))
+    }
+  }
+} # End of test.load.zmq().
