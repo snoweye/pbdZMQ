@@ -71,7 +71,8 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
 	  fn.libzmq.dylib <- paste(dir.path, "/libzmq.", i.ver, ".dylib",
 	                           sep = "")
           if(file.exists(fn.libzmq.dylib)){
-            zmq.ldflags <- paste("-L", dir.path, " -lzmq.", i.ver, sep = "")
+            zmq.ldflags <- paste("-L", dir.path, " -lzmq.", i.ver,
+                                 " -Wl,-rpath,", dir.path, sep = "")
 	    break
           }
 	}
