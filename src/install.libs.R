@@ -33,7 +33,7 @@ if(length(files) > 0){
           print(rpath)
         }
 
-        str.lib <- paste("zmq/lib/libzmq.", i.var, ".dylib", sep = "")
+        str.lib <- paste("zmq/lib/libzmq.", i.ver, ".dylib", sep = "")
         org <- file.path(getwd(), str.lib)
         cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.dylib, " ",
                      fn.pbdZMQ.so, sep = "")
