@@ -26,6 +26,7 @@
 #' \dontrun{
 #' get.zmq.cppflags(arch = '/i386')
 #' get.zmq.ldflags(arch = '/x64')
+#' test.load.zmq(arch = '/x64')
 #' }
 #' 
 #' @keywords compile
@@ -136,9 +137,13 @@ test.load.zmq <- function(arch = '', package = "pbdZMQ"){
   files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
              "libzmq.5.dylib", "libzmq.dll")
   for(i.file in files){
-    fn <- paste(dir.path, i.file, sep = "")
+    fn <- paste(dir.path, "/", i.file, sep = "")
     if(file.exists(fn)){
-      try(dyn.load(fn, local = FALSE))
+      ret <- try(dyn.load(fn, local = FALSE), silent = TRUE)
+      print(ret)
+      cat("\n")
     }
   }
+
+  invisible(NULL)
 } # End of test.load.zmq().
