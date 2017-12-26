@@ -67,7 +67,14 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
       dir.path <- tools::file_path_as_absolute(
                     system.file(file.name, package = package))
       if(Sys.info()[['sysname']] == "Darwin"){
-        zmq.ldflags <- paste("-L", dir.path, " -lzmq.4", sep = "")
+        for(i.ver in c("4", "5")){
+	  fn.libzmq.dylib <- paste(dir.path, "/libzmq.", i.ver, ".dylib",
+	                           sep = "")
+          if(file.exists(fn.libzmq.dylib)){
+            zmq.ldflags <- paste("-L", dir.path, " -lzmq.", i.ver, sep = "")
+	    break
+          }
+	}
       } else{
         zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
       }
