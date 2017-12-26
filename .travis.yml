@@ -19,7 +19,9 @@ before_install:
 install:
   - ./travis-tool.sh install_deps
 
-script: ./travis-tool.sh run_tests
+script:
+  - ./travis-tool.sh run_tests
+  - Rscript -e "pbdZMQ::test.load.zmq()"
 
 after_failure:
   - ./travis-tool.sh dump_logs

@@ -1,4 +1,8 @@
-2017-12-24: Ver 0.3-0
+2017-12-25: Ver 0.3-0
+  * Add libzmq.5.dylib for Mac OSX.
+  * Add test.load.zmq().
+
+2017-12-25: Ver 0.3-0
   * Change to ZeroMQ 4.2.2 library.
   * Export ZerMQ flags (CPPFLAGS and LDFLAGS).
   * Add zzz.cpp in zmqsrc/src/ and relevance.
