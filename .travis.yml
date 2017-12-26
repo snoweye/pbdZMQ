@@ -18,10 +18,11 @@ before_install:
 
 install:
   - ./travis-tool.sh install_deps
+  - Rscript -e "devtools::install_github('snoweye/pbdZMQ')"
+  - Rscript -e "pbdZMQ::test.load.zmq()"
 
 script:
   - ./travis-tool.sh run_tests
-  - Rscript -e "pbdZMQ::test.load.zmq()"
 
 after_failure:
   - ./travis-tool.sh dump_logs
