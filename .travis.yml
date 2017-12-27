@@ -21,7 +21,7 @@ install:
 
 script:
   # - ./travis-tool.sh run_tests
-  - R CMD INSTALL snoweye/pbdZMQ
+  - ./travis-tool.sh install_github snoweye/pbdZMQ@pbdZMQ_0.3-0
   - Rscript -e "pbdZMQ::get.zmq.cppflags()"
   - Rscript -e "pbdZMQ::get.zmq.ldflags()"
   - Rscript -e "pbdZMQ::test.load.zmq()"
