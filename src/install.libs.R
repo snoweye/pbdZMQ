@@ -35,7 +35,8 @@ if(length(files) > 0){
 
         str.lib <- paste("zmq/lib/libzmq.", i.ver, ".dylib", sep = "")
         org <- file.path(getwd(), str.lib)
-        cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.dylib, " ",
+        cmd <- paste(cmd.int, " -change ", org,
+                     " @loader_path/libzmq.", i.ver, ".dylib",
                      fn.pbdZMQ.so, sep = "")
         cat("\nIn install_name_tool (install.libs.R & pbdZMQ.so):\n")
         print(cmd) 
@@ -44,25 +45,6 @@ if(length(files) > 0){
         rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
                         intern = TRUE)
         cat("\nAfter install_name_tool (install.libs.R & pbdZMQ.so):\n")
-        print(rpath)
-
-        ### For libzmq.*.dylib
-        rpath <- system(paste(cmd.ot, " -L ", fn.libzmq.dylib, sep = ""),
-                        intern = TRUE)
-        cat("\nBefore install_name_tool (install.libs.R & libzmq.dylib):\n")
-        print(rpath)
-
-        str.lib <- paste("zmq/lib/libzmq.", i.ver, ".dylib", sep = "")
-        org <- file.path(getwd(), str.lib)
-        cmd <- paste(cmd.int, " -change ", org, " ", fn.libzmq.dylib, " ",
-                     fn.libzmq.dylib, sep = "")
-        cat("\nIn install_name_tool (install.libs.R & libzmq.dylib):\n")
-        print(cmd) 
-        system(cmd)
-
-        rpath <- system(paste(cmd.ot, " -L ", fn.libzmq.dylib, sep = ""),
-                        intern = TRUE)
-        cat("\nAfter install_name_tool (install.libs.R & libzmq.dylib):\n")
         print(rpath)
 
         break
