@@ -23,8 +23,3 @@ build_script:
   - travis-tool.sh install_deps
   - R CMD build --no-build-vignettes --no-manual --no-resave-data .
   - R CMD INSTALL pbdZMQ*.tar.gz
-
-notifications:
-  email:
-    on_success: no
-    on_failure: no
