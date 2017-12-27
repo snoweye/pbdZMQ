@@ -18,13 +18,15 @@ before_install:
 
 install:
   - ./travis-tool.sh install_deps
-  - Rscript -e "devtools::install_github('snoweye/pbdZMQ@pbdZMQ_0.3-0')"
+
+script:
+  # - ./travis-tool.sh run_tests
+  - ./travis-tool.sh install_github snoweye/pbdZMQ@pbdZMQ_0.3-0
   - Rscript -e "pbdZMQ::get.zmq.cppflags()"
   - Rscript -e "pbdZMQ::get.zmq.ldflags()"
   - Rscript -e "pbdZMQ::test.load.zmq()"
-
-script:
-  - ./travis-tool.sh run_tests
+  - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/pbdZMQ.so
+  - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/libzmq.5.dylib
 
 after_failure:
   - ./travis-tool.sh dump_logs
