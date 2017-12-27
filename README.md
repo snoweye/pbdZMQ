@@ -2,7 +2,7 @@
 
 * **License:** [![License](http://img.shields.io/badge/license-GPL%20v3-orange.svg?style=flat)](http://www.gnu.org/licenses/gpl-3.0.en.html)
 * **Download:** [![Download](http://cranlogs.r-pkg.org/badges/pbdZMQ)](https://cran.r-project.org/package=pbdZMQ)
-* **Status:** [![Build Status](https://travis-ci.org/snoweye/pbdZMQ.png)](https://travis-ci.org/snoweye/pbdZMQ)
+* **Status:** [![Build Status](https://travis-ci.org/snoweye/pbdZMQ.png)](https://travis-ci.org/snoweye/pbdZMQ) [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/snoweye/pbdZMQ)
 * **Author:** See section below.
 
 
