@@ -22,9 +22,11 @@ install:
   - Rscript -e "pbdZMQ::get.zmq.cppflags()"
   - Rscript -e "pbdZMQ::get.zmq.ldflags()"
   - Rscript -e "pbdZMQ::test.load.zmq()"
+  - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/pbdZMQ.so
+  - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/libzmq.5.dylib
 
 script:
-  - ./travis-tool.sh run_tests
+  # - ./travis-tool.sh run_tests
 
 after_failure:
   - ./travis-tool.sh dump_logs

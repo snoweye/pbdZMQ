@@ -28,12 +28,10 @@ if(length(files) > 0){
         cmd.ot <- system("which otool", intern = TRUE) 
 
         ### For pbdZMQ.so
-        # if(length(grep("otool", cmd.ot)) > 0){
-          rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
-                          intern = TRUE)
-          cat("\nBefore install_name_tool (install.libs.R & pbdZMQ.so):\n")
-          print(rpath)
-        # }
+        rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
+                        intern = TRUE)
+        cat("\nBefore install_name_tool (install.libs.R & pbdZMQ.so):\n")
+        print(rpath)
 
         str.lib <- paste("zmq/lib/libzmq.", i.ver, ".dylib", sep = "")
         org <- file.path(getwd(), str.lib)
@@ -43,20 +41,16 @@ if(length(files) > 0){
         print(cmd) 
         system(cmd)
 
-        # if(length(grep("otool", cmd.ot)) > 0){
-          rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
-                          intern = TRUE)
-          cat("\nAfter install_name_tool (install.libs.R & pbdZMQ.so):\n")
-          print(rpath)
-        # }
+        rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
+                        intern = TRUE)
+        cat("\nAfter install_name_tool (install.libs.R & pbdZMQ.so):\n")
+        print(rpath)
 
         ### For libzmq.*.dylib
-        # if(length(grep("otool", cmd.ot)) > 0){
-          rpath <- system(paste(cmd.ot, " -L ", fn.libzmq.dylib, sep = ""),
-                          intern = TRUE)
-          cat("\nBefore install_name_tool (install.libs.R & libzmq.dylib):\n")
-          print(rpath)
-        # }
+        rpath <- system(paste(cmd.ot, " -L ", fn.libzmq.dylib, sep = ""),
+                        intern = TRUE)
+        cat("\nBefore install_name_tool (install.libs.R & libzmq.dylib):\n")
+        print(rpath)
 
         str.lib <- paste("zmq/lib/libzmq.", i.ver, ".dylib", sep = "")
         org <- file.path(getwd(), str.lib)
@@ -66,21 +60,13 @@ if(length(files) > 0){
         print(cmd) 
         system(cmd)
 
-        # if(length(grep("otool", cmd.ot)) > 0){
-          rpath <- system(paste(cmd.ot, " -L ", fn.libzmq.dylib, sep = ""),
-                          intern = TRUE)
-          cat("\nAfter install_name_tool (install.libs.R & libzmq.dylib):\n")
-          print(rpath)
-        # }
+        rpath <- system(paste(cmd.ot, " -L ", fn.libzmq.dylib, sep = ""),
+                        intern = TRUE)
+        cat("\nAfter install_name_tool (install.libs.R & libzmq.dylib):\n")
+        print(rpath)
 
         break
       }
-
-      # fn.libzmq <- file.path(dest, "libzmq.dylib")
-      # cmd <- paste("ln -s ", fn.libzmq.dylib, " ", fn.libzmq, sep = "")
-      # cat("\nCreate a symbolic link:\n")
-      # print(cmd) 
-      # system(cmd)
     }
   }
 }
