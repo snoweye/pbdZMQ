@@ -23,8 +23,8 @@ build_script:
   - travis-tool.sh install_deps
   - R CMD build --no-build-vignettes --no-manual --no-resave-data .
   - R CMD INSTALL pbdZMQ*.tar.gz
-  - Rscript -e "pbdZMQ::get.zmq.cppflags(arch='/i386')"
-  - Rscript -e "pbdZMQ::get.zmq.ldflags(arch='/i386')"
-  - Rscript -e "pbdZMQ::get.zmq.cppflags(arch='/x64')"
-  - Rscript -e "pbdZMQ::get.zmq.ldflags(arch='/x64')"
+  - Rscript -e "pbdZMQ::get.zmq.cppflags(arch='/i386');cat('\n')"
+  - Rscript -e "pbdZMQ::get.zmq.ldflags(arch='/i386');cat('\n')"
+  - Rscript -e "pbdZMQ::get.zmq.cppflags(arch='/x64');cat('\n')"
+  - Rscript -e "pbdZMQ::get.zmq.ldflags(arch='/x64');cat('\n')"
   - Rscript -e "pbdZMQ::test.load.zmq(arch='/x64')"
