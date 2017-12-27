@@ -36,7 +36,7 @@ if(length(files) > 0){
         str.lib <- paste("zmq/lib/libzmq.", i.ver, ".dylib", sep = "")
         org <- file.path(getwd(), str.lib)
         cmd <- paste(cmd.int, " -change ", org,
-                     " @loader_path/libzmq.", i.ver, ".dylib",
+                     " @loader_path/libzmq.", i.ver, ".dylib ",
                      fn.pbdZMQ.so, sep = "")
         cat("\nIn install_name_tool (install.libs.R & pbdZMQ.so):\n")
         print(cmd) 
