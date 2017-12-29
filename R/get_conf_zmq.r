@@ -72,7 +72,7 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
       if(Sys.info()[['sysname']] == "Darwin"){
         lib.osx <- list.files(dir.path, pattern = "libzmq\\.*\\.dylib")
         i.ver <- gsub("libzmq\\.(.*)\\.dylib", "\\1", lib.osx)
-	i.ver <- max(as.interger(i.ver))
+	i.ver <- max(as.integer(i.ver))
         zmq.ldflags <- paste("-L", dir.path, " -lzmq.", i.ver, sep = "")
       } else{
         zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
