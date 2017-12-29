@@ -5,11 +5,14 @@
 \alias{get.zmq.ldflags}
 \alias{get.zmq.cppflags}
 \alias{test.load.zmq}
+\alias{get.pbdZMQ.ldflags}
 \title{ZMQ Flags}
 \usage{
+get.zmq.cppflags(arch = "", package = "pbdZMQ")
+
 get.zmq.ldflags(arch = "", package = "pbdZMQ")
 
-get.zmq.cppflags(arch = "", package = "pbdZMQ")
+get.pbdZMQ.ldflags(arch = "", package = "pbdZMQ")
 
 test.load.zmq(arch = "", package = "pbdZMQ")
 }
@@ -27,7 +30,9 @@ ZMQ Flags
 \details{
 \code{get.zmq.cppflags()} gets CFLAGS or CPPFLAGS
 
-\code{get.zmq.ldflags()} gets LDFLAGS
+\code{get.zmq.ldflags()} gets LDFLAGS for libzmq.so, libzmq.dll, or libzmq.*.dylib
+
+\code{get.pbdZMQ.ldflags()} gets LDFLAGS for pbdZMQ.so or pbdZMQ.dll
 
 \code{test.load.zmq()} tests load libzmq and pbdZMQ shared libraries
 }
@@ -35,6 +40,8 @@ ZMQ Flags
 \dontrun{
 get.zmq.cppflags(arch = '/i386')
 get.zmq.ldflags(arch = '/x64')
+get.pbdZMQ.ldflags(arch = '/x64')
+test.load.zmq(arch='/x64')
 }
 
 }
