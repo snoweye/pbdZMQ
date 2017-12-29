@@ -4,7 +4,9 @@
 #' 
 #' \code{get.zmq.cppflags()} gets CFLAGS or CPPFLAGS
 #'
-#' \code{get.zmq.ldflags()} gets LDFLAGS
+#' \code{get.zmq.ldflags()} gets LDFLAGS for libzmq.so, libzmq.dll, or libzmq.*.dylib
+#'
+#' \code{get.pbdZMQ.ldflags()} gets LDFLAGS for pbdZMQ.so or pbdZMQ.dll
 #' 
 #' \code{test.load.zmq()} tests load libzmq and pbdZMQ shared libraries
 #' 
@@ -26,6 +28,7 @@
 #' \dontrun{
 #' get.zmq.cppflags(arch = '/i386')
 #' get.zmq.ldflags(arch = '/x64')
+#' get.pbdZMQ.ldflags(arch = '/x64')
 #' test.load.zmq(arch = '/x64')
 #' }
 #' 
@@ -134,6 +137,7 @@ get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
 } # End of get.zmq.cppflags().
 
 
+
 #' @rdname zz_zmq_flags
 #' @export
 test.load.zmq <- function(arch = '', package = "pbdZMQ"){
@@ -154,3 +158,27 @@ test.load.zmq <- function(arch = '', package = "pbdZMQ"){
 
   invisible(NULL)
 } # End of test.load.zmq().
+
+
+
+#' @rdname zz_zmq_flags
+#' @export
+get.pbdZMQ.ldflags <- function(arch = '', package = "pbdZMQ"){
+  file.name <- paste("./libs", arch, "/", sep = "")
+  dir.path <- tools::file_path_as_absolute(
+                system.file(file.name, package = package))
+
+  if(arch == "/i386" || arch == "/x64"){
+    pbdZMQ.ldflags <- paste(dir.path, "/pbdZMQ.dll", sep = "")
+  } else{
+    pbdZMQ.ldflags <- paste(dir.path, "/pbdZMQ.so", sep = "")
+  }
+
+  ### Cat back to "Makevars".
+  cat(pbdZMQ.ldflags)
+
+  invisible(pbdZMQ.ldflags)
+} # End of get.pbdZMQ.ldflags().
+
+
+

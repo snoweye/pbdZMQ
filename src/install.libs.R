@@ -2,9 +2,11 @@
 ### For libs
 files <- c("pbdZMQ.so", "pbdZMQ.so.dSYM", "pbdZMQ.dylib", "pbdZMQ.dll",
            "symbols.rds",
-           "libzmq.so", "libzmq.so.dSYM", "libzmq.4.dylib", "libzmq.5.dylib",
-           "libzmq.dll")
+           "libzmq.so", "libzmq.so.dSYM", "libzmq.dll")
 files <- files[file.exists(files)]
+lib.osx <- list.files(pattern = "libzmq.*.dylib"),
+files <- c(files, lib.osx)
+
 if(length(files) > 0){
   libsarch <- if (nzchar(R_ARCH)) paste("libs", R_ARCH, sep='') else "libs"
   dest <- file.path(R_PACKAGE_DIR, libsarch)
@@ -18,9 +20,11 @@ if(length(files) > 0){
     cmd.ot <- system("which otool", intern = TRUE) 
     fn.pbdZMQ.so <- file.path(dest, "pbdZMQ.so")
 
-    for(i.ver in c("4", "5")){
-      fn.libzmq.dylib <- file.path(dest,
-                                   paste("libzmq.", i.ver, ".dylib", sep = ""))
+    if(length(lib.osx) != 1){
+      print(lib.osx)
+      stop("None or more than one libzmq.*.dylib are found.")
+    } else{
+      fn.libzmq.dylib <- file.path(dest, lib.osx)
 
       if(file.exists(fn.pbdZMQ.so) && file.exists(fn.libzmq.dylib)){
         ### For pbdZMQ.so
@@ -29,12 +33,17 @@ if(length(files) > 0){
         cat("\nBefore install_name_tool (install.libs.R & pbdZMQ.so):\n")
         print(rpath)
 
-        str.lib <- paste("zmq/lib/libzmq.", i.ver, ".dylib", sep = "")
-        org <- file.path(getwd(), str.lib)
-        cmd <- paste(cmd.int, " -change ", org,
-                     " @loader_path/libzmq.", i.ver, ".dylib ",
+        cmd <- paste(cmd.int, " -id ", fn.pbdZMQ.so, " ",
                      fn.pbdZMQ.so, sep = "")
-        cat("\nIn install_name_tool (install.libs.R & pbdZMQ.so):\n")
+        cat("\nIn install_name_tool (install.libs.R & pbdZMQ.so & id):\n")
+        print(cmd) 
+        system(cmd)
+
+        str.lib <- paste("zmq/lib/", lib.osx, sep = "")
+        org <- file.path(getwd(), str.lib)
+        cmd <- paste(cmd.int, " -change ", org, " @loader_path/", lib.osx, " ",
+                     fn.pbdZMQ.so, sep = "")
+        cat("\nIn install_name_tool (install.libs.R & pbdZMQ.so & path):\n")
         print(cmd) 
         system(cmd)
 
@@ -49,13 +58,9 @@ if(length(files) > 0){
         cat("\nBefore install_name_tool (install.libs.R & libzmq.dylib):\n")
         print(rpath)
 
-        str.lib <- paste("zmq/lib/libzmq.", i.ver, ".dylib", sep = "")
-        org <- file.path(getwd(), str.lib)
-        cmd <- paste(cmd.int, " -id ",
-                     fn.libzmq.dylib, " ",
-                     # "libzmq.", i.ver, ".dylib ",
+        cmd <- paste(cmd.int, " -id ", fn.libzmq.dylib, " ",
                      fn.libzmq.dylib, sep = "")
-        cat("\nIn install_name_tool (install.libs.R & libzmq.dylib):\n")
+        cat("\nIn install_name_tool (install.libs.R & libzmq.dylib & id):\n")
         print(cmd) 
         system(cmd)
 
@@ -63,8 +68,6 @@ if(length(files) > 0){
                         intern = TRUE)
         cat("\nAfter install_name_tool (install.libs.R & libzmq.dylib):\n")
         print(rpath)
-
-        break
       }
     }
   }
@@ -79,14 +82,14 @@ if(file.exists(file)){
   file.copy(file, dest, overwrite = TRUE)
 }
 
-### For zmq include
+### For zmq and pbdZMQ include
 dir.zmq <- "./zmq"
 if(file.exists(dir.zmq)){
   libarch <- if (nzchar(R_ARCH)) paste("zmq", R_ARCH, sep='') else "zmq"
   dest <- file.path(R_PACKAGE_DIR, libarch)
   dir.create(dest, recursive = TRUE, showWarnings = FALSE)
-  # files <- paste(dir.zmq, c("/include", "/lib") , sep = "")
   files <- paste(dir.zmq, "/include" , sep = "")
+  file.copy("./R_zmq.h", files)
   file.copy(files, dest, overwrite = TRUE, recursive = TRUE)
 }
 
