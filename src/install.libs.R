@@ -4,7 +4,7 @@ files <- c("pbdZMQ.so", "pbdZMQ.so.dSYM", "pbdZMQ.dylib", "pbdZMQ.dll",
            "symbols.rds",
            "libzmq.so", "libzmq.so.dSYM", "libzmq.dll")
 files <- files[file.exists(files)]
-lib.osx <- list.files(pattern = "libzmq.*.dylib")
+lib.osx <- list.files(pattern = "libzmq\.*\.dylib")
 files <- c(files, lib.osx)
 
 if(length(files) > 0){
