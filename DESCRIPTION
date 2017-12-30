@@ -15,7 +15,7 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
                 modified from the R source code"),
         person("Philipp", "A.", role = "ctb", comment = "Fedora"),
         person("Elliott Sales", "de Andrade", role = "ctb", comment = "sprintf"),
-        person("Spencer", "Aiello", role = "ctb", comment = "windows conf"),
+        person("Spencer", "Aiello", role = "ctb", comment = "windows conf")
 	)
 Depends: R (>= 3.2.0)
 LazyLoad: yes
