@@ -1,3 +1,7 @@
+2017-12-30: Ver 0.3-0
+  * Fix windows conf spacing problems.
+  * Adjust contributions in DESCRIPTION.
+
 2017-12-29: Ver 0.3-0
   * A better script for osx is made: overwrite both pbdZMQ.so and libzmq.*.dylib.
   * Remove some initial scripts needed by osx.

@@ -109,5 +109,7 @@ With additional contributions from:
 * Whit Armstrong (some functions are modified from rzmq for backwards compatibility)
 * Brian Ripley (C code of shellexec)
 * The R Core team (some functions are modified from the R source code)
+* Elliott Sales de Andrade (sprintf version underflow)
+* Spencer Aiello (windows conf spacing)
 
 For the distribution of ZeroMQ that is shipped with pbdZMQ, you can find details of authorship and copyright in `inst/zmq_copyright/` of the pbdZMQ source tree, or under `zmq_copyright/` of a binary installation of pbdZMQ.
