@@ -46,7 +46,7 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
     file.name <- paste("./libs", arch, "/", sep = "")
     dir.path <- tools::file_path_as_absolute(
                   system.file(file.name, package = package))
-    zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
+    zmq.ldflags <- paste("-L", dQuote(dir.path), " -lzmq", sep = "")
   } else{
     ### For non windows system.
     file.name <- paste("./etc", arch, "/Makeconf", sep = "")
@@ -97,7 +97,7 @@ get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
     file.name <- paste("./zmq", arch, "/include", sep = "")
     dir.path <- tools::file_path_as_absolute(
                   system.file(file.name, package = package))
-    zmq.cppflags <- paste("-I", dir.path, sep = "")
+    zmq.cppflags <- paste("-I", dQuote(dir.path), sep = "")
   } else{
     ### For non windows system.
     file.name <- paste("./etc", arch, "/Makeconf", sep = "")
