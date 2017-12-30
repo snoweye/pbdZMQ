@@ -1,3 +1,9 @@
+2017-12-29: Ver 0.3-0
+  * A better script for osx is made: overwrite both pbdZMQ.so and libzmq.*.dylib.
+  * Remove some initial scripts needed by osx.
+  * pbdZMQ.so is now exported too.
+  * Appveyor builds are added for windows (i386 and x64).
+
 2017-12-26: Ver 0.3-0
   * Modify and rearrange "install.libs.R" and "zzz.r.in".
 

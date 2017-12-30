@@ -8,13 +8,13 @@
 \alias{get.pbdZMQ.ldflags}
 \title{ZMQ Flags}
 \usage{
-get.zmq.cppflags(arch = "", package = "pbdZMQ")
-
 get.zmq.ldflags(arch = "", package = "pbdZMQ")
 
-get.pbdZMQ.ldflags(arch = "", package = "pbdZMQ")
+get.zmq.cppflags(arch = "", package = "pbdZMQ")
 
 test.load.zmq(arch = "", package = "pbdZMQ")
+
+get.pbdZMQ.ldflags(arch = "", package = "pbdZMQ")
 }
 \arguments{
 \item{arch}{'' (default) for non-windows or '/i386' and '/ix64' for windows}
@@ -41,7 +41,7 @@ ZMQ Flags
 get.zmq.cppflags(arch = '/i386')
 get.zmq.ldflags(arch = '/x64')
 get.pbdZMQ.ldflags(arch = '/x64')
-test.load.zmq(arch='/x64')
+test.load.zmq(arch = '/x64')
 }
 
 }
