@@ -1,3 +1,6 @@
+2018-01-03: Ver 0.3-0
+  * Remove "zmq_utils.h" because #pragma diagnostics is not needed at all.
+
 2017-12-30: Ver 0.3-0
   * Fix windows conf spacing problems.
   * Adjust contributions in DESCRIPTION.
