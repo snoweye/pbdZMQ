@@ -1,6 +1,6 @@
 Package: pbdZMQ
-Version: 0.3-0
-Date: 2017-12-30
+Version: 0.3-1
+Date: 2018-01-05
 Title: Programming with Big Data -- Interface to ZeroMQ
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -21,8 +21,8 @@ Depends: R (>= 3.2.0)
 LazyLoad: yes
 LazyData: yes
 Copyright: See files AUTHORS, COPYING, COPYING.LESSER, and MAINTAINERS
-        in pbdZMQ/inst/zmq_copyright/ for the ZeroMQ source files in
-        src/zmq_src/ which are under GPL-3.
+        in 'pbdZMQ/inst/zmq_copyright/' for the ZeroMQ source files in
+        'src/zmq_src/' which are under GPL-3.
 Description: 'ZeroMQ' is a well-known library for high-performance
     asynchronous messaging in scalable, distributed applications.  This
     package provides high level R wrapper functions to easily utilize
@@ -31,8 +31,8 @@ Description: 'ZeroMQ' is a well-known library for high-performance
     is shipped with 'pbdZMQ', which can be used if no system installation
     of 'ZeroMQ' is available.  A few wrapper functions compatible with
     'rzmq' are also provided.
-SystemRequirements: Linux, Mac OSX, and Windows, or ZeroMQ library >=
-        4.0.4. Solaris 10 needs ZeroMQ library 4.0.7 and OpenCSW.
+SystemRequirements: Linux, Mac OSX, and Windows, or 'ZeroMQ' library >=
+        4.0.4. Solaris 10 needs 'ZeroMQ' library 4.0.7 and 'OpenCSW'.
 License: GPL-3
 URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
