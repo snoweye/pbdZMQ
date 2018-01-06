@@ -21,7 +21,7 @@ before_install:
   - git clone git://github.com/zeromq/libzmq.git
   - curl -OL http://raw.github.com/snoweye/libzmq_osx/master/make_libzmq_osx.sh
   - chmod 755 make_libzmq_osx.sh
-  - make_libzmq_osx.sh
+  - ./make_libzmq_osx.sh
 
 
 install:
