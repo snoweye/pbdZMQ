@@ -6,17 +6,28 @@
 
 language: c
 
-os:
-  #- linux
-  - osx
+### For Linux
+# os:
+#   - linux
+### Use external static library
+# before_install:
+#   - sudo apt-get install -qq libzmq3-dev
 
+### For osx
+os:
+  - osx
+### Use external static library
 before_install:
-  - sudo apt-get install -qq libzmq3-dev
+  - git clone git://github.com/zeromq/libzmq.git
+  - curl -OL http://raw.github.com/snoweye/libzmq_osx/master/make_libzmq_osx.sh
+  - chmod 755 make_libzmq_osx.sh
+  - make_libzmq_osx.sh
+
+
+install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
-
-install:
   - ./travis-tool.sh install_deps
 
 script:
@@ -27,7 +38,7 @@ script:
   - Rscript -e "pbdZMQ::get.pbdZMQ.ldflags()"
   - Rscript -e "pbdZMQ::test.load.zmq()"
   - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/pbdZMQ.so
-  - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/libzmq.5.dylib
+  # - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/libzmq.5.dylib
 
 after_failure:
   - ./travis-tool.sh dump_logs
