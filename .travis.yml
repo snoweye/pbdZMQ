@@ -28,11 +28,12 @@ install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh install_deps
+  # - ./travis-tool.sh install_deps
 
 script:
   # - ./travis-tool.sh run_tests
-  - ./travis-tool.sh install_github snoweye/pbdZMQ
+  # - ./travis-tool.sh install_github snoweye/pbdZMQ
+  - R CMD INSTALL .
   - Rscript -e "pbdZMQ::get.zmq.cppflags()"
   - Rscript -e "pbdZMQ::get.zmq.ldflags()"
   - Rscript -e "pbdZMQ::get.pbdZMQ.ldflags()"
@@ -41,7 +42,7 @@ script:
   # - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/libzmq.5.dylib
 
 after_failure:
-  - ./travis-tool.sh dump_logs
+  # - ./travis-tool.sh dump_logs
 
 notifications:
   email:
