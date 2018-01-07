@@ -6,23 +6,21 @@
 
 language: c
 
-### For Linux
-# os:
-#   - linux
-### Use external static library
-# before_install:
-#   - sudo apt-get install -qq libzmq3-dev
+branches:
+  only:
+    - master
+    - osx_static
 
 ### For osx
 os:
   - osx
+
 ### Use external static library
 before_install:
   - git clone git://github.com/zeromq/libzmq.git
   - curl -OL http://raw.github.com/snoweye/libzmq_osx/master/make_libzmq_osx.sh
   - chmod 755 make_libzmq_osx.sh
   - ./make_libzmq_osx.sh
-
 
 install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
