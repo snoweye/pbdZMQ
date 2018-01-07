@@ -78,9 +78,9 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
         lib.osx <- list.files(dir.path, pattern = "libzmq\\.(.*)\\.dylib")
         i.ver <- gsub("libzmq\\.(.*)\\.dylib", "\\1", lib.osx)
 	i.ver <- max(as.integer(i.ver))
-        zmq.ldflags <- paste("-L", dir.path, " -lzmq.", i.ver, sep = "")
+        zmq.ldflags <- paste("-L\"", dir.path, "\" -lzmq.", i.ver, sep = "")
       } else{
-        zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
+        zmq.ldflags <- paste("-L\"", dir.path, "\" -lzmq", sep = "")
       }
     } else{
       arg <- "ZMQ_LDFLAGS"
@@ -132,7 +132,7 @@ get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
       file.name <- paste("./zmq", arch, "/include/", sep = "")
       dir.path <- tools::file_path_as_absolute(
                     system.file(file.name, package = package))
-      zmq.cppflags <- paste("-I", dir.path, sep = "")
+      zmq.cppflags <- paste("-I\"", dir.path, "\"", sep = "")
     } else{
       arg <- "ZMQ_INCLUDE"
       id <- grep(paste("^", arg, " = ", sep = ""), ret)
