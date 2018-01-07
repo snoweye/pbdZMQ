@@ -1,3 +1,7 @@
+2018-01-07: Ver 0.3-1
+  * Test with JuniperKernel.
+  * Test on r-hub.
+
 2018-01-06: Ver 0.3-1
   * Fix uses of osx external static library.
   * Fix get.zmq.conf().
