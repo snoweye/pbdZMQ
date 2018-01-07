@@ -54,6 +54,11 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
                    system.file(file.name, package = package))
     ret <- scan(file.path, what = character(), sep = "\n", quiet = TRUE)
 
+    ### Check if system zmq is used.
+    arg <- "SYSTEM_ZMQ_LIBDIR"
+    id <- grep(paste("^", arg, " = ", sep = ""), ret)
+    sys.zmq.ld <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
+
     ### Check if external zmq is used.
     arg <- "EXTERNAL_ZMQ_LDFLAGS"
     id <- grep(paste("^", arg, " = ", sep = ""), ret)
@@ -65,7 +70,7 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
     en.int.zmq <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
 
     ### Check which zmq should be used.
-    if(ext.zmq.ld == "" || en.int.zmq == "yes"){
+    if((sys.zmq.ld == "" && ext.zmq.ld == "") || en.int.zmq == "yes"){
       file.name <- paste("./libs", arch, "/", sep = "")
       dir.path <- tools::file_path_as_absolute(
                     system.file(file.name, package = package))
@@ -78,7 +83,9 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
         zmq.ldflags <- paste("-L", dir.path, " -lzmq", sep = "")
       }
     } else{
-      zmq.ldflags <- ext.zmq.ld
+      arg <- "ZMQ_LDFLAGS"
+      id <- grep(paste("^", arg, " = ", sep = ""), ret)
+      zmq.ldflags <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
     }
   }
 
@@ -105,6 +112,11 @@ get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
                    system.file(file.name, package = package))
     ret <- scan(file.path, what = character(), sep = "\n", quiet = TRUE)
 
+    ### Check if system zmq is used.
+    arg <- "SYSTEM_ZMQ_INCLUDEDIR"
+    id <- grep(paste("^", arg, " = ", sep = ""), ret)
+    sys.zmq.inc <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
+
     ### Check if external zmq is used.
     arg <- "EXTERNAL_ZMQ_INCLUDE"
     id <- grep(paste("^", arg, " = ", sep = ""), ret)
@@ -116,13 +128,15 @@ get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
     en.int.zmq <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
 
     ### Check which zmq should be used.
-    if(ext.zmq.inc == "" || en.int.zmq == "yes"){
+    if((sys.zmq.inc == "" && ext.zmq.inc == "") || en.int.zmq == "yes"){
       file.name <- paste("./zmq", arch, "/include/", sep = "")
       dir.path <- tools::file_path_as_absolute(
                     system.file(file.name, package = package))
       zmq.cppflags <- paste("-I", dir.path, sep = "")
     } else{
-      zmq.cppflags <- ext.zmq.inc
+      arg <- "ZMQ_INCLUDE"
+      id <- grep(paste("^", arg, " = ", sep = ""), ret)
+      zmq.cppflags <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
     }
   }
 
