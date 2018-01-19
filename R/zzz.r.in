@@ -14,15 +14,18 @@
   }
 
   ### Load ZMQ.
-  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
-             "libzmq.5.dylib", "libzmq.dll")
+  if(Sys.info()[['sysname']] == "Darwin"){
+    files <- list.files(path = dn, pattern = "libzmq\\.(.*)\\.dylib")
+  } else{
+    files <- c("libzmq.so", "libzmq.so.dSYM")
+  }
+  files <- paste(dn, files, sep = "")
   for(i.file in files){
-    fn <- paste(dn, i.file, sep = "")
-    if(file.exists(fn)){
+    if(file.exists(i.file)){
       ### Load "libzmq.*".
-      test <- try(dyn.load(fn, local = FALSE), silent = TRUE)
+      test <- try(dyn.load(i.file, local = FALSE), silent = TRUE)
       if(class(test) == "try-error"){
-        stop(paste("Could not load ", fn, sep = ""))
+        stop(paste("Could not load ", i.file, sep = ""))
       }
     }
   }
@@ -56,13 +59,16 @@
   }
 
   ### Unload ZMQ.
-  files <- c("libzmq.so", "libzmq.so.dSYM", "libzmq.dylib", "libzmq.4.dylib",
-             "libzmq.5.dylib", "libzmq.dll")
+  if(Sys.info()[['sysname']] == "Darwin"){
+    files <- list.files(path = dn, pattern = "libzmq\\.(.*)\\.dylib")
+  } else{
+    files <- c("libzmq.so", "libzmq.so.dSYM")
+  }
+  files <- paste(dn, files, sep = "")
   for(i.file in files){
-    fn <- paste(dn, i.file, sep = "")
-    if(file.exists(fn)){
+    if(file.exists(i.file)){
       ### Unload "libzmq.so".
-      test <- try(dyn.unload(fn), silent = TRUE)
+      test <- try(dyn.unload(i.file), silent = TRUE)
     }
   }
 
