@@ -1,5 +1,6 @@
 2018-01-18: Ver 0.3-2
   * Adjust .onLoad().
+  * Add overwrite.pkgso.rpath() and get.pkgso.rpath().
 
 2018-01-07: Ver 0.3-1
   * Test with JuniperKernel.
