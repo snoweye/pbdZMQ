@@ -13,20 +13,47 @@
     }
   }
 
-  ### Load ZMQ.
+  ### Find ZMQ shared libraries.
   if(Sys.info()[['sysname']] == "Darwin"){
-    files <- list.files(path = dn, pattern = "libzmq\\.(.*)\\.dylib")
+    files <- list.files(path = dn, pattern = "libzmq.*\\.dylib")
+
+    ### Make sure the rpath is correct, otherwise overwrite it.
+    if(ext.libs == "$(R_ZMQ)"){
+      cmd.int <- system("which install_name_tool", intern = TRUE)
+      cmd.ot <- system("which otool", intern = TRUE)
+
+      ### Get rpath from libzmq.*.dylib.
+      fn.dylib <- paste(dn, files, sep = "")
+      rpath <- system(paste(cmd.ot, " -L ", fn.dylib, sep = ""),
+                      intern = TRUE)
+
+      ### Get only pkgname related rpath from libzmq.*.dylib.
+      pattern <- paste("^\\t(.*/", pkgname, "/libs/libzmq.*\\.dylib) .*$",
+                       sep = "")
+      id <- grep(pattern, rpath)
+      org <- gsub(pattern, "\\1", rpath[id])
+
+      ### Overwrite for new rpath.
+      if(org != fn.dylib){
+        cmd <- paste(cmd.int, " -change ", org, " ", fn.dylib, " ", fn.dylib,
+                     sep = "")
+        system(cmd)
+      }
+    }
   } else{
     files <- c("libzmq.so", "libzmq.so.dSYM")
   }
   files <- paste(dn, files, sep = "")
+
+  ### Load "libzmq.*".
   for(i.file in files){
     if(file.exists(i.file)){
-      ### Load "libzmq.*".
       test <- try(dyn.load(i.file, local = FALSE), silent = TRUE)
       if(class(test) == "try-error"){
+        print(test)
         stop(paste("Could not load ", i.file, sep = ""))
       }
+      break
     }
   }
 
@@ -60,7 +87,7 @@
 
   ### Unload ZMQ.
   if(Sys.info()[['sysname']] == "Darwin"){
-    files <- list.files(path = dn, pattern = "libzmq\\.(.*)\\.dylib")
+    files <- list.files(path = dn, pattern = "libzmq.*\\.dylib")
   } else{
     files <- c("libzmq.so", "libzmq.so.dSYM")
   }

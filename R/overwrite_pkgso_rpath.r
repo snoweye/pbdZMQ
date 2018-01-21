@@ -46,10 +46,12 @@ overwrite.pkgso.rpath <- function(package, targetpkg){
                     intern = TRUE)
 
     ### Get only targetpkg related rpath within package.so
-    pattern <- paste(".*/", targetpkg, "/libs/lib(.*)\\.dylib$", sep = "")
+    pattern <- paste("^\\t.*/", targetpkg, "/libs/lib.*\\.dylib .*$", sep = "")
     org.rpath <- rpath[grep(pattern, rpath)]
+    pattern <- paste("^\\t(.*/", targetpkg, "/libs/lib.*\\.dylib) .*$",
+                     sep = "")
+    org.rpath <- gsub(pattern, "\\1", org.rpath)
     if(length(org.rpath) > 0){
-      org.rpath <- gsub("^\\t", "", org.rpath)
       pattern <- paste(".*/", targetpkg, "/libs/(lib.*\\.dylib)$", sep = "")
       org.dylib <- gsub(pattern, "\\1", org.rpath)
     } else{
@@ -67,16 +69,19 @@ overwrite.pkgso.rpath <- function(package, targetpkg){
     ### Match and overwrite rpath within package.so
     if(length(files.name) > 0){
       new.dylib <- files.name[files.name %in% org.dylib]
+
       if(length(new.dylib) > 0){
         for(i.dylib in new.dylib){
           ### Arrange install names
           org.name <- org.rpath[org.dylib == i.dylib]
           new.name <- paste(dn, "/", i.dylib, sep = "")
 
-          ### Overwrite the matched one by installing new name
-          cmd <- paste(cmd.int, " -change ", org.name, " ", new.name, " ",
-                       fn.so, sep = "")
-          system(cmd) 
+          if(org.name != new.name){
+            ### Overwrite the matched one by installing new name
+            cmd <- paste(cmd.int, " -change ", org.name, " ", new.name, " ",
+                         fn.so, sep = "")
+            system(cmd) 
+          }
         }
       } else{
         cat("\nrpath needed:\n")
@@ -100,7 +105,7 @@ overwrite.pkgso.rpath <- function(package, targetpkg){
 #' @export
 get.pkgso.rpath <- function(package, verbose = TRUE){
   if(Sys.info()[['sysname']] == "Darwin"){
-    cmd.int <- system("which install_name_tool", intern = TRUE)
+    cmd.ot <- system("which otool", intern = TRUE)
 
     ### Get package.so path
     file.name <- paste("./libs/", package, ".so", sep = "")
