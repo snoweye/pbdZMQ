@@ -19,25 +19,33 @@
 
     ### Make sure the rpath is correct, otherwise overwrite it.
     if(ext.libs == "$(R_ZMQ)"){
-      cmd.int <- system("which install_name_tool", intern = TRUE)
-      cmd.ot <- system("which otool", intern = TRUE)
+      ### By default, there is only one libzmq.*.dylib.
+      if(length(files) == 1){
+        cmd.int <- system("which install_name_tool", intern = TRUE)
+        cmd.ot <- system("which otool", intern = TRUE)
 
-      ### Get rpath from libzmq.*.dylib.
-      fn.dylib <- paste(dn, files, sep = "")
-      rpath <- system(paste(cmd.ot, " -L ", fn.dylib, sep = ""),
-                      intern = TRUE)
+        ### Get rpath from libzmq.*.dylib.
+        fn.dylib <- paste(dn, files, sep = "")
+        rpath <- system(paste(cmd.ot, " -L ", fn.dylib, sep = ""),
+                        intern = TRUE)
 
-      ### Get only pkgname related rpath from libzmq.*.dylib.
-      pattern <- paste("^\\t(.*/", pkgname, "/libs/libzmq.*\\.dylib) .*$",
+        ### Get only pkgname related rpath from libzmq.*.dylib.
+        pattern <- paste("^\\t(.*/", pkgname, "/libs/", files, ") .*$",
+                         sep = "")
+        id <- grep(pattern, rpath)
+        org <- gsub(pattern, "\\1", rpath[id])
+
+        ### Overwrite for new rpath.
+        if(org != fn.dylib){
+          cat("\n Org rpath (libzmq.dylib):", org, "\n")
+          cat("\n New rpath (libzmq.dylib):", fn.dylib, "\n")
+          cmd <- paste(cmd.int, " -change ", org, " ", fn.dylib, " ", fn.dylib,
                        sep = "")
-      id <- grep(pattern, rpath)
-      org <- gsub(pattern, "\\1", rpath[id])
-
-      ### Overwrite for new rpath.
-      if(org != fn.dylib){
-        cmd <- paste(cmd.int, " -change ", org, " ", fn.dylib, " ", fn.dylib,
-                     sep = "")
-        system(cmd)
+          system(cmd)
+        }
+      } else{
+        print(files)
+        stop("More than one libzmq*.dylib found.")
       }
     }
   } else{
