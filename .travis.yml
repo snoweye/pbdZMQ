@@ -39,6 +39,8 @@ script:
   # - ./travis-tool.sh run_tests
   # - ./travis-tool.sh install_github snoweye/pbdZMQ
   - R CMD INSTALL .
+  - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/pbdZMQ.so
+  - otool -L /Library/Frameworks/R.framework/Versions/3.4/Resources/library/pbdZMQ/libs/libzmq.5.dylib
   - Rscript -e "pbdZMQ::get.zmq.cppflags()"
   - Rscript -e "pbdZMQ::get.zmq.ldflags()"
   - Rscript -e "pbdZMQ::get.pbdZMQ.ldflags()"
