@@ -30,7 +30,7 @@
                         intern = TRUE)
 
         id <- system(paste(cmd.ot, " -D ", fn.dylib, sep = ""),
-                        intern = TRUE)
+                     intern = TRUE)
         print(id)
 
         ### Get only pkgname related rpath from libzmq.*.dylib.
@@ -41,8 +41,6 @@
 
         ### Overwrite for new rpath.
         if(org != fn.dylib){
-	  cat("\nBefore install_name_tool: (zzz.r & libzmq.dylib)\n")
-          print(rpath)
           cat("\nOrg id (libzmq.dylib):", org, "\n",
               "New id (libzmq.dylib):", fn.dylib, "\n")
 
@@ -50,9 +48,19 @@
                        sep = "")
           system(cmd)
 
-	  cat("\nAfter install_name_tool: (zzz.r & libzmq.dylib)\n")
+	  cat("\nBefore install_name_tool: (zzz.r & libzmq.dylib & id)\n")
+          print(id)
+	  cat("\nBefore install_name_tool: (zzz.r & libzmq.dylib)\n")
+          print(rpath)
+
+          id <- system(paste(cmd.ot, " -D ", fn.dylib, sep = ""),
+                       intern = TRUE)
           rpath <- system(paste(cmd.ot, " -L ", fn.dylib, sep = ""),
                           intern = TRUE)
+
+	  cat("\nBefore install_name_tool: (zzz.r & libzmq.dylib & id)\n")
+          print(id)
+	  cat("\nAfter install_name_tool: (zzz.r & libzmq.dylib)\n")
           print(rpath)
         }
       } else{
