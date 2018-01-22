@@ -37,11 +37,17 @@
 
         ### Overwrite for new rpath.
         if(org != fn.dylib){
-          cat("\n Org rpath (libzmq.dylib):", org, "\n")
-          cat("\n New rpath (libzmq.dylib):", fn.dylib, "\n")
-          cmd <- paste(cmd.int, " -change ", org, " ", fn.dylib, " ", fn.dylib,
+          print(rpath)
+          cat("\nOrg rpath (libzmq.dylib):", org, "\n",
+              "New rpath (libzmq.dylib):", fn.dylib, "\n")
+
+          cmd <- paste(cmd.int, " -id ", fn.dylib, " ", fn.dylib,
                        sep = "")
           system(cmd)
+
+          rpath <- system(paste(cmd.ot, " -L ", fn.dylib, sep = ""),
+                          intern = TRUE)
+          print(rpath)
         }
       } else{
         print(files)
