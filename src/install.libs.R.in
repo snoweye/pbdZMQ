@@ -15,7 +15,7 @@ if(length(files) > 0){
 
   ### For Mac OSX and when "internal ZMQ" is asked.
   ### Overwrite RPATH from the shared library installed to the destination.
-  if(Sys.info()[['sysname']] == "Darwin" && length(lib.osx) > 0){
+  if(Sys.info()[['sysname']] == "Darwin" && length(lib.osx) > 0 && "@ENABLE_INTERNAL_ZMQ@" == "yes"){
     cmd.int <- system("which install_name_tool", intern = TRUE)
     cmd.ot <- system("which otool", intern = TRUE) 
     fn.pbdZMQ.so <- file.path(dest, "pbdZMQ.so")
