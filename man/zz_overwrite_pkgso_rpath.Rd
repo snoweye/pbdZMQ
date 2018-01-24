@@ -3,12 +3,24 @@
 \name{Overwrite rpath}
 \alias{Overwrite rpath}
 \alias{overwrite.pkgso.rpath}
+\alias{overwrite.dylib.id}
 \alias{get.pkgso.rpath}
-\title{Overwrite and get shared library rpath in osx}
+\alias{get.pkgso.id}
+\alias{get.alldylib.rpath}
+\alias{get.alldylib.id}
+\title{Overwrite and get shared library rpath and id in osx}
 \usage{
 overwrite.pkgso.rpath(package, targetpkg)
 
+overwrite.dylib.id(package, targetpkg)
+
 get.pkgso.rpath(package, verbose = TRUE)
+
+get.pkgso.id(package, verbose = TRUE)
+
+get.alldylib.rpath(package, verbose = TRUE)
+
+get.alldylib.id(package, verbose = TRUE)
 }
 \arguments{
 \item{package}{for where \code{package.so} will be checked or updated}
@@ -22,12 +34,23 @@ Overwrite and get shared library rpath (e.g. \code{lib*.*.dylib}) in osx.
 Typically, it is called by \code{.onLoad()} to update rpath if a
 \code{lib*.*.dylib} was installed in a personal directory. Permission may
 be needed (e.g. \code{sudo}) to overwrite the shared libraries.
+All functions here are for osx only. The commands \code{otool} and
+\code{install_name_tool} are requried as well.
 }
 \details{
 \code{overwrite.pkgso.rpath()} update rpath of \code{package.so} for whom is
-linked with \code{lib*.*.dylib} shipped with targetpkg in osx.
+linked with \code{lib*.dylib} shipped with targetpkg.
 
-\code{get.pkgso.rpath()} get rpath for \code{package.so} in osx.
+\code{overwrite.dylib.id()} update id of \code{package/libs/libpkg.dylib}
+where \code{libpkg.dylib} is specified.
+
+\code{get.pkgso.rpath()} get rpath of \code{package.so}.
+
+\code{get.pkgso.id()} get id of \code{package.so}.
+
+\code{get.alldylib.rpath()} get rpath of all \code{package/libs/lib*.dylib}.
+
+\code{get.alldylib.id()} get id of all \code{package/libs/lib*.dylib}.
 }
 \examples{
 \dontrun{

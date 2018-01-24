@@ -1,14 +1,25 @@
-#' Overwrite and get shared library rpath in osx
+#' Overwrite and get shared library rpath and id in osx
 #' 
 #' Overwrite and get shared library rpath (e.g. \code{lib*.*.dylib}) in osx.
 #' Typically, it is called by \code{.onLoad()} to update rpath if a
 #' \code{lib*.*.dylib} was installed in a personal directory. Permission may
 #' be needed (e.g. \code{sudo}) to overwrite the shared libraries.
+#' All functions here are for osx only. The commands \code{otool} and
+#' \code{install_name_tool} are requried as well.
 #' 
 #' \code{overwrite.pkgso.rpath()} update rpath of \code{package.so} for whom is
-#' linked with \code{lib*.*.dylib} shipped with targetpkg in osx.
+#' linked with \code{lib*.dylib} shipped with targetpkg.
 #'
-#' \code{get.pkgso.rpath()} get rpath for \code{package.so} in osx.
+#' \code{overwrite.dylib.id()} update id of \code{package/libs/libpkg.dylib}
+#' where \code{libpkg.dylib} is specified.
+#'
+#' \code{get.pkgso.rpath()} get rpath of \code{package.so}.
+#'
+#' \code{get.pkgso.id()} get id of \code{package.so}.
+#' 
+#' \code{get.alldylib.rpath()} get rpath of all \code{package/libs/lib*.dylib}.
+#'
+#' \code{get.alldylib.id()} get id of all \code{package/libs/lib*.dylib}.
 #' 
 #' @param package
 #' for where \code{package.so} will be checked or updated
@@ -30,6 +41,7 @@
 #' @rdname zz_overwrite_pkgso_rpath
 #' @name Overwrite rpath
 NULL
+
 
 #' @rdname zz_overwrite_pkgso_rpath
 #' @export
@@ -103,6 +115,17 @@ overwrite.pkgso.rpath <- function(package, targetpkg){
 
 #' @rdname zz_overwrite_pkgso_rpath
 #' @export
+overwrite.dylib.id <- function(package, targetpkg){
+  if(Sys.info()[['sysname']] == "Darwin"){
+    ### TODO
+  }
+
+  return(invisible())
+} # End of overwrite.dylib.id().
+
+
+#' @rdname zz_overwrite_pkgso_rpath
+#' @export
 get.pkgso.rpath <- function(package, verbose = TRUE){
   if(Sys.info()[['sysname']] == "Darwin"){
     cmd.ot <- system("which otool", intern = TRUE)
@@ -125,4 +148,52 @@ get.pkgso.rpath <- function(package, verbose = TRUE){
 
   return(invisible())
 } # End of get.pkgso.rpath().
+
+
+#' @rdname zz_overwrite_pkgso_rpath
+#' @export
+get.pkgso.id <- function(package, verbose = TRUE){
+  if(Sys.info()[['sysname']] == "Darwin"){
+    cmd.ot <- system("which otool", intern = TRUE)
+
+    ### Get package.so path
+    file.name <- paste("./libs/", package, ".so", sep = "")
+    fn.so <- tools::file_path_as_absolute(
+               system.file(file.name, package = package))
+
+    ### Get rpath from package.so
+    id <- system(paste(cmd.ot, " -D ", fn.so, sep = ""),
+                 intern = TRUE)
+    if(verbose){
+      cat(paste("\nid found in ", fn.so, ":\n", sep = ""))
+      print(id)
+    }
+
+    return(invisible(id))
+  }
+
+  return(invisible())
+} # End of get.pkgso.id().
+
+
+#' @rdname zz_overwrite_pkgso_rpath
+#' @export
+get.alldylib.rpath <- function(package, verbose = TRUE){
+  if(Sys.info()[['sysname']] == "Darwin"){
+    ### TODO
+  }
+
+  return(invisible())
+} # End of get.alldylib.rpath().
+
+
+#' @rdname zz_overwrite_pkgso_rpath
+#' @export
+get.alldylib.id <- function(package, verbose = TRUE){
+  if(Sys.info()[['sysname']] == "Darwin"){
+    ### TODO
+  }
+
+  return(invisible())
+} # End of get.alldylib.id().
 
