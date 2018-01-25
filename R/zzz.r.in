@@ -31,17 +31,17 @@
 
         ### Overwrite for new rpath.
         if(id[2] != fn.dylib){
-	  cat("\nBefore install_name_tool: (zzz.r & libzmq.dylib & id)\n")
-          print(id)
+	  # cat("\nBefore install_name_tool: (zzz.r & libzmq.dylib & id)\n")
+          # print(id)
 
           cmd <- paste(cmd.int, " -id ", fn.dylib, " ", fn.dylib,
                        sep = "")
           system(cmd)
 
-          id <- system(paste(cmd.ot, " -D ", fn.dylib, sep = ""),
-                       intern = TRUE)
-	  cat("\nAfter install_name_tool: (zzz.r & libzmq.dylib & id)\n")
-          print(id)
+          # id <- system(paste(cmd.ot, " -D ", fn.dylib, sep = ""),
+          #              intern = TRUE)
+	  # cat("\nAfter install_name_tool: (zzz.r & libzmq.dylib & id)\n")
+          # print(id)
         }
       } else{
         print(files)
