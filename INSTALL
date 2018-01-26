@@ -26,24 +26,45 @@
        --configure-args="--enable-internal-zmq"
 
 --- 'pbdZMQ' installation with external ZeroMQ library such as version 4.2.2:
-0. Minimum steps for installing ZeroMQ 4.2.2 library
+0. Minimum steps for installing ZeroMQ 4.2.2 shared library
+
      > ./configure \
           --prefix=/usr/local/zmq \
+          --enable-static=no \
           --enable-shared=yes \
           --with-poller=select \
           --without-documentation \
           --without-libsodium
      > make -j 4; make install
 
-1. Steps for pbdZMQ with the external ZeroMQ static library.
+   or ZeroMQ 4.2.2 static library
+
+     > ./configure \
+          --prefix=/usr/local/zmq \
+          --with-pic=yes \
+          --enable-static=yes \
+          --enable-shared=no \
+          --with-poller=select \
+          --without-documentation \
+          --without-libsodium
+     > make -j 4; make install
+
+1. Steps for pbdZMQ with the external ZeroMQ shared library
 
      > R CMD INSTALL pbdZMQ_0.3-0.tar.gz \
        --configure-vars="ZMQ_INCLUDE='-I/usr/local/zmq/include' \
                          ZMQ_LDFLAGS='-L/usr/local/zmq/lib -lzmq'"
 
+   or with the external ZeroMQ static library
+
+     > R CMD INSTALL pbdZMQ_0.3-0.tar.gz \
+       --configure-vars="ZMQ_INCLUDE='-I/usr/local/zmq/include' \
+                         ZMQ_LDFLAGS='/usr/local/zmq/lib/libzmq.a'"
+
    provided the external library is installed at "/usr/local/zmq" where
    "include/" subdirectory contains "zmq.h" and "lib/" subdirectory contains
-   the shared library such as "libzmq.so".
+   the shared library such as "libzmq.so" or the static library such as
+   "libzmq.a".
 
 --- Testing:
    Suppose 'pbdZMQ' is installed correctly. I can run the next from one

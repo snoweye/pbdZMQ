@@ -44,8 +44,8 @@
           # print(id)
         }
       } else{
-        print(files)
-        stop("More than one libzmq*.dylib found.")
+        stop(paste("More than one libzmq*.dylib found:",
+                   paste(files, collapse = ", "), sep = " "))
       }
     }
   } else{
@@ -58,8 +58,8 @@
     if(file.exists(i.file)){
       test <- try(dyn.load(i.file, local = FALSE), silent = TRUE)
       if(class(test) == "try-error"){
-        print(test)
-        stop(paste("Could not load ", i.file, sep = ""))
+        stop(paste("Could not load ", i.file, ":",
+                   paste(test, collapse = ", "), sep = " "))
       }
       break
     }
