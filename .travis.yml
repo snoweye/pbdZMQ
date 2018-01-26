@@ -49,6 +49,10 @@ script:
   - Rscript -e "pbdZMQ::get.zmq.ldflags()"
   - Rscript -e "pbdZMQ::get.pbdZMQ.ldflags()"
   - Rscript -e "pbdZMQ::test.load.zmq()"
+  - mv ../Rlib ../Rlib.new
+  - export R_LIBS_USER=`pwd`/../Rlib.new
+  - Rscript -e "library(pbdZMQ)"
+  - otool -L ../Rlib.new/pbdZMQ/libs/libzmq.5.dylib
 
 after_failure:
   # - ./travis-tool.sh dump_logs
