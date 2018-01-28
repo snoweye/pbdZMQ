@@ -9,14 +9,14 @@ overwrite.shpkg.rpath(mylib = NULL, mypkg = "JuniperKernel",
   linkingto = "pbdZMQ", shlib = "zmq")
 }
 \arguments{
-\item{mylib}{where \code{mypkg} was installed (default \code{NULL} that will search
-from R's path)}
+\item{mylib}{the path where \code{mypkg} was installed (default \code{NULL} that will
+search from R's path)}
 
-\item{mypkg}{for where \code{mypkg.so} will be checked or updated}
+\item{mypkg}{the package for where \code{mypkg.so} will be checked or updated}
+
+\item{linkingto}{the package for where \code{libshpkg*.dylib} is located}
 
 \item{shlib}{name of shlib to be searched for}
-
-\item{linkedto}{for linkingto pkg where \code{libshpkg*.dylib} is located}
 }
 \description{
 Overwrite rpath of linked shared library

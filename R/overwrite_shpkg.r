@@ -12,12 +12,12 @@
 #' library.
 #' 
 #' @param mylib
-#' where \code{mypkg} was installed (default \code{NULL} that will search
-#' from R's path)
+#' the path where \code{mypkg} was installed (default \code{NULL} that will
+#' search from R's path)
 #' @param mypkg
-#' for where \code{mypkg.so} will be checked or updated
-#' @param linkedto
-#' for linkingto pkg where \code{libshpkg*.dylib} is located
+#' the package for where \code{mypkg.so} will be checked or updated
+#' @param linkingto
+#' the package for where \code{libshpkg*.dylib} is located
 #' @param shlib
 #' name of shlib to be searched for
 #' 
