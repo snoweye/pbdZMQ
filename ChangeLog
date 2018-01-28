@@ -1,5 +1,6 @@
 2018-01-27: Ver 0.3-2
   * Add overwrite.shpkg.rpath() for osx.
+  * Adjust .onLoad() for osx with ZMQ static library.
 
 2018-01-18: Ver 0.3-2
   * Adjust .onLoad().
