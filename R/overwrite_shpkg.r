@@ -72,6 +72,11 @@ overwrite.shpkg.rpath <- function(mylib = NULL,
                 system.file("./libs", package = linkingto)) 
         ptn2 <- paste("lib", shlib, ".*\\. dylib", sep = "")
         fn <- list.files(path = dn, pattern = ptn2)
+print(dn)
+print(ptn2)
+print(fn)
+        fn2 <- list.files(path = dn)
+print(fn2)
 
         ### Install the new location to the mypkg's shared library.
         if(length(fn) == 1){
