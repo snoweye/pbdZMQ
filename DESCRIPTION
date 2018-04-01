@@ -1,6 +1,6 @@
 Package: pbdZMQ
-Version: 0.3-2
-Date: 2018-01-11
+Version: 0.3-3
+Date: 2018-02-10
 Title: Programming with Big Data -- Interface to 'ZeroMQ'
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -35,7 +35,7 @@ SystemRequirements: Linux, Mac OSX, and Windows, or 'ZeroMQ' library >=
         4.0.4. Solaris 10 needs 'ZeroMQ' library 4.0.7 and 'OpenCSW'.
 License: GPL-3
 URL: http://r-pbd.org/
-BugReports: http://group.r-pbd.org/
+BugReports: https://github.com/snoweye/pbdZMQ/issues
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
