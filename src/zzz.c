@@ -28,6 +28,9 @@ static const R_CallMethodDef callMethods[] = {
 	{"R_zmq_recv_char", (DL_FUNC) &R_zmq_recv_char, 3},
 	{"R_zmq_recv_raw", (DL_FUNC) &R_zmq_recv_raw, 3},
 
+	{"R_zmq_send_file", (DL_FUNC) &R_zmq_send_file, 5},
+	{"R_zmq_recv_file", (DL_FUNC) &R_zmq_recv_file, 5},
+
 	/* In file "R_zmq_utility.c". */
 	{"R_zmq_strerror", (DL_FUNC) &R_zmq_strerror, 1},
 	{"R_zmq_version", (DL_FUNC) &R_zmq_version, 0},

@@ -22,6 +22,8 @@
 #include <windows.h>
 #endif
 
+#define UNUSED(x) (void)(x)
+
 
 /* From R-devel\src\include\Defn.h */
 #define BYTES_MASK (1<<1)
@@ -128,6 +130,9 @@ SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd){
 	internal_shellexecW_wcc(
 		filenameToWchar_wcc(STRING_ELT(R_file, 0), FALSE),
 		FALSE, INTEGER(R_SW_cmd)[0]);
+#else
+	UNUSED(R_file);
+	UNUSED(R_SW_cmd);
 #endif
 
 	return(R_NilValue);
