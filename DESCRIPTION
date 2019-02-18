@@ -40,4 +40,4 @@ MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

@@ -6,10 +6,11 @@
 \alias{zmq.recvfile}
 \title{File Transfer Functions}
 \usage{
-zmq.sendfile(port, filename, verbose = FALSE, flags = .pbd_env$ZMQ.SR$BLOCK)
+zmq.sendfile(port, filename, verbose = FALSE,
+  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE)
 
 zmq.recvfile(port, endpoint, filename, verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK)
+  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE)
 }
 \arguments{
 \item{port}{A valid tcp port.}
@@ -20,6 +21,11 @@ zmq.recvfile(port, endpoint, filename, verbose = FALSE,
 
 \item{flags}{a flag for the method used by \code{zmq_sendfile} and
 \code{zmq_recvfile}}
+
+\item{forcebin}{Force to read/send/recv/write in binary form. Typically for a Windows
+system, text (ASCII) and binary files are processed differently.
+If \code{TRUE}, "r+b" and "w+b" will be enforced in the C code.
+This option is mainly for Windows.}
 
 \item{endpoint}{A ZMQ socket endpoint.}
 }

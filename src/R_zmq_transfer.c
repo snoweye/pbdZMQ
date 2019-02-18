@@ -48,7 +48,7 @@ static inline void progress_update(const int verbose, const double current, cons
 
 
 
-SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags){
+SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags, SEXP R_forcebin){
   SEXP ret;
   int ind;
   const int verbose = INTEGER(verbose_)[0];
@@ -58,9 +58,14 @@ SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesiz
   int info = -1, C_errno;
   int C_flags = INTEGER(R_flags)[0];
   void *C_socket = R_ExternalPtrAddr(R_socket);
-  FILE *infile = fopen(CHARPT(R_filename, 0), "r");
+  FILE *infile;
   void *buf = malloc(BUFLEN);
   
+  if (INTEGER(R_forcebin)[0] == 0)
+    infile = fopen(CHARPT(R_filename, 0), "r");
+  else
+    infile = fopen(CHARPT(R_filename, 0), "r+b");
+
   if (infile == NULL)
     error("Could not open file: %s", CHARPT(R_filename, 0));
   
@@ -99,7 +104,7 @@ SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesiz
 
 
 
-SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags)
+SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags, SEXP R_forcebin)
 {
   SEXP ret;
   int ind;
@@ -110,9 +115,14 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesiz
   int C_errno;
   int C_flags = INTEGER(R_flags)[0];
   void *C_socket = R_ExternalPtrAddr(R_socket);
-  FILE *outfile = fopen(CHARPT(R_filename, 0), "w");
+  FILE *outfile;
   void *buf = malloc(BUFLEN);
   
+  if (INTEGER(R_forcebin)[0] == 0)
+    outfile = fopen(CHARPT(R_filename, 0), "w");
+  else
+    outfile = fopen(CHARPT(R_filename, 0), "w+b");
+
   if (outfile == NULL)
     error("Could not open file: %s", CHARPT(R_filename, 0));
   

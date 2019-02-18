@@ -18,6 +18,11 @@
 #' @param flags
 #' a flag for the method used by \code{zmq_sendfile} and
 #' \code{zmq_recvfile}
+#' @param forcebin
+#' Force to read/send/recv/write in binary form. Typically for a Windows
+#' system, text (ASCII) and binary files are processed differently.
+#' If \code{TRUE}, "r+b" and "w+b" will be enforced in the C code.
+#' This option is mainly for Windows.
 #' 
 #' 
 #' @return \code{zmq.sendfile()} and \code{zmq.recvfile()} return
@@ -56,7 +61,8 @@ NULL
 #' @rdname b1_sendrecvfile
 #' @export
 zmq.sendfile <- function(port, filename, verbose=FALSE,
-                         flags = .pbd_env$ZMQ.SR$BLOCK)
+                         flags = .pbd_env$ZMQ.SR$BLOCK,
+                         forcebin = FALSE)
 {
   ctx <- zmq.ctx.new()
   socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PUSH)
@@ -67,7 +73,7 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
   send.socket(socket, filesize)
   
   ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose),
-               filesize, as.integer(flags),
+               filesize, as.integer(flags), as.integer(forcebin),
                PACKAGE = "pbdZMQ")
   
   zmq.close(socket)
@@ -81,7 +87,8 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
 #' @rdname b1_sendrecvfile
 #' @export
 zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
-                         flags = .pbd_env$ZMQ.SR$BLOCK)
+                         flags = .pbd_env$ZMQ.SR$BLOCK,
+                         forcebin = FALSE)
 {
   ctx <- zmq.ctx.new()
   socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PULL)
@@ -91,7 +98,7 @@ zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
   filesize <- receive.socket(socket)
   
   ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(verbose),
-               filesize, as.integer(flags),
+               filesize, as.integer(flags), as.integer(forcebin),
                PACKAGE = "pbdZMQ")
   
   invisible(ret)

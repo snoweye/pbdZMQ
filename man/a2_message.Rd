@@ -6,7 +6,8 @@
 \alias{zmq.msg.recv}
 \title{Message Functions}
 \usage{
-zmq.msg.send(rmsg, socket, flags = .pbd_env$ZMQ.SR$BLOCK, serialize = TRUE)
+zmq.msg.send(rmsg, socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+  serialize = TRUE)
 
 zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK, unserialize = TRUE)
 }
