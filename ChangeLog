@@ -1,3 +1,6 @@
+2019-02-18: Ver 0.3-4
+  * Add "R/R_zmq_transfers.r" for transferfing files and directories.
+
 2019-02-17: Ver 0.3-4
   * Register "R_zmq_send_file" and "R_zmq_recv_file" in "src/zzz.c".
   * Fix Windows binary files transfer problems.

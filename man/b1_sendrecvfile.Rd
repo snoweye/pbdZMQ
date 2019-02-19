@@ -7,25 +7,35 @@
 \title{File Transfer Functions}
 \usage{
 zmq.sendfile(port, filename, verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE)
+  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL,
+  socket = NULL)
 
 zmq.recvfile(port, endpoint, filename, verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE)
+  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL,
+  socket = NULL)
 }
 \arguments{
 \item{port}{A valid tcp port.}
 
-\item{filename}{The name (as a string) of the in/out files.}
+\item{filename}{The name (as a string) of the in/out files. The in and out file names
+can be different.}
 
-\item{verbose}{logical; determines if a progress bar should be shown.}
+\item{verbose}{Logical; determines if a progress bar should be shown.}
 
-\item{flags}{a flag for the method used by \code{zmq_sendfile} and
+\item{flags}{A flag for the method used by \code{zmq_sendfile} and
 \code{zmq_recvfile}}
 
 \item{forcebin}{Force to read/send/recv/write in binary form. Typically for a Windows
 system, text (ASCII) and binary files are processed differently.
 If \code{TRUE}, "r+b" and "w+b" will be enforced in the C code.
 This option is mainly for Windows.}
+
+\item{ctx}{A ZMQ ctx. If \code{NULL} (default), the function will initial one at
+the beginning and destroy it after finishing file transfer.}
+
+\item{socket}{A ZMQ socket based on \code{ctx}.
+If \code{NULL} (default), the function will create one at the beginning
+and close it after finishing file transfer.}
 
 \item{endpoint}{A ZMQ socket endpoint.}
 }

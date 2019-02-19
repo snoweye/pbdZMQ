@@ -12,17 +12,25 @@
 #' @param endpoint
 #' A ZMQ socket endpoint.
 #' @param filename
-#' The name (as a string) of the in/out files.
+#' The name (as a string) of the in/out files. The in and out file names
+#' can be different.
 #' @param verbose
-#' logical; determines if a progress bar should be shown.
+#' Logical; determines if a progress bar should be shown.
 #' @param flags
-#' a flag for the method used by \code{zmq_sendfile} and
+#' A flag for the method used by \code{zmq_sendfile} and
 #' \code{zmq_recvfile}
 #' @param forcebin
 #' Force to read/send/recv/write in binary form. Typically for a Windows
 #' system, text (ASCII) and binary files are processed differently.
 #' If \code{TRUE}, "r+b" and "w+b" will be enforced in the C code.
 #' This option is mainly for Windows.
+#' @param ctx
+#' A ZMQ ctx. If \code{NULL} (default), the function will initial one at
+#' the beginning and destroy it after finishing file transfer.
+#' @param socket
+#' A ZMQ socket based on \code{ctx}.
+#' If \code{NULL} (default), the function will create one at the beginning
+#' and close it after finishing file transfer.
 #' 
 #' 
 #' @return \code{zmq.sendfile()} and \code{zmq.recvfile()} return
@@ -62,22 +70,45 @@ NULL
 #' @export
 zmq.sendfile <- function(port, filename, verbose=FALSE,
                          flags = .pbd_env$ZMQ.SR$BLOCK,
-                         forcebin = FALSE)
+                         forcebin = FALSE, ctx = NULL, socket = NULL)
 {
-  ctx <- zmq.ctx.new()
-  socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PUSH)
+  if (is.null(ctx))
+  {
+    ctx <- zmq.ctx.new()
+    ctx.destroy <- TRUE
+  }
+  else
+    ctx.destroy <- FALSE
+
+  if (is.null(socket))
+  {
+    socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PUSH)
+    socket.close <- TRUE
+  }
+  else
+    socket.close <- FALSE
+
   endpoint <- address("*", port)
   zmq.bind(socket, endpoint)
   
-  filesize <- as.double(file.info(filename)$size)
-  send.socket(socket, filesize)
+  fi <- file.info(filename)
+  if (!is.na(fi$isdir) && !fi$isdir)
+  {
+    filesize <- as.double(fi$size)
+    send.socket(socket, filesize)
   
-  ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose),
-               filesize, as.integer(flags), as.integer(forcebin),
-               PACKAGE = "pbdZMQ")
+    ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose),
+                 filesize, as.integer(flags), as.integer(forcebin),
+                 PACKAGE = "pbdZMQ")
+  }
+  else
+    stop(paste("File does not exist:", filename)) 
   
-  zmq.close(socket)
-  zmq.ctx.destroy(ctx)
+  if (socket.close || ctx.destroy)
+    zmq.close(socket)
+
+  if (ctx.destroy)
+    zmq.ctx.destroy(ctx)
   
   invisible(ret)
 }
@@ -88,10 +119,24 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
 #' @export
 zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
                          flags = .pbd_env$ZMQ.SR$BLOCK,
-                         forcebin = FALSE)
+                         forcebin = FALSE, ctx = NULL, socket = NULL)
 {
-  ctx <- zmq.ctx.new()
-  socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PULL)
+  if (is.null(ctx))
+  {
+    ctx <- zmq.ctx.new()
+    ctx.destroy <- TRUE
+  }
+  else
+    ctx.destroy <- FALSE
+
+  if (is.null(socket))
+  {
+    socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PULL)
+    socket.close <- TRUE
+  }
+  else
+    socket.close <- FALSE
+
   endpoint <- address(endpoint, port)
   zmq.connect(socket, endpoint)
   
@@ -100,6 +145,12 @@ zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
   ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(verbose),
                filesize, as.integer(flags), as.integer(forcebin),
                PACKAGE = "pbdZMQ")
+
+  if (socket.close || ctx.destroy)
+    zmq.close(socket)
+
+  if (ctx.destroy)
+    zmq.ctx.destroy(ctx)
   
   invisible(ret)
 }
