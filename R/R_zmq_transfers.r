@@ -69,6 +69,8 @@
 #' @seealso \code{\link{zmq.sendfile}()}, \code{\link{zmq.recvfile}()}.
 #' @rdname b2_sendrecvdir
 #' @name Transfer Functions for Files or Directories
+#' @importFrom utils unzip zip
+#' 
 NULL
 
 

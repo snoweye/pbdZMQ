@@ -22166,7 +22166,8 @@ $as_echo_n "checking how to turn warnings to errors in C++ compiler... " >&6; }
        xc)
             # GCC, clang and ICC
             if test "x$GCC" = "xyes" -o "x$libzmq_cv_cxx_intel_compiler" = "xyes"; then
-                libzmq_cv_cxx_werror_flag="-Werror"
+                #WCC libzmq_cv_cxx_werror_flag="-Werror"
+                libzmq_cv_cxx_werror_flag=""
             # Sun studio
             elif test "x$libzmq_cv_cxx_sun_studio_compiler" = "xyes"; then
                 libzmq_cv_cxx_werror_flag="-errwarn=%all"
@@ -22175,7 +22176,8 @@ $as_echo_n "checking how to turn warnings to errors in C++ compiler... " >&6; }
        xcxx)
             # GCC, clang and ICC
             if test "x$GXX" = "xyes" -o "x$libzmq_cv_cxx_intel_compiler" = "xyes"; then
-                libzmq_cv_cxx_werror_flag="-Werror"
+                #WCC libzmq_cv_cxx_werror_flag="-Werror"
+                libzmq_cv_cxx_werror_flag=""
             # Sun studio
             elif test "x$libzmq_cv_cxx_sun_studio_compiler" = "xyes"; then
                 libzmq_cv_cxx_werror_flag="-errwarn=%all"

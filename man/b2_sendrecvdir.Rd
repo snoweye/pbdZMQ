@@ -63,9 +63,9 @@ to zip, transfer, and unzip small files or directories contains small files.
 
 ### Receiver
 library(pbdZMQ, quietly = TRUE)
-zmq.recvdir(55555, "localhost", outfile = "./tmp_new.zip")
+zmq.recvdir(55555, "localhost", outfile = "./backup_2019.zip")
 ### or unzip to exdir
-# zmq.recvdir(55555, "localhost", exdir = "./tmp_new")
+# zmq.recvdir(55555, "localhost", exdir = "./backup_2019")
 
 ### Sender
 library(pbdZMQ, quietly = TRUE)
