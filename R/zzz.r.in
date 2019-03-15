@@ -26,6 +26,7 @@
 
         ### Get id from libzmq.*.dylib.
         fn.dylib <- paste(dn, files, sep = "")
+	fn.dylib <- gsub(' ', '\\\\ ', fn.dylib)
         id <- system(paste(cmd.ot, " -D ", fn.dylib, sep = ""),
                      intern = TRUE)
 
