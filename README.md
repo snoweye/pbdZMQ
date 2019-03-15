@@ -111,5 +111,6 @@ With additional contributions from:
 * The R Core team (some functions are modified from the R source code)
 * Elliott Sales de Andrade (sprintf version underflow)
 * Spencer Aiello (windows conf spacing)
+* Paul Andrey (Mac OSX conf)
 
 For the distribution of ZeroMQ that is shipped with pbdZMQ, you can find details of authorship and copyright in `inst/zmq_copyright/` of the pbdZMQ source tree, or under `zmq_copyright/` of a binary installation of pbdZMQ.
