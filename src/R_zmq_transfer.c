@@ -86,6 +86,9 @@ static inline void send_file(file_t *f, void *socket, void *buf, int flags, int 
   
   do
   {
+    if (type == ZMQ_REP)
+      zmq_recv(socket, buf, 1, flags);
+    
     size = fread(buf, 1, BUFLEN, f->file);
     total_size += size;
     
@@ -164,6 +167,9 @@ static inline void recv_file(file_t *f, void *socket, void *buf, int flags, int 
   
   do
   {
+    if (type == ZMQ_REQ)
+      zmq_send(socket, buf, 1, flags);
+    
     int expected_size = zmq_recv(socket, buf, BUFLEN, flags);
     transfer_check(expected_size, "receive", buf, f->file);
     size = (size_t) expected_size;

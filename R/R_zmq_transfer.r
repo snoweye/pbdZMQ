@@ -6,9 +6,11 @@
 #' @details
 #' If no socket is passed, then by default \code{zmq.sendfile()} binds a
 #' \code{ZMQ_PUSH} socket, and \code{zmq.recvfile()} connects to this with a
-#' \code{ZMQ_PULL} socket. On the other hand, a PUSH/PULL or REQ/REP socket
-#' combination may be passed. In that case, the socket should already be
-#' connected to the desired endpoint.
+#' \code{ZMQ_PULL} socket. On the other hand, a PUSH/PULL, REQ/REP, or REP/REQ
+#' socket pairing may be passed. In that case, the socket should already be
+#' connected to the desired endpoint. Be careful not to pass the wrong socket
+#' combination (e.g., do not do REQ/REQ), as this can put the processes in an
+#' un-recoverable state.
 #' 
 #' @param port 
 #' A valid tcp port.
@@ -103,23 +105,23 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
   type = attr(socket, "type")
   if (is.null(type))
     stop("unable to determine socket type")
-  else if (type != .pbd_env$ZMQ.ST$PUSH && type != .pbd_env$ZMQ.ST$REQ)
-    stop("socket type must be one of PUSH or REQ (matching PULL and REP respectively in zmq.recvfile())")
+  else if (type != .pbd_env$ZMQ.ST$PUSH && type != .pbd_env$ZMQ.ST$REQ && type != .pbd_env$ZMQ.ST$REP)
+    stop("socket type must be one of PUSH, REQ, or REP (matching PULL, REP, and REQ respectively in zmq.recvfile())")
   
   fi <- file.info(filename)
   if (!is.na(fi$isdir) && !fi$isdir)
-  {
     filesize <- as.double(fi$size)
-    send.socket(socket, filesize)
-    
-    if (type == .pbd_env$ZMQ.ST$REQ)
-      receive.socket(socket)
+  else
+    stop(paste("File does not exist:", filename)) 
+  
+  if (type == .pbd_env$ZMQ.ST$REP)
+    receive.socket(socket)
+  send.socket(socket, filesize)
+  if (type == .pbd_env$ZMQ.ST$REQ)
+    receive.socket(socket)
     
     ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose),
       filesize, as.integer(flags), as.integer(forcebin), type, PACKAGE="pbdZMQ")
-  }
-  else
-    stop(paste("File does not exist:", filename)) 
   
   if (socket.close || ctx.destroy)
     zmq.close(socket)
@@ -165,9 +167,11 @@ zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
   type = attr(socket, "type")
   if (is.null(type))
     stop("unable to determine socket type")
-  else if (type != .pbd_env$ZMQ.ST$PULL && type != .pbd_env$ZMQ.ST$REP)
-    stop("socket type must be one of PULL or REP (matching PUSH and REQ respectively in zmq.sendfile())")
+  else if (type != .pbd_env$ZMQ.ST$PULL && type != .pbd_env$ZMQ.ST$REP && type != .pbd_env$ZMQ.ST$REQ)
+    stop("socket type must be one of PULL, REP, or REQ (matching PUSH, REQ, and REP respectively in zmq.sendfile())")
   
+  if (type == .pbd_env$ZMQ.ST$REQ)
+    send.socket(socket, NULL)
   filesize <- receive.socket(socket)
   if (type == .pbd_env$ZMQ.ST$REP)
     send.socket(socket, NULL)
