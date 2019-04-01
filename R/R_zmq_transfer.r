@@ -68,6 +68,7 @@
 NULL
 
 
+
 # -----------------------------------------------------------------------------
 # Send
 # -----------------------------------------------------------------------------
@@ -101,7 +102,7 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
   
   type = attr(socket, "type")
   if (is.null(type))
-    stop("unable to determine socket type; you may need to update pbdZMQ on the client and server")
+    stop("unable to determine socket type")
   else if (type != .pbd_env$ZMQ.ST$PUSH && type != .pbd_env$ZMQ.ST$REQ)
     stop("socket type must be one of PUSH or REQ (matching PULL and REP respectively in zmq.recvfile())")
   
@@ -127,7 +128,6 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
   
   invisible(ret)
 }
-
 
 
 
@@ -164,7 +164,7 @@ zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
   
   type = attr(socket, "type")
   if (is.null(type))
-    stop("unable to determine socket type; you may need to update pbdZMQ on the client and server")
+    stop("unable to determine socket type")
   else if (type != .pbd_env$ZMQ.ST$PULL && type != .pbd_env$ZMQ.ST$REP)
     stop("socket type must be one of PULL or REP (matching PUSH and REQ respectively in zmq.sendfile())")
   
