@@ -68,12 +68,14 @@
 NULL
 
 
+# -----------------------------------------------------------------------------
+# Send
+# -----------------------------------------------------------------------------
 
 #' @rdname b1_sendrecvfile
 #' @export
 zmq.sendfile <- function(port, filename, verbose=FALSE,
-                         flags = .pbd_env$ZMQ.SR$BLOCK,
-                         forcebin = FALSE, ctx = NULL, socket = NULL)
+  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL, socket = NULL)
 {
   if (is.null(socket))
   {
@@ -128,11 +130,15 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
 
 
 
+
+# -----------------------------------------------------------------------------
+# Receive
+# -----------------------------------------------------------------------------
+
 #' @rdname b1_sendrecvfile
 #' @export
 zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
-                         flags = .pbd_env$ZMQ.SR$BLOCK,
-                         forcebin = FALSE, ctx = NULL, socket = NULL)
+  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL, socket = NULL)
 {
   if (is.null(socket))
   {

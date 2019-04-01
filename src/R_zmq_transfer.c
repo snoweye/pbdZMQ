@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 // 200 KiB
-#define BUFLEN 2// 204800
+#define BUFLEN 204800
 
 #define PROGRESS_BARLEN 30
 #define PROGRESS_SCALE 1024
@@ -15,6 +15,7 @@ typedef struct file_t
   double filesize;
   int verbose;
 } file_t;
+
 
 
 static inline int progress_init(const int verbose, double total)
@@ -76,7 +77,7 @@ static inline void transfer_check(int info, char *kind, void *buf, FILE *infile)
 // Send
 // ----------------------------------------------------------------------------
 
-static inline void send_file(file_t *f, void *C_socket, void *buf, int C_flags)
+static inline void send_file(file_t *f, void *socket, void *buf, int flags, int type)
 {
   uint64_t total_size = 0;
   size_t size;
@@ -89,11 +90,18 @@ static inline void send_file(file_t *f, void *C_socket, void *buf, int C_flags)
     total_size += size;
     
     if (size < BUFLEN && !feof(f->file))
+    {
+      free(buf);
+      fclose(f->file);
       error("Error reading from file: %s", f->filename);
+    }
     
-    int info = zmq_send(C_socket, buf, size, C_flags);
+    int info = zmq_send(socket, buf, size, flags);
     transfer_check(info, "send", buf, f->file);
     progress_update(f->verbose, (double) total_size, f->filesize, ind);
+    
+    if (type == ZMQ_REQ)
+      zmq_recv(socket, buf, 1, flags);
     
   } while (size == BUFLEN);
 }
@@ -127,13 +135,7 @@ SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose,
   f.filesize = REAL(filesize)[0];
   f.verbose = INTEGER(verbose)[0];
   
-  if (type == ZMQ_PUSH)
-    send_file(&f, C_socket, buf, C_flags);
-  else if (type == ZMQ_REQ)
-  {
-    send_file(&f, C_socket, buf, C_flags | ZMQ_SNDMORE);
-    zmq_recv(C_socket, buf, 1, C_flags);
-  }
+  send_file(&f, C_socket, buf, C_flags, type);
   
   free(buf);
   fclose(infile);
@@ -153,7 +155,7 @@ SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose,
 // Receive
 // ----------------------------------------------------------------------------
 
-static inline void recv_file(file_t *f, void *C_socket, void *buf, int C_flags)
+static inline void recv_file(file_t *f, void *socket, void *buf, int flags, int type)
 {
   uint64_t total_size = 0;
   size_t size;
@@ -162,7 +164,7 @@ static inline void recv_file(file_t *f, void *C_socket, void *buf, int C_flags)
   
   do
   {
-    int expected_size = zmq_recv(C_socket, buf, BUFLEN, C_flags | ZMQ_SNDMORE);
+    int expected_size = zmq_recv(socket, buf, BUFLEN, flags);
     transfer_check(expected_size, "receive", buf, f->file);
     size = (size_t) expected_size;
     
@@ -179,6 +181,9 @@ static inline void recv_file(file_t *f, void *C_socket, void *buf, int C_flags)
       fclose(f->file);
       error("Could not write to file: %s", f->filename);
     }
+    
+    if (type == ZMQ_REP)
+      zmq_send(socket, buf, 1, flags);
     
     progress_update(f->verbose, (double) total_size, f->filesize, ind);
     
@@ -205,7 +210,7 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose,
   if (outfile == NULL)
   {
     free(buf);
-    error("Could not open file: %s", CHARPT(R_filename, 0));
+    error("Could not open file: %s", filename);
   }
   
   file_t f;
@@ -214,9 +219,7 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose,
   f.filesize = REAL(filesize_)[0];
   f.verbose = INTEGER(verbose)[0];
   
-  recv_file(&f, C_socket, buf, C_flags);
-  if (type == ZMQ_REP)
-    zmq_send(C_socket, buf, 1, C_flags);
+  recv_file(&f, C_socket, buf, C_flags, type);
   
   free(buf);
   fclose(outfile);
