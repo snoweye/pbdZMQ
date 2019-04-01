@@ -1,3 +1,6 @@
+2019-04-01: Ver 0.3-4
+  * Support REQ/REP sockets in sendfile/recvfile functions.
+
 2019-02-18: Ver 0.3-4
   * Add "R/R_zmq_transfers.r" for transferfing files and directories.
   * Add importFrom utils for zip and unzip.
