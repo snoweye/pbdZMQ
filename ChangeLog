@@ -1,3 +1,6 @@
+2019-04-26: Ver 0.3-4
+  * Revmoe "^M" from "src/zmqsrc/src/condition_variable.hpp".
+
 2019-02-18: Ver 0.3-4
   * Add "R/R_zmq_transfers.r" for transferfing files and directories.
   * Add importFrom utils for zip and unzip.
