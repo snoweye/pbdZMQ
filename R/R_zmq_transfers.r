@@ -56,13 +56,14 @@
 #' 
 #' ### Receiver
 #' library(pbdZMQ, quietly = TRUE)
-#' zmq.recvdir(55555, "localhost", outfile = "./backup_2019.zip")
+#' zmq.recvdir(55555, "localhost", outfile = "./backup_2019.zip",
+#'             verbose = TRUE)
 #' ### or unzip to exdir
-#' # zmq.recvdir(55555, "localhost", exdir = "./backup_2019")
+#' # zmq.recvdir(55555, "localhost", exdir = "./backup_2019", verbose = TRUE)
 #' 
 #' ### Sender
 #' library(pbdZMQ, quietly = TRUE)
-#' zmq.senddir(55555, c("./pbdZMQ/R", "./pbdZMQ/src"))
+#' zmq.senddir(55555, c("./pbdZMQ/R", "./pbdZMQ/src"), verbose = TRUE)
 #' }
 #' 
 #' @keywords programming
@@ -81,21 +82,33 @@ zmq.senddir <- function(port, infiles, verbose = FALSE,
                         flags = .pbd_env$ZMQ.SR$BLOCK,
                         ctx = NULL, socket = NULL)
 {
-  if (is.null(ctx))
-  {
-    ctx <- zmq.ctx.new()
-    ctx.destroy <- TRUE
-  }
-  else
-    ctx.destroy <- FALSE
-
   if (is.null(socket))
   {
+    if (is.null(ctx))
+    { 
+      ctx <- zmq.ctx.new()
+      ctx.destroy <- TRUE
+    }
+    else
+      ctx.destroy <- FALSE
+
     socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PUSH)
     socket.close <- TRUE
+    
+    endpoint <- address("*", port)
+    zmq.bind(socket, endpoint)
   }
   else
+  {
+    ctx.destroy <- FALSE
     socket.close <- FALSE
+  }
+
+  type = attr(socket, "type")
+  if (is.null(type))
+    stop("unable to determine socket type")
+  else if (type != .pbd_env$ZMQ.ST$PUSH && type != .pbd_env$ZMQ.ST$REQ && type != .pbd_env$ZMQ.ST$REP)
+    stop("socket type must be one of PUSH, REQ, or REP (matching PULL, REP, and REQ respectively in zmq.recvfile())")
 
   if (!verbose)
     extras <- "-q"
@@ -123,21 +136,33 @@ zmq.recvdir <- function(port, endpoint, outfile = NULL, exdir = NULL,
                         verbose = FALSE, flags = .pbd_env$ZMQ.SR$BLOCK,
                         ctx = NULL, socket = NULL)
 {
-  if (is.null(ctx))
-  {
-    ctx <- zmq.ctx.new()
-    ctx.destroy <- TRUE
-  }
-  else
-    ctx.destroy <- FALSE
-
   if (is.null(socket))
   {
+    if (is.null(ctx))
+    {
+      ctx <- zmq.ctx.new()
+      ctx.destroy <- TRUE
+    }
+    else
+      ctx.destroy <- FALSE
+
     socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PULL)
     socket.close <- TRUE
+
+    endpoint <- address(endpoint, port)
+    zmq.connect(socket, endpoint)
   }
   else
+  {
+    ctx.destroy <- FALSE
     socket.close <- FALSE
+  }
+
+  type = attr(socket, "type")
+  if (is.null(type))
+    stop("unable to determine socket type")
+  else if (type != .pbd_env$ZMQ.ST$PULL && type != .pbd_env$ZMQ.ST$REP && type != .pbd_env$ZMQ.ST$REQ)
+    stop("socket type must be one of PULL, REP, or REQ (matching PUSH, REQ, and REP respectively in zmq.sendfile())")
 
   if (is.null(outfile))
     outfile <- tempfile()

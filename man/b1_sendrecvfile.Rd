@@ -50,8 +50,13 @@ High level functions calling \code{zmq_send()} and \code{zmq_recv()}
 to transfer a file in 200 KiB chunks.
 }
 \details{
-\code{zmq.sendfile()} binds a \code{ZMQ_PUSH} socket, and 
-\code{zmq.recvfile()} connects to this with a \code{ZMQ_PULL} socket.
+If no socket is passed, then by default \code{zmq.sendfile()} binds a
+\code{ZMQ_PUSH} socket, and \code{zmq.recvfile()} connects to this with a
+\code{ZMQ_PULL} socket. On the other hand, a PUSH/PULL, REQ/REP, or REP/REQ
+socket pairing may be passed. In that case, the socket should already be
+connected to the desired endpoint. Be careful not to pass the wrong socket
+combination (e.g., do not do REQ/REQ), as this can put the processes in an
+un-recoverable state.
 }
 \examples{
 \dontrun{
