@@ -42,7 +42,7 @@ script:
   - mkdir ../Rlib
   - export R_LIBS_USER=`pwd`/../Rlib
   # - cp -R /Library/Frameworks/R.framework/Versions/3.5/Resources/library/pbdZMQ ../Rlib
-  - export R_LIBS_SYS=`Rscript -e "cat(.libPaths()[1])"`
+  - export R_LIBS_SYS=`Rscript -e "cat(.libPaths())"`
   - echo ${R_LIBS_SYS}
   - cp -R ${R_LIBS_SYS}/pbdZMQ ../Rlib
   - otool -L ../Rlib/pbdZMQ/libs/pbdZMQ.so
