@@ -41,8 +41,10 @@ SEXP R_zmq_recv_char(SEXP R_socket, SEXP R_len, SEXP R_flags);
 SEXP R_zmq_recv_raw(SEXP R_socket, SEXP R_len, SEXP R_flags);
 
 /* File transfer */
-SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags, SEXP R_forcebin);
-SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose_, SEXP filesize_, SEXP R_flags, SEXP R_forcebin);
+SEXP R_zmq_send_file(SEXP R_socket, SEXP R_filename, SEXP verbose,
+	SEXP filesize_, SEXP R_flags, SEXP R_forcebin, SEXP type_);
+SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose,
+	SEXP filesize, SEXP R_flags, SEXP R_forcebin, SEXP type_);
 
 /* Utility related. */
 SEXP AsInt(int x);

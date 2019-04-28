@@ -4,8 +4,13 @@
 #' to transfer a file in 200 KiB chunks.
 #' 
 #' @details
-#' \code{zmq.sendfile()} binds a \code{ZMQ_PUSH} socket, and 
-#' \code{zmq.recvfile()} connects to this with a \code{ZMQ_PULL} socket.
+#' If no socket is passed, then by default \code{zmq.sendfile()} binds a
+#' \code{ZMQ_PUSH} socket, and \code{zmq.recvfile()} connects to this with a
+#' \code{ZMQ_PULL} socket. On the other hand, a PUSH/PULL, REQ/REP, or REP/REQ
+#' socket pairing may be passed. In that case, the socket should already be
+#' connected to the desired endpoint. Be careful not to pass the wrong socket
+#' combination (e.g., do not do REQ/REQ), as this can put the processes in an
+#' un-recoverable state.
 #' 
 #' @param port 
 #' A valid tcp port.
@@ -66,47 +71,60 @@ NULL
 
 
 
+# -----------------------------------------------------------------------------
+# Send
+# -----------------------------------------------------------------------------
+
 #' @rdname b1_sendrecvfile
 #' @export
 zmq.sendfile <- function(port, filename, verbose=FALSE,
-                         flags = .pbd_env$ZMQ.SR$BLOCK,
-                         forcebin = FALSE, ctx = NULL, socket = NULL)
+  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL, socket = NULL)
 {
-  if (is.null(ctx))
-  {
-    ctx <- zmq.ctx.new()
-    ctx.destroy <- TRUE
-  }
-  else
-    ctx.destroy <- FALSE
-
   if (is.null(socket))
   {
+    if (is.null(ctx))
+    {
+      ctx <- zmq.ctx.new()
+      ctx.destroy <- TRUE
+    }
+    else
+      ctx.destroy <- FALSE
+    
     socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PUSH)
     socket.close <- TRUE
+    
+    endpoint <- address("*", port)
+    zmq.bind(socket, endpoint)
   }
   else
+  {
+    ctx.destroy <- FALSE
     socket.close <- FALSE
-
-  endpoint <- address("*", port)
-  zmq.bind(socket, endpoint)
+  }
+  
+  type = attr(socket, "type")
+  if (is.null(type))
+    stop("unable to determine socket type")
+  else if (type != .pbd_env$ZMQ.ST$PUSH && type != .pbd_env$ZMQ.ST$REQ && type != .pbd_env$ZMQ.ST$REP)
+    stop("socket type must be one of PUSH, REQ, or REP (matching PULL, REP, and REQ respectively in zmq.recvfile())")
   
   fi <- file.info(filename)
   if (!is.na(fi$isdir) && !fi$isdir)
-  {
     filesize <- as.double(fi$size)
-    send.socket(socket, filesize)
-  
-    ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose),
-                 filesize, as.integer(flags), as.integer(forcebin),
-                 PACKAGE = "pbdZMQ")
-  }
   else
     stop(paste("File does not exist:", filename)) 
   
+  if (type == .pbd_env$ZMQ.ST$REP)
+    receive.socket(socket)
+  send.socket(socket, filesize)
+  if (type == .pbd_env$ZMQ.ST$REQ)
+    receive.socket(socket)
+    
+    ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose),
+      filesize, as.integer(flags), as.integer(forcebin), type, PACKAGE="pbdZMQ")
+  
   if (socket.close || ctx.destroy)
     zmq.close(socket)
-
   if (ctx.destroy)
     zmq.ctx.destroy(ctx)
   
@@ -115,40 +133,54 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
 
 
 
+# -----------------------------------------------------------------------------
+# Receive
+# -----------------------------------------------------------------------------
+
 #' @rdname b1_sendrecvfile
 #' @export
 zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
-                         flags = .pbd_env$ZMQ.SR$BLOCK,
-                         forcebin = FALSE, ctx = NULL, socket = NULL)
+  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL, socket = NULL)
 {
-  if (is.null(ctx))
-  {
-    ctx <- zmq.ctx.new()
-    ctx.destroy <- TRUE
-  }
-  else
-    ctx.destroy <- FALSE
-
   if (is.null(socket))
   {
+    if (is.null(ctx))
+    {
+      ctx <- zmq.ctx.new()
+      ctx.destroy <- TRUE
+    }
+    else
+      ctx.destroy <- FALSE
+    
     socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PULL)
     socket.close <- TRUE
+    
+    endpoint <- address(endpoint, port)
+    zmq.connect(socket, endpoint)
   }
   else
+  {
+    ctx.destroy <- FALSE
     socket.close <- FALSE
-
-  endpoint <- address(endpoint, port)
-  zmq.connect(socket, endpoint)
+  }
   
+  type = attr(socket, "type")
+  if (is.null(type))
+    stop("unable to determine socket type")
+  else if (type != .pbd_env$ZMQ.ST$PULL && type != .pbd_env$ZMQ.ST$REP && type != .pbd_env$ZMQ.ST$REQ)
+    stop("socket type must be one of PULL, REP, or REQ (matching PUSH, REQ, and REP respectively in zmq.sendfile())")
+  
+  if (type == .pbd_env$ZMQ.ST$REQ)
+    send.socket(socket, NULL)
   filesize <- receive.socket(socket)
+  if (type == .pbd_env$ZMQ.ST$REP)
+    send.socket(socket, NULL)
   
   ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(verbose),
-               filesize, as.integer(flags), as.integer(forcebin),
-               PACKAGE = "pbdZMQ")
+    filesize, as.integer(flags), as.integer(forcebin), type, PACKAGE="pbdZMQ")
 
   if (socket.close || ctx.destroy)
     zmq.close(socket)
-
   if (ctx.destroy)
     zmq.ctx.destroy(ctx)
   

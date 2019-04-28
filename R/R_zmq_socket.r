@@ -115,6 +115,7 @@ NULL
 #' @export
 zmq.socket <- function(ctx, type = .pbd_env$ZMQ.ST$REP){
   ret <- .Call("R_zmq_socket", ctx, type, PACKAGE = "pbdZMQ")
+  attr(ret, "type") = type
   ### Users are responsible to take care free and gc.
   # reg.finalizer(ret, zmq.close, TRUE)
   ret
