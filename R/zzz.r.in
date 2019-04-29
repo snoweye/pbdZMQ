@@ -17,6 +17,7 @@
   if(Sys.info()[['sysname']] == "Darwin"){
     files <- list.files(path = dn, pattern = "libzmq.*\\.dylib")
 
+.rem <- function(){
     ### Make sure the rpath is correct, otherwise overwrite it.
     if(ext.libs == "$(R_ZMQ)"){
       ### By default, there is only one libzmq.*.dylib.
@@ -49,6 +50,7 @@
                    paste(files, collapse = ", "), sep = " "))
       }
     }
+} ### End of .rem()
   } else{
     files <- c("libzmq.so", "libzmq.so.dSYM")
   }
