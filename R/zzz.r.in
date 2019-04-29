@@ -21,7 +21,7 @@
     if(ext.libs == "$(R_ZMQ)"){
       ### By default, there is only one libzmq.*.dylib.
       if(length(files) == 1){
-.rem() <- function(){
+.rem <- function(){
         cmd.int <- system("which install_name_tool", intern = TRUE)
         cmd.ot <- system("which otool", intern = TRUE)
 
