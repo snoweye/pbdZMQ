@@ -26,7 +26,6 @@ if(length(files) > 0){
     } else{
       fn.libzmq.dylib <- file.path(dest, lib.osx)
 
-.rem <- function(){
       if(file.exists(fn.pbdZMQ.so) && file.exists(fn.libzmq.dylib)){
         ### For pbdZMQ.so
         rpath <- system(paste(cmd.ot, " -L ", fn.pbdZMQ.so, sep = ""),
@@ -70,7 +69,6 @@ if(length(files) > 0){
         cat("\nAfter install_name_tool (install.libs.R & libzmq.dylib):\n")
         print(rpath)
       }
-} ### End of .rem()
     }
   }
 }
