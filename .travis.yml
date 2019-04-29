@@ -41,7 +41,7 @@ script:
   # - R CMD INSTALL .
   - export PKG_ZMQ=`pwd`
   - cd ..
-  - R CMD build --no-resave --no-manual --no-vignettes ${PKG_ZMQ}
+  - R CMD build --no-resave-data --no-manual --no-build-vignettes ${PKG_ZMQ}
   - cd ${PKG_ZMQ}
   - R CMD INSTALL ../pbdZMQ_*.tar.gz
   - mkdir ../Rlib
