@@ -1,3 +1,6 @@
+2019-05-03: Ver 0.3-4
+  * Add "StagedInstall: FALSE" to DESCRIPTION to turn off WARNING in macos.
+
 2019-04-26: Ver 0.3-4
   * Revmoe "^M" from "src/zmqsrc/src/condition_variable.hpp".
 
