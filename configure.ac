@@ -28,7 +28,6 @@ AC_ARG_ENABLE(internal-zmq,
 dnl Check system ZMQ with pkg-config
 GET_PKG_CONFIG="no"
 GET_SYSTEM_ZMQ="no"
-m4_include([src/pkg.m4])
 PKG_PROG_PKG_CONFIG([0.25])
 if test "X$PKG_CONFIG" != "X" ; then
   GET_PKG_CONFIG="yes"
@@ -133,3 +132,4 @@ AC_SUBST(ZMQ_POLLER)
 AC_OUTPUT(src/Makevars)
 AC_OUTPUT(src/build_zmq)
 AC_OUTPUT(R/zzz.r)
+AC_OUTPUT(src/install.libs.R)
