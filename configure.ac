@@ -28,12 +28,20 @@ AC_ARG_ENABLE(internal-zmq,
 dnl Check system ZMQ with pkg-config
 GET_PKG_CONFIG="no"
 GET_SYSTEM_ZMQ="no"
+GET_SYSTEM_ZMQ_416="no"
 m4_include([src/pkg.m4])
 PKG_PROG_PKG_CONFIG([0.25])
 if test "X$PKG_CONFIG" != "X" ; then
   GET_PKG_CONFIG="yes"
   PKG_CHECK_MODULES([zmq], [libzmq >= 4.0.4],
                     GET_SYSTEM_ZMQ="yes", GET_SYSTEM_ZMQ="no")
+
+  dnl Block zeromq-4.1.6 due to an error in Fedora 28 "libzmq.so.5.0.2".
+  PKG_CHECK_MODULES([zmq_4_1_6], [libzmq = 4.1.6],
+                    GET_SYSTEM_ZMQ_416="yes", GET_SYSTEM_ZMQ_416="no")
+  if test "X$GET_SYSTEM_ZMQ_416" = "Xyes" ; then
+    GET_SYSTEM_ZMQ="no"
+  fi
 fi
 
 dnl Find system ZMQ header and share library.
@@ -99,6 +107,7 @@ echo "****************** Results of pbdZMQ package configure *****************"
 echo " "
 echo ">> GET_PKG_CONFIG = ${GET_PKG_CONFIG}"
 echo ">> GET_SYSTEM_ZMQ = ${GET_SYSTEM_ZMQ}"
+echo ">> GET_SYSTEM_ZMQ_416 = ${GET_SYSTEM_ZMQ_416}"
 echo ">> PKG_CONFIG = ${PKG_CONFIG}"
 echo ">> SYSTEM_ZMQ_INCLUDEDIR = ${SYSTEM_ZMQ_INCLUDEDIR}"
 echo ">> SYSTEM_ZMQ_LIBDIR = ${SYSTEM_ZMQ_LIBDIR}"

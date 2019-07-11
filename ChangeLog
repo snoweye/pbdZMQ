@@ -1,3 +1,7 @@
+2019:07-10: Ver 0.3-4
+  * Roll back to (R >= 3.5.0) from (R >= 3.6.0).
+  * Block ZeroMQ library version "4.1.6".
+
 2019-05-03: Ver 0.3-4
   * Add "StagedInstall: FALSE" to DESCRIPTION to turn off WARNING in macos.
 

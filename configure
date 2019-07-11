@@ -597,6 +597,8 @@ GET_PKG_CONFIG
 ZMQ_POLLER
 ZMQ_LDFLAGS
 ZMQ_INCLUDE
+zmq_4_1_6_LIBS
+zmq_4_1_6_CFLAGS
 zmq_LIBS
 zmq_CFLAGS
 PKG_CONFIG
@@ -619,6 +621,7 @@ infodir
 docdir
 oldincludedir
 includedir
+runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -649,6 +652,8 @@ target_alias
 PKG_CONFIG
 zmq_CFLAGS
 zmq_LIBS
+zmq_4_1_6_CFLAGS
+zmq_4_1_6_LIBS
 ZMQ_INCLUDE
 ZMQ_LDFLAGS
 ZMQ_POLLER'
@@ -690,6 +695,7 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
+runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE}'
@@ -942,6 +948,15 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
+  -runstatedir | --runstatedir | --runstatedi | --runstated \
+  | --runstate | --runstat | --runsta | --runst | --runs \
+  | --run | --ru | --r)
+    ac_prev=runstatedir ;;
+  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
+  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
+  | --run=* | --ru=* | --r=*)
+    runstatedir=$ac_optarg ;;
+
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1079,7 +1094,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir
+		libdir localedir mandir runstatedir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1232,6 +1247,7 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
+  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -1265,6 +1281,10 @@ Some influential environment variables:
   PKG_CONFIG  path to pkg-config utility
   zmq_CFLAGS  C compiler flags for zmq, overriding pkg-config
   zmq_LIBS    linker flags for zmq, overriding pkg-config
+  zmq_4_1_6_CFLAGS
+              C compiler flags for zmq_4_1_6, overriding pkg-config
+  zmq_4_1_6_LIBS
+              linker flags for zmq_4_1_6, overriding pkg-config
   ZMQ_INCLUDE
   ZMQ_LDFLAGS
   ZMQ_POLLER  select
@@ -1728,6 +1748,7 @@ fi
 
 GET_PKG_CONFIG="no"
 GET_SYSTEM_ZMQ="no"
+GET_SYSTEM_ZMQ_416="no"
 # pkg.m4 - Macros to locate and utilise pkg-config.            -*- Autoconf -*-
 #
 # Copyright © 2004 Scott James Remnant <scott@netsplit.com>.
@@ -1976,6 +1997,79 @@ else
 $as_echo "yes" >&6; }
 	GET_SYSTEM_ZMQ="yes"
 fi
+
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for zmq_4_1_6" >&5
+$as_echo_n "checking for zmq_4_1_6... " >&6; }
+
+if test -n "$PKG_CONFIG"; then
+    if test -n "$zmq_4_1_6_CFLAGS"; then
+        pkg_cv_zmq_4_1_6_CFLAGS="$zmq_4_1_6_CFLAGS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libzmq = 4.1.6\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libzmq = 4.1.6") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_zmq_4_1_6_CFLAGS=`$PKG_CONFIG --cflags "libzmq = 4.1.6" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+if test -n "$PKG_CONFIG"; then
+    if test -n "$zmq_4_1_6_LIBS"; then
+        pkg_cv_zmq_4_1_6_LIBS="$zmq_4_1_6_LIBS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libzmq = 4.1.6\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libzmq = 4.1.6") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_zmq_4_1_6_LIBS=`$PKG_CONFIG --libs "libzmq = 4.1.6" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        zmq_4_1_6_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libzmq = 4.1.6"`
+        else
+	        zmq_4_1_6_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libzmq = 4.1.6"`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$zmq_4_1_6_PKG_ERRORS" >&5
+
+	GET_SYSTEM_ZMQ_416="no"
+elif test $pkg_failed = untried; then
+	GET_SYSTEM_ZMQ_416="no"
+else
+	zmq_4_1_6_CFLAGS=$pkg_cv_zmq_4_1_6_CFLAGS
+	zmq_4_1_6_LIBS=$pkg_cv_zmq_4_1_6_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	GET_SYSTEM_ZMQ_416="yes"
+fi
+  if test "X$GET_SYSTEM_ZMQ_416" = "Xyes" ; then
+    GET_SYSTEM_ZMQ="no"
+  fi
 fi
 
 SYSTEM_ZMQ_INCLUDEDIR=""
@@ -2044,6 +2138,7 @@ echo "****************** Results of pbdZMQ package configure *****************"
 echo " "
 echo ">> GET_PKG_CONFIG = ${GET_PKG_CONFIG}"
 echo ">> GET_SYSTEM_ZMQ = ${GET_SYSTEM_ZMQ}"
+echo ">> GET_SYSTEM_ZMQ_416 = ${GET_SYSTEM_ZMQ_416}"
 echo ">> PKG_CONFIG = ${PKG_CONFIG}"
 echo ">> SYSTEM_ZMQ_INCLUDEDIR = ${SYSTEM_ZMQ_INCLUDEDIR}"
 echo ">> SYSTEM_ZMQ_LIBDIR = ${SYSTEM_ZMQ_LIBDIR}"
