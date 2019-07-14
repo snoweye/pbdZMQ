@@ -39,6 +39,7 @@ script:
   # - ./travis-tool.sh run_tests
   # - ./travis-tool.sh install_github snoweye/pbdZMQ
   # - R CMD INSTALL .
+  - Rscript -e "sessionInfo()"
   - export PKG_ZMQ=`pwd`
   - cd ..
   - R CMD build --no-resave-data --no-manual --no-build-vignettes ${PKG_ZMQ}
