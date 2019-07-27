@@ -54,10 +54,10 @@ script:
   - cp -R ${R_LIBS_SYS}/pbdZMQ ../Rlib
   - otool -L ../Rlib/pbdZMQ/libs/pbdZMQ.so
   - otool -L ../Rlib/pbdZMQ/libs/libzmq.5.dylib
-  - Rscript -e "cat(pbdZMQ::get.zmq.cppflags())"
+  - Rscript -e "pbdZMQ::get.zmq.cppflags()"
   - otool -L ../Rlib/pbdZMQ/libs/libzmq.5.dylib
-  - Rscript -e "cat(pbdZMQ::get.zmq.ldflags())"
-  - Rscript -e "cat(pbdZMQ::get.pbdZMQ.ldflags())"
+  - Rscript -e "pbdZMQ::get.zmq.ldflags()"
+  - Rscript -e "pbdZMQ::get.pbdZMQ.ldflags()"
   - Rscript -e "pbdZMQ::test.load.zmq()"
   - mv ../Rlib ../Rlib.new
   - export R_LIBS_USER=`pwd`/../Rlib.new
