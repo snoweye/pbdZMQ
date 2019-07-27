@@ -33,11 +33,15 @@ if(length(files) > 0){
         cat("\nBefore install_name_tool (install.libs.R & pbdZMQ.so):\n")
         print(rpath)
 
-        cmd <- paste(cmd.int, " -id ", fn.pbdZMQ.so, " ",
-                     fn.pbdZMQ.so, sep = "")
-        cat("\nIn install_name_tool (install.libs.R & pbdZMQ.so & id):\n")
-        print(cmd) 
-        system(cmd)
+        ### R-3.6.* does not like absolute path and staged installation has
+        ### it's own way (see "tools/R/install.R") to overwrite the id.
+        if(getRversion() < "3.6.0"){
+          cmd <- paste(cmd.int, " -id ", fn.pbdZMQ.so, " ",
+                       fn.pbdZMQ.so, sep = "")
+          cat("\nIn install_name_tool (install.libs.R & pbdZMQ.so & id):\n")
+          print(cmd) 
+          system(cmd)
+        }
 
         str.lib <- paste("zmq/lib/", lib.osx, sep = "")
         org <- file.path(getwd(), str.lib)
@@ -58,8 +62,14 @@ if(length(files) > 0){
         cat("\nBefore install_name_tool (install.libs.R & libzmq.dylib):\n")
         print(rpath)
 
-        cmd <- paste(cmd.int, " -id ", fn.libzmq.dylib, " ",
-                     fn.libzmq.dylib, sep = "")
+        ### R-3.6.* does not like absolute path because of staged installation.
+        if(getRversion() < "3.6.0"){
+          cmd <- paste(cmd.int, " -id ", fn.libzmq.dylib, " ",
+                       fn.libzmq.dylib, sep = "")
+        } else{
+          cmd <- paste(cmd.int, " -id ", lib.osx, " ",
+                       fn.libzmq.dylib, sep = "")
+        }
         cat("\nIn install_name_tool (install.libs.R & libzmq.dylib & id):\n")
         print(cmd) 
         system(cmd)
