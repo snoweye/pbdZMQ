@@ -16,6 +16,10 @@
 #' if serialize the \code{rmsg}
 #' @param unserialize 
 #' if unserialize the received R message
+#' @param serialversion
+#' NULL or numeric; the workspace format version to use when serializing.
+#' NULL specifies the current default version. The only other supported
+#' values are 2 and 3
 #' 
 #' @return \code{zmq.msg.send()} returns 0 if successful, otherwise returns -1
 #' and sets \code{errno} to \code{EFAULT}.
@@ -85,9 +89,9 @@ zmq.msg.close <- function(msg.t){
 #' @rdname a2_message
 #' @export
 zmq.msg.send <- function(rmsg, socket, flags = .pbd_env$ZMQ.SR$BLOCK,
-                         serialize = TRUE){
+                         serialize = TRUE, serialversion = NULL){
   if(serialize){
-    rmsg <- serialize(rmsg, NULL)
+    rmsg <- serialize(rmsg, NULL, version = serialversion)
   }
   ret <- .Call("R_zmq_msg_send", rmsg, socket, as.integer(flags), PACKAGE = "pbdZMQ")
   invisible(ret)

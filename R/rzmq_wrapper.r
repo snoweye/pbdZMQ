@@ -29,6 +29,10 @@
 #' @param serialize,unserialize
 #' Logical; determines if serialize/unserialize should be called
 #' on the sent/received data.
+#' @param serialversion
+#' NULL or numeric; the workspace format version to use when serializing.
+#' NULL specifies the current default version. The only other supported
+#' values are 2 and 3.
 #' @param dont.wait
 #' Logical; determines if reception is blocking.
 #' @param context
@@ -56,13 +60,15 @@ NULL
 
 #' @rdname xx_rzmq_wrapper
 #' @export
-send.socket <- function(socket, data, send.more = FALSE, serialize = TRUE){
+send.socket <- function(socket, data, send.more = FALSE, serialize = TRUE,
+                        serialversion = NULL){
   if(send.more){
     flags <- .pbd_env$ZMQ.SR$SNDMORE
   } else{
     flags <- .pbd_env$ZMQ.SR$BLOCK
   }
-  zmq.msg.send(data, socket, flags = flags, serialize = serialize)
+  zmq.msg.send(data, socket, flags = flags, serialize = serialize,
+               serialversion = serialversion)
 }
 
 
