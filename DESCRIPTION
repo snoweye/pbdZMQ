@@ -16,7 +16,8 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         person("Philipp", "A.", role = "ctb", comment = "Fedora"),
         person("Elliott Sales", "de Andrade", role = "ctb", comment = "sprintf"),
         person("Spencer", "Aiello", role = "ctb", comment = "windows conf"),
-        person("Paul", "Andrey", role = "ctb", comment = "Mac OSX conf")
+        person("Paul", "Andrey", role = "ctb", comment = "Mac OSX conf"),
+        person("Panagiotis", "Cheilaris", role = "ctb", comment = "add serialize version")
 	)
 Depends: R (>= 3.5.0)
 LazyLoad: yes
