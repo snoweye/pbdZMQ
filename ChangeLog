@@ -1,3 +1,8 @@
+2020-09-07: Ver 0.3-4
+  * Fix warning 'char* strncpy(char*, const char*, size_t)' output truncated
+    due to "-Werror=stringop-truncation" by gcc 8.3.1
+  * Fix a "buf[1]" in zmq.send() call in "R_zmq_sendrecv.r"
+
 2019-07-27: Ver 0.3-4
   * For osx, change "install.libs.R" and "zzz.r.in" for staged installation.
 

@@ -91,9 +91,9 @@ NULL
 #' @export
 zmq.send <- function(socket, buf, flags = .pbd_env$ZMQ.SR$BLOCK){
   if(is.character(buf)){
-    ret <- zmq.send.char(socket, buf[1], nchar(buf[1]), flags = flags)
+    ret <- zmq.send.char(socket, buf, nchar(buf), flags = flags)
   } else if(is.raw(buf)){
-    ret <- zmq.send.raw(socket, buf[1], length(buf[1]), flags = flags)
+    ret <- zmq.send.raw(socket, buf, length(buf), flags = flags)
   } else{
     stop("buf type should be char or raw.")
   }

@@ -557,7 +557,15 @@ int zmq::msg_t::set_group (const char * group_, size_t length_)
         return -1;
     }
 
+/*WCC: gcc8.3.1 may warn about this below.
+       'char* strncpy(char*, const char*, size_t)' output truncated before
+       terminating nul copying as many bytes from a string as its length
+       "-Werror=stringop-truncation"
+       which is the same problem as in "phyclust/src/paml_baseml/tools.c"
+       caught by gcc10.
     strncpy (u.base.group, group_, length_);
+*/
+    memcpy (u.base.group, group_, length_);
     u.base.group[length_] = '\0';
 
     return 0;
