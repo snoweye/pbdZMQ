@@ -78,7 +78,7 @@ zmq.connect(subscriber, "tcp://localhost:5556")
 zmq.setsockopt(subscriber, .pbd_env$ZMQ.SO$SUBSCRIBE, "20993")
 
 ### Process messages from both sockets.
-cat("Press Ctrl+C or Esc to stop mspoller.\\n")
+cat("Press Ctrl+C or Esc to stop mspoller.\n")
 i.rec <- 0
 i.sub <- 0
 while(TRUE){
@@ -90,7 +90,7 @@ while(TRUE){
   if(bitwAnd(zmq.poll.get.revents(1), .pbd_env$ZMQ.PO$POLLIN)){
     ret <- zmq.recv(receiver)
     if(ret$len != -1){
-      cat("task ventilator:", ret$buf, "at", i.rec, "\\n")
+      cat("task ventilator:", ret$buf, "at", i.rec, "\n")
       i.rec <- i.rec + 1
     }
   }
@@ -99,7 +99,7 @@ while(TRUE){
   if(bitwAnd(zmq.poll.get.revents(2), .pbd_env$ZMQ.PO$POLLIN)){
     ret <- zmq.recv(subscriber)
     if(ret$len != -1){
-      cat("weather update:", ret$buf, "at", i.sub, "\\n")
+      cat("weather update:", ret$buf, "at", i.sub, "\n")
       i.sub <- i.sub + 1
     }
   }
@@ -123,7 +123,7 @@ zmq.ctx.destroy(context)
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \seealso{
 \code{\link{zmq.recv}()}, \code{\link{zmq.send}()}.

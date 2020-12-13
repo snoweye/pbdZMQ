@@ -5,8 +5,12 @@
 \alias{overwrite.shpkg.rpath}
 \title{Overwrite rpath of linked shared library in osx}
 \usage{
-overwrite.shpkg.rpath(mylib = NULL, mypkg = "JuniperKernel",
-  linkingto = "pbdZMQ", shlib = "zmq")
+overwrite.shpkg.rpath(
+  mylib = NULL,
+  mypkg = "JuniperKernel",
+  linkingto = "pbdZMQ",
+  shlib = "zmq"
+)
 }
 \arguments{
 \item{mylib}{the path where \code{mypkg} was installed (default \code{NULL} that will
@@ -42,6 +46,6 @@ overwrite.shpkg.rpath(mypkg = "JuniperKernel",
 \author{
 Wei-Chen Chen \email{wccsnow@gmail.com}.
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \keyword{compile}

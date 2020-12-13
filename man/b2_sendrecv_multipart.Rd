@@ -58,7 +58,7 @@ context <- zmq.ctx.new()
 requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 
-parts <- lapply(1:5, function(i.req){ paste("Sending Hello ", i.req, "\\n") })
+parts <- lapply(1:5, function(i.req){ paste("Sending Hello ", i.req, "\n") })
 zmq.send.multipart(requester, parts)
 ret <- zmq.recv.multipart(requester, unserialize = TRUE)
 print(ret)
@@ -72,7 +72,7 @@ zmq.ctx.destroy(context)
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \seealso{
 \code{\link{zmq.msg.send}()}, \code{\link{zmq.msg.recv}()}.

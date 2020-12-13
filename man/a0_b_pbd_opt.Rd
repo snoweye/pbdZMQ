@@ -51,7 +51,7 @@ pbd_opt(bytext = "ZMQ.SR$BLOCK <- 0L")
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \seealso{
 \code{\link{.pbd_env}}.

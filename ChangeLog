@@ -1,3 +1,6 @@
+2020-12-13: Ver 0.3-4
+  * Change "http://" to "https://".
+
 2020-09-07: Ver 0.3-4
   * Fix warning 'char* strncpy(char*, const char*, size_t)' output truncated
     due to "-Werror=stringop-truncation" by gcc 8.3.1

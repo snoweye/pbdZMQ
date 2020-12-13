@@ -4,8 +4,14 @@
 \alias{ls}
 \title{A wrapper function for base::ls}
 \usage{
-ls(name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
-  pattern, sorted = TRUE)
+ls(
+  name,
+  pos = -1L,
+  envir = as.environment(pos),
+  all.names = FALSE,
+  pattern,
+  sorted = TRUE
+)
 }
 \arguments{
 \item{name, pos, envir, all.names, pattern, sorted}{as the original \code{base::ls()}.}

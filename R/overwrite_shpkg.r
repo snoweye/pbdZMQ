@@ -23,7 +23,7 @@
 #' 
 #' @author Wei-Chen Chen \email{wccsnow@@gmail.com}.
 #' 
-#' Programming with Big Data in R Website: \url{http://r-pbd.org/}
+#' Programming with Big Data in R Website: \url{https://pbdr.org/}
 #' 
 #' @examples
 #' \dontrun{

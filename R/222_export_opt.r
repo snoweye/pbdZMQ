@@ -24,7 +24,7 @@
 #' @references ZeroMQ/4.1.0 API Reference:
 #' \url{http://api.zeromq.org/4-1:_start}
 #' 
-#' Programming with Big Data in R Website: \url{http://r-pbd.org/}
+#' Programming with Big Data in R Website: \url{https://pbdr.org/}
 #' 
 #' @examples
 #' \dontrun{
@@ -47,7 +47,6 @@
 
 ### Get ZMQ options.
 #' @export
-#' @rdname a0_c_options
 .zmqopt_get <- function(main, sub = NULL, envir = .GlobalEnv){
   if(!is.null(sub)){
     envir$.pbd_env[[main]][[sub]]

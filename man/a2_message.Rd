@@ -6,8 +6,13 @@
 \alias{zmq.msg.recv}
 \title{Message Functions}
 \usage{
-zmq.msg.send(rmsg, socket, flags = .pbd_env$ZMQ.SR$BLOCK,
-  serialize = TRUE)
+zmq.msg.send(
+  rmsg,
+  socket,
+  flags = .pbd_env$ZMQ.SR$BLOCK,
+  serialize = TRUE,
+  serialversion = NULL
+)
 
 zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK, unserialize = TRUE)
 }
@@ -19,6 +24,10 @@ zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK, unserialize = TRUE)
 \item{flags}{a flag for method of send and receive}
 
 \item{serialize}{if serialize the \code{rmsg}}
+
+\item{serialversion}{NULL or numeric; the workspace format version to use when serializing.
+NULL specifies the current default version. The only other supported
+values are 2 and 3}
 
 \item{unserialize}{if unserialize the received R message}
 }
@@ -74,7 +83,7 @@ zmq.ctx.destroy(context)
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \seealso{
 \code{\link{zmq.send}()}, \code{\link{zmq.recv}()}.

@@ -6,12 +6,25 @@
 \alias{zmq.recvdir}
 \title{Transfer Functions for Files or Directories}
 \usage{
-zmq.senddir(port, infiles, verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK, ctx = NULL, socket = NULL)
+zmq.senddir(
+  port,
+  infiles,
+  verbose = FALSE,
+  flags = .pbd_env$ZMQ.SR$BLOCK,
+  ctx = NULL,
+  socket = NULL
+)
 
-zmq.recvdir(port, endpoint, outfile = NULL, exdir = NULL,
-  verbose = FALSE, flags = .pbd_env$ZMQ.SR$BLOCK, ctx = NULL,
-  socket = NULL)
+zmq.recvdir(
+  port,
+  endpoint,
+  outfile = NULL,
+  exdir = NULL,
+  verbose = FALSE,
+  flags = .pbd_env$ZMQ.SR$BLOCK,
+  ctx = NULL,
+  socket = NULL
+)
 }
 \arguments{
 \item{port}{A valid tcp port to be passed to \code{zmq.sendfile()} and
@@ -78,7 +91,7 @@ zmq.senddir(55555, c("./pbdZMQ/R", "./pbdZMQ/src"), verbose = TRUE)
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \seealso{
 \code{\link{zmq.sendfile}()}, \code{\link{zmq.recvfile}()}.

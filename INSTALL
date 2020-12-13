@@ -90,7 +90,7 @@
    "https://www.opencsw.org/get-it/packages/" and can be installed
    by "pkgutil". For example, "gcc4core" can be installed by
 
-     > pkgadd -d http://get.opencsw.org/now
+     > pkgadd -d https://get.opencsw.org/now
      > /opt/csw/bin/pkgutil -U
      > /opt/csw/bin/pkgutil -y -i gcc4core 
      > /usr/sbin/pkgchk -L CSWgcc4core # list files
@@ -104,7 +104,7 @@ export PATH
    I also have a symbolic link "make" to "gmake" to avoid configuration
    problems. If not, use "ln -s" to make one.
 
-2. Download 'zeromq-4.0.7.tar.gz' from "http://download.zeromq.org".
+2. Download 'zeromq-4.0.7.tar.gz' from "https://download.zeromq.org".
 
 3. Untar, configure, make, and make install as next:
 

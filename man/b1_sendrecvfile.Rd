@@ -6,13 +6,26 @@
 \alias{zmq.recvfile}
 \title{File Transfer Functions}
 \usage{
-zmq.sendfile(port, filename, verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL,
-  socket = NULL)
+zmq.sendfile(
+  port,
+  filename,
+  verbose = FALSE,
+  flags = .pbd_env$ZMQ.SR$BLOCK,
+  forcebin = FALSE,
+  ctx = NULL,
+  socket = NULL
+)
 
-zmq.recvfile(port, endpoint, filename, verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL,
-  socket = NULL)
+zmq.recvfile(
+  port,
+  endpoint,
+  filename,
+  verbose = FALSE,
+  flags = .pbd_env$ZMQ.SR$BLOCK,
+  forcebin = FALSE,
+  ctx = NULL,
+  socket = NULL
+)
 }
 \arguments{
 \item{port}{A valid tcp port.}
@@ -76,7 +89,7 @@ zmq.sendfile(55555, "/tmp/infile", verbose=TRUE)
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \seealso{
 \code{\link{zmq.msg.send}()}, \code{\link{zmq.msg.recv}()}.

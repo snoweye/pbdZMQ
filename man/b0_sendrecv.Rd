@@ -8,8 +8,12 @@
 \usage{
 zmq.send(socket, buf, flags = .pbd_env$ZMQ.SR$BLOCK)
 
-zmq.recv(socket, len = 1024L, flags = .pbd_env$ZMQ.SR$BLOCK,
-  buf.type = c("char", "raw"))
+zmq.recv(
+  socket,
+  len = 1024L,
+  flags = .pbd_env$ZMQ.SR$BLOCK,
+  buf.type = c("char", "raw")
+)
 }
 \arguments{
 \item{socket}{a ZMQ socket}
@@ -62,7 +66,7 @@ responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
 zmq.bind(responder, "tcp://*:5555")
 for(i.res in 1:5){
   buf <- zmq.recv(responder, 10L)
-  cat(buf$buf, "\\n")
+  cat(buf$buf, "\n")
   Sys.sleep(0.5)
   zmq.send(responder, "World")
 }
@@ -77,10 +81,10 @@ context <- zmq.ctx.new()
 requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 for(i.req in 1:5){
-  cat("Sending Hello ", i.req, "\\n")
+  cat("Sending Hello ", i.req, "\n")
   zmq.send(requester, "Hello")
   buf <- zmq.recv(requester, 10L)
-  cat("Received World ", i.req, "\\n")
+  cat("Received World ", i.req, "\n")
 }
 zmq.close(requester)
 zmq.ctx.destroy(context)
@@ -91,7 +95,7 @@ zmq.ctx.destroy(context)
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \seealso{
 \code{\link{zmq.msg.send}()}, \code{\link{zmq.msg.recv}()}.

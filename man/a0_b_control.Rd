@@ -5,7 +5,9 @@
 \alias{ZMQ Control Environment}
 \alias{.pbd_env}
 \title{Sets of controls in pbdZMQ.}
-\format{Objects contain several parameters for communicators and methods.}
+\format{
+Objects contain several parameters for communicators and methods.
+}
 \description{
 These sets of controls are used to provide default values in this package.
 }
@@ -42,7 +44,7 @@ are defined as \tabular{lcl}{ Elements \tab Value \tab Usage \cr
 ZeroMQ/4.1.0 API Reference:
 \url{http://api.zeromq.org/4-1:_start}
 
-Programming with Big Data in R Website: \url{http://r-pbd.org/}
+Programming with Big Data in R Website: \url{https://pbdr.org/}
 }
 \seealso{
 \code{\link{.zmqopt_init}()}.

@@ -35,7 +35,7 @@ Install an Oracle VM VirtualBox which is available at
 \url{https://www.virtualbox.org/}.
 \item
 Download a Solaris template from \\
-\url{http://www.oracle.com/technetwork/server-storage/vm/solaris-098101.html}.
+\url{https://www.oracle.com/technetwork/server-storage/vm/solaris-098101.html}.
 \item
 Import the template to the VM.
 \item
@@ -61,7 +61,7 @@ required which all available from the website. For example, the gcc is in
 "gcc4core" package which can be installed with a few \code{pkgutil}
 commands by
 \begin{Code}
-> pkgadd -d http://get.opencsw.org/now
+> pkgadd -d https://get.opencsw.org/now
 > /opt/csw/bin/pkgutil -U
 > /opt/csw/bin/pkgutil -y -i gcc4core 
 > /usr/sbin/pkgchk -L CSWgcc4core # list files
@@ -87,7 +87,7 @@ Further, the \proglang{R} may not be easy to compile in Solaris 10, but the
 binary package of \proglang{R} is also available in OpenCSW. It can be
 installed by
 \begin{Code}
-> pkgadd -d http://get.opencsw.org/now
+> pkgadd -d https://get.opencsw.org/now
 > /opt/csw/bin/pkgutil -U
 > /opt/csw/bin/pkgutil -y -i r_base 
 > /usr/sbin/pkgchk -L CSWr-base # list files
@@ -106,7 +106,7 @@ The OpenCSW also has binary packages for ZeroMQ, named \pkg{libzmq1} and
 The package is a little bit out of date (version 2.2.0 built in 2012).
 This old version is not comparable with current \pkg{pbdZMQ}.
 The solution is to compile and install an external ZeroMQ 4.0.7
-which available from \url{http://download.zeromq.org}.
+which available from \url{https://download.zeromq.org}.
 This version 4.0.7 is the latest stable ZeroMQ version.
 The newer versions of ZeroMQ, such as >= 4.1.0, may have more bugs
 for Solaris 10.
