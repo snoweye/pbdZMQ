@@ -21,7 +21,6 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
 	)
 Depends: R (>= 3.5.0)
 LazyLoad: yes
-LazyData: yes
 Copyright: See files AUTHORS, COPYING, COPYING.LESSER, and MAINTAINERS
         in 'pbdZMQ/inst/zmq_copyright/' for the 'ZeroMQ' source files
         in 'src/zmq_src/' which are under GPL-3.
