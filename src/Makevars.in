@@ -20,6 +20,7 @@ BUILD_LIBS = $(SHLIB) @EXT_LIBS@
 all: $(BUILD_LIBS)
 	@echo "GET_PKG_CONFIG = @GET_PKG_CONFIG@" >> Makeconf
 	@echo "GET_SYSTEM_ZMQ = @GET_SYSTEM_ZMQ@" >> Makeconf
+	@echo "GET_SYSTEM_ZMQ_430 = @GET_SYSTEM_ZMQ_430@" >> Makeconf
 	@echo "PKG_CONFIG = @PKG_CONFIG@" >> Makeconf
 	@echo "SYSTEM_ZMQ_INCLUDEDIR = @SYSTEM_ZMQ_INCLUDEDIR@" >> Makeconf
 	@echo "SYSTEM_ZMQ_LIBDIR = @SYSTEM_ZMQ_LIBDIR@" >> Makeconf

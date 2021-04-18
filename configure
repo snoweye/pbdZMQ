@@ -592,6 +592,7 @@ INTERNAL_ZMQ_INCLUDEDIR
 ENABLE_INTERNAL_ZMQ
 SYSTEM_ZMQ_LIBDIR
 SYSTEM_ZMQ_INCLUDEDIR
+GET_SYSTEM_ZMQ_430
 GET_SYSTEM_ZMQ
 GET_PKG_CONFIG
 ZMQ_POLLER
@@ -1749,6 +1750,7 @@ fi
 GET_PKG_CONFIG="no"
 GET_SYSTEM_ZMQ="no"
 GET_SYSTEM_ZMQ_416="no"
+GET_SYSTEM_ZMQ_430="no"
 # pkg.m4 - Macros to locate and utilise pkg-config.            -*- Autoconf -*-
 #
 # Copyright © 2004 Scott James Remnant <scott@netsplit.com>.
@@ -2070,6 +2072,76 @@ fi
   if test "X$GET_SYSTEM_ZMQ_416" = "Xyes" ; then
     GET_SYSTEM_ZMQ="no"
   fi
+
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for zmq" >&5
+$as_echo_n "checking for zmq... " >&6; }
+
+if test -n "$PKG_CONFIG"; then
+    if test -n "$zmq_CFLAGS"; then
+        pkg_cv_zmq_CFLAGS="$zmq_CFLAGS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libzmq >= 4.3.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libzmq >= 4.3.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_zmq_CFLAGS=`$PKG_CONFIG --cflags "libzmq >= 4.3.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+if test -n "$PKG_CONFIG"; then
+    if test -n "$zmq_LIBS"; then
+        pkg_cv_zmq_LIBS="$zmq_LIBS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libzmq >= 4.3.0\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "libzmq >= 4.3.0") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_zmq_LIBS=`$PKG_CONFIG --libs "libzmq >= 4.3.0" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        zmq_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "libzmq >= 4.3.0"`
+        else
+	        zmq_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "libzmq >= 4.3.0"`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$zmq_PKG_ERRORS" >&5
+
+	GET_SYSTEM_ZMQ_430="no"
+elif test $pkg_failed = untried; then
+	GET_SYSTEM_ZMQ_430="no"
+else
+	zmq_CFLAGS=$pkg_cv_zmq_CFLAGS
+	zmq_LIBS=$pkg_cv_zmq_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+	GET_SYSTEM_ZMQ_430="yes"
+fi
 fi
 
 SYSTEM_ZMQ_INCLUDEDIR=""
@@ -2102,6 +2174,7 @@ ZMQ_LDFLAGS=""
 if test "X$EXTERNAL_ZMQ_INCLUDE" != "X" -a "X$EXTERNAL_ZMQ_LDFLAGS" != "X" ; then
   ZMQ_INCLUDE="${EXTERNAL_ZMQ_INCLUDE}"
   ZMQ_LDFLAGS="${EXTERNAL_ZMQ_LDFLAGS}"
+  ENABLE_INTERNAL_ZMQ="no"
 else
   if test "X$ENABLE_INTERNAL_ZMQ" = "Xyes" ; then
     ZMQ_INCLUDE="-I${INTERNAL_ZMQ_INCLUDEDIR}"
@@ -2138,7 +2211,7 @@ echo "****************** Results of pbdZMQ package configure *****************"
 echo " "
 echo ">> GET_PKG_CONFIG = ${GET_PKG_CONFIG}"
 echo ">> GET_SYSTEM_ZMQ = ${GET_SYSTEM_ZMQ}"
-echo ">> GET_SYSTEM_ZMQ_416 = ${GET_SYSTEM_ZMQ_416}"
+echo ">> GET_SYSTEM_ZMQ_430 = ${GET_SYSTEM_ZMQ_430}"
 echo ">> PKG_CONFIG = ${PKG_CONFIG}"
 echo ">> SYSTEM_ZMQ_INCLUDEDIR = ${SYSTEM_ZMQ_INCLUDEDIR}"
 echo ">> SYSTEM_ZMQ_LIBDIR = ${SYSTEM_ZMQ_LIBDIR}"
@@ -2154,6 +2227,7 @@ echo ">> ZMQ_POLLER = ${ZMQ_POLLER}"
 echo " "
 echo "************************************************************************"
 echo " "
+
 
 
 

@@ -85,7 +85,8 @@ get.zmq.ldflags <- function(arch = '', package = "pbdZMQ"){
     } else{
       arg <- "ZMQ_LDFLAGS"
       id <- grep(paste("^", arg, " = ", sep = ""), ret)
-      zmq.ldflags <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
+      zmq.ldflags <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1",
+                          ret[id[1]])
     }
   }
 
@@ -136,7 +137,37 @@ get.zmq.cppflags <- function(arch = '', package = "pbdZMQ"){
     } else{
       arg <- "ZMQ_INCLUDE"
       id <- grep(paste("^", arg, " = ", sep = ""), ret)
-      zmq.cppflags <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1", ret[id[1]])
+      zmq.cppflags <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1",
+                           ret[id[1]])
+    }
+
+    ### Check if libzmq>=4.3.0 is used.
+    arg <- "GET_SYSTEM_ZMQ_430"
+    id <- grep(paste("^", arg, " = ", sep = ""), ret)
+    sys.zmq.430 <- gsub(paste("^", arg, " = (.*)", sep = ""), "\\1",
+                        ret[id[1]])
+
+    chk.zmq.h.430 <- "no"
+    if(sys.zmq.430 == "no"){
+      ### Check with zmq.h (assuming one only "-I..." in zmq.cppflags)
+      path.zmq.h <- gsub("^-I(.*)$", "\\1", zmq.cppflags)
+      path.zmq.h <- gsub("^\\\"(.*)\\\"$", "\\1", path.zmq.h)
+      f.zmq.h <- paste(path.zmq.h, "/zmq.h", sep = "")
+      ret.zmq.h <- scan(f.zmq.h, what = character(), sep = "\n", quiet = TRUE)
+
+      id.major <- grep("^#define ZMQ_VERSION_MAJOR ", ret.zmq.h)
+      id.minor <- grep("^#define ZMQ_VERSION_MINOR ", ret.zmq.h)
+      v.major <- gsub("^#define ZMQ_VERSION_MAJOR (.*)$", "\\1",
+                      ret.zmq.h[id.major])
+      v.minor <- gsub("^#define ZMQ_VERSION_MINOR (.*)$", "\\1",
+                      ret.zmq.h[id.minor])
+      if(v.major >=4 && v.minor >= 3){
+        chk.zmq.h.430 <- "yes"
+      }
+    }
+
+    if((sys.zmq.430 == "yes" && en.int.zmq != "yes") || chk.zmq.h.430 == "yes"){
+      zmq.cppflags <- paste(zmq.cppflags, " -DENABLE_DRAFTS=ON", sep = "")
     }
   }
 

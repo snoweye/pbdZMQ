@@ -29,6 +29,7 @@ dnl Check system ZMQ with pkg-config
 GET_PKG_CONFIG="no"
 GET_SYSTEM_ZMQ="no"
 GET_SYSTEM_ZMQ_416="no"
+GET_SYSTEM_ZMQ_430="no"
 m4_include([src/pkg.m4])
 PKG_PROG_PKG_CONFIG([0.25])
 if test "X$PKG_CONFIG" != "X" ; then
@@ -42,6 +43,9 @@ if test "X$PKG_CONFIG" != "X" ; then
   if test "X$GET_SYSTEM_ZMQ_416" = "Xyes" ; then
     GET_SYSTEM_ZMQ="no"
   fi
+
+  PKG_CHECK_MODULES([zmq], [libzmq >= 4.3.0],
+                    GET_SYSTEM_ZMQ_430="yes", GET_SYSTEM_ZMQ_430="no")
 fi
 
 dnl Find system ZMQ header and share library.
@@ -71,6 +75,7 @@ ZMQ_LDFLAGS=""
 if test "X$EXTERNAL_ZMQ_INCLUDE" != "X" -a "X$EXTERNAL_ZMQ_LDFLAGS" != "X" ; then
   ZMQ_INCLUDE="${EXTERNAL_ZMQ_INCLUDE}"
   ZMQ_LDFLAGS="${EXTERNAL_ZMQ_LDFLAGS}"
+  ENABLE_INTERNAL_ZMQ="no"
 else
   if test "X$ENABLE_INTERNAL_ZMQ" = "Xyes" ; then
     ZMQ_INCLUDE="-I${INTERNAL_ZMQ_INCLUDEDIR}"
@@ -107,7 +112,7 @@ echo "****************** Results of pbdZMQ package configure *****************"
 echo " "
 echo ">> GET_PKG_CONFIG = ${GET_PKG_CONFIG}"
 echo ">> GET_SYSTEM_ZMQ = ${GET_SYSTEM_ZMQ}"
-echo ">> GET_SYSTEM_ZMQ_416 = ${GET_SYSTEM_ZMQ_416}"
+echo ">> GET_SYSTEM_ZMQ_430 = ${GET_SYSTEM_ZMQ_430}"
 echo ">> PKG_CONFIG = ${PKG_CONFIG}"
 echo ">> SYSTEM_ZMQ_INCLUDEDIR = ${SYSTEM_ZMQ_INCLUDEDIR}"
 echo ">> SYSTEM_ZMQ_LIBDIR = ${SYSTEM_ZMQ_LIBDIR}"
@@ -127,6 +132,7 @@ echo " "
 dnl Start to substitute templates
 AC_SUBST(GET_PKG_CONFIG)
 AC_SUBST(GET_SYSTEM_ZMQ)
+AC_SUBST(GET_SYSTEM_ZMQ_430)
 AC_SUBST(PKG_CONFIG)
 AC_SUBST(SYSTEM_ZMQ_INCLUDEDIR)
 AC_SUBST(SYSTEM_ZMQ_LIBDIR)
