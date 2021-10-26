@@ -1,5 +1,6 @@
 dnl Process this file with autoconf to produce a configure script
-AC_INIT(DESCRIPTION)
+AC_INIT
+AC_CONFIG_SRCDIR([DESCRIPTION])
 
 dnl Check chmod
 chmod +x ./src/zmqsrc/autogen.sh
@@ -22,7 +23,7 @@ R_SCMD="${R_HOME}/bin/Rscript -e"
 
 dnl Check if force enable internal ZeroMQ.
 AC_ARG_ENABLE(internal-zmq,
-  AC_HELP_STRING([--enable-internal-zmq], [Enable internal ZeroMQ, default no.]),
+  AS_HELP_STRING([--enable-internal-zmq],[Enable internal ZeroMQ, default no.]),
   [ENABLE_INTERNAL_ZMQ="yes"], [ENABLE_INTERNAL_ZMQ="no"])
 
 dnl Check system ZMQ with pkg-config
@@ -145,6 +146,9 @@ AC_SUBST(ZMQ_INCLUDE)
 AC_SUBST(ZMQ_LDFLAGS)
 AC_SUBST(EXT_LIBS)
 AC_SUBST(ZMQ_POLLER)
-AC_OUTPUT(src/Makevars)
-AC_OUTPUT(src/build_zmq)
-AC_OUTPUT(R/zzz.r)
+AC_CONFIG_FILES([src/Makevars])
+AC_OUTPUT
+AC_CONFIG_FILES([src/build_zmq])
+AC_OUTPUT
+AC_CONFIG_FILES([R/zzz.r])
+AC_OUTPUT

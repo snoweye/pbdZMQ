@@ -1,3 +1,6 @@
+2021-10-25: Ver 0.3-6
+  * Change configure.ac for autoconf-2.71
+
 2021-04-17: Ver 0.3-6
   * Check and add "libzmq>=4.3.0" and "-DENABLE_DRAFTS=ON" options.
   * Add more ZMQ socket options up to libzmq 4.3.4 (may not stable).
