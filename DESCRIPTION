@@ -1,6 +1,6 @@
 Package: pbdZMQ
-Version: 0.3-6
-Date: 2021-10-25
+Version: 0.3-7
+Date: 2022-02-04
 Title: Programming with Big Data -- Interface to 'ZeroMQ'
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -17,13 +17,14 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         person("Elliott Sales", "de Andrade", role = "ctb", comment = "sprintf"),
         person("Spencer", "Aiello", role = "ctb", comment = "windows conf"),
         person("Paul", "Andrey", role = "ctb", comment = "Mac OSX conf"),
-        person("Panagiotis", "Cheilaris", role = "ctb", comment = "add serialize version")
+        person("Panagiotis", "Cheilaris", role = "ctb", comment = "add serialize version"),
+        person("ZeroMQ authors", role = c("aut", "cph"), comment = "source files in 'src/zmq_src/'")
 	)
 Depends: R (>= 3.5.0)
 LazyLoad: yes
-Copyright: See files AUTHORS, COPYING, COPYING.LESSER, and MAINTAINERS
-        in 'pbdZMQ/inst/zmq_copyright/' for the 'ZeroMQ' source files
-        in 'src/zmq_src/' which are under GPL-3.
+Copyright: See files AUTHORS, COPYING, and COPYING.LESSER in
+        'inst/zmq_copyright/' for the 'ZeroMQ' source files in
+        'src/zmq_src/' which are under GPL-3.
 Description: 'ZeroMQ' is a well-known library for high-performance
     asynchronous messaging in scalable, distributed applications.  This
     package provides high level R wrapper functions to easily utilize

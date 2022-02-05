@@ -2,3 +2,4 @@ redocument
 
 ^\.travis\.yml$
 ^appveyor.yml$
+^\.gitlab-ci.yml$

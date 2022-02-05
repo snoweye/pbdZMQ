@@ -1,0 +1,11 @@
+image: r-base
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - R CMD build --no-build-vignettes --no-manual --no-resave-data .
+    - R CMD check pbdZMQ*.tar.gz --as-cran --no-build-vignettes --no-manual --no-resave-data
+
