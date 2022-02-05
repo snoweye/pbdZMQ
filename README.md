@@ -71,7 +71,7 @@ pbdZMQ requires
 * libzmq >= 4.0.4.
 * Solaris 10 requiring external libzmq 4.0.7 and OpenCSW.
 
-A distribution of libzmq is shipped with pbdZMQ for convenience.  However, if you already have a system installation of ZeroMQ, then it is simple to use that with pbdZMQ.  Full details on installation and troubleshooting can be found in the package vignette, located at `inst/doc/pbdMPI-guide.pdf` of the pbdZMQ source tree.
+A distribution of libzmq is shipped with pbdZMQ for convenience.  However, if you already have a system installation of ZeroMQ, then it is simple to use that with pbdZMQ.  Full details on installation and troubleshooting can be found in the package vignette, located at `inst/doc/pbdZMQ-guide.pdf` of the pbdZMQ source tree.
 
 The package can be installed from the CRAN via the usual `install.packages("pbdZMQ")`, or via the devtools package:
 
@@ -97,14 +97,14 @@ When mentioning the pbdZMQ, please cite:
 
 ## Authors
 
-pbdMPI is authored and maintained by:
+pbdZMQ is authored and maintained by:
 
 * Wei-Chen Chen
 * Drew Schmidt
 * Christian Heckendorf
 * George Ostrouchov
 
-With additional contributions from:
+With additional contributions and authors from:
 
 * Whit Armstrong (some functions are modified from rzmq for backwards compatibility)
 * Brian Ripley (C code of shellexec)
