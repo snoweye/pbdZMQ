@@ -5,7 +5,7 @@
 static void msg_Finalizer(SEXP R_msg_t){
 }*/ /* End of msg_Finalizer(). */
 
-SEXP R_zmq_msg_init(){
+SEXP R_zmq_msg_init(void){
 	SEXP R_msg_t = R_NilValue;
 	int C_ret = -1, C_errno;
 	zmq_msg_t C_msg_t;

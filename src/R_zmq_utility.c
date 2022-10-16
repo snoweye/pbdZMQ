@@ -23,7 +23,7 @@ SEXP R_zmq_strerror(SEXP R_errno){
 
 
 /* Version. */
-SEXP R_zmq_version(){
+SEXP R_zmq_version(void){
 	int major, minor, patch;
 	/* (10 bytes for int + 1 byte for sign) * 3 + 2 dots + 1 NUL */
 	char ver[36];

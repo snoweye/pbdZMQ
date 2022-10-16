@@ -36,7 +36,7 @@ SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout, SEXP R_check_eintr){
 	return(R_x);
 } /* End of R_zmq_poll(). */
 
-SEXP R_zmq_poll_free(){
+SEXP R_zmq_poll_free(void){
 	if(PBD_POLLITEM_LENGTH != 0){
 		free(PBD_POLLITEM);
 		PBD_POLLITEM = NULL;
@@ -45,7 +45,7 @@ SEXP R_zmq_poll_free(){
 	return(R_NilValue);
 } /* End of R_zmq_poll_free(). */
 
-SEXP R_zmq_poll_length(){
+SEXP R_zmq_poll_length(void){
 	return(AsInt(PBD_POLLITEM_LENGTH));
 } /* End of R_zmq_poll_length(). */
 

@@ -10,7 +10,7 @@
 
 /* Context related. */
 // static void ctx_Finalizer(SEXP R_context);
-SEXP R_zmq_ctx_new();
+SEXP R_zmq_ctx_new(void);
 SEXP R_zmq_ctx_destroy(SEXP R_context);
 
 /* Socket related. */
@@ -27,7 +27,7 @@ SEXP R_zmq_getsockopt(SEXP R_socket, SEXP R_option_name, SEXP R_option_value,
 
 /* Message related. */
 // static void msg_Finalizer(SEXP R_msg_t);
-SEXP R_zmq_msg_init();
+SEXP R_zmq_msg_init(void);
 SEXP R_zmq_msg_close(SEXP R_msg_t);
 SEXP R_zmq_msg_send(SEXP R_rmsg, SEXP R_socket, SEXP R_flags);
 SEXP R_zmq_msg_recv(SEXP R_socket, SEXP R_flags);
@@ -48,16 +48,16 @@ SEXP R_zmq_recv_file(SEXP R_socket, SEXP R_filename, SEXP verbose,
 
 /* Utility related. */
 SEXP AsInt(int x);
-SEXP R_zmq_strerror();
-SEXP R_zmq_version();
+SEXP R_zmq_strerror(SEXP R_errno);
+SEXP R_zmq_version(void);
 
 /* shellexec. */
 SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd);
 
 /* Poll related. */
 SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout, SEXP R_check_eintr);
-SEXP R_zmq_poll_free();
-SEXP R_zmq_poll_length();
+SEXP R_zmq_poll_free(void);
+SEXP R_zmq_poll_length(void);
 SEXP R_zmq_poll_get_revents(SEXP R_index);
 
 #endif

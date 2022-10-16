@@ -4,7 +4,7 @@
 /* Context related. */
 /* Use R level reg.finalizer to handle this and avoid seg. fault. */
 
-SEXP R_zmq_ctx_new(){
+SEXP R_zmq_ctx_new(void){
 	SEXP R_context = R_NilValue;
 	void *C_context = zmq_ctx_new();
 
