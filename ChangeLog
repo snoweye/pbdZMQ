@@ -1,5 +1,6 @@
 2022-10-16: Ver 0.3-8
   * Fix "strict-types" and "deprecated-non-prototype" warnings.
+  * Fix "if() conditions comparing class() to string".
 
 2022-02-04: Ver 0.3-7
   * Make a copy of './inst/zmq_copyright/*' to './src/zmqsrc'.

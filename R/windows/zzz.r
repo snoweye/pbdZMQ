@@ -5,7 +5,7 @@
   fn <- paste(dn, i.file, sep = "")
   ### Load "libzmq.dll".
   test <- try(dyn.load(fn, local = FALSE), silent = TRUE)
-  if(class(test) == "try-error"){
+  if(is(test, "try-error")){
     stop(paste("Could not load ", fn, sep = ""))
   }
 

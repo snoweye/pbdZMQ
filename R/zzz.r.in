@@ -59,7 +59,7 @@
     dn.file <- paste(dn, i.file, sep = "")
     if(file.exists(dn.file)){
       test <- try(dyn.load(dn.file, local = FALSE), silent = TRUE)
-      if(class(test) == "try-error"){
+      if(is(test, "try-error")){
         stop(paste("Could not load ", dn.file, ":",
                    paste(test, collapse = ", "), sep = " "))
       }
