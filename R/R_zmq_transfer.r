@@ -78,7 +78,7 @@ NULL
 #' @rdname b1_sendrecvfile
 #' @export
 zmq.sendfile <- function(port, filename, verbose=FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL, socket = NULL)
+  flags = ZMQ.SR()$BLOCK, forcebin = FALSE, ctx = NULL, socket = NULL)
 {
   if (is.null(socket))
   {
@@ -90,7 +90,7 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
     else
       ctx.destroy <- FALSE
     
-    socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PUSH)
+    socket <- zmq.socket(ctx, ZMQ.ST()$PUSH)
     socket.close <- TRUE
     
     endpoint <- address("*", port)
@@ -105,7 +105,7 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
   type = attr(socket, "type")
   if (is.null(type))
     stop("unable to determine socket type")
-  else if (type != .pbd_env$ZMQ.ST$PUSH && type != .pbd_env$ZMQ.ST$REQ && type != .pbd_env$ZMQ.ST$REP)
+  else if (type != ZMQ.ST()$PUSH && type != ZMQ.ST()$REQ && type != ZMQ.ST()$REP)
     stop("socket type must be one of PUSH, REQ, or REP (matching PULL, REP, and REQ respectively in zmq.recvfile())")
   
   fi <- file.info(filename)
@@ -114,10 +114,10 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
   else
     stop(paste("File does not exist:", filename)) 
   
-  if (type == .pbd_env$ZMQ.ST$REP)
+  if (type == ZMQ.ST()$REP)
     receive.socket(socket)
   send.socket(socket, filesize)
-  if (type == .pbd_env$ZMQ.ST$REQ)
+  if (type == ZMQ.ST()$REQ)
     receive.socket(socket)
     
     ret <- .Call("R_zmq_send_file", socket, filename, as.integer(verbose),
@@ -140,7 +140,7 @@ zmq.sendfile <- function(port, filename, verbose=FALSE,
 #' @rdname b1_sendrecvfile
 #' @export
 zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK, forcebin = FALSE, ctx = NULL, socket = NULL)
+  flags = ZMQ.SR()$BLOCK, forcebin = FALSE, ctx = NULL, socket = NULL)
 {
   if (is.null(socket))
   {
@@ -152,7 +152,7 @@ zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
     else
       ctx.destroy <- FALSE
     
-    socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PULL)
+    socket <- zmq.socket(ctx, ZMQ.ST()$PULL)
     socket.close <- TRUE
     
     endpoint <- address(endpoint, port)
@@ -167,13 +167,13 @@ zmq.recvfile <- function(port, endpoint, filename, verbose=FALSE,
   type = attr(socket, "type")
   if (is.null(type))
     stop("unable to determine socket type")
-  else if (type != .pbd_env$ZMQ.ST$PULL && type != .pbd_env$ZMQ.ST$REP && type != .pbd_env$ZMQ.ST$REQ)
+  else if (type != ZMQ.ST()$PULL && type != ZMQ.ST()$REP && type != ZMQ.ST()$REQ)
     stop("socket type must be one of PULL, REP, or REQ (matching PUSH, REQ, and REP respectively in zmq.sendfile())")
   
-  if (type == .pbd_env$ZMQ.ST$REQ)
+  if (type == ZMQ.ST()$REQ)
     send.socket(socket, NULL)
   filesize <- receive.socket(socket)
-  if (type == .pbd_env$ZMQ.ST$REP)
+  if (type == ZMQ.ST()$REP)
     send.socket(socket, NULL)
   
   ret <- .Call("R_zmq_recv_file", socket, filename, as.integer(verbose),

@@ -40,7 +40,7 @@ raw messages at once.
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+responder <- zmq.socket(context, ZMQ.ST()$REP)
 zmq.bind(responder, "tcp://*:5555")
 
 ret <- zmq.recv.multipart(responder, unserialize = TRUE)
@@ -55,7 +55,7 @@ zmq.ctx.destroy(context)
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+requester <- zmq.socket(context, ZMQ.ST()$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 
 parts <- lapply(1:5, function(i.req){ paste("Sending Hello ", i.req, "\n") })

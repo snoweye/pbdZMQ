@@ -34,7 +34,7 @@
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' context <- zmq.ctx.new()
-#' responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+#' responder <- zmq.socket(context, ZMQ.ST()$REP)
 #' zmq.bind(responder, "tcp://*:5555")
 #' 
 #' ret <- zmq.recv.multipart(responder, unserialize = TRUE)
@@ -49,7 +49,7 @@
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' context <- zmq.ctx.new()
-#' requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+#' requester <- zmq.socket(context, ZMQ.ST()$REQ)
 #' zmq.connect(requester, "tcp://localhost:5555")
 #' 
 #' parts <- lapply(1:5, function(i.req){ paste("Sending Hello ", i.req, "\n") })
@@ -73,10 +73,10 @@ NULL
 #' @export
 zmq.send.multipart <- function(socket, parts, serialize = TRUE){
   for(i.part in 1:(length(parts) - 1)){
-    zmq.msg.send(parts[[i.part]], socket, flags = .pbd_env$ZMQ.SR$SNDMORE,
+    zmq.msg.send(parts[[i.part]], socket, flags = ZMQ.SR()$SNDMORE,
                  serialize = serialize)
   }
-  zmq.msg.send(parts[[length(parts)]], socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+  zmq.msg.send(parts[[length(parts)]], socket, flags = ZMQ.SR()$BLOCK,
                serialize = serialize)
 
   invisible()
@@ -89,15 +89,15 @@ zmq.send.multipart <- function(socket, parts, serialize = TRUE){
 zmq.recv.multipart <- function(socket, unserialize = TRUE){
   ret <- list() 
   i.part <- 1
-  ret[[i.part]] <- zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+  ret[[i.part]] <- zmq.msg.recv(socket, flags = ZMQ.SR()$BLOCK,
                                 unserialize = unserialize)
-  opt.val <- zmq.getsockopt(socket, .pbd_env$ZMQ.SO$RCVMORE, 0L)
+  opt.val <- zmq.getsockopt(socket, ZMQ.SO()$RCVMORE, 0L)
 
   while(opt.val == 1){
     i.part <- i.part + 1
-    ret[[i.part]] <- zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+    ret[[i.part]] <- zmq.msg.recv(socket, flags = ZMQ.SR()$BLOCK,
                                   unserialize = unserialize)
-    opt.val <- zmq.getsockopt(socket, .pbd_env$ZMQ.SO$RCVMORE, 0L)
+    opt.val <- zmq.getsockopt(socket, ZMQ.SO()$RCVMORE, 0L)
   }
 
   ret

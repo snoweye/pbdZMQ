@@ -6,12 +6,12 @@
 \alias{zmq.recv}
 \title{Send Receive Functions}
 \usage{
-zmq.send(socket, buf, flags = .pbd_env$ZMQ.SR$BLOCK)
+zmq.send(socket, buf, flags = ZMQ.SR()$BLOCK)
 
 zmq.recv(
   socket,
   len = 1024L,
-  flags = .pbd_env$ZMQ.SR$BLOCK,
+  flags = ZMQ.SR()$BLOCK,
   buf.type = c("char", "raw")
 )
 }
@@ -62,7 +62,7 @@ in R object format.
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+responder <- zmq.socket(context, ZMQ.ST()$REP)
 zmq.bind(responder, "tcp://*:5555")
 for(i.res in 1:5){
   buf <- zmq.recv(responder, 10L)
@@ -78,7 +78,7 @@ zmq.ctx.destroy(context)
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+requester <- zmq.socket(context, ZMQ.ST()$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 for(i.req in 1:5){
   cat("Sending Hello ", i.req, "\n")

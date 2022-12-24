@@ -87,7 +87,7 @@
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' context <- zmq.ctx.new()
-#' responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+#' responder <- zmq.socket(context, ZMQ.ST()$REP)
 #' zmq.bind(responder, "tcp://*:5555")
 #' zmq.close(responder)
 #' zmq.ctx.destroy(context)
@@ -97,7 +97,7 @@
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' context <- zmq.ctx.new()
-#' requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+#' requester <- zmq.socket(context, ZMQ.ST()$REQ)
 #' zmq.connect(requester, "tcp://localhost:5555")
 #' zmq.close(requester)
 #' zmq.ctx.destroy(context)
@@ -113,7 +113,7 @@ NULL
 
 #' @rdname a1_socket
 #' @export
-zmq.socket <- function(ctx, type = .pbd_env$ZMQ.ST$REP){
+zmq.socket <- function(ctx, type = ZMQ.ST()$REP){
   ret <- .Call("R_zmq_socket", ctx, type, PACKAGE = "pbdZMQ")
   attr(ret, "type") = type
   ### Users are responsible to take care free and gc.
@@ -134,7 +134,7 @@ zmq.close <- function(socket){
 
 #' @rdname a1_socket
 #' @export
-zmq.bind <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
+zmq.bind <- function(socket, endpoint, MC = ZMQ.MC()){
   ret <- .Call("R_zmq_bind", socket, endpoint, PACKAGE = "pbdZMQ")
 
   if(ret == -1){
@@ -155,7 +155,7 @@ zmq.bind <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
 
 #' @rdname a1_socket
 #' @export
-zmq.connect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
+zmq.connect <- function(socket, endpoint, MC = ZMQ.MC()){
   ret <- .Call("R_zmq_connect", socket, endpoint, PACKAGE = "pbdZMQ")
 
   if(ret == -1){
@@ -176,7 +176,7 @@ zmq.connect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
 
 #' @rdname a1_socket
 #' @export
-zmq.disconnect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
+zmq.disconnect <- function(socket, endpoint, MC = ZMQ.MC()){
   ret <- .Call("R_zmq_disconnect", socket, endpoint, PACKAGE = "pbdZMQ")
 
   if(ret == -1){
@@ -197,7 +197,7 @@ zmq.disconnect <- function(socket, endpoint, MC = .pbd_env$ZMQ.MC){
 
 #' @rdname a1_socket
 #' @export
-zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.MC){
+zmq.setsockopt <- function(socket, option.name, option.value, MC = ZMQ.MC()){
   if(is.character(option.value)){
     option.type <- 0L
   } else if(is.integer(option.value)){
@@ -225,7 +225,7 @@ zmq.setsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.
 
 #' @rdname a1_socket
 #' @export
-zmq.getsockopt <- function(socket, option.name, option.value, MC = .pbd_env$ZMQ.MC){
+zmq.getsockopt <- function(socket, option.name, option.value, MC = ZMQ.MC()){
   if(is.character(option.value)){
     option.type <- 0L
   } else if(is.integer(option.value)){

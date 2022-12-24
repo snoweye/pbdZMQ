@@ -51,7 +51,7 @@
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' context <- zmq.ctx.new()
-#' responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+#' responder <- zmq.socket(context, ZMQ.ST()$REP)
 #' zmq.bind(responder, "tcp://*:5555")
 #' for(i.res in 1:5){
 #'   buf <- zmq.recv(responder, 10L)
@@ -67,7 +67,7 @@
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' context <- zmq.ctx.new()
-#' requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+#' requester <- zmq.socket(context, ZMQ.ST()$REQ)
 #' zmq.connect(requester, "tcp://localhost:5555")
 #' for(i.req in 1:5){
 #'   cat("Sending Hello ", i.req, "\n")
@@ -89,7 +89,7 @@ NULL
 
 #' @rdname b0_sendrecv
 #' @export
-zmq.send <- function(socket, buf, flags = .pbd_env$ZMQ.SR$BLOCK){
+zmq.send <- function(socket, buf, flags = ZMQ.SR()$BLOCK){
   if(is.character(buf)){
     ret <- zmq.send.char(socket, buf, nchar(buf), flags = flags)
   } else if(is.raw(buf)){
@@ -102,7 +102,7 @@ zmq.send <- function(socket, buf, flags = .pbd_env$ZMQ.SR$BLOCK){
 
 
 
-zmq.send.char <- function(socket, buf, len, flags = .pbd_env$ZMQ.SR$BLOCK){
+zmq.send.char <- function(socket, buf, len, flags = ZMQ.SR()$BLOCK){
   ret <- .Call("R_zmq_send_char", socket, buf, as.integer(len),
                as.integer(flags), PACKAGE = "pbdZMQ")
   invisible(ret)
@@ -110,7 +110,7 @@ zmq.send.char <- function(socket, buf, len, flags = .pbd_env$ZMQ.SR$BLOCK){
 
 
 
-zmq.send.raw <- function(socket, buf, len, flags = .pbd_env$ZMQ.SR$BLOCK){
+zmq.send.raw <- function(socket, buf, len, flags = ZMQ.SR()$BLOCK){
   ret <- .Call("R_zmq_send_raw", socket, buf, as.integer(len),
                as.integer(flags), PACKAGE = "pbdZMQ")
   invisible(ret)
@@ -120,7 +120,7 @@ zmq.send.raw <- function(socket, buf, len, flags = .pbd_env$ZMQ.SR$BLOCK){
 
 #' @rdname b0_sendrecv
 #' @export
-zmq.recv <- function(socket, len = 1024L, flags = .pbd_env$ZMQ.SR$BLOCK,
+zmq.recv <- function(socket, len = 1024L, flags = ZMQ.SR()$BLOCK,
     buf.type = c("char", "raw")){
   if(buf.type[1] == "char"){
     ret <- zmq.recv.char(socket, len, flags = flags)
@@ -134,7 +134,7 @@ zmq.recv <- function(socket, len = 1024L, flags = .pbd_env$ZMQ.SR$BLOCK,
 
 
 
-zmq.recv.char <- function(socket, len, flags = .pbd_env$ZMQ.SR$BLOCK){
+zmq.recv.char <- function(socket, len, flags = ZMQ.SR()$BLOCK){
   ret <- .Call("R_zmq_recv_char", socket, as.integer(len), as.integer(flags),
                PACKAGE = "pbdZMQ")
   invisible(ret)
@@ -142,7 +142,7 @@ zmq.recv.char <- function(socket, len, flags = .pbd_env$ZMQ.SR$BLOCK){
 
 
 
-zmq.recv.raw <- function(socket, len, flags = .pbd_env$ZMQ.SR$BLOCK){
+zmq.recv.raw <- function(socket, len, flags = ZMQ.SR()$BLOCK){
   ret <- .Call("R_zmq_recv_raw", socket, as.integer(len), as.integer(flags),
                PACKAGE = "pbdZMQ")
   invisible(ret)

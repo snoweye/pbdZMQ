@@ -10,7 +10,7 @@ zmq.senddir(
   port,
   infiles,
   verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK,
+  flags = ZMQ.SR()$BLOCK,
   ctx = NULL,
   socket = NULL
 )
@@ -21,7 +21,7 @@ zmq.recvdir(
   outfile = NULL,
   exdir = NULL,
   verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK,
+  flags = ZMQ.SR()$BLOCK,
   ctx = NULL,
   socket = NULL
 )

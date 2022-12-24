@@ -11,19 +11,19 @@
 \alias{zmq.getsockopt}
 \title{Socket Functions}
 \usage{
-zmq.socket(ctx, type = .pbd_env$ZMQ.ST$REP)
+zmq.socket(ctx, type = ZMQ.ST()$REP)
 
 zmq.close(socket)
 
-zmq.bind(socket, endpoint, MC = .pbd_env$ZMQ.MC)
+zmq.bind(socket, endpoint, MC = ZMQ.MC())
 
-zmq.connect(socket, endpoint, MC = .pbd_env$ZMQ.MC)
+zmq.connect(socket, endpoint, MC = ZMQ.MC())
 
-zmq.disconnect(socket, endpoint, MC = .pbd_env$ZMQ.MC)
+zmq.disconnect(socket, endpoint, MC = ZMQ.MC())
 
-zmq.setsockopt(socket, option.name, option.value, MC = .pbd_env$ZMQ.MC)
+zmq.setsockopt(socket, option.name, option.value, MC = ZMQ.MC())
 
-zmq.getsockopt(socket, option.name, option.value, MC = .pbd_env$ZMQ.MC)
+zmq.getsockopt(socket, option.name, option.value, MC = ZMQ.MC())
 }
 \arguments{
 \item{ctx}{a ZMQ context}
@@ -108,7 +108,7 @@ is not supported in Windows system.
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+responder <- zmq.socket(context, ZMQ.ST()$REP)
 zmq.bind(responder, "tcp://*:5555")
 zmq.close(responder)
 zmq.ctx.destroy(context)
@@ -118,7 +118,7 @@ zmq.ctx.destroy(context)
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+requester <- zmq.socket(context, ZMQ.ST()$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 zmq.close(requester)
 zmq.ctx.destroy(context)

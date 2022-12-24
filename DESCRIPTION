@@ -41,4 +41,4 @@ URL: https://pbdr.org/
 BugReports: https://github.com/snoweye/pbdZMQ/issues
 NeedsCompilation: yes
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3

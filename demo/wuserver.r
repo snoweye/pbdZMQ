@@ -3,11 +3,11 @@
 # SHELL> Rscript wuclient.r
 # SHELL> rm weather.ipc
 
-library(pbdZMQ, quietly = TRUE)
+suppressMessages(library(pbdZMQ, quietly = TRUE))
 
 ### Initial.
 context <- zmq.ctx.new()
-publisher <- zmq.socket(context, .pbd_env$ZMQ.ST$PUB)
+publisher <- zmq.socket(context, ZMQ.ST()$PUB)
 zmq.bind(publisher, "tcp://*:5556")
 if(.Platform$OS.type != "windows"){  # Windows does not support ipc.
   zmq.bind(publisher, "ipc://weather.ipc")

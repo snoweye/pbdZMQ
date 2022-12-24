@@ -4,15 +4,15 @@
 # SHELL> Rscript mspoller.r
 # SHELL> rm weather.ipc
 
-library(pbdZMQ, quietly = TRUE)
+suppressMessages(library(pbdZMQ, quietly = TRUE))
 
 ### Initial.
 context <- zmq.ctx.new()
-receiver <- zmq.socket(context, .pbd_env$ZMQ.ST$PULL)
+receiver <- zmq.socket(context, ZMQ.ST()$PULL)
 zmq.connect(receiver, "tcp://localhost:5557")
-subscriber <- zmq.socket(context, .pbd_env$ZMQ.ST$SUB)
+subscriber <- zmq.socket(context, ZMQ.ST()$SUB)
 zmq.connect(subscriber, "tcp://localhost:5556")
-zmq.setsockopt(subscriber, .pbd_env$ZMQ.SO$SUBSCRIBE, "20993")
+zmq.setsockopt(subscriber, ZMQ.SO()$SUBSCRIBE, "20993")
 
 ### Process messages from both sockets.
 cat("Press Ctrl+C or Esc to stop mspoller.\n")
@@ -21,10 +21,10 @@ i.sub <- 0
 while(TRUE){
   ### Set poller.
   poller <- zmq.poll(c(receiver, subscriber),
-                     c(.pbd_env$ZMQ.PO$POLLIN, .pbd_env$ZMQ.PO$POLLIN))
+                     c(ZMQ.PO()$POLLIN, ZMQ.PO()$POLLIN))
 
   ### Check receiver.
-  if(bitwAnd(zmq.poll.get.revents(1), .pbd_env$ZMQ.PO$POLLIN)){
+  if(bitwAnd(zmq.poll.get.revents(1), ZMQ.PO()$POLLIN)){
     ret <- zmq.recv(receiver)
     if(ret$len != -1){
       cat("task ventilator:", ret$buf, "at", i.rec, "\n")
@@ -33,7 +33,7 @@ while(TRUE){
   }
 
   ### Check subscriber.
-  if(bitwAnd(zmq.poll.get.revents(2), .pbd_env$ZMQ.PO$POLLIN)){
+  if(bitwAnd(zmq.poll.get.revents(2), ZMQ.PO()$POLLIN)){
     ret <- zmq.recv(subscriber)
     if(ret$len != -1){
       cat("weather update:", ret$buf, "at", i.sub, "\n")

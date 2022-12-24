@@ -79,7 +79,7 @@ NULL
 #' @rdname b2_sendrecvdir
 #' @export
 zmq.senddir <- function(port, infiles, verbose = FALSE,
-                        flags = .pbd_env$ZMQ.SR$BLOCK,
+                        flags = ZMQ.SR()$BLOCK,
                         ctx = NULL, socket = NULL)
 {
   if (is.null(socket))
@@ -92,7 +92,7 @@ zmq.senddir <- function(port, infiles, verbose = FALSE,
     else
       ctx.destroy <- FALSE
 
-    socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PUSH)
+    socket <- zmq.socket(ctx, ZMQ.ST()$PUSH)
     socket.close <- TRUE
     
     endpoint <- address("*", port)
@@ -107,7 +107,7 @@ zmq.senddir <- function(port, infiles, verbose = FALSE,
   type = attr(socket, "type")
   if (is.null(type))
     stop("unable to determine socket type")
-  else if (type != .pbd_env$ZMQ.ST$PUSH && type != .pbd_env$ZMQ.ST$REQ && type != .pbd_env$ZMQ.ST$REP)
+  else if (type != ZMQ.ST()$PUSH && type != ZMQ.ST()$REQ && type != ZMQ.ST()$REP)
     stop("socket type must be one of PUSH, REQ, or REP (matching PULL, REP, and REQ respectively in zmq.recvfile())")
 
   if (!verbose)
@@ -133,7 +133,7 @@ zmq.senddir <- function(port, infiles, verbose = FALSE,
 #' @rdname b2_sendrecvdir
 #' @export
 zmq.recvdir <- function(port, endpoint, outfile = NULL, exdir = NULL,
-                        verbose = FALSE, flags = .pbd_env$ZMQ.SR$BLOCK,
+                        verbose = FALSE, flags = ZMQ.SR()$BLOCK,
                         ctx = NULL, socket = NULL)
 {
   if (is.null(socket))
@@ -146,7 +146,7 @@ zmq.recvdir <- function(port, endpoint, outfile = NULL, exdir = NULL,
     else
       ctx.destroy <- FALSE
 
-    socket <- zmq.socket(ctx, .pbd_env$ZMQ.ST$PULL)
+    socket <- zmq.socket(ctx, ZMQ.ST()$PULL)
     socket.close <- TRUE
 
     endpoint <- address(endpoint, port)
@@ -161,7 +161,7 @@ zmq.recvdir <- function(port, endpoint, outfile = NULL, exdir = NULL,
   type = attr(socket, "type")
   if (is.null(type))
     stop("unable to determine socket type")
-  else if (type != .pbd_env$ZMQ.ST$PULL && type != .pbd_env$ZMQ.ST$REP && type != .pbd_env$ZMQ.ST$REQ)
+  else if (type != ZMQ.ST()$PULL && type != ZMQ.ST()$REP && type != ZMQ.ST()$REQ)
     stop("socket type must be one of PULL, REP, or REQ (matching PUSH, REQ, and REP respectively in zmq.sendfile())")
 
   if (is.null(outfile))

@@ -42,7 +42,7 @@
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' context <- zmq.ctx.new()
-#' responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+#' responder <- zmq.socket(context, ZMQ.ST()$REP)
 #' zmq.bind(responder, "tcp://*:5555")
 #' buf <- zmq.msg.recv(responder)
 #' set.seed(1234)
@@ -57,7 +57,7 @@
 #' library(pbdZMQ, quietly = TRUE)
 #' 
 #' context <- zmq.ctx.new()
-#' requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+#' requester <- zmq.socket(context, ZMQ.ST()$REQ)
 #' zmq.connect(requester, "tcp://localhost:5555")
 #' zmq.msg.send(NULL, requester)
 #' ret <- zmq.msg.recv(requester)
@@ -88,7 +88,7 @@ zmq.msg.close <- function(msg.t){
 
 #' @rdname a2_message
 #' @export
-zmq.msg.send <- function(rmsg, socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+zmq.msg.send <- function(rmsg, socket, flags = ZMQ.SR()$BLOCK,
                          serialize = TRUE, serialversion = NULL){
   if(serialize){
     rmsg <- serialize(rmsg, NULL, version = serialversion)
@@ -101,7 +101,7 @@ zmq.msg.send <- function(rmsg, socket, flags = .pbd_env$ZMQ.SR$BLOCK,
 
 #' @rdname a2_message
 #' @export
-zmq.msg.recv <- function(socket, flags = .pbd_env$ZMQ.SR$BLOCK,
+zmq.msg.recv <- function(socket, flags = ZMQ.SR()$BLOCK,
                          unserialize = TRUE){
   rmsg <- .Call("R_zmq_msg_recv", socket, as.integer(flags), PACKAGE = "pbdZMQ")
   if(unserialize && is.raw(rmsg)){

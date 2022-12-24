@@ -4,13 +4,13 @@
 ### Remember to kill two worker processors at the end, such as
 # SHELL> ps -x|grep "file=task.*\.r"|sed "s/\(.*\) pts.*/\1/"|xargs kill -9
 
-library(pbdZMQ, quietly = TRUE)
+suppressMessages(library(pbdZMQ, quietly = TRUE))
 
 ### Initial.
 context <- zmq.ctx.new()
-sender <- zmq.socket(context, .pbd_env$ZMQ.ST$PUSH)
+sender <- zmq.socket(context, ZMQ.ST()$PUSH)
 zmq.bind(sender, "tcp://*:5557")
-sink <- zmq.socket(context, .pbd_env$ZMQ.ST$PUSH)
+sink <- zmq.socket(context, ZMQ.ST()$PUSH)
 zmq.connect(sink, "tcp://localhost:5558")
 
 ### Send sink.

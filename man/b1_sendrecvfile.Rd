@@ -10,7 +10,7 @@ zmq.sendfile(
   port,
   filename,
   verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK,
+  flags = ZMQ.SR()$BLOCK,
   forcebin = FALSE,
   ctx = NULL,
   socket = NULL
@@ -21,7 +21,7 @@ zmq.recvfile(
   endpoint,
   filename,
   verbose = FALSE,
-  flags = .pbd_env$ZMQ.SR$BLOCK,
+  flags = ZMQ.SR()$BLOCK,
   forcebin = FALSE,
   ctx = NULL,
   socket = NULL

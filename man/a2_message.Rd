@@ -9,12 +9,12 @@
 zmq.msg.send(
   rmsg,
   socket,
-  flags = .pbd_env$ZMQ.SR$BLOCK,
+  flags = ZMQ.SR()$BLOCK,
   serialize = TRUE,
   serialversion = NULL
 )
 
-zmq.msg.recv(socket, flags = .pbd_env$ZMQ.SR$BLOCK, unserialize = TRUE)
+zmq.msg.recv(socket, flags = ZMQ.SR()$BLOCK, unserialize = TRUE)
 }
 \arguments{
 \item{rmsg}{an R message}
@@ -54,7 +54,7 @@ Message functions
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-responder <- zmq.socket(context, .pbd_env$ZMQ.ST$REP)
+responder <- zmq.socket(context, ZMQ.ST()$REP)
 zmq.bind(responder, "tcp://*:5555")
 buf <- zmq.msg.recv(responder)
 set.seed(1234)
@@ -69,7 +69,7 @@ zmq.ctx.destroy(context)
 library(pbdZMQ, quietly = TRUE)
 
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+requester <- zmq.socket(context, ZMQ.ST()$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 zmq.msg.send(NULL, requester)
 ret <- zmq.msg.recv(requester)

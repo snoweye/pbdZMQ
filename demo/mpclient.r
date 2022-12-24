@@ -2,11 +2,11 @@
 # SHELL> Rscript mpserver.r &
 # SHELL> Rscript mpclient.r
 
-library(pbdZMQ, quietly = TRUE)
+suppressMessages(library(pbdZMQ, quietly = TRUE))
 
 ### Initial.
 context <- zmq.ctx.new()
-requester <- zmq.socket(context, .pbd_env$ZMQ.ST$REQ)
+requester <- zmq.socket(context, ZMQ.ST()$REQ)
 zmq.connect(requester, "tcp://localhost:5555")
 
 ### Send and receive 5 times.

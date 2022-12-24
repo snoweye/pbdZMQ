@@ -9,6 +9,5 @@ msreader	pbdZMQ	Multiple socket reader.
 mspoller	pbdZMQ	Multiple socket reader using poll method.
 mpserver	pbdZMQ	Hello World server in multiple part version.
 mpclient	pbdZMQ	Hello World client in multiple part version.
-iter_next	pbdZMQ  "source('iter_next.r')" or "Rscript iter_next.r".
 iter_try	pbdZMQ  "Rscript iter_try.r".
 check_eintr	pbdZMQ  check event of interrupt.
