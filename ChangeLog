@@ -1,5 +1,5 @@
 2022-12-24: Ver 0.3-9
-  * Revmove "sprintf()" in C.
+  * Replace "sprintf()" in C.
   * Replace some ".pbd_env" from function arguments.
   * Add suppress messages to demo.
 

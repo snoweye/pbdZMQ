@@ -26,8 +26,8 @@ SEXP R_zmq_strerror(SEXP R_errno){
 SEXP R_zmq_version(void){
 	int major, minor, patch;
 	/* (10 bytes for int + 1 byte for sign) * 3 + 2 dots + 1 NUL */
-	// char ver[36];
-	// int chars;
+	char ver[36];
+	int chars;
 	SEXP ret;
 
 	zmq_version(&major, &minor, &patch);
@@ -35,13 +35,10 @@ SEXP R_zmq_version(void){
 
         /* R-devel on around Dec. 24, 2022 starting to warn the line below. */
 	// chars = sprintf(ver, "%d.%d.%d", major, minor, patch);
+	chars = snprintf(ver, 36, "%d.%d.%d", major, minor, patch);
 
-	// ret = PROTECT(allocVector(STRSXP, 1));
-	// SET_STRING_ELT(ret, 0, mkCharLen(ver, chars));
-	ret = PROTECT(allocVector(INTSXP, 3));
-	INTEGER(ret)[0] = major;
-	INTEGER(ret)[1] = minor;
-	INTEGER(ret)[2] = patch;
+	ret = PROTECT(allocVector(STRSXP, 1));
+	SET_STRING_ELT(ret, 0, mkCharLen(ver, chars));
 	UNPROTECT(1);
 	return(ret);
 } /* End of R_zmq_version(). */
