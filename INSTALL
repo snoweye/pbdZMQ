@@ -15,14 +15,14 @@
 
 1. Default installation:
 
-     > R CMD INSTALL pbdZMQ_0.3-0.tar.gz
+     > R CMD INSTALL pbdZMQ_*.*-*.tar.gz
 
 --- 'pbdZMQ' installation with internal ZeroMQ library:
 
 1. Enable internal ZeroMQ:
    This should work with most platforms.
 
-     > R CMD INSTALL pbdZMQ_0.3-0.tar.gz \
+     > R CMD INSTALL pbdZMQ_0.*-*.tar.gz \
        --configure-args="--enable-internal-zmq"
 
 --- 'pbdZMQ' installation with external ZeroMQ library such as version 4.2.2:
@@ -51,13 +51,13 @@
 
 1. Steps for pbdZMQ with the external ZeroMQ shared library
 
-     > R CMD INSTALL pbdZMQ_0.3-0.tar.gz \
+     > R CMD INSTALL pbdZMQ_*.*-*.tar.gz \
        --configure-vars="ZMQ_INCLUDE='-I/usr/local/zmq/include' \
                          ZMQ_LDFLAGS='-L/usr/local/zmq/lib -lzmq'"
 
    or with the external ZeroMQ static library
 
-     > R CMD INSTALL pbdZMQ_0.3-0.tar.gz \
+     > R CMD INSTALL pbdZMQ_*.*-*.tar.gz \
        --configure-vars="ZMQ_INCLUDE='-I/usr/local/zmq/include' \
                          ZMQ_LDFLAGS='/usr/local/zmq/lib/libzmq.a'"
 
@@ -79,7 +79,7 @@
     better polling. Currently, the options as given by ZeroMQ may be 'kqueue',
     'epoll', 'devpoll', 'poll', or 'select' depending on libraries and system.
 
-     > R CMD INSTALL pbdZMQ_0.3-0.tar.gz \
+     > R CMD INSTALL pbdZMQ_*.*-*.tar.gz \
        --configure-vars="ZMQ_POLLER='autodetect'"
 
 
@@ -119,7 +119,7 @@ export PATH
 --- 'pbdZMQ' installation with external ZeroMQ library such as version 4.0.7:
 1. Steps for pbdZMQ with the external ZeroMQ library.
 
-     > R CMD INSTALL pbdZMQ_0.3-0.tar.gz \
+     > R CMD INSTALL pbdZMQ_*.*-*.tar.gz \
        --configure-vars="ZMQ_INCLUDE='-I/work-my/local/zmq/include' \
                          ZMQ_LDFLAGS='-L/work-my/local/zmq/lib -lzmq'"
 

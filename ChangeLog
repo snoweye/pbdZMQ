@@ -1,3 +1,7 @@
+2023-09-03: Ver 0.3-10
+  * Modify CITATION.
+  * Remove meta table from man.
+
 2022-12-24: Ver 0.3-9
   * Replace "sprintf()" in C.
   * Replace some ".pbd_env" from function arguments.

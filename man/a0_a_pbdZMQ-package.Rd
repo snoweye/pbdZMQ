@@ -16,13 +16,6 @@ of ZeroMQ is available.  A few wrapper functions compatible with
 rzmq are also provided.
 }
 \details{
-\tabular{ll}{ 
-  Package: \tab pbdZMQ \cr
-  Type: \tab Package \cr
-  License: \tab GPL-3 2.0 \cr
-  LazyLoad: \tab yes \cr
-}
-
 The install command using default \pkg{pbdZMQ}'s internal ZeroMQ library is
 \cr \cr 
 \code{> R CMD INSTALL pbdZMQ_0.1-0.tar.gz} \cr 
