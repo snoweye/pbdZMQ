@@ -13,7 +13,8 @@ PKG_LIBS = -L./ -lzmq ${PKG_LIBS_ZMQ}
 
 ### Setup R source code and objects.
 R_SRCS_C = $(wildcard *.c)
-R_OBJS = $(R_SRCS_C:.c=.o)
+R_SRCS_CXX = $(wildcard *.cc)
+R_OBJS = $(R_SRCS_C:.c=.o) $(R_SRCS_CXX:.cc=.o)
 R_ZMQ = ./libzmq.dll
 OBJECTS = $(R_OBJS)
 

@@ -1,6 +1,6 @@
 Package: pbdZMQ
-Version: 0.3-10
-Date: 2023-09-03
+Version: 0.3-11
+Date: 2024-01-13
 Title: Programming with Big Data -- Interface to 'ZeroMQ'
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -18,6 +18,7 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         person("Spencer", "Aiello", role = "ctb", comment = "windows conf"),
         person("Paul", "Andrey", role = "ctb", comment = "Mac OSX conf"),
         person("Panagiotis", "Cheilaris", role = "ctb", comment = "add serialize version"),
+        person("Jeroen", "Ooms", role = "ctb", comment = "clang++ on MacOS ARM64"),
         person("ZeroMQ authors", role = c("aut", "cph"), comment = "source files in 'src/zmq_src/'")
 	)
 Depends: R (>= 3.5.0)

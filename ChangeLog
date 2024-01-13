@@ -1,3 +1,7 @@
+2024-01-13: Ver 0.3-11
+  * Fix C++ runtime library loaded and avoid clang++ linking problem in
+    MacOS ARM64.
+
 2023-09-03: Ver 0.3-10
   * Modify CITATION.
   * Remove meta table from man.

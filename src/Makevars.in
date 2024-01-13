@@ -10,7 +10,7 @@ PKG_LIBS = @ZMQ_LDFLAGS@
 ### Setup R source code and objects.
 R_OBJS = R_zmq_context.o R_zmq_socket.o R_zmq_sendrecv.o R_zmq_utility.o \
          R_zmq_message.o R_zmq_transfer.o shellexec_wcc.o \
-         R_zmq_poll.o \
+         R_zmq_poll.o R_cxx_dummy.o \
          zzz.o
 R_ZMQ = libzmq$(SHLIB_EXT)
 OBJECTS = $(R_OBJS)
