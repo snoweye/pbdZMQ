@@ -109,11 +109,12 @@ With additional contributions and authors from:
 * Whit Armstrong (some functions are modified from rzmq for backwards compatibility)
 * Brian Ripley (C code of shellexec)
 * The R Core team (some functions are modified from the R source code)
-* Philipp A. (Fedora")
+* Philipp A. (Fedora)
 * Elliott Sales de Andrade (sprintf version underflow)
 * Spencer Aiello (windows conf spacing)
 * Paul Andrey (Mac OSX conf)
 * Panagiotis Cheilaris (serialize version)
+* Jeroen Ooms (clang++ on MacOS ARM64)
 * ZeroMQ Authors (source files in 'src/zmq_src/')
 
 For the distribution of ZeroMQ that is shipped with pbdZMQ, you can find details of authorship and copyright in `inst/zmq_copyright/` of the pbdZMQ source tree, or under `zmq_copyright/` of a binary installation of pbdZMQ.
