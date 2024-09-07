@@ -60,7 +60,7 @@ SEXP R_zmq_recv_char(SEXP R_socket, SEXP R_len, SEXP R_flags){
 	PROTECT(R_recv_len = allocVector(INTSXP, 1));
 
 	/* Receive buffer. */
-	C_buf = (void *) Calloc(INTEGER(R_len)[0], char);
+	C_buf = (void *) R_Calloc(INTEGER(R_len)[0], char);
 	INTEGER(R_recv_len)[0] = R_zmq_recv(R_socket, C_buf, R_len, R_flags);
 	SET_STRING_ELT(R_buf, 0, mkChar(C_buf));
 
@@ -73,7 +73,7 @@ SEXP R_zmq_recv_char(SEXP R_socket, SEXP R_len, SEXP R_flags){
 
 	/* Return. */
 	UNPROTECT(4);
-	Free(C_buf);
+	R_Free(C_buf);
 	return(R_ret);
 } /* End of R_zmq_recv_char(). */
 

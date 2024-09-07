@@ -54,7 +54,16 @@
 #' @rdname u0_shellexec.wcc
 shellexec.wcc <- function(file, SW.cmd = 7L){
   if(length(file) == 1 && is.character(file)){
-    .Call("shellexec_wcc", file, as.integer(SW.cmd), PACKAGE="pbdZMQ")
+    fn.enc <- Encoding(file)
+    if(fn.enc == "latin1"){
+      fn.enc <- 1L
+    } else if(fn.enc == "UTF-8"){
+      fn.enc <- 2L
+    } else{
+      stop("filename needs to be encoded by latin1 or UTF-8.")
+    }
+    .Call("shellexec_wcc", file, as.integer(SW.cmd), as.integer(fn.enc),
+          PACKAGE="pbdZMQ")
   } else{
     stop("file should be a character vector of length 1.")
   }

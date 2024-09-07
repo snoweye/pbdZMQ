@@ -36,8 +36,8 @@ static const R_CallMethodDef callMethods[] = {
 	{"R_zmq_strerror", (DL_FUNC) &R_zmq_strerror, 1},
 	{"R_zmq_version", (DL_FUNC) &R_zmq_version, 0},
 
-	/* In file "shellexec_wcc.c". */
-	{"shellexec_wcc", (DL_FUNC) &shellexec_wcc, 2},
+        /* In file "shellexec_wcc.c". */
+        {"shellexec_wcc", (DL_FUNC) &shellexec_wcc, 3},
 
 	/* In file "R_zmq_poll.c". */
 	{"R_zmq_poll", (DL_FUNC) &R_zmq_poll, 4},

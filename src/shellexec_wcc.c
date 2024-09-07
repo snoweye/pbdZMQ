@@ -26,17 +26,21 @@
 
 
 /* From R-devel\src\include\Defn.h */
+/*
 #define BYTES_MASK (1<<1)
 #define LATIN1_MASK (1<<2)
 #define UTF8_MASK (1<<3)
 #define IS_BYTES(x) (LEVELS(x) & BYTES_MASK)
 #define IS_LATIN1(x) (LEVELS(x) & LATIN1_MASK)
 #define IS_UTF8(x) (LEVELS(x) & UTF8_MASK)
+*/
 
 
 /* From R-devel\src\main\sysutils.c */
+#ifdef WIN
 #define BSIZE 100000 
-wchar_t *filenameToWchar_wcc(const SEXP fn, const Rboolean expand){
+wchar_t *filenameToWchar_wcc(const SEXP fn, const Rboolean expand,
+		int C_fn_enc){
 	static wchar_t filename[BSIZE + 1];
 	void *obj;
 	const char *from = "", *inbuf;
@@ -48,9 +52,13 @@ wchar_t *filenameToWchar_wcc(const SEXP fn, const Rboolean expand){
 		return filename;
 	}
 
+	/*
 	if(IS_LATIN1(fn)) from = "latin1";
 	if(IS_UTF8(fn)) from = "UTF-8";
 	if(IS_BYTES(fn)) warning("encoding of a filename cannot be 'bytes'");
+	*/
+	if(C_fn_enc == 1) from = "latin1";
+	if(C_fn_enc == 2) from = "UTF-8";
 
 	obj = Riconv_open("UCS-2LE", from);
 	if(obj == (void *)(-1))
@@ -68,6 +76,7 @@ wchar_t *filenameToWchar_wcc(const SEXP fn, const Rboolean expand){
 
 	return filename;
 } /* End of filenameToWchar_wcc(). */
+#endif
 
 
 /* From R-devel\src\gnuwin32\extra.c */
@@ -106,7 +115,7 @@ static inline void internal_shellexecW_wcc(const wchar_t * file, Rboolean rhome,
 
 
 /* From R-devel\src\main\names.c and R-devel\src\gnuwin32\extra.c */
-SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd){
+SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd, SEXP R_fn_enc){
 	/* Possible values of R_SW_cmd, see MS website for details.
 	 * https://msdn.microsoft.com/en-us/library/windows/desktop/bb762153%28v=vs.85%29.aspx
 	 *
@@ -128,7 +137,8 @@ SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd){
 
 #ifdef WIN
 	internal_shellexecW_wcc(
-		filenameToWchar_wcc(STRING_ELT(R_file, 0), FALSE),
+		filenameToWchar_wcc(STRING_ELT(R_file, 0), FALSE,
+			            INTEGER(R_fn_enc)[0]),
 		FALSE, INTEGER(R_SW_cmd)[0]);
 #else
 	UNUSED(R_file);

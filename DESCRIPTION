@@ -1,6 +1,6 @@
 Package: pbdZMQ
-Version: 0.3-11
-Date: 2024-01-13
+Version: 0.3-12
+Date: 2024-09-03
 Title: Programming with Big Data -- Interface to 'ZeroMQ'
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),
@@ -11,8 +11,8 @@ Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
                 are modified from the rzmq package for backwards compatibility"),
         person("Brian", "Ripley", role = "ctb",
                comment = "C code of shellexec, and Solaris"),
-        person("R Core team", role = "ctb", comment = "some functions are
-                modified from the R source code"),
+        person("R Core team", role = "ctb", comment = "some functions and
+                headers are copied or modified from the R source code"),
         person("Philipp", "A.", role = "ctb", comment = "Fedora"),
         person("Elliott Sales", "de Andrade", role = "ctb", comment = "sprintf"),
         person("Spencer", "Aiello", role = "ctb", comment = "windows conf"),
