@@ -59,8 +59,10 @@ shellexec.wcc <- function(file, SW.cmd = 7L){
       fn.enc <- 1L
     } else if(fn.enc == "UTF-8"){
       fn.enc <- 2L
-    } else{
-      stop("filename needs to be encoded by latin1 or UTF-8.")
+    } else if(fn.enc == "bytes"){
+      fn.enc <- 3L
+    } else if(fn.enc == "unknown"){
+      fn.enc <- 4L
     }
     .Call("shellexec_wcc", file, as.integer(SW.cmd), as.integer(fn.enc),
           PACKAGE="pbdZMQ")

@@ -59,6 +59,7 @@ wchar_t *filenameToWchar_wcc(const SEXP fn, const Rboolean expand,
 	*/
 	if(C_fn_enc == 1) from = "latin1";
 	if(C_fn_enc == 2) from = "UTF-8";
+	if(C_fn_enc == 3) warning("encoding of a filename cannot be 'bytes'");
 
 	obj = Riconv_open("UCS-2LE", from);
 	if(obj == (void *)(-1))
