@@ -1,6 +1,6 @@
 Package: pbdZMQ
-Version: 0.3-12
-Date: 2024-09-03
+Version: 0.3-13
+Date: 2024-09-15
 Title: Programming with Big Data -- Interface to 'ZeroMQ'
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"),

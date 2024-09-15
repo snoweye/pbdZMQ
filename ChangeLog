@@ -1,3 +1,6 @@
+2024-09-15: Ver 0.3-13
+  * Fix a LTO problem.
+
 2024-09-03: Ver 0.3-12
   * Fix non-API call to R: 'LEVELS'.
 

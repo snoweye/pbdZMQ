@@ -52,7 +52,7 @@ SEXP R_zmq_strerror(SEXP R_errno);
 SEXP R_zmq_version(void);
 
 /* shellexec. */
-SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd);
+SEXP shellexec_wcc(SEXP R_file, SEXP R_SW_cmd, SEXP R_fn_enc);
 
 /* Poll related. */
 SEXP R_zmq_poll(SEXP R_socket, SEXP R_type, SEXP R_timeout, SEXP R_check_eintr);
